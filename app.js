@@ -1,7 +1,11 @@
 import { resources, ideas, weekTasks, prompts } from './data.js';
 import { loadState, matchingResources, weekKey } from './state.js';
 const $ = selector => document.querySelector(selector);
-let state = loadState(window.localStorage, resources.map(resource => resource.id));
+const storage = {
+  getItem: key => window.localStorage.getItem(key),
+  setItem: (key, value) => window.localStorage.setItem(key, value)
+};
+let state = loadState(storage, resources.map(resource => resource.id));
 const filters = { category: 'start', level: 'all', query: '' };
 const bookmarkIcon = '<svg viewBox="0 0 18 22" aria-hidden="true"><path d="M3 2h12v18l-6-4-6 4z"/></svg>';
 const icons = {Luisteren:'◖',Lezen:'≡',Spreken:'“',Uitspraak:'Aa',Grammatica:'a→b',Schrijven:'↗',Woorden:'a',Boeken:'▤'};
@@ -13,7 +17,7 @@ function toast(message) {
   toast.timeout = setTimeout(() => { $('#toast').hidden = true; }, 2500);
 }
 function save() {
-  try { localStorage.setItem('mijn-nederlands-v1', JSON.stringify(state)); }
+  try { storage.setItem('mijn-nederlands-v1', JSON.stringify(state)); }
   catch { if (!storageWarningShown) { toast('Je browser kan je keuzes nu niet bewaren.'); storageWarningShown = true; } }
 }
 function el(tag, className, text) {
@@ -178,6 +182,6 @@ $('#timer-reset').addEventListener('click',() => {
   $('#timer-status').textContent='De timer blijft lopen als je de bron in een nieuw tabblad opent.';
 });
 window.addEventListener('storage',event => {
-  if (event.key==='mijn-nederlands-v1') { state=loadState(localStorage,resources.map(resource=>resource.id)); renderResources(); renderWeek(); }
+  if (event.key==='mijn-nederlands-v1') { state=loadState(storage,resources.map(resource=>resource.id)); renderResources(); renderWeek(); }
 });
 renderResources(); renderIdea(); renderWeek();

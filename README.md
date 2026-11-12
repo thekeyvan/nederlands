@@ -18,6 +18,6 @@ Start een gewone statische webserver in deze map. Bijvoorbeeld `python3 -m http.
 
 ## Publicatie
 
-GitHub Pages publiceert de hoofdmap van `main`. Het domein is `nederlands.keyvanmahmoudi.com`. Het DNS-record voor `nederlands` wijst naar `thekeyvan.github.io`.
+Vercel publiceert de hoofdmap van `main` automatisch na elke push. Het project `nederlands` staat in het team `the-keyvan`. Het domein is `nederlands.keyvanmahmoudi.com`; de DNS-records staan bij Cloudflare. Er is geen buildstap nodig.
 
 De bronnen komen uit een studielijst van Regina Coeli, aangevuld met De Slimme Nieuwslezer. De website geeft korte eigen uitleg en opdrachten. Commerciële merken en externe inhoud blijven van hun eigenaren. Niet alle gewone media zijn op CEFR-niveau geschreven; B1+ is een praktische waarschuwing voor moeilijker materiaal.

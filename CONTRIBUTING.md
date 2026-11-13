@@ -20,7 +20,7 @@ Small improvements are welcome: clearer A2–B1 wording, corrected translations,
 ## Add a theme
 
 1. Give it a permanent ID in `content/themes.js` and a short Dutch title/intro.
-2. Add words with explicit stable IDs, a theme ID, `nl` text and `kind`: `woord`, `werkwoord` or `uitdrukking`. Verbs include three `forms`: past, perfect and a short Dutch description. Examples are optional.
+2. Add words with explicit stable IDs, a theme ID, `nl` text and `kind`: `woord`, `werkwoord` or `uitdrukking`. Verbs include three `forms`: past, perfect and a short Dutch description. Every word and expression includes a natural Dutch usage example, with its translation in every registered language pack.
 3. Add at least five practical sentences to `content/phrases.js`, each with a stable ID, `themeId`, `nl`, `kind: 'zin'` and A2/B1 level.
 4. Add a coherent dialogue with at least four lines. Give every line a permanent ID and a Dutch speaker label. Write natural questions and answers, not disconnected vocabulary examples.
 5. Add the theme name, meanings, grammar explanations and dialogue translations to every registered language pack.

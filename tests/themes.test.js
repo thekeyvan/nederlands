@@ -43,3 +43,7 @@ test('the original 500 card IDs survive, and practical sentences use the same sc
  assert.ok(makeQueue(basePhrases,{}, {theme:'huisarts',now}).every(card=>card.themeId==='huisarts'));
  assert.equal(makeQueue(basePhrases,{[card.id]:review},{theme:'huisarts',now}).some(item=>item.id===card.id),false);
 });
+
+test('every word has a Dutch usage example and its translated example',()=>{
+ for(const card of baseVocabulary){assert.ok(card.example?.trim(),card.id);assert.doesNotMatch(card.example,/[\u0600-\u06ff]/);for(const pack of Object.values(locales))assert.ok(pack.cards[card.id].translation?.trim(),`${pack.code}: ${card.id}`);}
+});

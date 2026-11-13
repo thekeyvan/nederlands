@@ -2,7 +2,7 @@
 
 A small, open-source Dutch learning site for A2–B1, with translations in your own language. Built with plain HTML, CSS and JavaScript. [Live example](https://nederlands.keyvanmahmoudi.com).
 
-- 20 themed word webs with 506 words and expressions
+- 20 themed word webs with 506 words and expressions, each with a Dutch usage example and Persian translation
 - 105 practical sentences and 20 short role-play conversations, including the GP, pharmacy and municipality
 - 30 grammar patterns, recall practice and SM-2 spaced repetition
 - A complete Persian translation pack, including RTL and Vazirmatn; extensible language packs

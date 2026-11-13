@@ -49,8 +49,8 @@ function renderWords(){
 function renderDetail(word){
  const aside=$('#word-detail'),status=progressStatus(getProgress().reviews[word.id]);const badge=node('span','word-status',labels[status]);badge.dataset.status=status;
  aside.replaceChildren(node('p','eyebrow',`${word.kind.toUpperCase()} · ${word.themeTitle}`),node('h3','',word.nl),translated(word.meaning,'meaning'),badge);
+ if(word.example){const example=node('div','word-example');const sentence=node('p','nl-example',word.example);sentence.lang='nl';sentence.dir='ltr';example.append(node('p','example-label','Zo gebruik je het'),sentence,translated(word.translation));aside.append(example);}
  if(word.forms){const forms=node('dl','verb-forms');for(const[label,value]of [['Infinitief',word.nl],['Imperfectum',word.forms[0]],['Perfectum',word.forms[1]],['Vorm',word.forms[2]]]){const row=node('div');row.append(node('dt','',label),node('dd','',value));forms.append(row);}aside.append(forms);}
- if(word.example){const example=node('div','word-example');example.append(node('p','nl-example',word.example),translated(word.translation));aside.append(example);}
  if(word.nl.length>21&&!word.example){aside.append(translated(t('readSlowly'),'tiny'));}
  const practice=node('button','button dark','Oefen dit kaartje ↗');practice.addEventListener('click',()=>practiceCard(word));aside.append(practice);
 }

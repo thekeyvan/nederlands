@@ -1,3 +1,4 @@
+import {cancelDutchSpeech} from './speech.js';
 import {getProgress} from './progress-store.js';
 import {progressStatus} from './srs.js';
 import {$,el,icon,button,translated,listenButton} from './ui.js';
@@ -17,7 +18,7 @@ export function createWordDialog(onPractice){
  }
  $('#close-word').addEventListener('click',()=>dialog.close());$('#detail-prev').addEventListener('click',()=>{if(index>0){index--;render();}});$('#detail-next').addEventListener('click',()=>{if(index<list.length-1){index++;render();}});
  dialog.addEventListener('click',event=>{const bounds=dialog.getBoundingClientRect();if(event.target===dialog&&(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom))dialog.close();});
- dialog.addEventListener('close',()=>window.speechSynthesis?.cancel());
+ dialog.addEventListener('close',()=>cancelDutchSpeech());
  dialog.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'&&index>0){event.preventDefault();index--;render();}if(event.key==='ArrowRight'&&index<list.length-1){event.preventDefault();index++;render();}});
  return {open(word,words){list=words;index=list.findIndex(item=>item.id===word.id);render();dialog.showModal();},refresh(){if(dialog.open)render();}};
 }

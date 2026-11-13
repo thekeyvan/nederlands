@@ -1,3 +1,4 @@
+import {cancelDutchSpeech} from './speech.js';
 import {themes} from './learning-data.js';
 import {getProgress,reviewCard} from './progress-store.js';
 import {ratings,scheduleReview} from './srs.js';
@@ -20,7 +21,7 @@ export function createReview({onEnter,onOpenTheme}){
   const actions=el('div','completion-actions');actions.append(button(origin==='all'||origin==='zinsbouw'?'Ontdek een thema':'Terug naar je thema',()=>onOpenTheme(origin==='all'||origin==='zinsbouw'?null:origin),'button secondary'),button('Nog een rondje',()=>start(),'button primary','arrow-right'));area.append(actions);$('#stop-review').hidden=true;$('.keyboard-tip').hidden=true;
  }
  function render(){
-  window.speechSynthesis?.cancel();revealed=false;$('#session-position').textContent=`${Math.min(index+1,queue.length)} / ${queue.length}`;$('#session-progress').max=Math.max(1,queue.length);$('#session-progress').value=index;
+  cancelDutchSpeech();revealed=false;$('#session-position').textContent=`${Math.min(index+1,queue.length)} / ${queue.length}`;$('#session-progress').max=Math.max(1,queue.length);$('#session-progress').value=index;
   if(index>=queue.length){$('#session-position').textContent=`${queue.length} / ${queue.length}`;finish();return;}
   const card=queue[index],grammar=card.id.startsWith('zin:'),reverse=$('#review-direction').value==='local-nl'&&!grammar;
   $('#session-theme').textContent=grammar?'Zinsbouw':card.themeTitle;$('.keyboard-tip').hidden=false;
@@ -38,7 +39,7 @@ export function createReview({onEnter,onOpenTheme}){
  }
  $('#review-type').addEventListener('change',()=>{if($('#review-type').value==='zinnen')$('#review-theme').value='zinsbouw';else if($('#review-theme').value==='zinsbouw')$('#review-theme').value='all';});
  $('#review-theme').addEventListener('change',()=>{if($('#review-theme').value==='zinsbouw')$('#review-type').value='zinnen';else if($('#review-type').value==='zinnen')$('#review-type').value='all';});
- $('#review-start').addEventListener('click',()=>start());$('#stop-review').addEventListener('click',()=>{window.speechSynthesis?.cancel();queue=[];index=0;controls(false);$('#review-start').focus();});
+ $('#review-start').addEventListener('click',()=>start());$('#stop-review').addEventListener('click',()=>{cancelDutchSpeech();queue=[];index=0;controls(false);$('#review-start').focus();});
  document.addEventListener('keydown',event=>{
   if($('#panel-oefenen').hidden||$('#review-session').hidden||$('#word-dialog').open||event.altKey||event.ctrlKey||event.metaKey||event.repeat||/INPUT|SELECT|TEXTAREA|SUMMARY/.test(event.target.tagName))return;
   if(index>=queue.length)return;

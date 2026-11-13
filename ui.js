@@ -1,5 +1,5 @@
 import {translationElement} from './i18n.js';
-if('speechSynthesis' in window)window.speechSynthesis.getVoices();
+import {createListenControl,speakDutch} from './speech.js';
 export const $=selector=>document.querySelector(selector);
 export function el(tag,className='',text=''){const node=document.createElement(tag);node.className=className;node.textContent=text;return node;}
 export const translated=(text,className='')=>translationElement('p',text,className);
@@ -11,13 +11,5 @@ export function tabs(selector,onSelect){
  const buttons=[...document.querySelectorAll(selector)];
  buttons.forEach((button,index)=>{button.addEventListener('click',()=>onSelect(button));button.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight')next=(index+1)%buttons.length;else if(event.key==='ArrowLeft')next=(index-1+buttons.length)%buttons.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=buttons.length-1;else return;event.preventDefault();buttons[next].focus();onSelect(buttons[next]);});});
 }
-export function listenButton(text){
- const node=button('Luister',()=>speak(text),'listen-button','volume-2');node.setAttribute('aria-label',`Luister: ${text}`);node.hidden=!('speechSynthesis' in window);return node;
-}
-export function speak(text){
- const synth=window.speechSynthesis;if(!synth)return;
- const voice=synth.getVoices().find(voice=>voice.lang.toLowerCase().startsWith('nl'));
- if(!voice){toast('Er is geen Nederlandse stem beschikbaar op dit apparaat.');return;}
- synth.cancel();const utterance=new SpeechSynthesisUtterance(text);utterance.lang='nl-NL';utterance.voice=voice;utterance.rate=.85;
- utterance.onerror=event=>{if(!['interrupted','canceled'].includes(event.error))toast('Voorlezen lukt nu niet op dit apparaat.');};synth.speak(utterance);
-}
+export function listenButton(text){return createListenControl(text,{onMessage:toast,icon});}
+export const speak=speakDutch;

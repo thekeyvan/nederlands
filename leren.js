@@ -1,3 +1,4 @@
+import {cancelDutchSpeech} from './speech.js';
 import {initTranslations} from './i18n.js';
 import {themes} from './learning-data.js';
 import {subscribe} from './progress-store.js';
@@ -28,7 +29,7 @@ function applyLocation(moveFocus=false){
  if(panel==='woorden'){if(id&&themes.some(theme=>theme.id===id)){if(discovery.current()!==id)discovery.openTheme(id,legacy?'phrases':'words');}else discovery.showLibrary();}
  document.title=`${({vandaag:'Vandaag',woorden:'Thema’s',zinnen:'Zinsbouw',oefenen:'Oefenen',voortgang:'Voortgang'})[panel]} — Mijn Nederlands`;
  if(moveFocus){window.scrollTo({top:0,behavior:'instant'});const heading=[...document.querySelectorAll(`#panel-${panel} h1`)].find(heading=>!heading.closest('[hidden]'));if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}}
- window.speechSynthesis?.cancel();document.querySelector('.mobile-more')?.removeAttribute('open');applying=false;
+ cancelDutchSpeech();document.querySelector('.mobile-more')?.removeAttribute('open');applying=false;
 }
 document.querySelectorAll('[data-panel]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();navigate(link.dataset.panel);}));
 $('#back-themes').addEventListener('click',()=>openTheme(null));window.addEventListener('popstate',()=>applyLocation(true));window.addEventListener('hashchange',()=>applyLocation());

@@ -10,6 +10,7 @@ function showIdentity(){
  if($('#sign-out'))$('#sign-out').hidden=!user;
  if($('#account-title'))$('#account-title').textContent=user?'Je bent ingelogd.':'Neem je voortgang mee.';
  if($('#account-copy'))$('#account-copy').textContent=user?'Je oefeningen worden bij je Google-account bewaard.':'Log in met Google om op je telefoon en computer verder te gaan.';
+ if($('#account-fa'))$('#account-fa').textContent=user?'وارد حساب شده‌ای؛ پیشرفتت روی دستگاه‌های مختلف ذخیره می‌شود.':'با گوگل وارد شو تا پیشرفتت روی دستگاه‌های مختلف ذخیره شود.';
  status(user?'Je voortgang wordt gesynchroniseerd.':'Je voortgang blijft op dit apparaat.');
 }
 async function signIn(){

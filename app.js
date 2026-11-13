@@ -1,3 +1,4 @@
+import {notePreferenceChange} from './preferences.js';
 import { resources, ideas, weekTasks, prompts } from './data.js';
 import { loadState, matchingResources, weekKey } from './state.js';
 const $ = selector => document.querySelector(selector);
@@ -17,7 +18,7 @@ function toast(message) {
   toast.timeout = setTimeout(() => { $('#toast').hidden = true; }, 2500);
 }
 function save() {
-  try { storage.setItem('mijn-nederlands-v1', JSON.stringify(state)); }
+  try { storage.setItem('mijn-nederlands-v1', JSON.stringify(state)); notePreferenceChange(); }
   catch { if (!storageWarningShown) { toast('Je browser kan je keuzes nu niet bewaren.'); storageWarningShown = true; } }
 }
 function el(tag, className, text) {
@@ -185,3 +186,7 @@ window.addEventListener('storage',event => {
   if (event.key==='mijn-nederlands-v1') { state=loadState(storage,resources.map(resource=>resource.id)); renderResources(); renderWeek(); }
 });
 renderResources(); renderIdea(); renderWeek();
+
+window.addEventListener('learning-preferences-loaded',()=>{state=loadState(storage,resources.map(r=>r.id));renderResources();renderWeek();});
+window.addEventListener('auth-message',event=>toast(event.detail));
+import('./cloud.js').then(module=>module.initCloud()).catch(()=>{});

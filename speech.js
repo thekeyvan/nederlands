@@ -1,7 +1,7 @@
 import {audioCatalog} from './audio-catalog.js';
-import {validVoice,createPlayback} from './audio-playback.js';
+import {validVoice,validSpeed,createPlayback} from './audio-playback.js';
 let preferred=audioCatalog.defaultVoice,speed=1;
-try{preferred=validVoice(localStorage.getItem('nederlands-audio-voice'));speed=localStorage.getItem('nederlands-audio-speed')==='0.85'?0.85:1;}catch{}
+try{preferred=validVoice(localStorage.getItem('nederlands-audio-voice'));speed=validSpeed(localStorage.getItem('nederlands-audio-speed'));}catch{}
 let dialog=null,select=null,description=null,speedSelect=null,notify=()=>{},player=null;
 const controls=new Set();
 const voiceName=()=>audioCatalog.voices.find(voice=>voice.id===preferred).name;
@@ -24,14 +24,14 @@ function ensureDialog(){
  if(dialog)return;
  dialog=document.createElement('dialog');dialog.id='speech-dialog';dialog.className='speech-dialog';dialog.setAttribute('aria-labelledby','speech-title');
  const header=textNode('div','','speech-dialog-header'),title=textNode('h2','Nederlandse audio');title.id='speech-title';const close=textNode('button','Sluiten','button secondary');close.type='button';close.addEventListener('click',()=>dialog.close());header.append(title,close);
- const label=textNode('label','Kies een stem');select=document.createElement('select');select.id='speech-voice';
+ const label=textNode('label','Kies een stem');select=document.createElement('select');select.id='speech-voice';label.htmlFor=select.id;
  for(const voice of audioCatalog.voices){const option=textNode('option',`${voice.name} · Nederlands`);option.value=voice.id;select.append(option);}label.append(select);
- const speedLabel=textNode('label','Snelheid');speedSelect=document.createElement('select');speedSelect.id='speech-speed';
- for(const [value,name] of [[1,'Normaal'],[0.85,'Rustig']]){const option=textNode('option',name);option.value=String(value);speedSelect.append(option);}speedLabel.append(speedSelect);
+ const speedLabel=textNode('label','Snelheid');speedSelect=document.createElement('select');speedSelect.id='speech-speed';speedLabel.htmlFor=speedSelect.id;
+ for(const [value,name] of [[0.75,'0,75× · Langzaam'],[0.85,'0,85× · Rustig'],[1,'1× · Normaal'],[1.15,'1,15× · Vlot'],[1.25,'1,25× · Snel']]){const option=textNode('option',name);option.value=String(value);speedSelect.append(option);}speedLabel.append(speedSelect);
  description=textNode('p','','speech-description');description.setAttribute('role','status');
  const sample=textNode('p',audioCatalog.sampleText,'speech-sample'),test=textNode('button','Luister naar deze stem','button primary');test.type='button';test.dataset.testVoice='';test.addEventListener('click',()=>speakDutch(audioCatalog.sampleText));
  select.addEventListener('change',()=>{cancelDutchSpeech();preferred=validVoice(select.value);try{localStorage.setItem('nederlands-audio-voice',preferred);}catch{}refresh();});
- speedSelect.addEventListener('change',()=>{cancelDutchSpeech();speed=Number(speedSelect.value)===0.85?0.85:1;try{localStorage.setItem('nederlands-audio-speed',String(speed));}catch{}refresh();});
+ speedSelect.addEventListener('change',()=>{speed=validSpeed(speedSelect.value);player?.setSpeed(speed);try{localStorage.setItem('nederlands-audio-speed',String(speed));}catch{}refresh();});
  dialog.append(header,label,speedLabel,description,sample,test);document.body.append(dialog);dialog.addEventListener('close',cancelDutchSpeech);refresh();
 }
 export function cancelDutchSpeech(){player?.cancel();}

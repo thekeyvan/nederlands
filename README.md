@@ -41,7 +41,7 @@ Dutch content lives in `content/`; translations live in `locales/`. Every theme 
 
 ## Dutch audio
 
-All learning words, examples, sentences and dialogues have bundled Dutch MP3 clips. Visitors can choose Ronnie or Pim and a normal or slower playback speed. Audio works without a TTS account or device voice installation. No text is sent to a speech service. Forks can serve the bundled files unchanged; after editing Dutch content, regenerate clips with the optional [audio authoring tools](docs/AUDIO.md).
+All learning words, examples, sentences and dialogues have bundled Dutch MP3 clips. Visitors can choose Ronnie or Pim and five playback speeds, from 0.75× to 1.25×. Audio works without a TTS account or device voice installation. No text is sent to a speech service. Forks can serve the bundled files unchanged; after editing Dutch content, regenerate clips with the optional [audio authoring tools](docs/AUDIO.md).
 
 ## Optional Google account sync
 

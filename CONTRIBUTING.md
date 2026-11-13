@@ -13,6 +13,11 @@ Small improvements are welcome: clearer A2–B1 wording, corrected translations,
 | `content/grammar.js` | Dutch patterns, examples and gap-fill questions |
 | `locales/<code>.js` | Translations keyed by the same IDs |
 | `data.js` | The Dutch resource library and exercises |
+| `index.html` | Single app template, also built at `/leren.html` |
+| `bronnen.html` | Original source library and week plan |
+| `leren.js` | App routing and navigation |
+| `discovery.js` / `word-dialog.js` | Topic browser and word details |
+| `review-ui.js` / `learning-model.js` | Practice flow and pure session helpers |
 | `theme-phrases.js` | Practical sentence and dialogue rendering |
 | `i18n.js` | Language selection, text direction and fonts |
 | `srs.js` | Pure review scheduler |

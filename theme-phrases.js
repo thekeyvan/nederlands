@@ -1,18 +1,12 @@
 import {phrases,dialogues} from './phrase-data.js';
-import {translationElement,t} from './i18n.js';
-const element=(tag,className,text)=>{const node=document.createElement(tag);node.className=className;node.textContent=text;return node;};
-function meaning(text){const details=element('details','phrase-translation','');details.append(element('summary','','Toon de betekenis'),translationElement('p',text));return details;}
-export function renderThemePhrases(theme,onPractice,onReviewTheme) {
- document.querySelector('#phrase-theme-title').textContent=`Handige zinnen: ${theme.title}.`;
- const cards=phrases.filter(card=>card.themeId===theme.id);
- document.querySelector('#theme-phrase-count').textContent=`${cards.length} zinnen · A2–B1`;
- document.querySelector('#theme-phrases').replaceChildren(...cards.map(card=>{
-  const article=element('article','phrase-card','');const top=element('div','phrase-card-top','');top.append(element('span','pill',card.level));
-  const button=element('button','text-link','Oefen deze zin ↗');button.addEventListener('click',()=>onPractice(card));top.append(button);
-  article.append(top,element('p','phrase-dutch',card.nl),meaning(card.meaning));return article;
+import {$,el,button,translated,listenButton} from './ui.js';
+function meaning(text){const details=el('details','phrase-translation');details.append(el('summary','','Toon de betekenis'),translated(text));return details;}
+export function renderThemePhrases(theme,onPractice,onReviewTheme){
+ const cards=phrases.filter(card=>card.themeId===theme.id);$('#theme-phrase-count').textContent=`${cards.length} handige zinnen voor dit thema.`;
+ $('#theme-phrases').replaceChildren(...cards.map(card=>{const article=el('article','phrase-card'),top=el('div','phrase-card-top'),actions=el('div','phrase-card-actions');actions.append(listenButton(card.nl),button('Oefenen',()=>onPractice(card),'text-action'));top.append(el('span','pill',card.level),actions);article.append(top,el('p','phrase-dutch',card.nl),meaning(card.meaning));return article;}));
+ $('#practice-theme-phrases').onclick=onReviewTheme;const toggle=$('#toggle-phrase-translations');toggle.textContent='Toon vertalingen';toggle.setAttribute('aria-pressed','false');toggle.onclick=()=>{const show=toggle.getAttribute('aria-pressed')!=='true';toggle.setAttribute('aria-pressed',String(show));toggle.textContent=show?'Verberg vertalingen':'Toon vertalingen';$('#theme-phrases').querySelectorAll('details').forEach(details=>details.open=show);};
+ const dialogue=dialogues.find(item=>item.themeId===theme.id);$('#theme-dialogue').replaceChildren(...dialogue.lines.map(line=>{
+  const li=el('li','dialogue-line');li.dataset.speaker=line.speaker==='Jij'?'you':'other';li.append(el('span','dialogue-speaker',line.speaker),el('p','dialogue-dutch',line.nl),listenButton(line.nl),meaning(line.translation));const reveal=button('Wat zeg jij? Toon jouw zin',()=>{li.classList.remove('is-hidden');reveal.hidden=true;},'roleplay-reveal');reveal.hidden=true;li.append(reveal);return li;
  }));
- document.querySelector('#practice-theme-phrases').onclick=()=>onReviewTheme(cards);
- const dialogue=dialogues.find(item=>item.themeId===theme.id),list=document.querySelector('#theme-dialogue');
- list.replaceChildren(...dialogue.lines.map(line=>{const li=element('li','dialogue-line','');li.dataset.speaker=line.speaker==='Jij'?'you':'other';li.append(element('span','dialogue-speaker',line.speaker),element('p','',line.nl),meaning(line.translation));return li;}));
- document.querySelector('#phrase-hint').replaceChildren(translationElement('p',t('phraseHint')));
+ const roleplay=$('#roleplay-toggle');roleplay.setAttribute('aria-pressed','false');roleplay.textContent='Verberg mijn zinnen';roleplay.onclick=()=>{const hidden=roleplay.getAttribute('aria-pressed')!=='true';roleplay.setAttribute('aria-pressed',String(hidden));roleplay.textContent=hidden?'Toon mijn zinnen':'Verberg mijn zinnen';document.querySelectorAll('.dialogue-line[data-speaker=you]').forEach(line=>{line.classList.toggle('is-hidden',hidden);line.querySelector('.roleplay-reveal').hidden=!hidden;});};
 }

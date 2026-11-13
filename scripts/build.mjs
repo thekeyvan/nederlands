@@ -7,6 +7,8 @@ await rm('dist',{recursive:true,force:true});await mkdir('dist');
 for(const entry of await readdir('.',{withFileTypes:true})){
  if(entry.isFile()&&/\.(html|css|js|svg)$/.test(entry.name)&&entry.name!=='deployment-config.json')await cp(entry.name,`dist/${entry.name}`);
 }
+// The old learning URL is an alias of the canonical app entry, not a second template.
+await cp('index.html','dist/leren.html');
 for(const directory of ['assets','content','locales'])await cp(directory,`dist/${directory}`,{recursive:true});
 await writeFile('dist/deployment-config.json',JSON.stringify({url,key})+'\n');
 console.log(`Built static site. Account sync: ${url?'configured':'off (local-only fork)'}.`);

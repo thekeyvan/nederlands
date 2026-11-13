@@ -6,7 +6,7 @@ A small, open-source Dutch learning site for A2–B1, with translations in your 
 - 20 themed word webs with 506 words and expressions, each with a Dutch usage example and Persian translation
 - 105 practical sentences and 20 short role-play conversations, including the GP, pharmacy and municipality
 - 30 grammar patterns, recall practice and SM-2 spaced repetition
-- Optional Dutch read-aloud, conversation recall mode and short keyboard-friendly practice rounds
+- Bundled Dutch audio with two voices, conversation recall mode and short keyboard-friendly practice rounds
 - A complete Persian translation pack, including RTL and Vazirmatn; extensible language packs
 - Browser-only progress by default; optional Google sign-in and private Supabase sync
 - 53 learning resources and four bookstore links
@@ -39,6 +39,10 @@ See [the UX and design notes](docs/DESIGN.md) for the interface structure and de
 
 Dutch content lives in `content/`; translations live in `locales/`. Every theme has words, practical sentences and a dialogue. Every review card has a permanent ID: do not regenerate IDs when changing its wording. Existing accounts keep their progress after content updates. See [CONTRIBUTING.md](CONTRIBUTING.md) for the file map and checks.
 
+## Dutch audio
+
+All learning words, examples, sentences and dialogues have bundled Dutch MP3 clips. Visitors can choose Ronnie or Pim and a normal or slower playback speed. Audio works without a TTS account or device voice installation. No text is sent to a speech service. Forks can serve the bundled files unchanged; after editing Dutch content, regenerate clips with the optional [audio authoring tools](docs/AUDIO.md).
+
 ## Optional Google account sync
 
 Use **your own** Supabase and Google Cloud projects. The repository contains no active default backend configuration. Set these two public deployment environment variables before building:
@@ -60,6 +64,6 @@ Progress is tied to stable content IDs, independent of the translation language.
 
 ## License and sources
 
-[MIT](LICENSE) covers the original code, illustrations and original learning content in this repository. You may fork, modify and share it, including commercially, while retaining the license notice. Linked websites, books, logos and third-party materials retain their own rights; the license does not grant rights to their content. Lucide icons have their own [license](assets/icons/LICENSE). The vendored Supabase SDK has its own [MIT notice](assets/supabase.LICENSE.txt).
+[MIT](LICENSE) covers the original code, illustrations and original learning content in this repository. You may fork, modify and share it, including commercially, while retaining the license notice. Linked websites, books, logos and third-party materials retain their own rights; the license does not grant rights to their content. Lucide icons have their own [license](assets/icons/LICENSE). The vendored Supabase SDK has its own [MIT notice](assets/supabase.LICENSE.txt). Audio generation sources and model notices are in [the audio guide](docs/AUDIO.md) and [audio credits](assets/audio/NOTICE.md).
 
 The resource collection was inspired by Regina Coeli's study advice. The core learning topics were rewritten from Dutch lessons; the practical dialogues were written for this project. No private chat transcripts, course screenshots, access codes or personal financial details are included. The site is independent and is not an official Regina Coeli product.

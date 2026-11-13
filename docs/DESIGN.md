@@ -6,7 +6,7 @@ Word details use a native modal dialog, rendered as a sheet on phones. Examples,
 
 A practice round has one task at a time, a real card counter, four recall ratings and a completion summary. Due cards still use the existing SM-2 schedule. Fresh mixed rounds alternate words and practical sentences. Space reveals an answer; 1–4 rate it. These shortcuts do not intercept input fields or modal dialogs.
 
-Conversation practice can hide the learner's lines, which can be revealed individually. Audio uses the browser's speech synthesis and a Dutch voice, when available; no speech or microphone is recorded. Browser/device voice availability varies. Dedicated Dutch voices are preferred over the first OS-list entry, and the utterance language matches the actual voice locale. A Dutch-only voice picker and sample let learners test/save a voice choice. The interface reports when a Dutch voice is unavailable and does not deliberately fall back to English.
+Conversation practice can hide the learner's lines, which can be revealed individually. Audio uses bundled Dutch Netherlands MP3 clips generated with Piper Ronnie and Pim. A voice picker lets learners compare the same sample and save their voice and playback-speed preferences. The same audio files play on every device. There is no browser voice fallback, speech-service request or microphone recording. Audio stops when a word sheet closes, navigation changes or a new clip starts.
 
 Progress uses actual review events and the last seven calendar days in the learner's local timezone. Empty themes are hidden initially. There are no invented streaks, XP points or proficiency claims.
 

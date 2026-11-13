@@ -1,26 +1,32 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {chooseDutchVoice,dutchVoices,makeDutchUtterance,voiceKey} from '../speech-voices.js';
-const english={name:'Google US English',lang:'en-US',voiceURI:'en'};
-const belgian={name:'Ellen',lang:'nl-BE',voiceURI:'ellen'};
-const dutch={name:'Xander',lang:'nl-NL',voiceURI:'xander'};
-const google={name:'Google Nederlands',lang:'nl-NL',voiceURI:'google-nl'};
-test('Dutch voice selection prefers dedicated Dutch voices, not OS list order',()=>{
- const novelty={name:'Rocko',lang:'nl-NL',voiceURI:'rocko'};
- assert.equal(chooseDutchVoice([english,novelty,belgian,dutch,google]),google);
- assert.equal(chooseDutchVoice([novelty,belgian,dutch]),dutch);
- assert.equal(chooseDutchVoice([english]),null);
- assert.equal(chooseDutchVoice([{...english,lang:'nl-NL'}]),null);
+import {stat,readFile} from 'node:fs/promises';
+import {audioCatalog} from '../audio-catalog.js';
+import {audioTexts} from '../scripts/audio-texts.mjs';
+import {validVoice,audioUrl,createPlayback} from '../audio-playback.js';
+test('every Dutch learning text has both bundled audio clips',async()=>{
+ assert.equal(audioCatalog.language,'nl-NL');assert.deepEqual(audioCatalog.voices.map(v=>v.id),['ronnie','pim']);
+ assert.equal(new Set(Object.values(audioCatalog.clips)).size,audioTexts.length);
+ await Promise.all(audioTexts.flatMap(text=>audioCatalog.voices.map(async voice=>{
+  const path=new URL(`../${audioUrl(text,voice.id)}`,import.meta.url);
+  assert.ok((await stat(path)).size>500,`${voice.id}: ${text}`);
+ })));
 });
-test('a saved Dutch choice is kept; a saved English choice is rejected',()=>{
- assert.equal(chooseDutchVoice([english,dutch,google],voiceKey(dutch)),dutch);
- assert.equal(chooseDutchVoice([english,dutch],voiceKey(english)),dutch);
- assert.deepEqual(dutchVoices([{name:'Dutch',lang:'nl_NL'},english]).map(voice=>voice.lang),['nl_NL']);
+test('unknown text cannot use prototype keys; unknown voices use the bundled default',()=>{
+ assert.equal(audioUrl('constructor','pim'),null);assert.equal(audioUrl('unrecorded text','ronnie'),null);
+ assert.equal(validVoice('../anything'),'ronnie');
+ assert.match(audioUrl(audioCatalog.sampleText,'Xander'),/^\.\/assets\/audio\/ronnie\/[a-f0-9]{24}\.mp3$/);
 });
-test('utterances bind the actual voice and matching language without English fallback',()=>{
- class Utterance{constructor(text){this.text=text;}}
- const utterance=makeDutchUtterance('Ik leer Nederlands.',belgian,Utterance);
- assert.equal(utterance.voice,belgian);assert.equal(utterance.lang,'nl-BE');assert.equal(utterance.text,'Ik leer Nederlands.');
- assert.throws(()=>makeDutchUtterance('Hallo',english,Utterance),/No Dutch voice/);
- assert.throws(()=>makeDutchUtterance('Hallo',null,Utterance),/No Dutch voice/);
+function fakeAudio(){return {src:'',paused:true,pause(){this.paused=true;},removeAttribute(){this.src='';},load(){},async play(){this.paused=false;this.onplaying();}};}
+test('new playback replaces old audio; cancel stops it; slow playback keeps pitch',async()=>{
+ const audio=fakeAudio(),states=[],player=createPlayback(audio,state=>states.push(state));
+ assert.equal(await player.play(audioCatalog.sampleText,'pim',0.85),true);assert.match(audio.src,/\/pim\//);assert.equal(audio.playbackRate,0.85);assert.equal(audio.preservesPitch,true);
+ const staleEnd=audio.onended;await player.play(audioTexts[0],'ronnie');assert.match(audio.src,/\/ronnie\//);assert.equal(audio.playbackRate,1);
+ player.cancel();staleEnd();assert.equal(audio.paused,true);assert.equal(audio.src,'');assert.equal(states.at(-1),'idle');
+});
+test('missing or failed audio reports an error without device speech',async()=>{
+ const audio=fakeAudio(),states=[],player=createPlayback(audio,state=>states.push(state));
+ assert.equal(await player.play('missing text','pim'),false);assert.equal(states.at(-1),'error');
+ audio.play=async()=>{throw new Error('offline');};assert.equal(await player.play(audioTexts[0],'pim'),false);assert.equal(states.at(-1),'error');
+ assert.doesNotMatch(await readFile(new URL('../speech.js',import.meta.url),'utf8'),/speechSynthesis|SpeechSynthesisUtterance/);
 });

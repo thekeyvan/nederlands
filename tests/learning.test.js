@@ -7,7 +7,7 @@ const now=new Date('2026-11-13T10:00:00Z');
 test('learning content has stable unique IDs and Persian meanings',()=>{
  const cards=[...vocabulary,...sentences];assert.equal(new Set(cards.map(c=>c.id)).size,cards.length);
  assert.ok(themes.length>=16);assert.ok(vocabulary.length>=400);assert.ok(sentences.length>=25);
- for(const w of vocabulary){assert.match(w.fa,/[\u0600-\u06ff]/);assert.ok(['woord','werkwoord','uitdrukking'].includes(w.kind));if(w.kind==='werkwoord')assert.equal(w.forms?.length,3,w.nl);}
+ for(const w of vocabulary){assert.match(w.meaning,/[\u0600-\u06ff]/);assert.ok(['woord','werkwoord','uitdrukking'].includes(w.kind));if(w.kind==='werkwoord')assert.equal(w.forms?.length,3,w.nl);}
  for(const s of sentences){assert.ok(s.prompt.includes('___'));assert.ok(s.answer);assert.match(s.rule,/[\u0600-\u06ff]/);}
  assert.ok(searchVocabulary('پرده').some(w=>w.nl==='de gordijnen'));
  assert.ok(searchVocabulary('OVERLEGGEN').some(w=>w.nl==='overleggen'));

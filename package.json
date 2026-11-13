@@ -1,1 +1,19 @@
-{"name":"mijn-nederlands","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.js","dev":"python3 -m http.server 8080"},"devDependencies":{"@supabase/supabase-js":"2.119.0","esbuild":"0.28.2"}}
+{
+  "name": "mijn-nederlands",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "dev": "node scripts/build.mjs && python3 -m http.server 8080 --directory dist",
+    "build": "node scripts/build.mjs",
+    "locale:new": "node scripts/new-locale.mjs"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "2.119.0",
+    "esbuild": "0.28.2"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,13 +1,19 @@
+import {phrases} from './phrase-data.js';
+import {renderThemePhrases} from './theme-phrases.js';
+import {t,locale,translationElement,initTranslations} from './i18n.js';
 import {themes,vocabulary,searchVocabulary} from './learning-data.js';
 import {sentences} from './sentence-data.js';
 import {ratings,scheduleReview,progressStatus,makeQueue} from './srs.js';
 import {getProgress,reviewCard,subscribe} from './progress-store.js';
 const $=selector=>document.querySelector(selector);
 const node=(tag,className,text)=>{const e=document.createElement(tag);if(className)e.className=className;if(text)e.textContent=text;return e;};
-function fa(text,className=''){const e=node('p',`fa ${className}`,text);e.lang='fa';e.dir='rtl';return e;}
+const translated=(text,className='')=>translationElement('p',text,className);
+initTranslations();
 function toast(text){$('#toast').textContent=text;$('#toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').hidden=true,3500);}
-const cardList=[...vocabulary,...sentences.map(s=>({...s,themeId:'zinsbouw'}))];
+const cardList=[...vocabulary,...phrases,...sentences.map(s=>({...s,themeId:'zinsbouw'}))];
 const labels={new:'Nog niet geoefend',learning:'Aan het leren',known:'Goed onthouden'};
+for(const theme of themes){const option=node('option','',theme.title);option.value=theme.id;$('#review-theme').append(option);}
+const grammarOption=node('option','','Zinsbouw');grammarOption.value='zinsbouw';$('#review-theme').append(grammarOption);
 let page=0,themeId=new URLSearchParams(location.search).get('thema')||'werk',selectedId=null,queue=[],queueIndex=0,reviewRevealed=false;
 if(!themes.some(t=>t.id===themeId))themeId='werk';
 function showPanel(name){
@@ -16,6 +22,7 @@ function showPanel(name){
  document.querySelectorAll('[role=tab]').forEach(e=>{const selected=e.dataset.panel===name;e.setAttribute('aria-selected',String(selected));e.tabIndex=selected?0:-1;});
  history.replaceState(null,'',`${location.pathname}${location.search}#${name}`);
  if(name==='voortgang')renderProgress();
+ if(name==='oefenen')$('#panel-oefenen').scrollIntoView({behavior:'smooth',block:'start'});
 }
 document.querySelectorAll('[role=tab]').forEach((tab,index,all)=>{
  tab.addEventListener('click',()=>showPanel(tab.dataset.panel));
@@ -27,50 +34,52 @@ const svg=$('.web-lines');for(const[x,y]of positions){const line=document.create
 function renderWords(){
  const theme=themes.find(t=>t.id===themeId),query=$('#word-search').value,kind=$('#kind-select').value;
  const words=searchVocabulary(query,query.trim()?'all':themeId,kind);const pages=Math.max(1,Math.ceil(words.length/12));page=Math.min(page,pages-1);
- $('#web-title').textContent=query.trim()?'Gevonden woorden':theme.title;$('#web-fa').textContent=query.trim()?'نتیجهٔ جست‌وجو':theme.fa;
+ $('#web-title').textContent=query.trim()?'Gevonden woorden':theme.title;$('#web-translation').replaceChildren(translationElement('span',query.trim()?t('searchResult'):theme.meaning));
  $('#map-intro').textContent=query.trim()?'Zoeken in alle thema’s.':theme.intro;$('#word-result').textContent=`${words.length} woorden & uitdrukkingen`;
  const fragment=document.createDocumentFragment();
  words.slice(page*12,page*12+12).forEach((word,index)=>{
   const button=node('button','web-node');button.dataset.kind=word.kind;button.style.left=`${positions[index][0]}%`;button.style.top=`${positions[index][1]}%`;
-  button.append(node('span','',word.nl));const meaning=fa(word.fa,'node-meaning');meaning.id=`meaning-${word.id}`;button.append(meaning);
+  button.append(node('span','',word.nl));const meaning=translated(word.meaning,'node-meaning');meaning.id=`meaning-${word.id}`;button.append(meaning);
   button.setAttribute('aria-describedby',meaning.id);button.setAttribute('aria-pressed',String(word.id===selectedId));
   button.addEventListener('click',()=>{selectedId=word.id;renderDetail(word);document.querySelectorAll('.web-node').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));if(matchMedia('(max-width:700px)').matches)$('#word-detail').scrollIntoView({behavior:'smooth',block:'start'});});fragment.append(button);
  });
+ renderThemePhrases(theme,practiceCard,cards=>{$('#review-type').value='praktisch';$('#review-theme').value=theme.id;queue=makeQueue(cards,getProgress().reviews);queueIndex=0;showPanel('oefenen');renderReview();});
  $('#web-nodes').replaceChildren(fragment);$('#words-page').textContent=`${page+1} / ${pages}`;$('#words-prev').disabled=page===0;$('#words-next').disabled=page===pages-1;$('#word-empty').hidden=words.length!==0;$('.word-workspace').hidden=words.length===0;
 }
 function renderDetail(word){
  const aside=$('#word-detail'),status=progressStatus(getProgress().reviews[word.id]);const badge=node('span','word-status',labels[status]);badge.dataset.status=status;
- aside.replaceChildren(node('p','eyebrow',`${word.kind.toUpperCase()} · ${word.themeTitle}`),node('h3','',word.nl),fa(word.fa,'meaning'),badge);
+ aside.replaceChildren(node('p','eyebrow',`${word.kind.toUpperCase()} · ${word.themeTitle}`),node('h3','',word.nl),translated(word.meaning,'meaning'),badge);
  if(word.forms){const forms=node('dl','verb-forms');for(const[label,value]of [['Infinitief',word.nl],['Imperfectum',word.forms[0]],['Perfectum',word.forms[1]],['Vorm',word.forms[2]]]){const row=node('div');row.append(node('dt','',label),node('dd','',value));forms.append(row);}aside.append(forms);}
- if(word.example){const example=node('div','word-example');example.append(node('p','nl-example',word.example),fa(word.translation));aside.append(example);}
- if(word.nl.length>21&&!word.example){aside.append(fa('واژه را آرام و بخش‌بخش بخوان، بعد یک‌بار کامل تکرار کن.','tiny'));}
- const practice=node('button','button dark','Oefen dit kaartje ↗');practice.addEventListener('click',()=>{queue=[word];queueIndex=0;showPanel('oefenen');renderReview();});aside.append(practice);
+ if(word.example){const example=node('div','word-example');example.append(node('p','nl-example',word.example),translated(word.translation));aside.append(example);}
+ if(word.nl.length>21&&!word.example){aside.append(translated(t('readSlowly'),'tiny'));}
+ const practice=node('button','button dark','Oefen dit kaartje ↗');practice.addEventListener('click',()=>practiceCard(word));aside.append(practice);
 }
-$('#theme-select').addEventListener('change',()=>{themeId=$('#theme-select').value;page=0;selectedId=null;$('#word-search').value='';renderWords();});
+function practiceCard(card){$('#review-theme').value=card.themeId;$('#review-type').value=card.id.startsWith('phrase:')?'praktisch':'woorden';queue=[card];queueIndex=0;showPanel('oefenen');renderReview();}
+$('#theme-select').addEventListener('change',()=>{themeId=$('#theme-select').value;const url=new URL(location.href);url.searchParams.set('thema',themeId);history.replaceState(null,'',url);page=0;selectedId=null;$('#word-detail').replaceChildren(node('h3','','Kies een woord'),node('p','','Klik op een woord voor de betekenis.'));$('#word-search').value='';renderWords();});
 $('#word-search').addEventListener('input',()=>{page=0;renderWords();});$('#kind-select').addEventListener('change',()=>{page=0;renderWords();});
 $('#words-prev').addEventListener('click',()=>{page--;renderWords();});$('#words-next').addEventListener('click',()=>{page++;renderWords();});
 for(const sentence of sentences){
  const card=node('details','sentence-card'),summary=node('summary');summary.append(node('span','pill',sentence.level),node('strong','',sentence.title));
  const practice=node('button','text-link','Oefen deze zin ↗');practice.addEventListener('click',()=>{queue=[{...sentence,themeId:'zinsbouw'}];queueIndex=0;showPanel('oefenen');renderReview();});
- const quote=node('blockquote','',sentence.example);quote.lang='nl';card.append(summary,fa(sentence.rule),node('p','pattern',sentence.pattern),quote,fa(sentence.translation),fa(sentence.note,'sentence-note'),practice);$('#sentence-grid').append(card);
+ const quote=node('blockquote','',sentence.example);quote.lang='nl';card.append(summary,translated(sentence.rule),node('p','pattern',sentence.pattern),quote,translated(sentence.translation),translated(sentence.note,'sentence-note'),practice);$('#sentence-grid').append(card);
 }
-function startReview(){const type=$('#review-type').value;const pool=type==='woorden'?vocabulary:type==='zinnen'?cardList.filter(c=>c.themeId==='zinsbouw'):cardList;queue=makeQueue(pool,getProgress().reviews);queueIndex=0;renderReview();}
+function startReview(){const type=$('#review-type').value;const pool=type==='woorden'?vocabulary:type==='praktisch'?phrases:type==='zinnen'?cardList.filter(c=>c.themeId==='zinsbouw'):cardList;queue=makeQueue(pool,getProgress().reviews,{theme:$('#review-theme').value});queueIndex=0;renderReview();}
 $('#review-start').addEventListener('click',startReview);
 function renderReview(){
  reviewRevealed=false;const area=$('#review-area');
- if(queueIndex>=queue.length){area.replaceChildren(node('p','eyebrow',queue.length?'GOED GEOEFEND':'ALLES VOOR NU'),node('h3','',queue.length?`${queue.length} kaartjes geoefend.`:'Je hebt nu geen kaartjes klaarstaan.'),fa('در هر نوبت، اول مرورهای سررسیدشده و بعد چند مورد جدید می‌آیند. فردا دوباره مرور کن.'));updateDue();return;}
- const card=queue[queueIndex],isSentence=card.id.startsWith('zin:'),reverse=$('#review-direction').value==='fa-nl'&&!isSentence;
+ if(queueIndex>=queue.length){area.replaceChildren(node('p','eyebrow',queue.length?'GOED GEOEFEND':'ALLES VOOR NU'),node('h3','',queue.length?`${queue.length} kaartjes geoefend.`:'Je hebt nu geen kaartjes klaarstaan.'),translated(t('queueDone')));updateDue();return;}
+ const card=queue[queueIndex],isSentence=card.id.startsWith('zin:'),reverse=$('#review-direction').value==='local-nl'&&!isSentence;
  const top=node('div','review-progress');top.append(node('span','',isSentence?'ZINSBOUW':card.themeTitle),node('span','',`${queueIndex+1} / ${queue.length}`));
- const question=reverse?fa(card.fa,'review-question'):node('p','review-question',isSentence?card.prompt:card.nl);
- const hint=fa(isSentence?'جای خالی را در ذهنت کامل کن.':reverse?'این را به هلندی چطور می‌گویی؟':'معنی فارسی را به یاد بیاور.');
+ const question=reverse?translated(card.meaning,'review-question'):node('p','review-question',isSentence?card.prompt:card.nl);
+ const hint=translated(isSentence?t('grammarHint'):reverse?t('reverseHint'):t('meaningHint'));
  const reveal=node('button','button dark','Toon het antwoord');reveal.id='reveal-answer';reveal.addEventListener('click',()=>revealAnswer(card,reverse));
  area.replaceChildren(top,question,hint,reveal);
 }
 function revealAnswer(card,reverse){
  if(reviewRevealed)return;reviewRevealed=true;$('#reveal-answer').remove();const answer=node('div','review-answer');
- if(card.id.startsWith('zin:'))answer.append(node('p','nl-answer',card.answer),node('p','answer-example',card.example),fa(card.translation),fa(card.rule,'answer-note'));
- else{answer.append(reverse?node('p','nl-answer',card.nl):fa(card.fa));if(card.example)answer.append(node('p','answer-example',card.example),fa(card.translation,'answer-note'));}
- const buttons=node('div','review-ratings');for(const rating of ratings){const next=scheduleReview(getProgress().reviews[card.id],rating.grade),button=node('button','',rating.label);button.append(fa(rating.fa),node('small','',`over ${next.interval} ${next.interval===1?'dag':'dagen'}`));button.addEventListener('click',()=>{reviewCard(card.id,rating.grade);queueIndex++;renderReview();});buttons.append(button);}
+ if(card.id.startsWith('zin:'))answer.append(node('p','nl-answer',card.answer),node('p','answer-example',card.example),translated(card.translation),translated(card.rule,'answer-note'));
+ else{answer.append(reverse?node('p','nl-answer',card.nl):translated(card.meaning));if(card.example)answer.append(node('p','answer-example',card.example),translated(card.translation,'answer-note'));}
+ const buttons=node('div','review-ratings');for(const rating of ratings){const next=scheduleReview(getProgress().reviews[card.id],rating.grade),button=node('button','',rating.label);button.append(translated(t(`rating${rating.grade}`)),node('small','',`over ${next.interval} ${next.interval===1?'dag':'dagen'}`));button.addEventListener('click',()=>{reviewCard(card.id,rating.grade);queueIndex++;renderReview();});buttons.append(button);}
  $('#review-area').append(answer,buttons);buttons.querySelector('button').focus();
 }
 function updateDue(){const reviews=getProgress().reviews;const now=new Date();const due=Object.values(reviews).filter(r=>new Date(r.due)<=now).length;$('#due-count').textContent=due?String(due):'';}

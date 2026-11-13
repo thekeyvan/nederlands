@@ -1,7 +1,8 @@
 import {vocabulary} from './learning-data.js';
+import {phrases} from './phrase-data.js';
 import {sentences} from './sentence-data.js';
 import {scheduleReview,validReviews,mergeReviews} from './srs.js';
-const validIds=new Set([...vocabulary,...sentences].map(card=>card.id));
+const validIds=new Set([...vocabulary,...sentences,...phrases].map(card=>card.id));
 let identity='guest', listeners=new Set(), data=read('guest');
 function read(id){try{const parsed=JSON.parse(localStorage.getItem(`nederlands-learning:${id}`)||'{}');return {reviews:validReviews(parsed.reviews,validIds),events:Array.isArray(parsed.events)?parsed.events.filter(event=>validIds.has(event.cardId)&&[1,3,4,5].includes(event.grade)&&Number.isFinite(Date.parse(event.at))&&typeof event.id==='string').slice(-2000):[]};}catch{return {reviews:{},events:[]};}}
 function save(){try{localStorage.setItem(`nederlands-learning:${identity}`,JSON.stringify(data));}catch{window.dispatchEvent(new CustomEvent('learning-storage-error'));}}

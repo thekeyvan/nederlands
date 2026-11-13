@@ -1,2 +1,10 @@
-// The publishable key is intentionally public. Access is enforced by database RLS.
-export const cloudConfig={url:'https://ggeiftrasvframzrgccf.supabase.co',key:'sb_publishable_ZpNJqqDjueO4ypzjUuX2hw_jpvRNp2z'};
+// Generated deployment settings are intentionally absent from a fresh fork.
+export const cloudConfig = {url:'',key:''};
+export async function loadCloudConfig() {
+ try {
+  const response=await fetch('./deployment-config.json');
+  if(!response.ok)return;
+  const settings=await response.json();
+  if(settings.url&&settings.key?.startsWith('sb_publishable_'))Object.assign(cloudConfig,settings);
+ } catch { /* Offline mode remains available. */ }
+}

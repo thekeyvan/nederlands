@@ -1,9 +1,9 @@
 // SuperMemo SM-2. Four UI answers map to quality 1, 3, 4 and 5.
 export const ratings = [
- {grade:1,label:'Nog niet',fa:'بلد نبودم'},
- {grade:3,label:'Moeilijk',fa:'سخت بود'},
- {grade:4,label:'Goed',fa:'بلد بودم'},
- {grade:5,label:'Makkelijk',fa:'آسان بود'}
+ {grade:1,label:'Nog niet'},
+ {grade:3,label:'Moeilijk'},
+ {grade:4,label:'Goed'},
+ {grade:5,label:'Makkelijk'}
 ];
 export function scheduleReview(previous = {}, grade, now = new Date()) {
  if (![1,3,4,5].includes(grade)) throw new RangeError('Unknown review grade');

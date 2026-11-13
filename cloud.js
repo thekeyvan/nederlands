@@ -1,5 +1,6 @@
+import {t} from './i18n.js';
 import {preferenceSnapshot,switchPreferences,mergePreferences} from './preferences.js';
-import {cloudConfig} from './cloud-config.js';
+import {cloudConfig,loadCloudConfig} from './cloud-config.js';
 import {getProgress,getIdentity,switchUser,mergeCloud,clearGuestAfterSync} from './progress-store.js';
 let client=null,user=null,working=false,rerun=false,initializing=false;
 const $=selector=>document.querySelector(selector);
@@ -10,7 +11,7 @@ function showIdentity(){
  if($('#sign-out'))$('#sign-out').hidden=!user;
  if($('#account-title'))$('#account-title').textContent=user?'Je bent ingelogd.':'Neem je voortgang mee.';
  if($('#account-copy'))$('#account-copy').textContent=user?'Je oefeningen worden bij je Google-account bewaard.':'Log in met Google om op je telefoon en computer verder te gaan.';
- if($('#account-fa'))$('#account-fa').textContent=user?'وارد حساب شده‌ای؛ پیشرفتت روی دستگاه‌های مختلف ذخیره می‌شود.':'با گوگل وارد شو تا پیشرفتت روی دستگاه‌های مختلف ذخیره شود.';
+ if($('#account-translation'))$('#account-translation').textContent=user?t('accountSignedIn'):t('accountGuest');
  status(user?'Je voortgang wordt gesynchroniseerd.':'Je voortgang blijft op dit apparaat.');
 }
 async function signIn(){
@@ -49,8 +50,9 @@ async function setSession(session){
  initializing=false;await sync();
 }
 export async function initCloud(){
+ await loadCloudConfig();
  document.querySelectorAll('[data-sign-in]').forEach(button=>button.addEventListener('click',signIn));
- if(!cloudConfig.key){status('Inloggen wordt nog ingesteld. Je kunt al op dit apparaat oefenen.');return;}
+ if(!cloudConfig.key){document.querySelectorAll('[data-sign-in]').forEach(button=>button.hidden=true);status('Je oefent lokaal. Inloggen is niet ingesteld.');if($('#account-title'))$('#account-title').textContent='Je oefent op dit apparaat.';if($('#account-copy'))$('#account-copy').textContent='Deze versie werkt zonder account.';if($('#account-translation'))$('#account-translation').hidden=true;return;}
  const {createClient}=await import('./assets/supabase.js');
  client=createClient(cloudConfig.url,cloudConfig.key,{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
  const params=new URLSearchParams(location.search);if(params.has('error')){message('Google-inloggen is niet afgerond. Je kunt het opnieuw proberen.');history.replaceState(null,'',location.pathname+location.hash);}

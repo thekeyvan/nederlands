@@ -2,6 +2,7 @@
 import {preferenceSnapshot,switchPreferences,mergePreferences} from './preferences.js';
 import {cloudConfig,loadCloudConfig} from './cloud-config.js';
 import {getProgress,getIdentity,switchUser,mergeCloud,clearGuestAfterSync} from './progress-store.js';
+import {Capacitor} from '@capacitor/core';
 
 let client=null,user=null,working=false,rerun=false,initializing=false,started=false;
 // status: starting | local-only | unavailable | guest | syncing | saved | retry | load-failed
@@ -11,17 +12,88 @@ function set(patch){state={...state,...patch};for(const listener of listeners)li
 export const getCloud=()=>state;
 export function subscribeCloud(listener){listeners.add(listener);return ()=>listeners.delete(listener);}
 function message(text){window.dispatchEvent(new CustomEvent('auth-message',{detail:text}));}
-const profile=next=>next?{id:next.id,name:next.user_metadata?.full_name||next.user_metadata?.name||next.email||'',email:next.email||''}:null;
+const profile=next=>next?{id:next.id,name:next.user_metadata?.full_name||next.user_metadata?.name||next.email||'',email:next.email||'',provider:next.app_metadata?.provider||'google'}:null;
 
-export async function signIn(){
- if(user)return;
- if(!client){message('Inloggen is nu niet beschikbaar. Je kunt wel oefenen.');return;}
+// In the iOS app the page runs from bundled files, so sign-in returns through a URL scheme
+// (Google, in Safari) or the native Apple sheet instead of a web redirect.
+const native=Capacitor.isNativePlatform();
+const AUTH_CALLBACK='com.keyvanmahmoudi.nederlands://auth';
+const APPLE_CLIENT_ID='com.keyvanmahmoudi.nederlands';
+// Apple sign-in: the native sheet in the iOS app; on the website once the Apple web flow is configured.
+export const appleAvailable=()=>(native&&Capacitor.getPlatform()==='ios')||cloudConfig.appleWeb===true;
+
+async function providerReady(provider){
  try{
   const response=await fetch(`${cloudConfig.url}/auth/v1/settings`,{headers:{apikey:cloudConfig.key}});const settings=await response.json();
-  if(!response.ok||!settings.external?.google){message('Google-inloggen wordt nog ingesteld. Je voortgang blijft op dit apparaat.');return;}
- }catch{message('Geen verbinding. Je kunt op dit apparaat verder oefenen.');return;}
- const {error}=await client.auth.signInWithOAuth({provider:'google',options:{redirectTo:`${location.origin}/leren.html`,queryParams:{prompt:'select_account'}}});
+  if(!response.ok||!settings.external?.[provider]){message(`${provider==='apple'?'Inloggen met Apple':'Google-inloggen'} wordt nog ingesteld. Je voortgang blijft op dit apparaat.`);return false;}
+  return true;
+ }catch{message('Geen verbinding. Je kunt op dit apparaat verder oefenen.');return false;}
+}
+
+export async function signIn(provider='google'){
+ if(user)return;
+ if(!client){message('Inloggen is nu niet beschikbaar. Je kunt wel oefenen.');return;}
+ if(!await providerReady(provider))return;
+ if(provider==='apple'&&native){await signInWithApple();return;}
+ if(native){
+  const {data,error}=await client.auth.signInWithOAuth({provider:'google',options:{redirectTo:AUTH_CALLBACK,skipBrowserRedirect:true,queryParams:{prompt:'select_account'}}});
+  if(error||!data?.url){message('Inloggen lukt nu niet. Probeer het later opnieuw.');return;}
+  const {Browser}=await import('@capacitor/browser');
+  await Browser.open({url:data.url,presentationStyle:'popover'});
+  return;
+ }
+ const {error}=await client.auth.signInWithOAuth({provider,options:{redirectTo:`${location.origin}/leren.html`,...(provider==='google'?{queryParams:{prompt:'select_account'}}:{})}});
  if(error)message('Inloggen lukt nu niet. Probeer het later opnieuw.');
+}
+
+const hex=bytes=>[...new Uint8Array(bytes)].map(byte=>byte.toString(16).padStart(2,'0')).join('');
+async function signInWithApple(){
+ // Apple signs a hash of the nonce; Supabase checks it against the raw value.
+ const raw=hex(crypto.getRandomValues(new Uint8Array(32)));
+ const hashed=hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw)));
+ let result;
+ try{
+  const {SignInWithApple}=await import('@capacitor-community/apple-sign-in');
+  result=await SignInWithApple.authorize({clientId:APPLE_CLIENT_ID,redirectURI:AUTH_CALLBACK,scopes:'email name',nonce:hashed});
+ }catch(error){
+  // Closing the Apple sheet is not an error worth a message.
+  if(!/cancel|1001/i.test(String(error?.message||error?.code||'')))message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');
+  return;
+ }
+ const token=result?.response?.identityToken;
+ if(!token){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
+ const {data,error}=await client.auth.signInWithIdToken({provider:'apple',token,nonce:raw});
+ if(error){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
+ // Apple only shares the name the first time; keep it on the account.
+ const name=[result.response.givenName,result.response.familyName].filter(Boolean).join(' ');
+ if(name&&!data.user?.user_metadata?.full_name)await client.auth.updateUser({data:{full_name:name}});
+}
+
+async function finishNativeSignIn(url){
+ if(!url?.startsWith(AUTH_CALLBACK))return;
+ const {Browser}=await import('@capacitor/browser');
+ void Browser.close().catch(()=>{});
+ const params=new URL(url).searchParams;
+ const code=params.get('code');
+ if(!code){if(params.has('error'))message('Google-inloggen is niet afgerond. Je kunt het opnieuw proberen.');return;}
+ const {error}=await client.auth.exchangeCodeForSession(code);
+ if(error)message('Inloggen lukt nu niet. Probeer het later opnieuw.');
+}
+
+/** Deletes the account and everything saved with it, online and on this device. */
+export async function deleteAccount(){
+ if(client&&user){
+  const {error}=await client.rpc('delete_my_account');
+  if(error){message('Je account kon niet worden verwijderd. Controleer je verbinding en probeer het opnieuw.');return false;}
+  await client.auth.signOut({scope:'local'}).catch(()=>{});
+ }
+ forgetDevice();
+ return true;
+}
+/** Removes progress, settings and records from this device (and the offline audio, on the website). */
+export function forgetDevice(){
+ try{for(const key of Object.keys(localStorage))if(/^(mijn-)?nederlands/.test(key)||key.startsWith('sb-'))localStorage.removeItem(key);}catch{}
+ if(typeof caches!=='undefined')void caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('nederlands')).map(key=>caches.delete(key)))).catch(()=>{});
 }
 
 export async function signOut(){
@@ -71,8 +143,12 @@ export async function initCloud(){
  if(!cloudConfig.key){set({status:'local-only'});return;}
  try{
   const {createClient}=await import('@supabase/supabase-js');
-  client=createClient(cloudConfig.url,cloudConfig.key,{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
+  client=createClient(cloudConfig.url,cloudConfig.key,{auth:{flowType:'pkce',detectSessionInUrl:!native,persistSession:true,autoRefreshToken:true}});
  }catch{set({status:'unavailable'});return;}
+ if(native){
+  const {App}=await import('@capacitor/app');
+  App.addListener('appUrlOpen',event=>void finishNativeSignIn(event.url));
+ }
  const params=new URLSearchParams(location.search);
  if(params.has('error')){message('Google-inloggen is niet afgerond. Je kunt het opnieuw proberen.');history.replaceState(null,'',location.pathname+location.hash);}
  const {data,error}=await client.auth.getSession();

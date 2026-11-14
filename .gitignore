@@ -5,3 +5,5 @@ dist/
 .env.*
 !.env.example
 deployment-config.json
+dist-native/
+docs/app-store-screenshots/

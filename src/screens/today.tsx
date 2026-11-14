@@ -17,6 +17,7 @@ import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
 import {themes} from '@/core/learning-data.js';
 import {resumeTheme} from '@/core/learning-model.js';
+import {SignInNudge} from '@/components/app/sign-in';
 import {games} from '@/games/registry';
 
 export function TodayScreen() {
@@ -87,6 +88,8 @@ export function TodayScreen() {
               <Button size="xl" game onClick={startRound} className="w-full md:w-auto">Start rondje<ArrowRight /></Button>
             </div>
           </section>
+
+          <SignInNudge />
 
           <section aria-labelledby="route-title">
             <SectionTitle title={<span id="route-title">De route · A2 → B1</span>} action={<Button variant="ghost" size="sm" className="text-primary" onClick={() => navigate('route')}>Bekijk de kaart<ChevronRight /></Button>} />

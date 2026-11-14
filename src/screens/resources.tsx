@@ -209,7 +209,7 @@ function TimerSheet({open, onOpenChange}: {open: boolean; onOpenChange: (open: b
   useEffect(() => {
     if (deadline === null) return;
     const previous = document.title;
-    document.title = `${label} · Mijn Nederlands`;
+    document.title = `${label} · Nedfa`;
     return () => { document.title = previous; };
   }, [label, deadline]);
   return (

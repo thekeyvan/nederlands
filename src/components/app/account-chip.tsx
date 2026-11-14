@@ -3,7 +3,7 @@ import {Button} from '@/components/ui/button';
 import {cn} from '@/lib/utils';
 import {useCloud} from '@/hooks/use-cloud';
 import {navigate} from '@/hooks/use-route';
-import {signIn} from '@/core/cloud.js';
+import {openSignIn} from '@/components/app/sign-in';
 
 export const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join('') || 'Ik';
 
@@ -17,9 +17,11 @@ export function AccountChip() {
   if (cloud.status === 'local-only' || cloud.status === 'unavailable' || cloud.status === 'starting') return null;
   if (!cloud.user) {
     return (
-      <Button variant="outline" className="w-full justify-start" onClick={() => void signIn()}>
-        <LogIn />Inloggen met Google
-      </Button>
+      <div className="rounded-xl border border-info/30 bg-info-soft p-3 text-info-foreground">
+        <p className="text-sm font-semibold">Ga overal verder</p>
+        <p className="mt-0.5 text-xs">Log in en oefen op je telefoon én hier.</p>
+        <Button size="sm" variant="info" className="mt-2.5 w-full" onClick={openSignIn}><LogIn />Inloggen</Button>
+      </div>
     );
   }
   return (

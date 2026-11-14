@@ -191,3 +191,6 @@
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }
+
+/* Headings get focus after navigation for screen readers; no visible ring for that. */
+main h1[tabindex="-1"]:focus { outline: none; }

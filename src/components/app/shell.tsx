@@ -1,16 +1,15 @@
 import type {ReactNode} from 'react';
-import {Flame, Laptop, Library, Map, Menu, Moon, Puzzle, Shield, Star, Sun, Zap} from 'lucide-react';
+import {ChevronLeft, Flame, Laptop, Moon, Star, Sun, Zap} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
+import {DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {Brand} from '@/components/app/brand';
 import {AccountChip} from '@/components/app/account-chip';
 import {InstallButton} from '@/components/pwa';
-import {useInstall} from '@/lib/pwa';
-import {Download} from 'lucide-react';
-import {extraNav, mainNav, type NavItem} from '@/components/app/nav';
+import {AccountButton} from '@/components/app/sign-in';
+import {extraNav, mainNav, mobileTabs, parentOf, tabOf, type NavItem} from '@/components/app/nav';
 import {cn} from '@/lib/utils';
-import {hrefFor, navigate, type Panel} from '@/hooks/use-route';
+import {hrefFor, navigate, type Panel, type Route} from '@/hooks/use-route';
 import {useTheme, type ThemePreference} from '@/hooks/use-theme';
 import {useGame} from '@/hooks/use-progress';
 
@@ -74,45 +73,36 @@ function Sidebar({panel}: {panel: Panel}) {
   );
 }
 
-function MobileTopBar() {
+/** Sub-screens show a back button to their parent; tab screens show the brand, streak, XP and account. */
+function MobileTopBar({route}: {route: Route}) {
   const game = useGame();
-  const app = useInstall();
+  const parent = parentOf(route);
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b bg-background/90 px-4 py-2.5 backdrop-blur lg:hidden" style={{paddingTop: 'max(0.625rem, env(safe-area-inset-top))'}}>
-      <Brand showName={false} />
+    <header className="sticky top-0 z-30 flex min-h-14 items-center justify-between gap-2 border-b bg-background/90 px-3 py-2 backdrop-blur lg:hidden" style={{paddingTop: 'max(0.5rem, env(safe-area-inset-top))'}}>
+      {parent ? (
+        <Button variant="ghost" className="-ml-1 h-10 gap-1 px-2 text-base font-semibold" onClick={() => navigate(parent.panel)}>
+          <ChevronLeft className="size-6" />{parent.label}
+        </Button>
+      ) : (
+        <Brand showName={false} className="ml-1" />
+      )}
       <div className="flex items-center gap-1.5">
         <Badge variant="streak" className="h-7 px-2.5 text-sm" aria-label={`Reeks: ${game.streak.count} dagen`}><Flame />{game.streak.count}</Badge>
         <Badge variant="xp" className="h-7 px-2.5 text-sm" aria-label={`${game.xp} XP`}><Star />{game.xp}</Badge>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label="Meer"><Menu /></Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem onSelect={() => navigate('route')}><Map />De route</DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => navigate('zinnen')}><Puzzle />Zinsbouw</DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => navigate('bronnen')}><Library />Websites & boeken</DropdownMenuItem>
-            {app.canInstall && !app.standalone && <DropdownMenuItem onSelect={() => void app.install()}><Download />Installeer de app</DropdownMenuItem>}
-            {!app.canInstall && app.ios && !app.standalone && <DropdownMenuItem onSelect={() => navigate('voortgang')}><Download />Zet op beginscherm</DropdownMenuItem>}
-            <DropdownMenuItem asChild><a href="./privacy.html"><Shield />Privacy</a></DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel className="text-xs text-muted-foreground">Weergave</DropdownMenuLabel>
-            <ThemeMenuItems />
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <span className="ml-1"><AccountButton /></span>
       </div>
     </header>
   );
 }
 
-const byPanel = (panel: Panel) => mainNav.find((item) => item.panel === panel)!;
-const mobileTabs: {panel: Panel; label: string; icon: NavItem['icon']}[] = [byPanel('vandaag'), byPanel('woorden'), byPanel('oefenen'), byPanel('spellen'), {...byPanel('voortgang'), label: 'Ik'}];
 
 function MobileNav({panel}: {panel: Panel}) {
+  const tab = tabOf(panel);
   return (
     <nav aria-label="Snel naar" className="fixed inset-x-0 bottom-0 z-30 flex items-start justify-around border-t bg-card/95 px-2 pt-2 backdrop-blur pb-safe lg:hidden">
       {mobileTabs.map((item) => {
         const Icon = item.icon;
-        const active = panel === item.panel;
+        const active = tab === item.panel;
         const fab = item.panel === 'oefenen';
         return (
           <a key={item.panel} href={hrefFor(item.panel)} aria-current={active ? 'page' : undefined}
@@ -134,13 +124,14 @@ function MobileNav({panel}: {panel: Panel}) {
 }
 
 /** Laptop: sidebar + content. Phone: top bar, content and a bottom bar. Focus mode hides navigation. */
-export function AppShell({panel, focus, children}: {panel: Panel; focus: boolean; children: ReactNode}) {
+export function AppShell({route, focus, children}: {route: Route; focus: boolean; children: ReactNode}) {
+  const {panel} = route;
   return (
     <div className="flex min-h-dvh">
       {!focus && <Sidebar panel={panel} />}
       <div className="flex min-w-0 flex-1 flex-col">
-        {!focus && <MobileTopBar />}
-        <main id="main" tabIndex={-1} className={cn('flex-1 outline-none', !focus && 'pb-28 lg:pb-10')}>{children}</main>
+        {!focus && <MobileTopBar route={route} />}
+        <main id="main" tabIndex={-1} className={cn('flex-1 outline-none', !focus && 'pb-28 lg:pb-10')} style={focus ? {paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)'} : undefined}>{children}</main>
       </div>
       {!focus && <MobileNav panel={panel} />}
     </div>

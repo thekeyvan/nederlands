@@ -6,8 +6,10 @@ import './index.css';
 import {applyInitialTheme} from '@/hooks/use-theme';
 import '@/lib/pwa';
 import {App} from '@/App';
+import {startNative} from '@/lib/native';
 
 applyInitialTheme();
+void startNative();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

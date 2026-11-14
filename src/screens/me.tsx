@@ -1,9 +1,10 @@
 import {useState} from 'react';
-import {Flame, Library, LogIn, LogOut, Moon, Puzzle, Shield, Sun, Laptop, Trophy, Volume2} from 'lucide-react';
+import {Flame, Library, LogOut, Moon, Puzzle, Shield, Sun, Laptop, Trash2, Trophy, Volume2} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Checkbox} from '@/components/ui/checkbox';
+import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog';
 import {Label} from '@/components/ui/label';
 import {Progress} from '@/components/ui/progress';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
@@ -22,7 +23,8 @@ import {useGame} from '@/hooks/use-progress';
 import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
 import {useTheme, type ThemePreference} from '@/hooks/use-theme';
-import {signIn, signOut} from '@/core/cloud.js';
+import {appleAvailable, deleteAccount, forgetDevice, signOut} from '@/core/cloud.js';
+import {SignInButtons, SignInReasons} from '@/components/app/sign-in';
 import {dailyGoals} from '@/core/state.js';
 import {chooseLocale, locale, locales, t} from '@/core/i18n.js';
 import {cards} from '@/core/learning-model.js';
@@ -47,6 +49,7 @@ export function MeScreen() {
     <Page>
       <PageHeader eyebrow="Kijk eens hoever je bent" title={cloud.user?.name ? `Hoi ${cloud.user.name.split(' ')[0]}!` : 'Je ziet het groeien.'} description={syncMessages[cloud.status]}
         action={cloud.user ? <Avatar name={cloud.user.name} className="size-14 text-lg" /> : undefined} />
+      {!cloud.user && <div className="mb-4"><AccountCard /></div>}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 [&>*]:min-w-0">
         <LevelCard stats={game} />
         <StreakCard stats={game} week={week} />
@@ -116,7 +119,7 @@ export function MeScreen() {
 
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
         <SettingsCard />
-        <AccountCard />
+        {cloud.user && <AccountCard />}
         <AppCard />
       </div>
       <div className="mt-6 flex flex-wrap gap-2">
@@ -172,19 +175,59 @@ function SettingsCard() {
 function AccountCard() {
   const cloud = useCloud();
   const available = !['local-only', 'unavailable', 'starting'].includes(cloud.status);
+  const provider = cloud.user?.provider === 'apple' ? 'Apple' : 'Google';
   return (
     <Card>
       <CardHeader>
         <CardTitle>{cloud.user ? 'Je bent ingelogd.' : available ? 'Neem je voortgang mee.' : 'Je oefent op dit apparaat.'}</CardTitle>
-        <CardDescription>{cloud.user ? 'Je oefeningen worden bij je Google-account bewaard.' : available ? 'Log in met Google om op je telefoon en computer verder te gaan.' : 'Deze versie werkt zonder account. Je voortgang blijft in deze browser.'}</CardDescription>
+        <CardDescription>{cloud.user ? `Je oefeningen worden bij je ${provider}-account bewaard.` : available ? (appleAvailable() ? 'Log in met Apple of Google om op al je apparaten verder te gaan. Met Google kun je ook op de website verder.' : 'Log in met Google om op je telefoon en computer verder te gaan.') : 'Deze versie werkt zonder account. Je voortgang blijft op dit apparaat.'}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {available && <Translation className="text-sm text-muted-foreground">{t(cloud.user ? 'accountSignedIn' : 'accountGuest')}</Translation>}
         <p className="text-sm" role="status">{syncMessages[cloud.status]}</p>
+        {available && !cloud.user && <SignInReasons className="sm:hidden" />}
         {available && (cloud.user
           ? <Button variant="outline" className="self-start" onClick={() => void signOut()}><LogOut />Uitloggen</Button>
-          : <Button game className="self-start" onClick={() => void signIn()}><LogIn />Inloggen met Google</Button>)}
+          : <SignInButtons className="sm:max-w-sm" />)}
+        <DeleteData signedIn={Boolean(cloud.user)} />
       </CardContent>
     </Card>
+  );
+}
+
+/** "Verwijder alles": the account and its saved progress online, plus everything on this device. */
+function DeleteData({signedIn}: {signedIn: boolean}) {
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const confirm = async () => {
+    setBusy(true);
+    const done = signedIn ? await deleteAccount() : (forgetDevice(), true);
+    setBusy(false);
+    if (!done) return;
+    setOpen(false);
+    location.reload();
+  };
+  return (
+    <div className="mt-2 border-t pt-4">
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="ghost" size="sm" className="-ml-2 text-destructive hover:bg-destructive/10 hover:text-destructive"><Trash2 />{signedIn ? 'Account verwijderen' : 'Wis mijn voortgang'}</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{signedIn ? 'Je account verwijderen?' : 'Je voortgang wissen?'}</DialogTitle>
+            <DialogDescription>
+              {signedIn
+                ? 'Je account en alles wat erbij is opgeslagen worden definitief verwijderd: je oefeningen, je planning, je streak en je instellingen. Ook alles op dit apparaat wordt gewist. Dit kun je niet ongedaan maken.'
+                : 'Alles op dit apparaat wordt gewist: je oefeningen, je planning, je streak, je records en je instellingen. Dit kun je niet ongedaan maken.'}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild><Button variant="outline">Annuleren</Button></DialogClose>
+            <Button variant="destructive" disabled={busy} onClick={() => void confirm()}><Trash2 />{busy ? 'Bezig…' : signedIn ? 'Verwijder mijn account' : 'Wis alles'}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

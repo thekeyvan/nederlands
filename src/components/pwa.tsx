@@ -1,17 +1,26 @@
 import {useCallback, useEffect, useState} from 'react';
 import {useRegisterSW} from 'virtual:pwa-register/react';
 import {toast} from 'sonner';
-import {CloudDownload, Download, MonitorSmartphone, Share, Smartphone, Trash2, WifiOff} from 'lucide-react';
+import {Bell, CloudDownload, Download, MonitorSmartphone, Share, Smartphone, Trash2, WifiOff} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {Label} from '@/components/ui/label';
 import {Progress} from '@/components/ui/progress';
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
+import {Switch} from '@/components/ui/switch';
 import {useAudio} from '@/hooks/use-audio';
 import {AUDIO_CACHE, persistStorage, useInstall} from '@/lib/pwa';
+import {isNative, reminderHour, setReminder} from '@/lib/native';
 import {audioCatalog} from '@/core/audio-catalog.js';
 import {audioUrl} from '@/core/audio-playback.js';
 
-/** Service worker registration: offers new versions instead of reloading in the middle of a round. */
+/** Service worker updates on the website; the iOS app updates through the App Store. */
 export function PwaUpdates() {
+  return <>{!isNative && <ServiceWorkerUpdates />}<NetworkToasts /></>;
+}
+
+/** Offers new versions instead of reloading in the middle of a round. */
+function ServiceWorkerUpdates() {
   const {needRefresh: [needRefresh], offlineReady: [offlineReady], updateServiceWorker} = useRegisterSW({
     onRegisteredSW(_url, registration) {
       if (registration) setInterval(() => void registration.update(), 60 * 60 * 1000);
@@ -23,6 +32,10 @@ export function PwaUpdates() {
   useEffect(() => {
     if (offlineReady) toast.success('De app werkt nu ook zonder internet.', {id: 'sw-offline'});
   }, [offlineReady]);
+  return null;
+}
+
+function NetworkToasts() {
   useEffect(() => {
     const offline = () => toast('Je bent offline. Oefenen en spellen werken gewoon; je voortgang wordt later opgeslagen.', {id: 'net', icon: <WifiOff className="size-4" />});
     const online = () => toast.dismiss('net');
@@ -96,8 +109,51 @@ function useOfflineAudio(voice: string) {
   return {supported, cached: Math.min(cached, total), total, busy, done, download, remove};
 }
 
-/** The "De app" card on Ik: install, offline status and offline audio. */
+/** The "De app" card on Ik: install, offline status and offline audio. In the iOS app: the daily reminder. */
 export function AppCard() {
+  return isNative ? <NativeAppCard /> : <WebAppCard />;
+}
+
+const reminderHours = [7, 8, 9, 12, 17, 18, 19, 20, 21];
+
+function NativeAppCard() {
+  const [hour, setHour] = useState<number | null>(null);
+  useEffect(() => { void reminderHour().then(setHour).catch(() => {}); }, []);
+  const choose = async (next: number | null) => {
+    const ok = await setReminder(next);
+    if (!ok) {
+      toast('Zet meldingen aan voor Nedfa in Instellingen › Meldingen.');
+      return;
+    }
+    setHour(next);
+    if (next !== null) toast.success(`Elke dag om ${next}:00 een herinnering.`);
+  };
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2"><Bell className="size-5" />Herinnering</CardTitle>
+        <CardDescription>Een seintje om even te oefenen, één keer per dag. Alle audio staat al in de app, dus je kunt ook zonder internet luisteren.</CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4">
+        <div className="flex items-center justify-between gap-3">
+          <Label htmlFor="reminder">Dagelijkse herinnering</Label>
+          <Switch id="reminder" checked={hour !== null} onCheckedChange={(on) => void choose(on ? (hour ?? 19) : null)} />
+        </div>
+        {hour !== null && (
+          <div className="flex items-center justify-between gap-3">
+            <Label htmlFor="reminder-hour">Hoe laat?</Label>
+            <Select value={String(hour)} onValueChange={(value) => void choose(Number(value))}>
+              <SelectTrigger id="reminder-hour" className="w-28"><SelectValue /></SelectTrigger>
+              <SelectContent>{reminderHours.map((item) => <SelectItem key={item} value={String(item)}>{item}:00</SelectItem>)}</SelectContent>
+            </Select>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+function WebAppCard() {
   const app = useInstall();
   const audio = useAudio();
   const offline = useOfflineAudio(audio.voice);
@@ -106,7 +162,7 @@ export function AppCard() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2"><MonitorSmartphone className="size-5" />De app</CardTitle>
-        <CardDescription>Zet Mijn Nederlands op je telefoon of computer. De app opent zonder internet; je voortgang wordt later opgeslagen.</CardDescription>
+        <CardDescription>Zet Nedfa op je telefoon of computer. De app opent zonder internet; je voortgang wordt later opgeslagen.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         {app.standalone || app.installed ? (

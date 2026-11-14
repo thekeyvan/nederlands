@@ -28,6 +28,7 @@ import {themeMeta, themeStats} from '@/core/learning-model.js';
 import {themeStars} from '@/core/game.js';
 import {progressStatus} from '@/core/srs.js';
 import {locale} from '@/core/i18n.js';
+import {LearnTabs} from '@/components/app/learn-tabs';
 import type {Card, Review, Theme} from '@/core/types';
 
 const groups = [
@@ -50,6 +51,7 @@ function ThemeLibrary() {
   const visible = themes.filter((theme) => (group === 'all' || themeMeta(theme).group === group) && `${theme.title} ${theme.meaning} ${theme.intro}`.toLocaleLowerCase('nl').includes(query.trim().toLocaleLowerCase('nl')));
   return (
     <Page wide>
+      <LearnTabs active="woorden" />
       <PageHeader eyebrow="Woorden die je echt gebruikt" title="Kies je volgende gesprek." description="Woorden, handige zinnen en een gesprekje. Alles bij elkaar, met sterren voor wat je al kent." />
       <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center">
         <label className="relative block lg:w-80">
@@ -92,7 +94,7 @@ function ThemeDetail({theme, initialTopic}: {theme: Theme; initialTopic: Route['
   useEffect(() => setTopic(initialTopic), [initialTopic]);
   return (
     <Page wide>
-      <Button variant="ghost" size="sm" className="-ml-2 mb-3" onClick={() => navigate('woorden')}><ArrowLeft />Alle thema’s</Button>
+      <Button variant="ghost" size="sm" className="-ml-2 mb-3 hidden lg:inline-flex" onClick={() => navigate('woorden')}><ArrowLeft />Alle thema’s</Button>
       <header className="mb-6 grid gap-5 md:grid-cols-[minmax(0,280px)_1fr] md:items-center">
         <ThemeArt theme={theme} className="aspect-[16/10] w-full rounded-2xl border md:aspect-square" />
         <div className="flex min-w-0 flex-col gap-2">

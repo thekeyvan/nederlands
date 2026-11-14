@@ -27,6 +27,8 @@ import {themes, vocabulary} from '@/core/learning-data.js';
 import {phrases} from '@/core/phrase-data.js';
 import {stamps, xpForGrade} from '@/core/game.js';
 import {t} from '@/core/i18n.js';
+import {haptic} from '@/lib/native';
+import {QuitButton} from '@/components/quit-button';
 import type {Card as LearningCard} from '@/core/types';
 
 export function PracticeScreen() {
@@ -144,7 +146,8 @@ function SessionView({session}: {session: Session}) {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pt-4 pb-40 sm:px-6 lg:pt-8">
       <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={stop} aria-label="Stoppen met oefenen"><X className="size-5" /></Button>
+        <QuitButton label="Stoppen met oefenen" title="Stoppen met dit rondje?" description="Wat je al hebt beantwoord, is bewaard. De rest van de kaartjes komt een volgende keer."
+          confirm={session.results.length > 0 && session.results.length < session.queue.length} onQuit={stop} />
         <Progress value={(session.results.length / session.queue.length) * 100} className="h-3.5 flex-1 bg-success/15" indicatorClassName="bg-success" aria-label={`Kaartje ${session.index + 1} van ${session.queue.length}`} />
         {session.combo >= 2 ? (
           <Badge key={session.combo} variant="streak" className="animate-pop h-7 px-2.5 text-sm"><Flame />{session.combo}×</Badge>
@@ -458,6 +461,7 @@ function Feedback({card, mode, outcome, onNext}: {card: LearningCard; mode: Mode
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onNext]);
+  useEffect(() => haptic(outcome.result === 'wrong' ? 'error' : 'success'), [outcome.result]);
   const grammar = cardKind(card) === 'grammar';
   const answerText = grammar ? card.answer : card.nl;
   const tone = outcome.result === 'correct' ? 'success' : outcome.result === 'close' ? 'xp' : 'destructive';

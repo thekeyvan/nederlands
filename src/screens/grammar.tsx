@@ -12,6 +12,7 @@ import {sceneFor} from '@/lib/illustrations';
 import {progressStatus} from '@/core/srs.js';
 import {usePractice} from '@/hooks/use-practice';
 import {useProgress} from '@/hooks/use-progress';
+import {LearnTabs} from '@/components/app/learn-tabs';
 import {sentences} from '@/core/sentence-data.js';
 
 export function GrammarScreen({rule}: {rule: string | null}) {
@@ -30,6 +31,7 @@ export function GrammarScreen({rule}: {rule: string | null}) {
   const known = sentences.filter((card) => progressStatus(reviews[card.id]) === 'known').length;
   return (
     <Page>
+      <LearnTabs active="zinnen" />
       <PageHeader eyebrow="Zo valt alles op z’n plek" title="Een beetje zinsbouw." description="Een helder patroon. Een gewone zin. En dan zelf proberen."
         action={<img src={sceneFor('zinsbouw')} alt="" className="hidden size-28 rounded-2xl border object-cover sm:block" />} />
       <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

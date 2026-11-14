@@ -1,6 +1,6 @@
 # Learning experience
 
-Mijn Nederlands should feel like a small game you want to come back to, without pretending to measure language level. The app opens on **Vandaag**: a mascot with one clear sentence, one big daily mission, the route, a theme to continue and the game cards (streak, level, missions, stamps).
+Nedfa should feel like a small game you want to come back to, without pretending to measure language level. The app opens on **Vandaag**: a mascot with one clear sentence, one big daily mission, the route, a theme to continue and the game cards (streak, level, missions, stamps).
 
 ## Screens
 

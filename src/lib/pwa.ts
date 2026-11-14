@@ -1,6 +1,7 @@
 // Install prompt and app-mode detection. The browser fires beforeinstallprompt once and early,
 // so it is captured when this module loads, before React renders.
 import {useSyncExternalStore} from 'react';
+import {isNative} from '@/lib/native';
 
 interface InstallPromptEvent extends Event {prompt: () => Promise<void>; userChoice: Promise<{outcome: 'accepted' | 'dismissed'}>}
 
@@ -25,7 +26,7 @@ if (typeof window !== 'undefined') {
 }
 
 export const isStandalone = () =>
-  typeof window !== 'undefined' && (matchMedia('(display-mode: standalone)').matches || (navigator as Navigator & {standalone?: boolean}).standalone === true);
+  isNative || typeof window !== 'undefined' && (matchMedia('(display-mode: standalone)').matches || (navigator as Navigator & {standalone?: boolean}).standalone === true);
 const isIos = () => typeof navigator !== 'undefined' && (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
 
 let snapshot = {canInstall: false, standalone: false, ios: false, installed: false};

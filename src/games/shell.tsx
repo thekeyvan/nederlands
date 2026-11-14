@@ -13,13 +13,16 @@ import {usePractice} from '@/hooks/use-practice';
 import {useGameRecords} from '@/hooks/use-game-records';
 import type {Card} from '@/core/types';
 import {audioUrl} from '@/core/audio-playback.js';
+import {haptic} from '@/lib/native';
+import {QuitButton} from '@/components/quit-button';
 import type {GameInfo} from '@/games/registry';
 
 /** Top bar for every game: leave, progress or timer, score. */
 export function GameBar({game, progress, seconds, score, theme}: {game: GameInfo; progress?: number; seconds?: number; score: number; theme: string}) {
   return (
     <div className="flex items-center gap-3">
-      <Button variant="ghost" size="icon" onClick={() => navigate('spellen', {theme: theme === 'all' ? null : theme})} aria-label="Terug naar de spellen"><X className="size-5" /></Button>
+      <QuitButton label="Stoppen met dit spel" title="Stoppen met dit spel?" description="Je score van deze ronde telt dan niet mee voor je record."
+        confirm={score > 0 || (progress ?? 0) > 0 || seconds !== undefined} onQuit={() => navigate('spellen', {theme: theme === 'all' ? null : theme})} />
       {seconds !== undefined ? (
         <>
           <Progress value={(seconds / 60) * 100} className="h-3.5 flex-1 bg-destructive/15" indicatorClassName={seconds <= 10 ? 'bg-destructive' : 'bg-primary'} aria-label={`Nog ${seconds} seconden`} />
@@ -103,6 +106,7 @@ export function FeedbackBar({tone, title, children, onNext}: {tone: 'success' | 
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onNext]);
+  useEffect(() => haptic(tone === 'wrong' ? 'error' : 'success'), [tone]);
   return (
     <div role="status" className={cn('fixed inset-x-0 bottom-0 z-40 animate-in slide-in-from-bottom-4 border-t-2 px-4 pt-4 pb-safe sm:px-6 lg:static lg:mt-6 lg:rounded-2xl lg:border-2 lg:px-6 lg:pb-5',
       tone === 'success' && 'border-success/30 bg-success-soft text-success-foreground',

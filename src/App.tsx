@@ -18,7 +18,10 @@ import {GrammarScreen} from '@/screens/grammar';
 import {RouteScreen} from '@/screens/route';
 import {MeScreen} from '@/screens/me';
 import {ResourcesScreen} from '@/screens/resources';
+import {hideSplash} from '@/lib/native';
 import {GamesScreen} from '@/screens/games';
+import {WelcomeScreen, useWelcome} from '@/screens/welcome';
+import {SignInSheet} from '@/components/app/sign-in';
 
 function Screens() {
   const route = useRoute();
@@ -31,7 +34,7 @@ function Screens() {
   const key = `${route.panel}:${route.theme ?? ''}:${route.rule ?? ''}:${route.step ?? ''}:${route.game ?? ''}`;
   useEffect(() => {
     audio.cancel();
-    document.title = `${panelTitles[route.panel]} — Mijn Nederlands`;
+    document.title = `${panelTitles[route.panel]} — Nedfa`;
     if (first.current) {
       first.current = false;
       return;
@@ -48,7 +51,7 @@ function Screens() {
   }, [key]);
 
   return (
-    <AppShell panel={route.panel} focus={focus}>
+    <AppShell route={route} focus={focus}>
       {route.panel === 'vandaag' && <TodayScreen />}
       {route.panel === 'woorden' && <ThemesScreen themeId={route.theme} topic={route.topic} />}
       {route.panel === 'oefenen' && <PracticeScreen />}
@@ -63,6 +66,9 @@ function Screens() {
 
 export function App() {
   const desktop = useIsDesktop();
+  const welcome = useWelcome();
+  // The iOS splash screen stays until the first screen is drawn.
+  useEffect(() => { requestAnimationFrame(() => void hideSplash()); }, []);
   useEffect(() => {
     const onMessage = (event: Event) => toast((event as CustomEvent<string>).detail);
     const onStorage = () => toast.error('Je browser kan je voortgang niet bewaren.');
@@ -80,10 +86,11 @@ export function App() {
         <AudioProvider>
           <PracticeProvider>
             <a href="#main" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Naar de inhoud</a>
-            <Screens />
+            {welcome.show ? <WelcomeScreen onDone={welcome.finish} /> : <Screens />}
+            <SignInSheet />
             <VoiceSettingsSheet />
             <PwaUpdates />
-            <Toaster position={desktop ? 'bottom-right' : 'top-center'} />
+            <Toaster position={desktop ? 'bottom-right' : 'top-center'} mobileOffset={{top: 'calc(env(safe-area-inset-top) + 12px)'}} />
           </PracticeProvider>
         </AudioProvider>
       </TooltipProvider>

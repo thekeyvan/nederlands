@@ -6,5 +6,7 @@ if(Boolean(url)!==Boolean(key))throw new Error('Set both public Supabase setting
 if(url&&(!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url)||!key.startsWith('sb_publishable_')))throw new Error('Use your HTTPS Supabase project URL and a publishable key, never a secret key.');
 // The old learning URL (and the Google sign-in callback) is an alias of the app entry, not a second template.
 await copyFile('dist/index.html','dist/leren.html');
-await writeFile('dist/deployment-config.json',JSON.stringify({url,key})+'\n');
+// Set PUBLIC_APPLE_WEB_SIGNIN=1 once Supabase has the Apple web flow (Services ID and key).
+const appleWeb=process.env.PUBLIC_APPLE_WEB_SIGNIN==='1';
+await writeFile('dist/deployment-config.json',JSON.stringify(appleWeb?{url,key,appleWeb}:{url,key})+'\n');
 console.log(`Built static site. Account sync: ${url?'configured':'off (local-only fork)'}.`);

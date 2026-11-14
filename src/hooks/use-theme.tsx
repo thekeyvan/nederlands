@@ -1,4 +1,5 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode} from 'react';
+import {syncStatusBar} from '@/lib/native';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
 const KEY = 'nederlands-theme';
@@ -34,6 +35,7 @@ export function ThemeProvider({children}: {children: ReactNode}) {
       setResolved(next);
       document.documentElement.classList.toggle('dark', next === 'dark');
       document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'dark' ? '#111a28' : '#fcfaf6');
+      syncStatusBar(next === 'dark');
     };
     update();
     media.addEventListener('change', update);

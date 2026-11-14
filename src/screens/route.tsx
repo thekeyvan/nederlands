@@ -12,6 +12,7 @@ import {useGame} from '@/hooks/use-progress';
 import {usePractice} from '@/hooks/use-practice';
 import {navigate} from '@/hooks/use-route';
 import {sentences} from '@/core/sentence-data.js';
+import {LearnTabs} from '@/components/app/learn-tabs';
 import {themes} from '@/core/learning-data.js';
 
 // Stop positions on the illustrated map (percent of width/height), from the bottom up.
@@ -26,6 +27,7 @@ export function RouteScreen({step}: {step: number | null}) {
   const {lesson} = current;
   return (
     <Page wide>
+      <LearnTabs active="route" />
       <PageHeader eyebrow="Verder na je taalcursus" title="De route." description="Acht haltes uit je lessen, van A2 naar B1. Per halte: 5 minuten herhalen, 5 minuten zinsbouw en 5 minuten hardop spreken."
         action={<Badge variant="xp" className="h-8 px-3 text-sm">{route.completed} / {route.steps.length} haltes</Badge>} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">

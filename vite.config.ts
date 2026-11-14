@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import {VitePWA} from 'vite-plugin-pwa';
 
 // Relative asset URLs keep /leren.html (the OAuth callback alias) working from the same build.
-export default defineConfig({
+export default defineConfig(({mode}) => ({
   base: './',
   plugins: [
     react(),
@@ -19,8 +19,8 @@ export default defineConfig({
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
         id: './',
-        name: 'Mijn Nederlands',
-        short_name: 'Nederlands',
+        name: 'Nedfa',
+        short_name: 'Nedfa',
         description: 'Elke dag een beetje Nederlands, als een spel: thema’s, audio, spellen en slim herhalen voor A2–B1.',
         lang: 'nl',
         dir: 'ltr',
@@ -49,10 +49,13 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
       },
       devOptions: {enabled: false},
+      // The iOS app ships its files in the bundle; WKWebView does not run service workers there.
+      disable: mode === 'native',
     }),
   ],
   resolve: {alias: {'@': path.resolve(import.meta.dirname, 'src')}},
   build: {
+    outDir: mode === 'native' ? 'dist-native' : 'dist',
     // Most of the main chunk is lesson content and the translation pack, which every screen needs.
     chunkSizeWarningLimit: 1100,
     rollupOptions: {
@@ -63,4 +66,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

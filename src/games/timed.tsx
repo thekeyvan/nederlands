@@ -61,7 +61,7 @@ export function ArticleGame({game, theme, onAgain}: Props) {
                 picked && article === item.article && 'border-success bg-success-soft text-success-foreground',
                 picked === article && article !== item.article && 'animate-wiggle border-destructive bg-destructive-soft text-destructive-foreground')}>
               {article}
-              <span className="mt-1 block text-[11px] font-medium opacity-60">{article === 'de' ? 'D of ←' : 'H of →'}</span>
+              <span className="mt-1 hidden text-[11px] font-medium opacity-60 [@media(hover:hover)]:block">{article === 'de' ? 'D of ←' : 'H of →'}</span>
             </button>
           ))}
         </div>

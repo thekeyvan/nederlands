@@ -12,6 +12,7 @@ import {LevelCard, StampsCard, StreakCard} from '@/components/game/cards';
 import {Stars} from '@/components/game/stars';
 import {ThemeArt} from '@/components/game/theme-art';
 import {Avatar} from '@/components/app/account-chip';
+import {AppCard} from '@/components/pwa';
 import {Page, PageHeader} from '@/components/page';
 import {Translation} from '@/components/translation';
 import {cn} from '@/lib/utils';
@@ -116,6 +117,7 @@ export function MeScreen() {
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
         <SettingsCard />
         <AccountCard />
+        <AppCard />
       </div>
       <div className="mt-6 flex flex-wrap gap-2">
         <Button variant="outline" onClick={() => navigate('zinnen')}><Puzzle />Zinsbouw</Button>

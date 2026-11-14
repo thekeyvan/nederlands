@@ -4,6 +4,7 @@ import {Toaster} from '@/components/ui/sonner';
 import {TooltipProvider} from '@/components/ui/tooltip';
 import {AppShell} from '@/components/app/shell';
 import {VoiceSettingsSheet} from '@/components/voice-settings';
+import {PwaUpdates} from '@/components/pwa';
 import {ThemeProvider} from '@/hooks/use-theme';
 import {AudioProvider, useAudio} from '@/hooks/use-audio';
 import {PracticeProvider, usePractice} from '@/hooks/use-practice';
@@ -81,6 +82,7 @@ export function App() {
             <a href="#main" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Naar de inhoud</a>
             <Screens />
             <VoiceSettingsSheet />
+            <PwaUpdates />
             <Toaster position={desktop ? 'bottom-right' : 'top-center'} />
           </PracticeProvider>
         </AudioProvider>

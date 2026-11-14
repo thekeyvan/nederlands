@@ -6,6 +6,7 @@ A small, open-source Dutch learning site for A2–B1 that feels like a game, wit
 - Seven study games: De of het?, Zinnen bouwen (word order), Werkwoorden (past forms), Zinnen aanvullen, Luisterdictee, Gesprekken and Tijdrace, with personal bests
 - An honest game layer: daily streak, XP and playful levels, daily missions, theme stars and a stamp card, all calculated from real review history
 - An eight-step A2–B1 classroom review path, shown as an illustrated canal route
+- An installable app (PWA) that works offline, with an update prompt and optional offline audio per voice
 - A daily mission, illustrated topic cards, a mascot, light and dark themes, phone and laptop layouts
 - 20 themed word webs with 624 words and expressions, each with a Dutch usage example and Persian translation
 - 105 practical sentences and 20 short role-play conversations, including the GP, pharmacy and municipality

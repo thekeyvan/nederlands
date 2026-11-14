@@ -61,6 +61,10 @@ There are no hearts or lives: a wrong answer never blocks practice.
 
 shadcn/ui components (new-york style) with the Dutch identity: cream, orange and navy, plus green for correct, red for “nog niet”, yellow for rewards and light blue for audio. Buttons used for game actions have a `game` variant with a solid bottom edge that sinks on press. The radius is 1rem. Geist is the interface font and Vazirmatn the Persian font, both self-hosted. Illustrations, the mascot, stamps and the route map were generated with Codex in one flat style with navy outlines; sources are in `docs/design/img/` and the first concept is `docs/design/redesign-mockup.html`. Light and dark themes follow the device, with a manual choice under Ik.
 
+## Installable app (PWA)
+
+The manifest, mascot icons (any and maskable), shortcuts to Oefenen, Spellen and Thema’s, and a Workbox service worker (`src/sw.ts`) make the site installable on Android, iOS and desktop. The app shell, fonts and illustrations are precached, so the app opens offline; every app URL (including `/leren.html` and the sign-in callback) uses the cached shell. Audio clips are cached the first time they play, or all at once per voice under Ik → De app. Audio players request byte ranges: the service worker fetches the whole clip once and answers ranges from the cache (206), which Safari needs. New versions wait until the learner taps “Vernieuwen”, so a practice round is never interrupted. Ik shows an install button where the browser supports it, and instructions for Safari on iPhone and iPad.
+
 ## Code
 
 `src/core/` holds the plain-JavaScript domain logic used by both the UI and the Node tests: content and translations, SM-2, sessions, `game.js` and `practice.js`. Declaration files next to them give the React UI its types. `src/hooks/` connects that logic to React (progress, routing, audio, practice session, theme, preferences, cloud sync). Routing uses the URL hash and query, so existing links such as `/leren.html?thema=werk#woorden` keep working.

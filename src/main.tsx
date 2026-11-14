@@ -4,6 +4,7 @@ import '@fontsource-variable/geist';
 import '@fontsource-variable/vazirmatn';
 import './index.css';
 import {applyInitialTheme} from '@/hooks/use-theme';
+import '@/lib/pwa';
 import {App} from '@/App';
 
 applyInitialTheme();

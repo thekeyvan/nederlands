@@ -5,6 +5,9 @@ import {Button} from '@/components/ui/button';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {Brand} from '@/components/app/brand';
 import {AccountChip} from '@/components/app/account-chip';
+import {InstallButton} from '@/components/pwa';
+import {useInstall} from '@/lib/pwa';
+import {Download} from 'lucide-react';
 import {extraNav, mainNav, type NavItem} from '@/components/app/nav';
 import {cn} from '@/lib/utils';
 import {hrefFor, navigate, type Panel} from '@/hooks/use-route';
@@ -60,6 +63,7 @@ function Sidebar({panel}: {panel: Panel}) {
       <p className="mt-6 px-3 pb-1 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">Verder leren</p>
       {extraNav.map((item) => <SideLink key={item.panel} item={item} active={panel === item.panel} />)}
       <div className="flex-1" />
+      <InstallButton variant="ghost" className="mb-1 w-full justify-start text-muted-foreground" />
       <AccountChip />
       <div className="mt-2 flex items-center gap-1 px-1 text-xs text-muted-foreground">
         <ThemeToggle />
@@ -72,6 +76,7 @@ function Sidebar({panel}: {panel: Panel}) {
 
 function MobileTopBar() {
   const game = useGame();
+  const app = useInstall();
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between border-b bg-background/90 px-4 py-2.5 backdrop-blur lg:hidden" style={{paddingTop: 'max(0.625rem, env(safe-area-inset-top))'}}>
       <Brand showName={false} />
@@ -86,6 +91,8 @@ function MobileTopBar() {
             <DropdownMenuItem onSelect={() => navigate('route')}><Map />De route</DropdownMenuItem>
             <DropdownMenuItem onSelect={() => navigate('zinnen')}><Puzzle />Zinsbouw</DropdownMenuItem>
             <DropdownMenuItem onSelect={() => navigate('bronnen')}><Library />Websites & boeken</DropdownMenuItem>
+            {app.canInstall && !app.standalone && <DropdownMenuItem onSelect={() => void app.install()}><Download />Installeer de app</DropdownMenuItem>}
+            {!app.canInstall && app.ios && !app.standalone && <DropdownMenuItem onSelect={() => navigate('voortgang')}><Download />Zet op beginscherm</DropdownMenuItem>}
             <DropdownMenuItem asChild><a href="./privacy.html"><Shield />Privacy</a></DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="text-xs text-muted-foreground">Weergave</DropdownMenuLabel>

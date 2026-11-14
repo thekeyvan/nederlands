@@ -1546,7 +1546,7 @@ export const baseVocabulary = [
   {
     "nl": "de vrijmibo",
     "kind": "uitdrukking",
-    "example": "Kom je vrijdag ook naar de vrijmibo op kantoor?",
+    "example": "Vrijmibo is een afkorting van vrijdagmiddagborrel.",
     "id": "vrijetijd:de-vrijmibo",
     "themeId": "vrijetijd"
   },
@@ -1832,7 +1832,7 @@ export const baseVocabulary = [
   {
     "nl": "het OV",
     "kind": "woord",
-    "example": "Ik ga meestal met het OV naar mijn werk.",
+    "example": "OV betekent openbaar vervoer: de trein, bus, tram en metro.",
     "id": "reizen:het-ov",
     "themeId": "reizen"
   },
@@ -4115,5 +4115,991 @@ export const baseVocabulary = [
     "kind": "woord",
     "themeId": "gemeente",
     "example": "Ik heb de bevestiging van mijn afspraak per e-mail ontvangen."
+  },
+  {
+    "id": "wonen:de-villa",
+    "themeId": "wonen",
+    "nl": "de villa",
+    "kind": "woord",
+    "example": "Ze wonen in een grote villa."
+  },
+  {
+    "id": "wonen:de-tussenwoning",
+    "themeId": "wonen",
+    "nl": "de tussenwoning",
+    "kind": "woord",
+    "example": "Onze tussenwoning staat tussen twee andere huizen."
+  },
+  {
+    "id": "wonen:de-eindwoning",
+    "themeId": "wonen",
+    "nl": "de eindwoning",
+    "kind": "woord",
+    "example": "De eindwoning staat aan het einde van de rij."
+  },
+  {
+    "id": "wonen:de-hoekwoning",
+    "themeId": "wonen",
+    "nl": "de hoekwoning",
+    "kind": "woord",
+    "example": "De hoekwoning heeft een tuin aan de zijkant."
+  },
+  {
+    "id": "wonen:de-woonboot",
+    "themeId": "wonen",
+    "nl": "de woonboot",
+    "kind": "woord",
+    "example": "Er ligt een woonboot in de gracht."
+  },
+  {
+    "id": "wonen:de-wolkenkrabber",
+    "themeId": "wonen",
+    "nl": "de wolkenkrabber",
+    "kind": "woord",
+    "example": "Die wolkenkrabber heeft vijftig verdiepingen."
+  },
+  {
+    "id": "wonen:de-flat",
+    "themeId": "wonen",
+    "nl": "de flat",
+    "kind": "woord",
+    "example": "Mijn flat is op de derde verdieping."
+  },
+  {
+    "id": "wonen:de-bungalow",
+    "themeId": "wonen",
+    "nl": "de bungalow",
+    "kind": "woord",
+    "example": "De bungalow heeft geen trap."
+  },
+  {
+    "id": "wonen:de-studio",
+    "themeId": "wonen",
+    "nl": "de studio",
+    "kind": "woord",
+    "example": "In deze studio slaap en woon je in dezelfde ruimte."
+  },
+  {
+    "id": "wonen:het-kasteel",
+    "themeId": "wonen",
+    "nl": "het kasteel",
+    "kind": "woord",
+    "example": "We bezoeken een oud kasteel."
+  },
+  {
+    "id": "wonen:het-paleis",
+    "themeId": "wonen",
+    "nl": "het paleis",
+    "kind": "woord",
+    "example": "Het paleis staat in het centrum."
+  },
+  {
+    "id": "wonen:de-zolder",
+    "themeId": "wonen",
+    "nl": "de zolder",
+    "kind": "woord",
+    "example": "Op zolder bewaren we oude spullen."
+  },
+  {
+    "id": "wonen:de-werkkamer",
+    "themeId": "wonen",
+    "nl": "de werkkamer",
+    "kind": "woord",
+    "example": "Mijn bureau staat in de werkkamer."
+  },
+  {
+    "id": "wonen:de-logeerkamer",
+    "themeId": "wonen",
+    "nl": "de logeerkamer",
+    "kind": "woord",
+    "example": "Je kunt in de logeerkamer slapen."
+  },
+  {
+    "id": "wonen:de-overloop",
+    "themeId": "wonen",
+    "nl": "de overloop",
+    "kind": "woord",
+    "example": "De slaapkamers komen uit op de overloop."
+  },
+  {
+    "id": "wonen:het-toilet",
+    "themeId": "wonen",
+    "nl": "het toilet",
+    "kind": "woord",
+    "example": "Het toilet is naast de badkamer."
+  },
+  {
+    "id": "wonen:de-wc",
+    "themeId": "wonen",
+    "nl": "de wc",
+    "kind": "woord",
+    "example": "De wc is beneden."
+  },
+  {
+    "id": "wonen:de-keuken",
+    "themeId": "wonen",
+    "nl": "de keuken",
+    "kind": "woord",
+    "example": "We koken samen in de keuken."
+  },
+  {
+    "id": "wonen:de-gang",
+    "themeId": "wonen",
+    "nl": "de gang",
+    "kind": "woord",
+    "example": "Mijn schoenen staan in de gang."
+  },
+  {
+    "id": "wonen:de-hal",
+    "themeId": "wonen",
+    "nl": "de hal",
+    "kind": "woord",
+    "example": "Hang je jas in de hal."
+  },
+  {
+    "id": "wonen:de-kelder",
+    "themeId": "wonen",
+    "nl": "de kelder",
+    "kind": "woord",
+    "example": "De kelder is onder het huis."
+  },
+  {
+    "id": "wonen:de-schuur",
+    "themeId": "wonen",
+    "nl": "de schuur",
+    "kind": "woord",
+    "example": "Mijn fiets staat in de schuur."
+  },
+  {
+    "id": "wonen:de-garage",
+    "themeId": "wonen",
+    "nl": "de garage",
+    "kind": "woord",
+    "example": "De auto staat in de garage."
+  },
+  {
+    "id": "wonen:de-spullen",
+    "themeId": "wonen",
+    "nl": "de spullen",
+    "kind": "woord",
+    "example": "Waar kan ik mijn spullen neerzetten?"
+  },
+  {
+    "id": "wonen:de-rommel",
+    "themeId": "wonen",
+    "nl": "de rommel",
+    "kind": "woord",
+    "example": "Er ligt veel rommel op zolder."
+  },
+  {
+    "id": "wonen:het-bed",
+    "themeId": "wonen",
+    "nl": "het bed",
+    "kind": "woord",
+    "example": "Het bed staat naast het raam."
+  },
+  {
+    "id": "wonen:het-nachtkastje",
+    "themeId": "wonen",
+    "nl": "het nachtkastje",
+    "kind": "woord",
+    "example": "Mijn boek ligt op het nachtkastje."
+  },
+  {
+    "id": "wonen:de-kledingkast",
+    "themeId": "wonen",
+    "nl": "de kledingkast",
+    "kind": "woord",
+    "example": "Mijn jas hangt in de kledingkast."
+  },
+  {
+    "id": "wonen:de-douche",
+    "themeId": "wonen",
+    "nl": "de douche",
+    "kind": "woord",
+    "example": "De douche is in de badkamer."
+  },
+  {
+    "id": "wonen:het-bad",
+    "themeId": "wonen",
+    "nl": "het bad",
+    "kind": "woord",
+    "example": "De badkamer heeft ook een bad."
+  },
+  {
+    "id": "wonen:de-spiegel",
+    "themeId": "wonen",
+    "nl": "de spiegel",
+    "kind": "woord",
+    "example": "De spiegel hangt boven de wastafel."
+  },
+  {
+    "id": "wonen:de-wastafel",
+    "themeId": "wonen",
+    "nl": "de wastafel",
+    "kind": "woord",
+    "example": "Ik was mijn handen bij de wastafel."
+  },
+  {
+    "id": "wonen:het-bureau",
+    "themeId": "wonen",
+    "nl": "het bureau",
+    "kind": "woord",
+    "example": "Ik werk aan mijn bureau."
+  },
+  {
+    "id": "wonen:het-fornuis",
+    "themeId": "wonen",
+    "nl": "het fornuis",
+    "kind": "woord",
+    "example": "De pan staat op het fornuis."
+  },
+  {
+    "id": "wonen:de-vaatwasser",
+    "themeId": "wonen",
+    "nl": "de vaatwasser",
+    "kind": "woord",
+    "example": "Ik zet de borden in de vaatwasser."
+  },
+  {
+    "id": "wonen:het-aanrecht",
+    "themeId": "wonen",
+    "nl": "het aanrecht",
+    "kind": "woord",
+    "example": "De kopjes staan op het aanrecht."
+  },
+  {
+    "id": "wonen:het-aanrechtkastje",
+    "themeId": "wonen",
+    "nl": "het aanrechtkastje",
+    "kind": "woord",
+    "example": "De pannen staan in het aanrechtkastje."
+  },
+  {
+    "id": "wonen:de-afzuigkap",
+    "themeId": "wonen",
+    "nl": "de afzuigkap",
+    "kind": "woord",
+    "example": "Zet de afzuigkap aan tijdens het koken."
+  },
+  {
+    "id": "wonen:de-gootsteen",
+    "themeId": "wonen",
+    "nl": "de gootsteen",
+    "kind": "woord",
+    "example": "Het water loopt in de gootsteen."
+  },
+  {
+    "id": "wonen:de-koelkast",
+    "themeId": "wonen",
+    "nl": "de koelkast",
+    "kind": "woord",
+    "example": "De melk staat in de koelkast."
+  },
+  {
+    "id": "wonen:de-vriezer",
+    "themeId": "wonen",
+    "nl": "de vriezer",
+    "kind": "woord",
+    "example": "Het brood ligt in de vriezer."
+  },
+  {
+    "id": "wonen:de-wasmachine",
+    "themeId": "wonen",
+    "nl": "de wasmachine",
+    "kind": "woord",
+    "example": "De wasmachine staat in de bijkeuken."
+  },
+  {
+    "id": "wonen:de-droger",
+    "themeId": "wonen",
+    "nl": "de droger",
+    "kind": "woord",
+    "example": "De handdoeken zitten in de droger."
+  },
+  {
+    "id": "wonen:de-kapstok",
+    "themeId": "wonen",
+    "nl": "de kapstok",
+    "kind": "woord",
+    "example": "Mijn jas hangt aan de kapstok."
+  },
+  {
+    "id": "wonen:de-bank",
+    "themeId": "wonen",
+    "nl": "de bank",
+    "kind": "woord",
+    "example": "We zitten samen op de bank."
+  },
+  {
+    "id": "wonen:de-eettafel",
+    "themeId": "wonen",
+    "nl": "de eettafel",
+    "kind": "woord",
+    "example": "We eten aan de eettafel."
+  },
+  {
+    "id": "wonen:de-salontafel",
+    "themeId": "wonen",
+    "nl": "de salontafel",
+    "kind": "woord",
+    "example": "Mijn kopje staat op de salontafel."
+  },
+  {
+    "id": "wonen:de-luie-stoel",
+    "themeId": "wonen",
+    "nl": "de luie stoel",
+    "kind": "woord",
+    "example": "Opa leest in zijn luie stoel."
+  },
+  {
+    "id": "wonen:het-kleed",
+    "themeId": "wonen",
+    "nl": "het kleed",
+    "kind": "woord",
+    "example": "Er ligt een kleed onder de tafel."
+  },
+  {
+    "id": "huis-kopen:de-vloerbedekking",
+    "themeId": "huis-kopen",
+    "nl": "de vloerbedekking",
+    "kind": "woord",
+    "example": "We kiezen nieuwe vloerbedekking."
+  },
+  {
+    "id": "werk:de-koffiezetautomaat",
+    "themeId": "werk",
+    "nl": "de koffiezetautomaat",
+    "kind": "woord",
+    "example": "De koffiezetautomaat staat in de kantine."
+  },
+  {
+    "id": "werk:de-tijdsbesteding",
+    "themeId": "werk",
+    "nl": "de tijdsbesteding",
+    "kind": "woord",
+    "example": "Ik wil mijn tijdsbesteding beter plannen."
+  },
+  {
+    "id": "geld:de-arbeidsongeschiktheidsverzekering",
+    "themeId": "geld",
+    "nl": "de arbeidsongeschiktheidsverzekering",
+    "kind": "woord",
+    "example": "Een arbeidsongeschiktheidsverzekering kan inkomen beschermen."
+  },
+  {
+    "id": "contact:het-afscheid",
+    "themeId": "contact",
+    "nl": "het afscheid",
+    "kind": "woord",
+    "example": "Bij het afscheid bedanken we de docent."
+  },
+  {
+    "id": "contact:het-afscheidsfeest",
+    "themeId": "contact",
+    "nl": "het afscheidsfeest",
+    "kind": "woord",
+    "example": "Vrijdag is er een afscheidsfeest voor onze collega."
+  },
+  {
+    "id": "uitgaan:het-koffiekopje",
+    "themeId": "uitgaan",
+    "nl": "het koffiekopje",
+    "kind": "woord",
+    "example": "Wil je dit koffiekopje afwassen?"
+  },
+  {
+    "id": "uitgaan:de-kop",
+    "themeId": "uitgaan",
+    "nl": "de kop",
+    "kind": "woord",
+    "example": "Ik drink een kop koffie."
+  },
+  {
+    "id": "uitgaan:het-biertje",
+    "themeId": "uitgaan",
+    "nl": "het biertje",
+    "kind": "woord",
+    "example": "Zullen we een biertje drinken?"
+  },
+  {
+    "id": "uitgaan:het-lepeltje",
+    "themeId": "uitgaan",
+    "nl": "het lepeltje",
+    "kind": "woord",
+    "example": "Er ligt een lepeltje naast je kopje."
+  },
+  {
+    "id": "contact:het-etui",
+    "themeId": "contact",
+    "nl": "het etui",
+    "kind": "woord",
+    "example": "Mijn pen zit in mijn etui."
+  },
+  {
+    "id": "loopbaan:het-ondernemerschap",
+    "themeId": "loopbaan",
+    "nl": "het ondernemerschap",
+    "kind": "woord",
+    "example": "Ondernemerschap vraagt veel voorbereiding."
+  },
+  {
+    "id": "loopbaan:de-ontwikkeling",
+    "themeId": "loopbaan",
+    "nl": "de ontwikkeling",
+    "kind": "woord",
+    "example": "Ik vind mijn persoonlijke ontwikkeling belangrijk."
+  },
+  {
+    "id": "tijd:anderhalf",
+    "themeId": "tijd",
+    "nl": "anderhalf",
+    "kind": "woord",
+    "example": "De les duurt anderhalf uur."
+  },
+  {
+    "id": "tijd:tweeenhalf",
+    "themeId": "tijd",
+    "nl": "tweeënhalf",
+    "kind": "woord",
+    "example": "De reis duurt tweeënhalf uur."
+  },
+  {
+    "id": "tijd:tegenwoordig",
+    "themeId": "tijd",
+    "nl": "tegenwoordig",
+    "kind": "woord",
+    "example": "Tegenwoordig werk ik vaker thuis."
+  },
+  {
+    "id": "tijd:op-dit-moment",
+    "themeId": "tijd",
+    "nl": "op dit moment",
+    "kind": "woord",
+    "example": "Op dit moment volg ik een cursus."
+  },
+  {
+    "id": "vrijetijd:het-muziekinstrument",
+    "themeId": "vrijetijd",
+    "nl": "het muziekinstrument",
+    "kind": "woord",
+    "example": "Welk muziekinstrument bespeel je?"
+  },
+  {
+    "id": "cultuur:de-bioscoop",
+    "themeId": "cultuur",
+    "nl": "de bioscoop",
+    "kind": "woord",
+    "example": "We gaan vanavond naar de bioscoop."
+  },
+  {
+    "id": "cultuur:het-theater",
+    "themeId": "cultuur",
+    "nl": "het theater",
+    "kind": "woord",
+    "example": "Het theater is vlak bij het station."
+  },
+  {
+    "id": "cultuur:de-schouwburg",
+    "themeId": "cultuur",
+    "nl": "de schouwburg",
+    "kind": "woord",
+    "example": "In de schouwburg speelt een nieuw toneelstuk."
+  },
+  {
+    "id": "cultuur:de-opera",
+    "themeId": "cultuur",
+    "nl": "de opera",
+    "kind": "woord",
+    "example": "We luisteren naar een opera."
+  },
+  {
+    "id": "cultuur:het-ballet",
+    "themeId": "cultuur",
+    "nl": "het ballet",
+    "kind": "woord",
+    "example": "Zij houdt van klassiek ballet."
+  },
+  {
+    "id": "cultuur:het-toneel",
+    "themeId": "cultuur",
+    "nl": "het toneel",
+    "kind": "woord",
+    "example": "Op school speelde ik toneel."
+  },
+  {
+    "id": "cultuur:het-cabaret",
+    "themeId": "cultuur",
+    "nl": "het cabaret",
+    "kind": "woord",
+    "example": "Nederlands cabaret is soms moeilijk te begrijpen."
+  },
+  {
+    "id": "cultuur:de-cabaretier",
+    "themeId": "cultuur",
+    "nl": "de cabaretier",
+    "kind": "woord",
+    "example": "De cabaretier maakt grappen over het nieuws."
+  },
+  {
+    "id": "cultuur:het-concert",
+    "themeId": "cultuur",
+    "nl": "het concert",
+    "kind": "woord",
+    "example": "Het concert begint om acht uur."
+  },
+  {
+    "id": "cultuur:de-bibliotheek",
+    "themeId": "cultuur",
+    "nl": "de bibliotheek",
+    "kind": "woord",
+    "example": "Ik leen een boek bij de bibliotheek."
+  },
+  {
+    "id": "cultuur:het-museum",
+    "themeId": "cultuur",
+    "nl": "het museum",
+    "kind": "woord",
+    "example": "Het museum heeft een nieuwe tentoonstelling."
+  },
+  {
+    "id": "uitgaan:het-attractiepark",
+    "themeId": "uitgaan",
+    "nl": "het attractiepark",
+    "kind": "woord",
+    "example": "We gaan zaterdag naar een attractiepark."
+  },
+  {
+    "id": "uitgaan:de-dierentuin",
+    "themeId": "uitgaan",
+    "nl": "de dierentuin",
+    "kind": "woord",
+    "example": "In de dierentuin zien we veel dieren."
+  },
+  {
+    "id": "uitgaan:een-dagje-strand",
+    "themeId": "uitgaan",
+    "nl": "een dagje strand",
+    "kind": "uitdrukking",
+    "example": "Met mooi weer is een dagje strand fijn."
+  },
+  {
+    "id": "uitgaan:een-terrasje-pakken",
+    "themeId": "uitgaan",
+    "nl": "een terrasje pakken",
+    "kind": "uitdrukking",
+    "example": "Zullen we na het werk een terrasje pakken?"
+  },
+  {
+    "id": "vrijetijd:voetbal-kijken",
+    "themeId": "vrijetijd",
+    "nl": "voetbal kijken",
+    "kind": "uitdrukking",
+    "example": "Op zondag kijk ik graag voetbal."
+  },
+  {
+    "id": "mening:dat-klinkt-logisch",
+    "themeId": "mening",
+    "nl": "Dat klinkt logisch.",
+    "kind": "uitdrukking",
+    "example": "Dat klinkt logisch, maar ik heb nog een vraag."
+  },
+  {
+    "id": "contact:nt2",
+    "themeId": "contact",
+    "nl": "NT2",
+    "kind": "woord",
+    "example": "Ik volg een cursus NT2."
+  },
+  {
+    "id": "contact:het-deel",
+    "themeId": "contact",
+    "nl": "het deel",
+    "kind": "woord",
+    "example": "Dit is het eerste deel van de les."
+  },
+  {
+    "id": "modalen:werken",
+    "themeId": "modalen",
+    "nl": "werken",
+    "kind": "werkwoord",
+    "forms": [
+      "werkte",
+      "heeft gewerkt",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb gisteren gewerkt."
+  },
+  {
+    "id": "wonen:wonen",
+    "themeId": "wonen",
+    "nl": "wonen",
+    "kind": "werkwoord",
+    "forms": [
+      "woonde",
+      "heeft gewoond",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb drie jaar in Utrecht gewoond."
+  },
+  {
+    "id": "contact:praten",
+    "themeId": "contact",
+    "nl": "praten",
+    "kind": "werkwoord",
+    "forms": [
+      "praatte",
+      "heeft gepraat",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben een uur gepraat."
+  },
+  {
+    "id": "contact:kennen",
+    "themeId": "contact",
+    "nl": "kennen",
+    "kind": "werkwoord",
+    "forms": [
+      "kende",
+      "heeft gekend",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik ken mijn buren goed."
+  },
+  {
+    "id": "contact:vertellen",
+    "themeId": "contact",
+    "nl": "vertellen",
+    "kind": "werkwoord",
+    "forms": [
+      "vertelde",
+      "heeft verteld",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Zij heeft over haar reis verteld."
+  },
+  {
+    "id": "contact:ontmoeten",
+    "themeId": "contact",
+    "nl": "ontmoeten",
+    "kind": "werkwoord",
+    "forms": [
+      "ontmoette",
+      "heeft ontmoet",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben elkaar in Nederland ontmoet."
+  },
+  {
+    "id": "uitgaan:lunchen",
+    "themeId": "uitgaan",
+    "nl": "lunchen",
+    "kind": "werkwoord",
+    "forms": [
+      "lunchte",
+      "heeft geluncht",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben samen geluncht."
+  },
+  {
+    "id": "cultuur:lachen",
+    "themeId": "cultuur",
+    "nl": "lachen",
+    "kind": "werkwoord",
+    "forms": [
+      "lachte",
+      "heeft gelachen",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben veel gelachen."
+  },
+  {
+    "id": "loopbaan:ondernemen",
+    "themeId": "loopbaan",
+    "nl": "ondernemen",
+    "kind": "werkwoord",
+    "forms": [
+      "ondernam",
+      "heeft ondernomen",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Wat wil je dit weekend ondernemen?"
+  },
+  {
+    "id": "loopbaan:oprichten",
+    "themeId": "loopbaan",
+    "nl": "oprichten",
+    "kind": "werkwoord",
+    "forms": [
+      "richtte op",
+      "heeft opgericht",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Zij heeft een bedrijf opgericht."
+  },
+  {
+    "id": "vrijetijd:bakken",
+    "themeId": "vrijetijd",
+    "nl": "bakken",
+    "kind": "werkwoord",
+    "forms": [
+      "bakte",
+      "heeft gebakken",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb koekjes gebakken."
+  },
+  {
+    "id": "vrijetijd:gamen",
+    "themeId": "vrijetijd",
+    "nl": "gamen",
+    "kind": "werkwoord",
+    "forms": [
+      "gamede",
+      "heeft gegamed",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben samen gegamed."
+  },
+  {
+    "id": "vrijetijd:winkelen",
+    "themeId": "vrijetijd",
+    "nl": "winkelen",
+    "kind": "werkwoord",
+    "forms": [
+      "winkelde",
+      "heeft gewinkeld",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben zaterdag gewinkeld."
+  },
+  {
+    "id": "vrijetijd:lezen",
+    "themeId": "vrijetijd",
+    "nl": "lezen",
+    "kind": "werkwoord",
+    "forms": [
+      "las",
+      "heeft gelezen",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb een boek gelezen."
+  },
+  {
+    "id": "vrijetijd:knutselen",
+    "themeId": "vrijetijd",
+    "nl": "knutselen",
+    "kind": "werkwoord",
+    "forms": [
+      "knutselde",
+      "heeft geknutseld",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "De kinderen hebben samen geknutseld."
+  },
+  {
+    "id": "vrijetijd:handwerken",
+    "themeId": "vrijetijd",
+    "nl": "handwerken",
+    "kind": "werkwoord",
+    "forms": [
+      "handwerkte",
+      "heeft gehandwerkt",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Mijn oma houdt van handwerken."
+  },
+  {
+    "id": "vrijetijd:breien",
+    "themeId": "vrijetijd",
+    "nl": "breien",
+    "kind": "werkwoord",
+    "forms": [
+      "breide",
+      "heeft gebreid",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Zij heeft een sjaal gebreid."
+  },
+  {
+    "id": "vrijetijd:haken",
+    "themeId": "vrijetijd",
+    "nl": "haken",
+    "kind": "werkwoord",
+    "forms": [
+      "haakte",
+      "heeft gehaakt",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb een muts gehaakt."
+  },
+  {
+    "id": "vrijetijd:puzzelen",
+    "themeId": "vrijetijd",
+    "nl": "puzzelen",
+    "kind": "werkwoord",
+    "forms": [
+      "puzzelde",
+      "heeft gepuzzeld",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben samen gepuzzeld."
+  },
+  {
+    "id": "vrijetijd:bespelen",
+    "themeId": "vrijetijd",
+    "nl": "bespelen",
+    "kind": "werkwoord",
+    "forms": [
+      "bespeelde",
+      "heeft bespeeld",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Hij bespeelt verschillende instrumenten."
+  },
+  {
+    "id": "vrijetijd:tuinieren",
+    "themeId": "vrijetijd",
+    "nl": "tuinieren",
+    "kind": "werkwoord",
+    "forms": [
+      "tuinierde",
+      "heeft getuinierd",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb zondag in de tuin getuinierd."
+  },
+  {
+    "id": "vrijetijd:hardlopen",
+    "themeId": "vrijetijd",
+    "nl": "hardlopen",
+    "kind": "werkwoord",
+    "forms": [
+      "liep hard",
+      "heeft hardgelopen",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb een halfuur hardgelopen."
+  },
+  {
+    "id": "vrijetijd:wielrennen",
+    "themeId": "vrijetijd",
+    "nl": "wielrennen",
+    "kind": "werkwoord",
+    "forms": [
+      "wielrende",
+      "heeft gewielrend",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Hij heeft gisteren gewielrend."
+  },
+  {
+    "id": "vrijetijd:schaatsen",
+    "themeId": "vrijetijd",
+    "nl": "schaatsen",
+    "kind": "werkwoord",
+    "forms": [
+      "schaatste",
+      "heeft geschaatst",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben op de ijsbaan geschaatst."
+  },
+  {
+    "id": "vrijetijd:schaken",
+    "themeId": "vrijetijd",
+    "nl": "schaken",
+    "kind": "werkwoord",
+    "forms": [
+      "schaakte",
+      "heeft geschaakt",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb met mijn buurman geschaakt."
+  },
+  {
+    "id": "vrijetijd:dammen",
+    "themeId": "vrijetijd",
+    "nl": "dammen",
+    "kind": "werkwoord",
+    "forms": [
+      "damde",
+      "heeft gedamd",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben een potje gedamd."
+  },
+  {
+    "id": "vrijetijd:roeien",
+    "themeId": "vrijetijd",
+    "nl": "roeien",
+    "kind": "werkwoord",
+    "forms": [
+      "roeide",
+      "heeft geroeid",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Zij heeft op de rivier geroeid."
+  },
+  {
+    "id": "uitgaan:barbecueen",
+    "themeId": "uitgaan",
+    "nl": "barbecueën",
+    "kind": "werkwoord",
+    "forms": [
+      "barbecuede",
+      "heeft gebarbecued",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben in de tuin gebarbecued."
+  },
+  {
+    "id": "uitgaan:borrelen",
+    "themeId": "uitgaan",
+    "nl": "borrelen",
+    "kind": "werkwoord",
+    "forms": [
+      "borrelde",
+      "heeft geborreld",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We hebben na het werk geborreld."
+  },
+  {
+    "id": "reizen:vliegen",
+    "themeId": "reizen",
+    "nl": "vliegen",
+    "kind": "werkwoord",
+    "forms": [
+      "vloog",
+      "heeft / is gevlogen",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "We zijn naar Parijs gevlogen."
+  },
+  {
+    "id": "reizen:wachten-op",
+    "themeId": "reizen",
+    "nl": "wachten op",
+    "kind": "werkwoord",
+    "forms": [
+      "wachtte op",
+      "heeft gewacht op",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb tien minuten op de trein gewacht."
+  },
+  {
+    "id": "cultuur:kijken",
+    "themeId": "cultuur",
+    "nl": "kijken",
+    "kind": "werkwoord",
+    "forms": [
+      "keek",
+      "heeft gekeken",
+      "Verleden tijd en perfectum"
+    ],
+    "example": "Ik heb naar een film gekeken."
   }
 ];

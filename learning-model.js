@@ -14,9 +14,10 @@ export function activity(events,now=new Date()){
  return {today:events.filter(event=>dayKey(new Date(event.at))===today).length,week};
 }
 export function resumeTheme(events){for(const event of [...events].reverse()){const card=cards.find(card=>card.id===event.cardId);if(themes.some(theme=>theme.id===card?.themeId))return card.themeId;}return 'werk';}
-export function planSession(reviews,{theme='all',type='all',now=new Date(),limit=20}={}){
+export function planSession(reviews,{theme='all',type='all',now=new Date(),limit=20,cardIds=null}={}){
  let pool=type==='woorden'?vocabulary:type==='praktisch'?phrases:type==='zinnen'?cards.filter(card=>card.themeId==='zinsbouw'):cards;
  pool=pool.filter(card=>theme==='all'||card.themeId===theme);
+ if(cardIds){const selected=new Set(cardIds);pool=pool.filter(card=>selected.has(card.id));}
  if(type==='all'){
   const words=pool.filter(card=>!card.id.startsWith('phrase:')),practical=pool.filter(card=>card.id.startsWith('phrase:'));pool=[];
   for(let i=0;i<Math.max(words.length,practical.length);i++){if(words[i])pool.push(words[i]);if(practical[i])pool.push(practical[i]);}

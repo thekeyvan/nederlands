@@ -63,10 +63,10 @@ export const ideas = [
 {type:'LUISTEREN · 15 MIN',title:'Een verhaal voor onderweg.',description:'Kies een podcast op jouw niveau. Luister naar een klein stukje en vertel wat je hebt begrepen.',resource:'academy'}
 ];
 export const weekTasks = [
-{id:'listen',title:'Luister naar het nieuws',copy:'Kijk één bericht. Vertel wat je hoort.',time:'10 MIN'},
-{id:'read',title:'Lees iets korts',copy:'Lees een tekst. Kies drie nieuwe woorden.',time:'15 MIN'},
-{id:'speak',title:'Praat met iemand',copy:'Stel een vraag. Vraag daarna verder.',time:'10 MIN'},
-{id:'write',title:'Schrijf vijf zinnen',copy:'Vertel over je dag. Lees je tekst opnieuw.',time:'10 MIN'},
-{id:'review',title:'Herhaal je woorden',copy:'Gebruik vijf woorden in nieuwe zinnen.',time:'5 MIN'}
+{id:'listen',title:'Luister naar het nieuws',copy:'Kijk één bericht. Vertel drie gebeurtenissen met heb of ben en een voltooid deelwoord.',time:'10 MIN'},
+{id:'read',title:'Lees iets korts',copy:'Lees iets over wonen of vrije tijd. Noteer vijf woorden met de of het en maak er een zin mee.',time:'15 MIN'},
+{id:'speak',title:'Praat met iemand',copy:'Doe een stap uit je leerpad. Stel een beleefde vraag en praat vijf minuten zonder je aantekeningen.',time:'10 MIN'},
+{id:'write',title:'Schrijf vijf zinnen',copy:'Vertel over gisteren. Gebruik want, omdat en toen. Controleer waar de werkwoorden staan.',time:'10 MIN'},
+{id:'review',title:'Herhaal je woorden',copy:'Herhaal je kaartjes in het leerpaneel. Gebruik vijf woorden opnieuw en leg één grammaticale regel uit.',time:'5 MIN'}
 ];
 export const prompts = ['Wat was het leukste van je weekend?','Wat kook je graag als je weinig tijd hebt?','Welke plek in Nederland vind je mooi? Waarom?','Wat heb je deze week voor het eerst gedaan?','Waar zou je graag een dag naartoe gaan?','Welk Nederlands woord vind je leuk?','Wat doe je het liefst na een drukke werkdag?','Wat ging er vandaag goed?','Welke film of serie kun je aanraden?','Wat vind je fijn aan de buurt waar je woont?'];

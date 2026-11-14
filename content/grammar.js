@@ -21,7 +21,7 @@ export const baseSentences = [
     "id": "zin:omdat",
     "title": "Omdat of want?",
     "level": "A2",
-    "pattern": "omdat ik moe ben / want ik ben moe",
+    "pattern": "want + onderwerp + persoonsvorm · omdat + onderwerp + ... + werkwoord(en) · MEOWD: maar, en, of, want, dus",
     "example": "Ik blijf thuis omdat ik moe ben.",
     "prompt": "Ik blijf thuis omdat ik moe ___.",
     "answer": "ben"
@@ -138,7 +138,7 @@ export const baseSentences = [
     "id": "zin:hebben-zijn",
     "title": "Hebben of zijn?",
     "level": "A2",
-    "pattern": "heb gewerkt / ben gegaan / ben gebleven",
+    "pattern": "heb in het park gewandeld / ben naar het park gewandeld · heb gevlogen / ben naar Parijs gevlogen",
     "example": "Ik heb gefietst. Ik ben naar huis gefietst.",
     "prompt": "Ik ___ naar huis gegaan.",
     "answer": "ben"
@@ -219,7 +219,7 @@ export const baseSentences = [
     "id": "zin:wederkerend",
     "title": "Ik voel me ...",
     "level": "A2",
-    "pattern": "ik voel me / hij voelt zich / wij voelen ons",
+    "pattern": "ik voel me · jij voelt je · u voelt u / zich · hij / zij voelt zich · wij voelen ons · jullie voelen je · zij voelen zich",
     "example": "Ik voel me goed. Zij voelt zich moe.",
     "prompt": "Wij voelen ___ goed.",
     "answer": "ons"
@@ -237,7 +237,7 @@ export const baseSentences = [
     "id": "zin:samenstelling",
     "title": "Eén lang woord",
     "level": "A2",
-    "pattern": "de stoel → de bureaustoel",
+    "pattern": "het feest → het afscheidsfeest · de automaat → de koffiezetautomaat · de verzekering → de arbeidsongeschiktheidsverzekering",
     "example": "De huissleutel ligt op de keukentafel.",
     "prompt": "het huis + het nummer → het ___",
     "answer": "huisnummer"
@@ -268,5 +268,167 @@ export const baseSentences = [
     "example": "Ik had al gegeten toen hij kwam.",
     "prompt": "Ik ___ al gegeten toen hij kwam.",
     "answer": "had"
+  },
+  {
+    "id": "zin:tijd-manier-plaats",
+    "title": "Wanneer, hoe, waar?",
+    "level": "A2",
+    "pattern": "onderwerp + persoonsvorm + tijd + manier + plaats + tweede werkwoord",
+    "example": "Ik ben gisteren met de trein naar Utrecht gegaan.",
+    "prompt": "Ik ben gisteren met de trein naar Utrecht ___.",
+    "answer": "gegaan"
+  },
+  {
+    "id": "zin:hebben-vervoegen",
+    "title": "Heb, hebt, heeft, hebben",
+    "level": "A2",
+    "pattern": "ik heb · jij hebt · u hebt / heeft · hij / zij heeft · wij / jullie / zij hebben",
+    "example": "U hebt een vraag. Heb jij ook een vraag?",
+    "prompt": "___ jij ook een vraag?",
+    "answer": "Heb"
+  },
+  {
+    "id": "zin:verleden-t-d",
+    "title": "Werkte, woonde, praatte",
+    "level": "A2",
+    "pattern": "SoFT KeTCHuP: t, k, f, s, ch, p (+ sj) → -te(n); anders -de(n) · werken → werkte · wonen → woonde · praten → praatte",
+    "example": "Vroeger werkte ik hier en woonde ik in Utrecht.",
+    "prompt": "Vroeger ___ ik hier. (praten)",
+    "answer": "praatte"
+  },
+  {
+    "id": "zin:deelwoord-t-d",
+    "title": "Gewerkt, gewoond, gepraat",
+    "level": "A2",
+    "pattern": "SoFT KeTCHuP → -t, anders -d · gewerkt, gewoond, gepraat, gekend, geluncht · leven → geleefd",
+    "example": "We hebben gepraat en samen geluncht.",
+    "prompt": "We hebben samen ___. (lunchen)",
+    "answer": "geluncht"
+  },
+  {
+    "id": "zin:deelwoord-zonder-ge",
+    "title": "Verteld, betaald, ontmoet",
+    "level": "A2",
+    "pattern": "onbeklemtoond be-, ge-, her-, ver-, er-, ont- → geen extra ge-: betaald, gebeurd, herkend, verteld, erkend, ontmoet",
+    "example": "Ik heb betaald en mijn docent ontmoet.",
+    "prompt": "Ik heb mijn docent ___. (ontmoeten)",
+    "answer": "ontmoet"
+  },
+  {
+    "id": "zin:deelwoord-scheidbaar",
+    "title": "Ingestapt, opgericht",
+    "level": "A2",
+    "pattern": "instappen → ingestapt · oprichten → opgericht · oplossen → opgelost",
+    "example": "Ik ben ingestapt en de trein is vertrokken.",
+    "prompt": "Ik ben ___. (instappen)",
+    "answer": "ingestapt"
+  },
+  {
+    "id": "zin:onregelmatig-deelwoord",
+    "title": "Gekeken, gelachen, gevlogen",
+    "level": "A2",
+    "pattern": "kijken → keek → gekeken · lachen → lachte → gelachen · vliegen → vloog → gevlogen",
+    "example": "Ik heb een film gekeken en veel gelachen.",
+    "prompt": "We hebben veel ___. (lachen)",
+    "answer": "gelachen"
+  },
+  {
+    "id": "zin:aanwijzen",
+    "title": "Deze, die, dit, dat",
+    "level": "A2",
+    "pattern": "de-woord: deze / die · het-woord: dit / dat · meervoud: deze / die",
+    "example": "Deze stoel staat hier en dat bed staat daar.",
+    "prompt": "___ bed staat daar. (ver weg)",
+    "answer": "Dat"
+  },
+  {
+    "id": "zin:verkleinwoord",
+    "title": "Een kopje, een biertje",
+    "level": "A2",
+    "pattern": "de kop → het kopje · het bier → het biertje · de lepel → het lepeltje",
+    "example": "Het lepeltje ligt naast het koffiekopje.",
+    "prompt": "___ lepeltje ligt naast het kopje.",
+    "answer": "Het"
+  },
+  {
+    "id": "zin:anderhalf",
+    "title": "Anderhalf of anderhalve?",
+    "level": "A2",
+    "pattern": "1,5 → anderhalf uur / anderhalve dag · 2,5 → tweeënhalf uur / tweeënhalve dag",
+    "example": "De les duurt anderhalf uur en de reis tweeënhalf uur.",
+    "prompt": "De les duurt ___ uur. (1,5)",
+    "answer": "anderhalf"
+  },
+  {
+    "id": "zin:voorbereiden",
+    "title": "Ik bereid me voor op ...",
+    "level": "A2",
+    "pattern": "ik bereid me voor op de les · ik heb me op de les voorbereid",
+    "example": "Ik bereid me op de les voor.",
+    "prompt": "Ik bereid ___ op de les voor.",
+    "answer": "me"
+  },
+  {
+    "id": "zin:voornaamwoord-dingen",
+    "title": "Hij, hem, het, ze",
+    "level": "A2",
+    "pattern": "de boom → hij / hem · het boek → het · de pennen → ze",
+    "example": "Het boek is mooi. Ik lees het. De pennen zijn nieuw. Ik gebruik ze.",
+    "prompt": "Het boek is mooi. Ik lees ___.",
+    "answer": "het"
+  },
+  {
+    "id": "zin:er-voorzetsel",
+    "title": "Naar haar, ernaar, ervan",
+    "level": "B1",
+    "pattern": "persoon: naar haar · ding: ernaar · van iets → ervan",
+    "example": "Ik kijk naar haar. Ik kijk naar de boom. Ik kijk ernaar.",
+    "prompt": "Ik droom van een reis. Ik droom ___.",
+    "answer": "ervan"
+  },
+  {
+    "id": "zin:zou-mogen",
+    "title": "Zou ik iets mogen vragen?",
+    "level": "A2",
+    "pattern": "mag ik ...? → zou ik ... mogen? · kun je ...? → zou je ... kunnen?",
+    "example": "Zou ik even iets mogen vragen?",
+    "prompt": "Zou ik even iets ___ vragen?",
+    "answer": "mogen"
+  },
+  {
+    "id": "zin:nog-geen-meer",
+    "title": "Nog een of geen meer?",
+    "level": "A2",
+    "pattern": "nog een keuken uitzoeken → geen keuken meer uit te zoeken",
+    "example": "Ik hoef geen keuken meer uit te zoeken.",
+    "prompt": "Ik hoef geen keuken meer uit ___ zoeken.",
+    "answer": "te"
+  },
+  {
+    "id": "zin:toen-als",
+    "title": "Toen of als?",
+    "level": "A2",
+    "pattern": "een moment / periode vroeger: toen · voorwaarde / herhaling: als",
+    "example": "Toen ik jong was, voetbalde ik vaak.",
+    "prompt": "___ ik jong was, voetbalde ik vaak.",
+    "answer": "Toen"
+  },
+  {
+    "id": "zin:indirecte-vraag",
+    "title": "Weet je of ...?",
+    "level": "B1",
+    "pattern": "ja/nee-vraag → of · open vraag → wie / wat / waar + onderwerp + ... + werkwoord",
+    "example": "Ik weet niet of het morgen regent. Weet je waar we vanavond eten?",
+    "prompt": "Ik weet niet ___ het morgen regent.",
+    "answer": "of"
+  },
+  {
+    "id": "zin:hypothese",
+    "title": "Als ik president was ...",
+    "level": "B1",
+    "pattern": "Als ik president was, zou ik ... + infinitief",
+    "example": "Als ik president was, zou ik de wereld een betere plek maken.",
+    "prompt": "Als ik president was, ___ ik de wereld een betere plek maken.",
+    "answer": "zou"
   }
 ];

@@ -6,19 +6,20 @@ import {planSession} from './learning-model.js';
 import {t} from './i18n.js';
 import {$,el,icon,button,translated,listenButton} from './ui.js';
 export function createReview({onEnter,onOpenTheme}){
- let queue=[],index=0,revealed=false,grades=[],origin='all';
+ let queue=[],index=0,revealed=false,grades=[],origin='all',lessonOptions=null;
  for(const theme of [...themes,{id:'zinsbouw',title:'Zinsbouw'}]){const option=el('option','',theme.title);option.value=theme.id;$('#review-theme').append(option);}
  function controls(active){$('#review-setup').hidden=active;$('#review-session').hidden=!active;$('#stop-review').hidden=!active;}
  function start(options={}){
+  lessonOptions=options.cardIds?options:null;
   origin=options.theme || $('#review-theme').value;$('#review-theme').value=origin;
   if(options.type)$('#review-type').value=options.type;
-  queue=planSession(getProgress().reviews,{theme:origin,type:$('#review-type').value,limit:options.limit || 20});index=0;grades=[];controls(true);onEnter();render();
+  queue=planSession(getProgress().reviews,{theme:origin,type:$('#review-type').value,limit:options.limit || 20,cardIds:options.cardIds});index=0;grades=[];controls(true);onEnter();render();
  }
- function practice(card){origin=card.themeId;$('#review-theme').value=origin;$('#review-type').value=card.id.startsWith('zin:')?'zinnen':card.id.startsWith('phrase:')?'praktisch':'woorden';queue=[card];index=0;grades=[];controls(true);onEnter();render();}
+ function practice(card){lessonOptions=null;origin=card.themeId;$('#review-theme').value=origin;$('#review-type').value=card.id.startsWith('zin:')?'zinnen':card.id.startsWith('phrase:')?'praktisch':'woorden';queue=[card];index=0;grades=[];controls(true);onEnter();render();}
  function finish(){
   const area=$('#review-area'),mark=el('div','completion-icon');mark.append(icon(queue.length?'check':'sun'));
   area.replaceChildren(mark,el('p','eyebrow',queue.length?'GOED GEDAAN':'ALLES VOOR NU'),el('h2','',queue.length?`${queue.length} ${queue.length===1?'kaartje':'kaartjes'} geoefend.`:'Je bent weer bij.'),el('p','completion-copy',queue.length?`${grades.filter(grade=>grade>=3).length} keer goed herinnerd. Je volgende herhaling staat klaar.`:'Voor deze keuze zijn nu geen kaartjes klaar. Kies een ander thema of kom later terug.'));
-  const actions=el('div','completion-actions');actions.append(button(origin==='all'||origin==='zinsbouw'?'Ontdek een thema':'Terug naar je thema',()=>onOpenTheme(origin==='all'||origin==='zinsbouw'?null:origin),'button secondary'),button('Nog een rondje',()=>start(),'button primary','arrow-right'));area.append(actions);$('#stop-review').hidden=true;$('.keyboard-tip').hidden=true;
+  const actions=el('div','completion-actions');actions.append(button(origin==='all'||origin==='zinsbouw'?'Ontdek een thema':'Terug naar je thema',()=>onOpenTheme(origin==='all'||origin==='zinsbouw'?null:origin),'button secondary'),button('Nog een rondje',()=>start(lessonOptions||{}),'button primary','arrow-right'));area.append(actions);$('#stop-review').hidden=true;$('.keyboard-tip').hidden=true;
  }
  function render(){
   cancelDutchSpeech();revealed=false;$('#session-position').textContent=`${Math.min(index+1,queue.length)} / ${queue.length}`;$('#session-progress').max=Math.max(1,queue.length);$('#session-progress').value=index;

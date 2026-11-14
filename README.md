@@ -2,10 +2,11 @@
 
 A small, open-source Dutch learning site for A2–B1, with translations in your own language. Built with plain HTML, CSS and JavaScript. [Live example](https://nederlands.keyvanmahmoudi.com).
 
+- An eight-step A2–B1 classroom review path with shared card progress and focused practice
 - A daily learning dashboard, searchable topic cards, phone navigation and focused word detail sheets
-- 20 themed word webs with 506 words and expressions, each with a Dutch usage example and Persian translation
+- 20 themed word webs with 624 words and expressions, each with a Dutch usage example and Persian translation
 - 105 practical sentences and 20 short role-play conversations, including the GP, pharmacy and municipality
-- 30 grammar patterns, recall practice and SM-2 spaced repetition
+- 48 grammar patterns, recall practice and SM-2 spaced repetition
 - Bundled Dutch audio with two voices, conversation recall mode and short keyboard-friendly practice rounds
 - A complete Persian translation pack, including RTL and Vazirmatn; extensible language packs
 - Browser-only progress by default; optional Google sign-in and private Supabase sync

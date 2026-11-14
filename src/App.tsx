@@ -8,7 +8,8 @@ import {PwaUpdates} from '@/components/pwa';
 import {ThemeProvider} from '@/hooks/use-theme';
 import {AudioProvider, useAudio} from '@/hooks/use-audio';
 import {PracticeProvider, usePractice} from '@/hooks/use-practice';
-import {panelTitles, useRoute} from '@/hooks/use-route';
+import {navigate, panelTitles, useRoute} from '@/hooks/use-route';
+import {parentOf} from '@/components/app/nav';
 import {useIsDesktop} from '@/hooks/use-media-query';
 import {initCloud} from '@/core/cloud.js';
 import {TodayScreen} from '@/screens/today';
@@ -29,6 +30,19 @@ function Screens() {
   const audio = useAudio();
   const first = useRef(true);
   const focus = (route.panel === 'oefenen' && session !== null) || (route.panel === 'spellen' && route.game !== null);
+
+  // iOS: swiping from the left edge goes back. Never mid-round (that has its own Stop button),
+  // to the parent screen when there is one, and otherwise to the previous screen.
+  useEffect(() => {
+    const onBack = () => {
+      if (focus) return;
+      const parent = parentOf(route);
+      if (parent) navigate(parent.panel);
+      else if (route.panel !== 'vandaag') history.back();
+    };
+    window.addEventListener('native-back', onBack);
+    return () => window.removeEventListener('native-back', onBack);
+  }, [focus, route]);
 
   // On every navigation: stop audio, update the title, return to the top and move focus to the heading.
   const key = `${route.panel}:${route.theme ?? ''}:${route.rule ?? ''}:${route.step ?? ''}:${route.game ?? ''}`;

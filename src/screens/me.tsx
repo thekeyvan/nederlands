@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Flame, Library, LogOut, Moon, Puzzle, Shield, Sun, Laptop, Trash2, Trophy, Volume2} from 'lucide-react';
+import {BarChart3, Flame, Library, LogOut, Moon, Settings, Shield, Sun, Laptop, Trash2, Trophy, Volume2} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
@@ -34,6 +34,7 @@ export function MeScreen() {
   const game = useGame();
   const cloud = useCloud();
   const [showAll, setShowAll] = useState(false);
+  const [tab, setTab] = useState<'voortgang' | 'instellingen'>('voortgang');
   const {events} = game.progress;
   const week = game.activity.week;
   const max = Math.max(5, ...week.map((day) => day.count));
@@ -47,9 +48,19 @@ export function MeScreen() {
   ];
   return (
     <Page>
-      <PageHeader eyebrow="Kijk eens hoever je bent" title={cloud.user?.name ? `Hoi ${cloud.user.name.split(' ')[0]}!` : 'Je ziet het groeien.'} description={syncMessages[cloud.status]}
+      <PageHeader eyebrow="Jouw voortgang en instellingen" title={cloud.user?.name ? `Hoi ${cloud.user.name.split(' ')[0]}!` : 'Je ziet het groeien.'} description={cloud.user ? syncMessages[cloud.status] : undefined}
         action={cloud.user ? <Avatar name={cloud.user.name} className="size-14 text-lg" /> : undefined} />
-      {!cloud.user && <div className="mb-4"><AccountCard /></div>}
+      {!cloud.user && <div className="mb-5"><AccountCard withDelete={false} /></div>}
+      <div role="tablist" aria-label="Ik" className="mb-5 grid grid-cols-2 gap-1 rounded-xl bg-muted p-1 sm:inline-grid">
+        {([['voortgang', 'Voortgang', BarChart3], ['instellingen', 'Instellingen', Settings]] as const).map(([id, label, Icon]) => (
+          <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
+            className={cn('flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:px-4',
+              tab === id ? 'bg-card font-semibold text-foreground shadow-sm' : 'hover:text-foreground')}>
+            <Icon className="size-4" aria-hidden />{label}
+          </button>
+        ))}
+      </div>
+      {tab === 'voortgang' ? (<>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 [&>*]:min-w-0">
         <LevelCard stats={game} />
         <StreakCard stats={game} week={week} />
@@ -117,16 +128,22 @@ export function MeScreen() {
         </Card>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
+      </>) : (<>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
+        {cloud.user ? <AccountCard /> : (
+          <Card>
+            <CardHeader><CardTitle>Je gegevens</CardTitle><CardDescription>Je voortgang staat alleen op dit apparaat. Log in om hem ook op andere apparaten te hebben.</CardDescription></CardHeader>
+            <CardContent><DeleteData signedIn={false} /></CardContent>
+          </Card>
+        )}
         <SettingsCard />
-        {cloud.user && <AccountCard />}
         <AppCard />
       </div>
       <div className="mt-6 flex flex-wrap gap-2">
-        <Button variant="outline" onClick={() => navigate('zinnen')}><Puzzle />Zinsbouw</Button>
         <Button variant="outline" onClick={() => navigate('bronnen')}><Library />Websites & boeken</Button>
         <Button variant="outline" asChild><a href="./privacy.html"><Shield />Privacy</a></Button>
       </div>
+      </>)}
     </Page>
   );
 }
@@ -172,7 +189,7 @@ function SettingsCard() {
   );
 }
 
-function AccountCard() {
+function AccountCard({withDelete = true}: {withDelete?: boolean}) {
   const cloud = useCloud();
   const available = !['local-only', 'unavailable', 'starting'].includes(cloud.status);
   const provider = cloud.user?.provider === 'apple' ? 'Apple' : 'Google';
@@ -184,12 +201,12 @@ function AccountCard() {
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {available && <Translation className="text-sm text-muted-foreground">{t(cloud.user ? 'accountSignedIn' : 'accountGuest')}</Translation>}
-        <p className="text-sm" role="status">{syncMessages[cloud.status]}</p>
+        {available && <p className="text-sm" role="status">{syncMessages[cloud.status]}</p>}
         {available && !cloud.user && <SignInReasons className="sm:hidden" />}
         {available && (cloud.user
           ? <Button variant="outline" className="self-start" onClick={() => void signOut()}><LogOut />Uitloggen</Button>
           : <SignInButtons className="sm:max-w-sm" />)}
-        <DeleteData signedIn={Boolean(cloud.user)} />
+        {withDelete && <DeleteData signedIn={Boolean(cloud.user)} />}
       </CardContent>
     </Card>
   );

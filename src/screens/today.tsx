@@ -7,7 +7,6 @@ import {Mascot} from '@/components/game/mascot';
 import {RouteStrip} from '@/components/game/route-strip';
 import {LevelCard, MissionsCard, StampsCard, StreakCard} from '@/components/game/cards';
 import {ThemeArt} from '@/components/game/theme-art';
-import {ThemeCard} from '@/components/theme-card';
 import {Translation} from '@/components/translation';
 import {Page, SectionTitle} from '@/components/page';
 import {greeting, plural} from '@/lib/text';
@@ -24,7 +23,7 @@ export function TodayScreen() {
   const game = useGame();
   const [preferences] = usePreferences();
   const {start} = usePractice();
-  const {reviews, events} = game.progress;
+  const {events} = game.progress;
   const goal = preferences.goal;
   const today = game.activity.today;
   const goalDone = today >= goal;
@@ -32,8 +31,6 @@ export function TodayScreen() {
   const fresh = events.length === 0;
   const suggestedId = fresh ? 'huisarts' : resumeTheme(events);
   const suggested = themes.find((theme) => theme.id === suggestedId) ?? themes[0];
-  const recommendedIds = [...new Set([suggestedId, 'reizen', 'werk', 'wonen', 'uitgaan', 'contact', 'huisarts'])].slice(0, 6);
-  const recommended = recommendedIds.map((id) => themes.find((theme) => theme.id === id)!).filter(Boolean);
   const roundSize = Math.min(20, Math.max(5, goal - today));
 
   const bubble = fresh
@@ -91,13 +88,10 @@ export function TodayScreen() {
 
           <SignInNudge />
 
-          <section aria-labelledby="route-title">
-            <SectionTitle title={<span id="route-title">De route · A2 → B1</span>} action={<Button variant="ghost" size="sm" className="text-primary" onClick={() => navigate('route')}>Bekijk de kaart<ChevronRight /></Button>} />
-            <Card className="px-4 py-3 sm:px-5">
-              <RouteStrip route={game.route} />
-              <p className="text-xs text-muted-foreground">{game.route.finished ? 'Je hebt alle haltes geoefend. Herhaal ze gerust.' : `Halte ${game.route.current + 1}: ${game.route.steps[game.route.current].lesson.title} · ${game.route.steps[game.route.current].done}/${game.route.steps[game.route.current].total} kaartjes`}</p>
-            </Card>
-          </section>
+
+
+          {/* On phones the daily tasks sit here; reeks, niveau and stempels live on Ik. */}
+          <div className="xl:hidden"><MissionsCard events={events} /></div>
 
           <section aria-labelledby="continue-title">
             <button type="button" onClick={() => navigate('woorden', {theme: suggested.id})} className="group flex w-full overflow-hidden rounded-xl border bg-card text-left shadow-[0_4px_0_var(--border)] transition hover:-translate-y-0.5 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
@@ -111,7 +105,7 @@ export function TodayScreen() {
             </button>
           </section>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:hidden">{rail}</div>
+
 
           <section aria-labelledby="games-title">
             <SectionTitle title={<span id="games-title">Even spelen?</span>} action={<Button variant="ghost" size="sm" className="text-primary" onClick={() => navigate('spellen')}>Alle {games.length} spellen<ChevronRight /></Button>} />
@@ -129,11 +123,12 @@ export function TodayScreen() {
             </div>
           </section>
 
-          <section aria-labelledby="themes-title">
-            <SectionTitle title={<span id="themes-title">Waar wil je over praten?</span>} action={<Button variant="ghost" size="sm" className="text-primary" onClick={() => navigate('woorden')}>Alle {themes.length} thema’s<ChevronRight /></Button>} />
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-              {recommended.map((theme) => <ThemeCard key={theme.id} theme={theme} reviews={reviews} compact />)}
-            </div>
+          <section aria-labelledby="route-title">
+            <SectionTitle title={<span id="route-title">De route · A2 → B1</span>} action={<Button variant="ghost" size="sm" className="text-primary" onClick={() => navigate('route')}>Bekijk de kaart<ChevronRight /></Button>} />
+            <Card className="px-4 py-3 sm:px-5">
+              <RouteStrip route={game.route} />
+              <p className="text-xs text-muted-foreground">{game.route.finished ? 'Je hebt alle haltes geoefend. Herhaal ze gerust.' : `Halte ${game.route.current + 1}: ${game.route.steps[game.route.current].lesson.title} · ${game.route.steps[game.route.current].done}/${game.route.steps[game.route.current].total} kaartjes`}</p>
+            </Card>
           </section>
         </div>
         <aside className="hidden flex-col gap-4 xl:flex" aria-label="Jouw spel">{rail}</aside>

@@ -169,7 +169,7 @@ export function GameOver({game, roundId, score, total, misses, theme, onAgain}: 
       <div className="mt-6 flex w-full flex-col gap-3">
         <Button size="xl" game onClick={onAgain}><RotateCcw />Nog een keer</Button>
         {cards.length > 0 && <Button size="xl" variant="info" game onClick={() => start({cardIds: cards.map((card) => card.id), theme: 'all', type: 'all', limit: 20, label: `Fouten uit ${game.title}`})}><Zap />Oefen deze kaartjes</Button>}
-        <Button size="xl" variant="outline" onClick={() => navigate('spellen', {theme: theme === 'all' ? null : theme})}><Gamepad2 />Andere spellen</Button>
+        <Button size="xl" variant="outline" onClick={() => navigate('spellen', {theme: theme === 'all' ? null : theme})}><Gamepad2 />Terug naar de spellen</Button>
       </div>
       <p className="mt-4 text-xs text-muted-foreground">Spellen veranderen je herhaalplanning niet. Met “Oefen deze kaartjes” zet je je fouten in een gewoon rondje.</p>
     </div>

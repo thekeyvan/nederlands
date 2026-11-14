@@ -561,7 +561,7 @@ function RoundComplete({session}: {session: Session}) {
       <div className="mt-6 flex w-full flex-col gap-3">
         <Button size="xl" game onClick={again}>Nog een rondje<ArrowRight /></Button>
         {pairCards.length >= 4 && <Button size="xl" variant="info" game onClick={() => setPairs(true)}><Puzzle />Bonus: speel paren</Button>}
-        <Button size="xl" variant="outline" onClick={() => { stop(); navigate('vandaag'); }}>Klaar voor vandaag</Button>
+        <Button size="xl" variant="outline" onClick={() => { stop(); navigate('vandaag'); }}>Terug naar Vandaag</Button>
       </div>
     </div>
   );

@@ -87,8 +87,11 @@ function MobileTopBar({route}: {route: Route}) {
         <Brand showName={false} className="ml-1" />
       )}
       <div className="flex items-center gap-1.5">
-        <Badge variant="streak" className="h-7 px-2.5 text-sm" aria-label={`Reeks: ${game.streak.count} dagen`}><Flame />{game.streak.count}</Badge>
-        <Badge variant="xp" className="h-7 px-2.5 text-sm" aria-label={`${game.xp} XP`}><Star />{game.xp}</Badge>
+        <button type="button" onClick={() => navigate('voortgang')} className="flex items-center gap-1.5 rounded-full focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+          aria-label={`Reeks ${game.streak.count} ${game.streak.count === 1 ? 'dag' : 'dagen'}, ${game.xp} XP. Bekijk je voortgang.`}>
+          <Badge variant="streak" className="h-7 px-2.5 text-sm"><Flame />{game.streak.count}</Badge>
+          <Badge variant="xp" className="h-7 px-2.5 text-sm"><Star />{game.xp}</Badge>
+        </button>
         <span className="ml-1"><AccountButton /></span>
       </div>
     </header>

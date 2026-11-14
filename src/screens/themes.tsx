@@ -96,7 +96,7 @@ function ThemeDetail({theme, initialTopic}: {theme: Theme; initialTopic: Route['
     <Page wide>
       <Button variant="ghost" size="sm" className="-ml-2 mb-3 hidden lg:inline-flex" onClick={() => navigate('woorden')}><ArrowLeft />Alle thema’s</Button>
       <header className="mb-6 grid gap-5 md:grid-cols-[minmax(0,280px)_1fr] md:items-center">
-        <ThemeArt theme={theme} className="aspect-[16/10] w-full rounded-2xl border md:aspect-square" />
+        <ThemeArt theme={theme} className="aspect-[2/1] w-full rounded-2xl border sm:aspect-[16/10] md:aspect-square" />
         <div className="flex min-w-0 flex-col gap-2">
           <p className="text-xs font-semibold tracking-wider text-primary uppercase">{meta.label}</p>
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{theme.title}</h1>
@@ -107,9 +107,9 @@ function ThemeDetail({theme, initialTopic}: {theme: Theme; initialTopic: Route['
             <span className="text-muted-foreground tabular-nums">{stats.done}/{stats.total} geoefend · {stats.known} goed onthouden</span>
           </div>
           <Progress value={stats.total ? (stats.done / stats.total) * 100 : 0} className="h-2 max-w-md" aria-label={`${stats.done} van ${stats.total} geoefend`} />
-          <div className="mt-2 flex flex-wrap gap-3">
-            <Button size="xl" game onClick={() => start({theme: theme.id, type: 'all', label: theme.title})}><Zap />Oefen dit thema</Button>
-            <Button size="xl" variant="info" game onClick={() => navigate('spellen', {theme: theme.id})}><Gamepad2 />Speel met dit thema</Button>
+          <div className="mt-2 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
+            <Button size="xl" game className="px-3" onClick={() => start({theme: theme.id, type: 'all', label: theme.title})}><Zap />Oefenen</Button>
+            <Button size="xl" variant="info" game className="px-3" onClick={() => navigate('spellen', {theme: theme.id})}><Gamepad2 />Spelen</Button>
           </div>
         </div>
       </header>

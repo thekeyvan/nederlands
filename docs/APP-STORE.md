@@ -47,3 +47,19 @@ The app works without an account ("Eerst proberen zonder account" on the first s
 
 - Collected only when signed in, linked to the user, not used for tracking: Contact info (email, name — from Apple/Google sign-in), User content / Other usage data (review progress and settings) for App Functionality.
 - No analytics, no ads, no tracking.
+
+## Release steps
+
+1. `npm run build:ios` builds the web app into the Xcode project (`ios/App`).
+2. Raise `CURRENT_PROJECT_VERSION` in `ios/App/App.xcodeproj/project.pbxproj`.
+3. Archive and upload:
+   `xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -destination 'generic/platform=iOS' -archivePath /tmp/Nedfa.xcarchive -allowProvisioningUpdates archive`
+   `xcodebuild -exportArchive -archivePath /tmp/Nedfa.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath /tmp/export -allowProvisioningUpdates`
+
+## Sign in with Apple
+
+- The app uses the native Apple sheet; Supabase checks the token against the client IDs
+  `com.keyvanmahmoudi.nederlands` (app) and `com.keyvanmahmoudi.nederlands.web` (website Services ID).
+- The website flow also needs Supabase's **Secret Key (for OAuth)**: a JWT signed with the
+  Sign in with Apple key (Key ID 964J6WBXRJ, team 95YDC2AP63). It expires every 6 months.
+  After pasting it in Supabase, set `PUBLIC_APPLE_WEB_SIGNIN=1` in Vercel so the website shows the Apple button.

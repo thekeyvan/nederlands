@@ -56,7 +56,9 @@ export async function sync(){
 }
 
 async function setSession(session){
- const next=session?.user||null;if(next?.id===user?.id&&getIdentity()===(next?.id||'guest'))return;
+ const next=session?.user||null;
+ // A first check without a session is still an answer: leave "starting" so the sign-in button appears.
+ if(next?.id===user?.id&&getIdentity()===(next?.id||'guest')){if(state.status==='starting')set({status:next?'saved':'guest'});return;}
  user=next;switchUser(next?.id);switchPreferences(next?.id);set({user:profile(next),status:next?'syncing':'guest'});
  if(!next)return;initializing=true;
  try{await loadCloud(next.id);}catch{set({status:'load-failed'});initializing=false;return;}

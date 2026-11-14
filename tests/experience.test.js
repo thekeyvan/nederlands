@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {access} from 'node:fs/promises';
-import {themes,vocabulary} from '../learning-data.js';
-import {phrases} from '../phrase-data.js';
-import {themeMeta,themeStats,planSession,activity,resumeTheme} from '../learning-model.js';
-import {scheduleReview} from '../srs.js';
+import {themes,vocabulary} from '../src/core/learning-data.js';
+import {phrases} from '../src/core/phrase-data.js';
+import {themeMeta,themeStats,planSession,activity,resumeTheme} from '../src/core/learning-model.js';
+import {scheduleReview} from '../src/core/srs.js';
 const now=new Date(2026,10,13,12);
 test('short mixed sessions stay in the chosen theme and include practical recall',()=>{
  const session=planSession({}, {theme:'huisarts',type:'all',now,limit:5});assert.equal(session.length,5);assert.ok(session.every(card=>card.themeId==='huisarts'));assert.ok(session.some(card=>card.id.startsWith('phrase:')));assert.ok(session.some(card=>!card.id.startsWith('phrase:')));
@@ -20,6 +20,8 @@ test('continuation ignores unrelated history and theme progress includes sentenc
  const phrase=phrases.find(card=>card.themeId==='apotheek');assert.equal(resumeTheme([{cardId:phrase.id},{cardId:'zin:v2'},{cardId:'unknown'}]),'apotheek');assert.equal(resumeTheme([]),'werk');
  const progress=themeStats('apotheek',{[phrase.id]:scheduleReview({},4,now)});assert.equal(progress.done,1);assert.equal(progress.known,0);assert.equal(progress.total,vocabulary.filter(card=>card.themeId==='apotheek').length+phrases.filter(card=>card.themeId==='apotheek').length);
 });
-test('every topic has a locally shipped icon, including fallback topics',async()=>{
- for(const theme of [...themes,{id:'new-fork-theme'}])await access(new URL(`../assets/icons/${themeMeta(theme).icon}.svg`,import.meta.url));
+test('the bundled topics have shipped illustrations and new topics fall back to an icon',async()=>{
+ const bundled=['werk','overleg','loopbaan','beroepen','wonen','huis-kopen','vrijetijd','cultuur','reizen','natuur','uitgaan','contact','mening','tijd','gezondheid','geld','modalen','huisarts','apotheek','gemeente'];
+ for(const id of bundled){assert.ok(themes.some(theme=>theme.id===id),id);await access(new URL(`../src/assets/illustrations/themes/${id}.jpg`,import.meta.url));}
+ assert.equal(themeMeta({id:'new-fork-theme'}).icon,'book-open');
 });

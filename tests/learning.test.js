@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {themes,vocabulary,searchVocabulary} from '../learning-data.js';
-import {sentences} from '../sentence-data.js';
-import {scheduleReview,makeQueue,mergeReviews,progressStatus,validReviews} from '../srs.js';
+import {themes,vocabulary,searchVocabulary} from '../src/core/learning-data.js';
+import {sentences} from '../src/core/sentence-data.js';
+import {scheduleReview,makeQueue,mergeReviews,progressStatus,validReviews} from '../src/core/srs.js';
 const now=new Date('2026-11-13T10:00:00Z');
 test('learning content has stable unique IDs and Persian meanings',()=>{
  const cards=[...vocabulary,...sentences];assert.equal(new Set(cards.map(c=>c.id)).size,cards.length);

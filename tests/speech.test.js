@@ -1,14 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {stat,readFile} from 'node:fs/promises';
-import {audioCatalog} from '../audio-catalog.js';
+import {audioCatalog} from '../src/core/audio-catalog.js';
 import {audioTexts} from '../scripts/audio-texts.mjs';
-import {validVoice,validSpeed,audioSpeeds,audioUrl,createPlayback} from '../audio-playback.js';
+import {validVoice,validSpeed,audioSpeeds,audioUrl,createPlayback} from '../src/core/audio-playback.js';
 test('every Dutch learning text has both bundled audio clips',async()=>{
  assert.equal(audioCatalog.language,'nl-NL');assert.deepEqual(audioCatalog.voices.map(v=>v.id),['ronnie','pim']);
  assert.equal(new Set(Object.values(audioCatalog.clips)).size,audioTexts.length);
  await Promise.all(audioTexts.flatMap(text=>audioCatalog.voices.map(async voice=>{
-  const path=new URL(`../${audioUrl(text,voice.id)}`,import.meta.url);
+  const path=new URL(`../public/${audioUrl(text,voice.id)}`,import.meta.url);
   assert.ok((await stat(path)).size>500,`${voice.id}: ${text}`);
  })));
 });
@@ -28,7 +28,7 @@ test('missing or failed audio reports an error without device speech',async()=>{
  const audio=fakeAudio(),states=[],player=createPlayback(audio,state=>states.push(state));
  assert.equal(await player.play('missing text','pim'),false);assert.equal(states.at(-1),'error');
  audio.play=async()=>{throw new Error('offline');};assert.equal(await player.play(audioTexts[0],'pim'),false);assert.equal(states.at(-1),'error');
- assert.doesNotMatch(await readFile(new URL('../speech.js',import.meta.url),'utf8'),/speechSynthesis|SpeechSynthesisUtterance/);
+ assert.doesNotMatch(await readFile(new URL('../src/hooks/use-audio.tsx',import.meta.url),'utf8'),/speechSynthesis|SpeechSynthesisUtterance/);
 });
 
 test('saved speeds accept all five choices and reject damaged values',async()=>{

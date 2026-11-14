@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 const memory=new Map();globalThis.localStorage={getItem:key=>memory.get(key)||null,setItem:(key,value)=>memory.set(key,value)};globalThis.window=new EventTarget();
-const {switchPreferences,notePreferenceChange,preferenceSnapshot,mergePreferences}=await import('../preferences.js');
+const {switchPreferences,notePreferenceChange,preferenceSnapshot,mergePreferences}=await import('../src/core/preferences.js');
 test('preferences are separate per account and newer offline edits survive cloud sync',()=>{
  localStorage.setItem('mijn-nederlands-v1',JSON.stringify({saved:['nos'],week:'2026-11-09',done:[]}));notePreferenceChange();switchPreferences('alice');
  assert.deepEqual(preferenceSnapshot().data.saved,['nos']);

@@ -34,7 +34,7 @@ def generate_voice(job):
  from piper import PiperVoice,SynthesisConfig
  name,models,entries,ffmpeg=job
  start=time.monotonic();voice=PiperVoice.load(Path(models)/f'{name}.onnx')
- output=ROOT/'assets'/'audio'/name;output.mkdir(parents=True,exist_ok=True)
+ output=ROOT/'public'/'assets'/'audio'/name;output.mkdir(parents=True,exist_ok=True)
  config=SynthesisConfig(length_scale=1.05,noise_scale=.5,noise_w_scale=.333)
  with tempfile.TemporaryDirectory() as temporary:
   wav=Path(temporary)/'clip.wav'
@@ -60,5 +60,5 @@ if __name__=='__main__':
  for name in MODEL_SHA:ensure_model(args.models,name)
  with concurrent.futures.ProcessPoolExecutor(max_workers=2) as pool:list(pool.map(generate_voice,[(name,str(args.models),entries,ffmpeg) for name in MODEL_SHA]))
  catalog={'language':'nl-NL','defaultVoice':'ronnie','voices':[{'id':name,'name':name.title(),'language':'nl-NL'} for name in MODEL_SHA],'sampleText':data['sampleText'],'clips':dict(entries)}
- (ROOT/'audio-catalog.js').write_text('export const audioCatalog = '+json.dumps(catalog,ensure_ascii=False,indent=2)+';\n')
+ (ROOT/'src'/'core'/'audio-catalog.js').write_text('export const audioCatalog = '+json.dumps(catalog,ensure_ascii=False,indent=2)+';\n')
  print(f'Catalog complete: {len(entries)} texts, two fixed Dutch voices.',flush=True)

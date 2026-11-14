@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {resources, ideas, weekTasks} from '../data.js';
-import {weekKey, loadState, matchingResources} from '../state.js';
+import {resources, ideas, weekTasks} from '../src/core/data.js';
+import {weekKey, loadState, matchingResources} from '../src/core/state.js';
 test('all sources have safe URLs, unique IDs and a complete exercise',()=>{
  assert.equal(new Set(resources.map(r=>r.id)).size,resources.length);
  assert.equal(resources.filter(r=>r.start).length,6);

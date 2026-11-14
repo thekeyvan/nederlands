@@ -1,8 +1,8 @@
 # Dutch audio
 
-The site serves pre-generated MP3 files from its own `assets/audio/` directory. There is no paid speech service, API key, browser speech synthesis or microphone access. Both selectable voices use Dutch Netherlands models (`nl_NL`, eSpeak phonemizer `nl`). They are synthetic voices, not recordings of human speakers reading this course. Five playback speeds (0.75×, 0.85×, 1×, 1.15× and 1.25×) use the browser's pitch-preserving playback rate. The selected speed and voice are saved locally and apply to every listen button, including practice and dialogue lines.
+The site serves pre-generated MP3 files from its own `public/assets/audio/` directory (served at `/assets/audio/`). There is no paid speech service, API key, browser speech synthesis or microphone access. Both selectable voices use Dutch Netherlands models (`nl_NL`, eSpeak phonemizer `nl`). They are synthetic voices, not recordings of human speakers reading this course. Five playback speeds (0.75×, 0.85×, 1×, 1.15× and 1.25×) use the browser's pitch-preserving playback rate. The selected speed and voice are saved locally and apply to every listen button, including practice and dialogue lines.
 
-`audio-catalog.js` maps exact Dutch text to a 24-character SHA-256 filename. Identical text shares a clip; content IDs and learning progress are independent of audio filenames. `scripts/audio-texts.mjs` collects every word, usage example, practical sentence, grammar example and dialogue line, plus the voice-comparison sample. Tests require clips for every text in both voices. Unknown text shows an audio error; it never falls back to another language.
+`src/core/audio-catalog.js` maps exact Dutch text to a 24-character SHA-256 filename. Identical text shares a clip; content IDs and learning progress are independent of audio filenames. `scripts/audio-texts.mjs` collects every word, usage example, practical sentence, grammar example and dialogue line, plus the voice-comparison sample. Tests require clips for every text in both voices. Unknown text shows an audio error; it never falls back to another language.
 
 ## Regenerate after changing Dutch content
 

@@ -1,0 +1,504 @@
+<title>Mijn Nederlands Redesign</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: design-review canvas. App frames use shadcn/ui tokens (HSL triplets) themed Dutch orange + navy; light and dark both designed. */
+:root{
+ --background:40 33% 98%;--foreground:216 46% 23%;
+ --card:0 0% 100%;--card-foreground:216 46% 23%;
+ --primary:24 87% 55%;--primary-foreground:0 0% 100%;--primary-shadow:22 84% 43%;
+ --secondary:215 49% 28%;--secondary-foreground:0 0% 100%;--secondary-shadow:216 53% 19%;
+ --muted:38 30% 94%;--muted-foreground:215 12% 45%;
+ --accent:28 100% 93%;--accent-foreground:22 84% 40%;
+ --destructive:4 55% 51%;--destructive-soft:6 75% 94%;--destructive-text:4 55% 36%;--destructive-shadow:4 55% 38%;
+ --success:152 55% 40%;--success-soft:150 50% 91%;--success-text:152 59% 28%;--success-shadow:152 59% 29%;
+ --xp:42 89% 67%;--xp-soft:45 100% 92%;--xp-text:40 100% 29%;
+ --info:214 62% 85%;--info-soft:214 70% 95%;--info-text:215 49% 32%;
+ --lav:252 50% 93%;--lav-text:252 34% 45%;
+ --border:38 25% 88%;--input:38 25% 85%;--ring:24 87% 55%;
+ --canvas:38 24% 89%;--canvas-card:0 0% 100%;--frame:222 30% 15%;
+ --radius:1rem;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --background:218 35% 10%;--foreground:213 40% 94%;--card:218 30% 14%;--card-foreground:213 40% 94%;
+ --primary:24 90% 58%;--primary-shadow:22 80% 38%;--secondary:216 42% 30%;--secondary-shadow:218 45% 18%;
+ --muted:218 25% 19%;--muted-foreground:215 20% 68%;--accent:24 45% 19%;--accent-foreground:26 95% 70%;
+ --destructive-soft:4 40% 18%;--destructive-text:4 85% 76%;--success-soft:152 35% 16%;--success-text:152 55% 66%;
+ --xp-soft:42 45% 16%;--xp-text:42 90% 70%;--info-soft:214 35% 19%;--info-text:214 80% 80%;--lav:252 25% 22%;--lav-text:252 70% 82%;
+ --border:218 22% 23%;--input:218 22% 27%;--canvas:220 35% 7%;--canvas-card:218 30% 12%;--frame:222 20% 3%;color-scheme:dark}}
+:root[data-theme="dark"]{
+ --background:218 35% 10%;--foreground:213 40% 94%;--card:218 30% 14%;--card-foreground:213 40% 94%;
+ --primary:24 90% 58%;--primary-shadow:22 80% 38%;--secondary:216 42% 30%;--secondary-shadow:218 45% 18%;
+ --muted:218 25% 19%;--muted-foreground:215 20% 68%;--accent:24 45% 19%;--accent-foreground:26 95% 70%;
+ --destructive-soft:4 40% 18%;--destructive-text:4 85% 76%;--success-soft:152 35% 16%;--success-text:152 55% 66%;
+ --xp-soft:42 45% 16%;--xp-text:42 90% 70%;--info-soft:214 35% 19%;--info-text:214 80% 80%;--lav:252 25% 22%;--lav-text:252 70% 82%;
+ --border:218 22% 23%;--input:218 22% 27%;--canvas:220 35% 7%;--canvas-card:218 30% 12%;--frame:222 20% 3%;color-scheme:dark}
+body{background:hsl(var(--canvas));color:hsl(var(--foreground));font-family:Geist,system-ui,sans-serif}
+.fa{font-family:Vazirmatn,Tahoma,sans-serif;direction:rtl;letter-spacing:0}
+.lucide{width:1.15em;height:1.15em;stroke-width:2.25;flex:none}
+/* device frames */
+.phone{width:375px;height:800px;flex:none;border-radius:46px;border:11px solid hsl(var(--frame));background:hsl(var(--background));overflow:hidden;position:relative;box-shadow:0 30px 60px -25px rgba(20,30,50,.45)}
+.phone::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:110px;height:28px;border-radius:20px;background:hsl(var(--frame));z-index:30}
+.browser{width:1200px;flex:none;background:hsl(var(--background));border-radius:16px;overflow:hidden;border:1px solid hsl(var(--border));box-shadow:0 30px 60px -25px rgba(20,30,50,.35)}
+.frame-scroll{overflow-x:auto;padding-bottom:30px;margin-bottom:-30px}
+.ring{background:conic-gradient(hsl(var(--primary)) calc(var(--p)*1%),hsl(0 0% 100% / .14) 0)}
+.mascot{background:#FCFAF6;border-radius:9999px;overflow:hidden;flex:none}
+.mascot img,.stamp img,.art img{width:100%;height:100%;object-fit:cover;display:block}
+.stamp{border-radius:9999px;overflow:hidden;aspect-ratio:1;max-width:100%}
+.stamp.locked{filter:grayscale(1);opacity:.35}
+.confetti{background:
+ radial-gradient(circle,hsl(var(--primary)) 3px,transparent 4px) 30px 40px/90px 70px,
+ radial-gradient(circle,hsl(var(--success)) 3px,transparent 4px) 70px 10px/110px 80px,
+ radial-gradient(circle,hsl(var(--xp)) 3px,transparent 4px) 10px 70px/70px 90px,
+ radial-gradient(circle,hsl(var(--destructive)) 2px,transparent 3px) 50px 25px/60px 60px}
+.doc{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:430px){.phone{zoom:.86}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+const v=n=>`hsl(var(--${n}) / <alpha-value>)`;
+tailwind.config={theme:{extend:{
+ colors:{border:v('border'),input:v('input'),ring:v('ring'),background:v('background'),foreground:v('foreground'),
+  primary:{DEFAULT:v('primary'),foreground:v('primary-foreground')},secondary:{DEFAULT:v('secondary'),foreground:v('secondary-foreground')},
+  muted:{DEFAULT:v('muted'),foreground:v('muted-foreground')},accent:{DEFAULT:v('accent'),foreground:v('accent-foreground')},
+  destructive:{DEFAULT:v('destructive'),soft:v('destructive-soft'),text:v('destructive-text')},
+  success:{DEFAULT:v('success'),soft:v('success-soft'),text:v('success-text')},
+  xp:{DEFAULT:v('xp'),soft:v('xp-soft'),text:v('xp-text')},info:{DEFAULT:v('info'),soft:v('info-soft'),text:v('info-text')},
+  lav:{DEFAULT:v('lav'),text:v('lav-text')},card:{DEFAULT:v('card'),foreground:v('card-foreground')},canvas:{DEFAULT:v('canvas'),card:v('canvas-card')}},
+ borderRadius:{xl:'calc(var(--radius) + 4px)',lg:'var(--radius)',md:'calc(var(--radius) - 4px)',sm:'calc(var(--radius) - 8px)'},
+ fontFamily:{sans:['Geist','system-ui','sans-serif']}}}};
+</script>
+<style type="text/tailwindcss">
+@layer base{*{@apply border-border}}
+@layer components{
+ /* shadcn/ui Button recipe + a custom cva variant "game" (pressable bottom edge) */
+ .btn{@apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold h-10 px-4 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background}
+ .btn-lg{@apply h-12 px-6 text-base rounded-lg}
+ .btn-default{@apply bg-primary text-primary-foreground hover:bg-primary/90;--sh:var(--primary-shadow)}
+ .btn-secondary{@apply bg-secondary text-secondary-foreground;--sh:var(--secondary-shadow)}
+ .btn-success{@apply bg-success text-white;--sh:var(--success-shadow)}
+ .btn-destructive{@apply bg-destructive text-white;--sh:var(--destructive-shadow)}
+ .btn-outline{@apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;--sh:var(--input)}
+ .btn-game{box-shadow:0 4px 0 hsl(var(--sh)) ; @apply active:translate-y-[3px] active:shadow-none}
+ .card{@apply rounded-xl border bg-card text-card-foreground shadow-sm}
+ .badge{@apply inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-0.5 text-xs font-semibold}
+ .progress{@apply relative h-2 w-full overflow-hidden rounded-full bg-primary/15}
+ .progress>div{@apply h-full rounded-full bg-primary}
+ .kbd{@apply inline-flex h-6 min-w-6 items-center justify-center rounded border bg-muted px-1.5 font-mono text-[11px] font-semibold text-muted-foreground}
+ .eyebrow{@apply text-[11px] font-semibold uppercase tracking-wider text-muted-foreground}
+ .nav-item{@apply flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground}
+ .nav-item.active{@apply bg-accent text-accent-foreground font-semibold}
+ .stop{@apply grid place-items-center rounded-full border-2 font-bold bg-card text-muted-foreground}
+ .stop.done{@apply bg-success border-success text-white}
+ .stop.now{@apply bg-primary border-primary text-white ring-4 ring-primary/25}
+ .opt{@apply flex items-center gap-3 rounded-lg border-2 bg-card px-4 py-3.5 text-left font-medium transition-colors hover:bg-muted}
+ .opt.right{@apply border-success bg-success-soft text-success-text}
+ .opt.wrong{@apply border-destructive bg-destructive-soft text-destructive-text}
+ .opt.dim{@apply opacity-50}
+ .mtab{@apply flex w-16 flex-col items-center gap-1 text-[11px] font-medium text-muted-foreground}
+ .mtab.active{@apply text-primary font-semibold}
+ .doc-card{@apply rounded-xl border bg-canvas-card p-5}
+ .label{@apply mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground}
+}
+</style>
+
+<div class="doc mx-auto max-w-[1320px] pb-24 pt-10">
+
+<!-- ================= HEADER ================= -->
+<header class="flex flex-wrap items-end justify-between gap-6">
+ <div class="min-w-0 max-w-3xl">
+  <span class="badge bg-secondary text-secondary-foreground">CONCEPT · shadcn/ui · NOG NIET GEBOUWD</span>
+  <h1 class="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl" style="text-wrap:balance">Mijn Nederlands, <span class="text-primary">maar dan speels.</span></h1>
+  <p class="mt-3 text-muted-foreground">A redesign proposal for nederlands.keyvanmahmoudi.com, built from shadcn/ui components themed in Dutch orange and navy. The content, the SM-2 engine and the Dutch interface stay. Practice becomes active, every answer gets feedback, and the progress you really made shows up as streaks, XP, stars and stamps. Switch your system to dark mode to see the dark theme.</p>
+ </div>
+ <div class="mascot size-28 sm:size-36"><img src="img/m-wave.jpg" alt="De mascotte zwaait"></div>
+</header>
+
+<!-- ================= AUDIT ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">What I found on the live site</h2>
+ <p class="mt-1 max-w-3xl text-muted-foreground">I reviewed it at 1280px and 375px, did a full practice round, and read the content model. The content is strong: 624 words, 105 sentences, 20 dialogues, 48 grammar patterns and real audio. What feels flat is the experience around it.</p>
+ <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="doc-card min-w-0"><p class="text-[11px] font-bold uppercase tracking-wider text-destructive">Now</p><h3 class="mt-1 font-bold">Practice is passive</h3><p class="mt-1 text-sm text-muted-foreground">Every card is "think, reveal, rate yourself 1–4". You never actually answer and hear that you're right.</p><p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-success-text">Proposal</p><p class="mt-1 text-sm text-muted-foreground">Five game modes mixed into each round: choose, listen, type, match pairs and the classic card. The answer still feeds SM-2.</p></div>
+  <div class="doc-card min-w-0"><p class="text-[11px] font-bold uppercase tracking-wider text-destructive">Now</p><h3 class="mt-1 font-bold">No reward moments</h3><p class="mt-1 text-sm text-muted-foreground">A right answer just shows the next card. The end screen is a grey circle and "5 kaartjes geoefend".</p><p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-success-text">Proposal</p><p class="mt-1 text-sm text-muted-foreground">Green and red answer states, a +XP pop, a combo counter, a cheering mascot, confetti and newly earned stamps.</p></div>
+  <div class="doc-card min-w-0"><p class="text-[11px] font-bold uppercase tracking-wider text-destructive">Now</p><h3 class="mt-1 font-bold">Home is a long read</h3><p class="mt-1 text-sm text-muted-foreground">Three competing calls to action, then two paragraphs of course instructions and an 8-item accordion before you reach the themes.</p><p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-success-text">Proposal</p><p class="mt-1 text-sm text-muted-foreground">One big "Dagmissie" button. The course becomes a visual route, and themes become illustrated cards with stars.</p></div>
+  <div class="doc-card min-w-0"><p class="text-[11px] font-bold uppercase tracking-wider text-destructive">Now</p><h3 class="mt-1 font-bold">Progress doesn't pull you back</h3><p class="mt-1 text-sm text-muted-foreground">Thin bars and a 7-day table. Nothing gives you a reason to come back tomorrow.</p><p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-success-text">Proposal</p><p class="mt-1 text-sm text-muted-foreground">A daily streak, XP with playful levels, 0–3 stars per theme and a stamp card, all calculated from real review history.</p></div>
+  <div class="doc-card min-w-0"><p class="text-[11px] font-bold uppercase tracking-wider text-destructive">Now</p><h3 class="mt-1 font-bold">Mobile friction</h3><p class="mt-1 text-sm text-muted-foreground">After you reveal an answer, the rating buttons fall below the fold. The top bar is crowded, and the filter chips wrap onto two lines.</p><p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-success-text">Proposal</p><p class="mt-1 text-sm text-muted-foreground">Full-screen practice with answers in the thumb zone, a bottom Drawer for feedback, a slim top bar and chips that scroll sideways.</p></div>
+  <div class="doc-card min-w-0"><p class="text-[11px] font-bold uppercase tracking-wider text-destructive">Now</p><h3 class="mt-1 font-bold">Reads like a magazine</h3><p class="mt-1 text-sm text-muted-foreground">Muted beige, hairline borders and serif italics feel calm and editorial, not playful.</p><p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-success-text">Proposal</p><p class="mt-1 text-sm text-muted-foreground">shadcn/ui as the system, with bolder orange and navy, a pressable "game" button variant, illustrations and a mascot.</p></div>
+ </div>
+</section>
+
+<!-- ================= GAME LAYER ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">The game layer is calculated from real practice</h2>
+ <p class="mt-1 max-w-3xl text-muted-foreground">Every review is already saved with a time and a grade, so none of these numbers are made up. There are no hearts or lives: a wrong answer never locks you out.</p>
+ <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="doc-card flex min-w-0 gap-4"><div class="grid size-12 shrink-0 place-items-center rounded-lg bg-accent text-accent-foreground"><i data-lucide="flame" class="size-6"></i></div><div class="min-w-0"><h3 class="font-bold">Reeks</h3><p class="text-sm text-muted-foreground">Consecutive days with at least one card practised, counted in the learner's timezone. Week dots show which days.</p></div></div>
+  <div class="doc-card flex min-w-0 gap-4"><div class="grid size-12 shrink-0 place-items-center rounded-lg bg-xp-soft text-xp-text"><i data-lucide="star" class="size-6"></i></div><div class="min-w-0"><h3 class="font-bold">XP &amp; niveaus</h3><p class="text-sm text-muted-foreground">+10 for a correct answer, +5 for an attempt and +2 per combo step. Toerist → Nieuwkomer → Buurtbewoner → Fietser → Collega → Kletskous → Grachtenkenner → Polderkampioen. The level names are for fun and are not CEFR levels.</p></div></div>
+  <div class="doc-card flex min-w-0 gap-4"><div class="grid size-12 shrink-0 place-items-center rounded-lg bg-success-soft text-success-text"><i data-lucide="target" class="size-6"></i></div><div class="min-w-0"><h3 class="font-bold">Dagmissie</h3><p class="text-sm text-muted-foreground">A daily goal ring you set to 5, 10 or 20 cards, plus two small daily quests such as "Luister naar 5 zinnen".</p></div></div>
+  <div class="doc-card flex min-w-0 gap-4"><div class="grid size-12 shrink-0 place-items-center rounded-lg bg-info-soft text-info-text"><i data-lucide="map" class="size-6"></i></div><div class="min-w-0"><h3 class="font-bold">De route</h3><p class="text-sm text-muted-foreground">The 8 course steps become stops on a canal map. The mascot stands where you are, and a stop turns green once you've practised its cards.</p></div></div>
+  <div class="doc-card flex min-w-0 gap-4"><div class="grid size-12 shrink-0 place-items-center rounded-lg bg-lav text-lav-text"><i data-lucide="award" class="size-6"></i></div><div class="min-w-0"><h3 class="font-bold">Stempelkaart</h3><p class="text-sm text-muted-foreground">Collectible stamps, like a Dutch loyalty card: a 7-day streak, a first 3-star theme, 100 words, the full route.</p></div></div>
+  <div class="doc-card flex min-w-0 gap-4"><div class="grid size-12 shrink-0 place-items-center rounded-lg bg-accent text-accent-foreground"><i data-lucide="sparkles" class="size-6"></i></div><div class="min-w-0"><h3 class="font-bold">Sterren per thema</h3><p class="text-sm text-muted-foreground">One star when every card is practised, two at 50% well remembered, three at 90%. Uses the existing progressStatus().</p></div></div>
+ </div>
+</section>
+
+<!-- ================= DESKTOP HOME ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">Laptop: Vandaag</h2>
+ <p class="mt-1 max-w-3xl text-muted-foreground">Three columns: a shadcn sidebar on the left, one mission plus the route and themes in the middle, and your streak, level, quests and stamps on the right, always in view.</p>
+ <div class="frame-scroll mt-5"><div class="browser">
+  <div class="flex h-10 items-center gap-2 border-b bg-muted px-4"><span class="size-3 rounded-full bg-destructive/50"></span><span class="size-3 rounded-full bg-xp/70"></span><span class="size-3 rounded-full bg-success/50"></span><span class="ml-4 rounded-md bg-card px-4 py-1 text-xs text-muted-foreground">nederlands.keyvanmahmoudi.com</span></div>
+  <div class="grid min-h-[780px] grid-cols-[230px_1fr_310px]">
+   <!-- Sidebar -->
+   <aside class="flex flex-col gap-1 border-r bg-muted/40 p-4">
+    <div class="mb-5 flex items-center gap-2.5 px-2"><span class="grid size-9 place-items-center rounded-full bg-primary text-lg font-extrabold text-white">n.</span><span class="text-sm font-bold leading-tight">mijn<br>nederlands</span></div>
+    <p class="eyebrow px-3 pb-1">Leren</p>
+    <a class="nav-item active"><i data-lucide="sun"></i>Vandaag</a>
+    <a class="nav-item"><i data-lucide="compass"></i>Thema’s</a>
+    <a class="nav-item"><i data-lucide="zap"></i>Oefenen<span class="badge ml-auto bg-destructive text-white">12</span></a>
+    <a class="nav-item"><i data-lucide="map"></i>De route</a>
+    <a class="nav-item"><i data-lucide="puzzle"></i>Zinsbouw</a>
+    <a class="nav-item"><i data-lucide="award"></i>Ik &amp; stempels</a>
+    <div class="flex-1"></div>
+    <a class="nav-item"><i data-lucide="library"></i>Websites &amp; boeken</a>
+    <div class="mt-2 flex items-center gap-3 rounded-lg border bg-card p-2.5"><span class="grid size-8 place-items-center rounded-full bg-info text-xs font-bold text-info-text">K</span><div class="text-xs"><p class="font-semibold">Keyvan</p><p class="text-muted-foreground">Gesynchroniseerd</p></div></div>
+   </aside>
+   <!-- Main -->
+   <main class="flex flex-col gap-6 p-7">
+    <div class="flex items-center gap-4">
+     <div class="mascot size-20"><img src="img/m-wave.jpg" alt=""></div>
+     <div class="card relative px-5 py-3"><h2 class="text-xl font-bold tracking-tight">Goedemorgen! Nog 2 kaartjes.</h2><p class="text-sm text-muted-foreground">Dan is je dagmissie klaar en blijft je reeks van 6 dagen staan.</p></div>
+    </div>
+    <div class="relative grid grid-cols-[auto_1fr_auto] items-center gap-6 overflow-hidden rounded-xl bg-secondary p-6 text-secondary-foreground" style="box-shadow:0 5px 0 hsl(var(--secondary-shadow))">
+     <div class="ring grid size-28 place-items-center rounded-full" style="--p:60"><div class="grid size-[86px] place-items-center rounded-full bg-secondary text-center"><div><p class="text-2xl font-extrabold leading-none">3/5</p><p class="mt-1 text-[11px] opacity-70">kaartjes</p></div></div></div>
+     <div>
+      <p class="text-[11px] font-semibold uppercase tracking-wider text-primary">Dagmissie · ± 4 min</p>
+      <h3 class="mt-1 text-2xl font-bold tracking-tight">12 kaartjes willen herhaald worden</h3>
+      <p class="mt-1 text-sm opacity-75">Een mix van woorden, luisteren en een zin typen.</p>
+      <div class="mt-3 flex gap-2"><span class="badge bg-white/10"><i data-lucide="headphones"></i>Luisteren</span><span class="badge bg-white/10"><i data-lucide="keyboard"></i>Typen</span><span class="badge bg-white/10"><i data-lucide="brain"></i>Kiezen</span></div>
+     </div>
+     <button class="btn btn-lg btn-default btn-game">Start rondje<i data-lucide="arrow-right"></i></button>
+    </div>
+    <div>
+     <div class="mb-3 flex items-baseline justify-between"><h3 class="text-lg font-bold tracking-tight">De route · A2 → B1</h3><button class="btn h-8 px-2 text-primary hover:bg-accent">Bekijk de kaart<i data-lucide="chevron-right"></i></button></div>
+     <div class="card relative p-5">
+      <div class="absolute left-14 right-14 top-[46px] border-t-4 border-dashed"></div>
+      <div class="relative grid grid-cols-8 gap-2 text-center">
+       <div class="flex flex-col items-center gap-2"><span class="stop done size-12"><i data-lucide="check"></i></span><span class="text-xs font-semibold">Een zin die klopt</span></div>
+       <div class="relative flex flex-col items-center gap-2"><div class="mascot absolute -top-11 size-10"><img src="img/m-wave.jpg" alt=""></div><span class="stop now size-12">2</span><span class="text-xs font-semibold">Vertellen wat je deed</span></div>
+       <div class="flex flex-col items-center gap-2"><span class="stop size-12">3</span><span class="text-xs text-muted-foreground">Activiteit of bestemming?</span></div>
+       <div class="flex flex-col items-center gap-2"><span class="stop size-12">4</span><span class="text-xs text-muted-foreground">Je huis beschrijven</span></div>
+       <div class="flex flex-col items-center gap-2"><span class="stop size-12">5</span><span class="text-xs text-muted-foreground">Vrije tijd</span></div>
+       <div class="flex flex-col items-center gap-2"><span class="stop size-12">6</span><span class="text-xs text-muted-foreground">Vragen zonder te moeten</span></div>
+       <div class="flex flex-col items-center gap-2"><span class="stop size-12">7</span><span class="text-xs text-muted-foreground">Verwijzen</span></div>
+       <div class="flex flex-col items-center gap-2"><span class="stop size-12"><i data-lucide="trophy"></i></span><span class="text-xs text-muted-foreground">Een verhaal</span></div>
+      </div>
+     </div>
+    </div>
+    <div>
+     <div class="mb-3 flex items-baseline justify-between"><h3 class="text-lg font-bold tracking-tight">Waar wil je over praten?</h3><button class="btn h-8 px-2 text-primary hover:bg-accent">Alle 20 thema’s<i data-lucide="chevron-right"></i></button></div>
+     <div class="grid grid-cols-3 gap-4">
+      <div class="card overflow-hidden"><div class="art aspect-[16/10]"><img src="img/t1.jpg" alt="Bij de huisarts"></div><div class="p-4"><div class="flex items-center justify-between"><h4 class="font-bold">Naar de huisarts</h4><span class="flex text-xp"><i data-lucide="star" class="fill-current"></i><i data-lucide="star" class="fill-current"></i><i data-lucide="star" class="text-border"></i></span></div><div class="mt-2 flex items-center justify-between text-xs text-muted-foreground"><span>12 woorden · 5 zinnen</span><span class="fa text-sm">رفتن به دکتر</span></div></div></div>
+      <div class="card overflow-hidden"><div class="art aspect-[16/10]"><img src="img/t2.jpg" alt="Onderweg met trein en fiets"></div><div class="p-4"><div class="flex items-center justify-between"><h4 class="font-bold">Onderweg</h4><span class="flex text-xp"><i data-lucide="star" class="fill-current"></i><i data-lucide="star" class="text-border"></i><i data-lucide="star" class="text-border"></i></span></div><div class="mt-2 flex items-center justify-between text-xs text-muted-foreground"><span>30 woorden · 5 zinnen</span><span class="fa text-sm">رفت‌وآمد و سفر</span></div></div></div>
+      <div class="card overflow-hidden"><div class="art aspect-[16/10]"><img src="img/t3.jpg" alt="Werken aan een laptop"></div><div class="p-4"><div class="flex items-center justify-between"><h4 class="font-bold">Werk &amp; privé</h4><span class="badge bg-accent text-accent-foreground">Nieuw</span></div><div class="mt-2 flex items-center justify-between text-xs text-muted-foreground"><span>26 woorden · 5 zinnen</span><span class="fa text-sm">کار و زندگی</span></div></div></div>
+     </div>
+    </div>
+   </main>
+   <!-- Right rail -->
+   <aside class="flex flex-col gap-4 border-l bg-muted/30 p-5">
+    <div class="card p-4">
+     <div class="flex items-center justify-between"><h4 class="text-sm font-semibold">Jouw reeks</h4><span class="badge bg-accent text-accent-foreground"><i data-lucide="flame"></i>6</span></div>
+     <div class="my-3 flex items-center gap-3"><span class="text-4xl font-extrabold text-primary">6</span><p class="text-xs leading-snug text-muted-foreground">dagen op rij.<br>Morgen 7: nieuwe stempel!</p></div>
+     <div class="flex justify-between text-center text-[11px] font-medium text-muted-foreground">
+      <div class="flex flex-col items-center gap-1"><span class="grid size-7 place-items-center rounded-full bg-primary text-white"><i data-lucide="check" class="size-3.5"></i></span>ma</div>
+      <div class="flex flex-col items-center gap-1"><span class="grid size-7 place-items-center rounded-full bg-primary text-white"><i data-lucide="check" class="size-3.5"></i></span>di</div>
+      <div class="flex flex-col items-center gap-1"><span class="grid size-7 place-items-center rounded-full bg-primary text-white"><i data-lucide="check" class="size-3.5"></i></span>wo</div>
+      <div class="flex flex-col items-center gap-1"><span class="grid size-7 place-items-center rounded-full bg-primary text-white"><i data-lucide="check" class="size-3.5"></i></span>do</div>
+      <div class="flex flex-col items-center gap-1"><span class="grid size-7 place-items-center rounded-full bg-primary text-white"><i data-lucide="check" class="size-3.5"></i></span>vr</div>
+      <div class="flex flex-col items-center gap-1"><span class="size-7 rounded-full border-2 border-dashed border-primary"></span>za</div>
+      <div class="flex flex-col items-center gap-1"><span class="size-7 rounded-full bg-muted"></span>zo</div>
+     </div>
+    </div>
+    <div class="card p-4">
+     <div class="flex items-center justify-between"><h4 class="text-sm font-semibold">Niveau 3</h4><span class="badge bg-xp-soft text-xp-text"><i data-lucide="star"></i>340 XP</span></div>
+     <div class="mb-2 mt-3 flex justify-between text-xs"><span class="text-base font-bold">Buurtbewoner</span><span class="text-muted-foreground">340 / 500</span></div>
+     <div class="progress h-2.5"><div style="width:68%"></div></div>
+     <p class="mt-2 flex items-center gap-1 text-xs text-muted-foreground">Volgende: <strong class="text-foreground">Fietser</strong><i data-lucide="bike"></i></p>
+    </div>
+    <div class="card p-4">
+     <h4 class="text-sm font-semibold">Missies van vandaag</h4>
+     <div class="mt-3 flex items-center gap-3"><span class="grid size-9 shrink-0 place-items-center rounded-md bg-info-soft text-info-text"><i data-lucide="headphones"></i></span><div class="min-w-0 flex-1"><p class="text-sm font-medium">Luister naar 5 zinnen</p><div class="progress mt-1.5 h-1.5"><div style="width:60%"></div></div></div><span class="text-xs font-bold text-xp-text">+20</span></div>
+     <div class="my-3 h-px bg-border"></div>
+     <div class="flex items-center gap-3"><span class="grid size-9 shrink-0 place-items-center rounded-md bg-lav text-lav-text"><i data-lucide="message-circle"></i></span><div class="min-w-0 flex-1"><p class="text-sm font-medium">Speel 1 gesprek na</p><div class="progress mt-1.5 h-1.5"><div style="width:0"></div></div></div><span class="text-xs font-bold text-xp-text">+30</span></div>
+    </div>
+    <div class="card p-4">
+     <div class="flex items-center justify-between"><h4 class="text-sm font-semibold">Stempelkaart</h4><span class="text-xs text-muted-foreground">3 / 24</span></div>
+     <div class="mt-3 grid grid-cols-3 gap-2"><div class="stamp"><img src="img/s2.jpg" alt="Tulp-stempel"></div><div class="stamp"><img src="img/s4.jpg" alt="Fiets-stempel"></div><div class="stamp"><img src="img/s5.jpg" alt="Stroopwafel-stempel"></div><div class="stamp locked"><img src="img/s1.jpg" alt="Vlam-stempel, nog op slot"></div><div class="stamp locked"><img src="img/s3.jpg" alt="Molen-stempel, nog op slot"></div><div class="stamp locked"><img src="img/s6.jpg" alt="Kroon-stempel, nog op slot"></div></div>
+    </div>
+   </aside>
+  </div>
+ </div></div>
+</section>
+
+<!-- ================= PHONE CORE FLOW ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">Phone: home, practice, reward</h2>
+ <p class="mt-1 max-w-3xl text-muted-foreground">Built for your thumb. The orange button in the bottom bar always starts practice. Answer options sit low on the screen, and feedback arrives in a shadcn Drawer with "Verder" right under your thumb.</p>
+ <div class="mt-5 flex flex-wrap items-start gap-9">
+  <!-- 1 Vandaag -->
+  <div><p class="label">1 · Vandaag</p>
+   <div class="phone">
+    <div class="flex h-11 items-end justify-between px-7 pb-1 text-[13px] font-semibold"><span>9:41</span><span>5G</span></div>
+    <div class="flex items-center justify-between px-4 py-2"><span class="grid size-9 place-items-center rounded-full bg-primary font-extrabold text-white">n.</span><div class="flex items-center gap-1.5"><span class="badge bg-accent text-accent-foreground"><i data-lucide="flame"></i>6</span><span class="badge bg-xp-soft text-xp-text"><i data-lucide="star"></i>340</span><span class="grid size-8 place-items-center rounded-full bg-info text-xs font-bold text-info-text">K</span></div></div>
+    <div class="flex flex-col gap-4 px-4">
+     <div class="flex items-center gap-3"><div class="mascot size-16"><img src="img/m-wave.jpg" alt=""></div><div class="card px-3.5 py-2.5"><p class="font-bold">Hoi! Nog 2 kaartjes.</p><p class="text-xs text-muted-foreground">Houd je reeks van 6 dagen vast.</p></div></div>
+     <div class="rounded-xl bg-secondary p-4 text-secondary-foreground" style="box-shadow:0 5px 0 hsl(var(--secondary-shadow))">
+      <div class="mb-4 flex items-center gap-4"><div class="ring grid size-[76px] place-items-center rounded-full" style="--p:60"><div class="grid size-[58px] place-items-center rounded-full bg-secondary text-lg font-extrabold">3/5</div></div><div><p class="text-[11px] font-semibold uppercase tracking-wider text-primary">Dagmissie</p><p class="text-lg font-bold leading-tight">12 kaartjes om te herhalen</p></div></div>
+      <button class="btn btn-lg btn-default btn-game w-full">Start rondje<i data-lucide="arrow-right"></i></button>
+     </div>
+     <div class="flex items-baseline justify-between"><h3 class="font-bold">De route</h3><span class="text-xs font-semibold text-primary">Kaart</span></div>
+     <div class="flex gap-3 overflow-hidden text-center">
+      <div class="flex w-16 shrink-0 flex-col items-center gap-1.5"><span class="stop done size-11"><i data-lucide="check"></i></span><span class="text-[10.5px] font-semibold leading-tight">Een zin die klopt</span></div>
+      <div class="flex w-16 shrink-0 flex-col items-center gap-1.5"><span class="stop now size-11">2</span><span class="text-[10.5px] font-semibold leading-tight">Vertellen</span></div>
+      <div class="flex w-16 shrink-0 flex-col items-center gap-1.5"><span class="stop size-11">3</span><span class="text-[10.5px] leading-tight text-muted-foreground">Activiteit</span></div>
+      <div class="flex w-16 shrink-0 flex-col items-center gap-1.5"><span class="stop size-11">4</span><span class="text-[10.5px] leading-tight text-muted-foreground">Je huis</span></div>
+      <div class="flex w-16 shrink-0 flex-col items-center gap-1.5"><span class="stop size-11">5</span><span class="text-[10.5px] leading-tight text-muted-foreground">Vrije tijd</span></div>
+     </div>
+     <div class="flex items-baseline justify-between"><h3 class="font-bold">Thema’s</h3><span class="text-xs font-semibold text-primary">Alle 20</span></div>
+     <div class="flex gap-3 overflow-hidden">
+      <div class="card w-44 shrink-0 overflow-hidden"><div class="art aspect-[16/10]"><img src="img/t1.jpg" alt=""></div><p class="p-2.5 text-sm font-bold">Naar de huisarts</p></div>
+      <div class="card w-44 shrink-0 overflow-hidden"><div class="art aspect-[16/10]"><img src="img/t5.jpg" alt=""></div><p class="p-2.5 text-sm font-bold">Eten &amp; uitgaan</p></div>
+     </div>
+    </div>
+    <nav class="absolute inset-x-0 bottom-0 flex h-[84px] items-start justify-around border-t bg-card px-2 pt-2.5">
+     <a class="mtab active"><i data-lucide="sun" class="size-6"></i>Vandaag</a><a class="mtab"><i data-lucide="compass" class="size-6"></i>Thema’s</a>
+     <a class="mtab -mt-7"><span class="grid size-[60px] place-items-center rounded-full bg-primary text-white" style="box-shadow:0 5px 0 hsl(var(--primary-shadow)),0 0 0 6px hsl(var(--background))"><i data-lucide="zap" class="size-7"></i></span>Oefen</a>
+     <a class="mtab"><i data-lucide="map" class="size-6"></i>Route</a><a class="mtab"><i data-lucide="award" class="size-6"></i>Ik</a>
+    </nav>
+   </div>
+  </div>
+  <!-- 2 Kiezen -->
+  <div><p class="label">2 · Kiezen, goed antwoord</p>
+   <div class="phone">
+    <div class="flex h-11 items-end justify-between px-7 pb-1 text-[13px] font-semibold"><span>9:42</span><span>5G</span></div>
+    <div class="flex items-center gap-3 px-5 pt-2"><i data-lucide="x" class="size-6 text-muted-foreground"></i><div class="progress h-3.5 flex-1 bg-success/15"><div class="bg-success" style="width:45%"></div></div><span class="badge bg-accent text-accent-foreground"><i data-lucide="flame"></i>3×</span></div>
+    <div class="px-5 pt-8">
+     <div class="flex items-center gap-2"><p class="text-sm font-semibold">Wat betekent dit?</p><span class="badge bg-lav text-lav-text">Kiezen</span></div>
+     <div class="my-6 flex items-center gap-4"><button class="btn btn-outline btn-game size-14 rounded-lg bg-info-soft text-info-text" style="--sh:var(--info)"><i data-lucide="volume-2" class="size-6"></i></button><div><p class="text-3xl font-extrabold tracking-tight">de balans</p><p class="text-xs text-muted-foreground">werk &amp; privé · woord</p></div></div>
+     <div class="grid gap-2.5">
+      <div class="opt dim"><span class="kbd">1</span><span class="fa flex-1 text-right text-lg">قرار ملاقات</span></div>
+      <div class="opt right"><span class="kbd border-success text-success-text">2</span><i data-lucide="check"></i><span class="fa flex-1 text-right text-lg">تعادل</span></div>
+      <div class="opt dim"><span class="kbd">3</span><span class="fa flex-1 text-right text-lg">اجاره خانه</span></div>
+      <div class="opt dim"><span class="kbd">4</span><span class="fa flex-1 text-right text-lg">همکار</span></div>
+     </div>
+    </div>
+    <div class="absolute inset-x-0 bottom-0 rounded-t-[22px] border-t bg-success-soft px-5 pb-8 pt-2">
+     <div class="mx-auto mb-3 h-1.5 w-12 rounded-full bg-success/30"></div>
+     <div class="flex items-center gap-2"><i data-lucide="circle-check" class="size-6 text-success-text"></i><p class="text-xl font-bold text-success-text">Goed zo!</p><span class="badge ml-auto bg-card text-xp-text"><i data-lucide="star"></i>+12 XP</span></div>
+     <p class="mt-2 text-sm text-success-text">Ik zoek een goede balans tussen werk en vrije tijd.</p>
+     <p class="fa mb-4 text-sm text-success-text/80">دنبال تعادل خوبی بین کار و وقت آزاد هستم.</p>
+     <button class="btn btn-lg btn-success btn-game w-full">Verder</button>
+    </div>
+   </div>
+  </div>
+  <!-- 3 Klaar -->
+  <div><p class="label">3 · Rondje klaar</p>
+   <div class="phone">
+    <div class="flex h-11 items-end justify-between px-7 pb-1 text-[13px] font-semibold"><span>9:46</span><span>5G</span></div>
+    <div class="confetti absolute inset-x-0 top-10 h-64 opacity-80"></div>
+    <div class="relative flex flex-col items-center px-5 pt-4 text-center">
+     <div class="mascot size-44"><img src="img/m-cheer.jpg" alt="De mascotte juicht"></div>
+     <h2 class="mt-3 text-3xl font-extrabold tracking-tight">Rondje klaar!</h2>
+     <p class="text-muted-foreground">Je dagmissie is gehaald. Lekker bezig.</p>
+     <div class="mt-5 grid w-full grid-cols-3 gap-2.5">
+      <div class="rounded-lg bg-xp p-[3px]"><p class="py-1 text-[11px] font-bold uppercase text-white">XP</p><div class="rounded-md bg-card py-2.5 text-xl font-extrabold text-xp-text">+86</div></div>
+      <div class="rounded-lg bg-success p-[3px]"><p class="py-1 text-[11px] font-bold uppercase text-white">Goed</p><div class="rounded-md bg-card py-2.5 text-xl font-extrabold text-success-text">9/10</div></div>
+      <div class="rounded-lg bg-primary p-[3px]"><p class="py-1 text-[11px] font-bold uppercase text-white">Reeks</p><div class="flex items-center justify-center gap-1 rounded-md bg-card py-2.5 text-xl font-extrabold text-accent-foreground"><i data-lucide="flame"></i>7</div></div>
+     </div>
+     <div class="card mt-4 flex w-full items-center gap-3 border-2 border-dashed border-primary/40 p-3 text-left"><div class="stamp size-14 shrink-0"><img src="img/s1.jpg" alt="Vlam-stempel"></div><div><p class="font-bold">Nieuwe stempel: Week vol vuur</p><p class="text-xs text-muted-foreground">7 dagen op rij geoefend</p></div></div>
+     <button class="btn btn-lg btn-default btn-game mt-5 w-full">Nog een rondje</button>
+     <button class="btn btn-lg btn-outline mt-3 w-full">Klaar voor vandaag</button>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= DESKTOP PRACTICE ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">Laptop: practice in full focus</h2>
+ <p class="mt-1 max-w-3xl text-muted-foreground">The sidebar hides during a round. The keyboard does everything: 1–4 to answer, Space to replay the audio, Enter to continue. Shown here is a "listen" card answered wrong. The right answer lights up, and the card comes back sooner (SM-2 grade 1).</p>
+ <div class="frame-scroll mt-5"><div class="browser">
+  <div class="flex h-10 items-center gap-2 border-b bg-muted px-4"><span class="size-3 rounded-full bg-destructive/50"></span><span class="size-3 rounded-full bg-xp/70"></span><span class="size-3 rounded-full bg-success/50"></span><span class="ml-4 rounded-md bg-card px-4 py-1 text-xs text-muted-foreground">nederlands.keyvanmahmoudi.com/#oefenen</span></div>
+  <div class="flex flex-col items-center px-10 py-8">
+   <div class="flex w-full max-w-3xl items-center gap-4"><button class="btn size-9 px-0 text-muted-foreground hover:bg-muted"><i data-lucide="x" class="size-5"></i></button><div class="progress h-3.5 flex-1 bg-success/15"><div class="bg-success" style="width:70%"></div></div><span class="badge bg-xp-soft text-xp-text"><i data-lucide="star"></i>+64</span></div>
+   <div class="mt-8 w-full max-w-3xl text-center">
+    <div class="flex items-center justify-center gap-2"><p class="font-semibold">Wat hoor je?</p><span class="badge bg-info-soft text-info-text">Luisteren</span></div>
+    <button class="btn btn-outline btn-game mx-auto mt-5 size-28 rounded-xl bg-info-soft text-info-text" style="--sh:var(--info)"><i data-lucide="volume-2" class="size-12"></i></button>
+    <button class="btn mt-3 h-8 text-info-text hover:bg-info-soft"><i data-lucide="turtle"></i>Langzamer</button>
+    <div class="mt-6 grid grid-cols-2 gap-3">
+     <div class="opt wrong"><span class="kbd border-destructive text-destructive-text">1</span>Ik werk twee dagen per week buiten.</div>
+     <div class="opt right"><span class="kbd border-success text-success-text">2</span>Ik werk twee dagen per week thuis.</div>
+     <div class="opt dim"><span class="kbd">3</span>Ik woon twee dagen per week thuis.</div>
+     <div class="opt dim"><span class="kbd">4</span>Ik werk twee keer per week thuis.</div>
+    </div>
+   </div>
+   <div class="mt-6 flex w-full max-w-3xl items-center gap-4 rounded-xl border-2 border-destructive/30 bg-destructive-soft p-5">
+    <div class="mascot size-16"><img src="img/m-think.jpg" alt="De mascotte denkt na"></div>
+    <div class="min-w-0 flex-1"><p class="text-lg font-bold text-destructive-text">Bijna! Luister nog eens naar „thuis”. <span class="badge ml-1 bg-card text-xp-text">+5 XP</span></p><p class="text-sm text-destructive-text">Deze zin komt morgen terug. <span class="fa">دو روز در هفته از خانه کار می‌کنم.</span></p></div>
+    <button class="btn btn-lg btn-outline"><i data-lucide="volume-2"></i>Nog eens</button>
+    <button class="btn btn-lg btn-destructive btn-game">Verder<span class="kbd ml-1 border-white/30 bg-white/15 text-white">↵</span></button>
+   </div>
+   <div class="mt-5 flex w-full max-w-3xl justify-between text-xs text-muted-foreground"><span class="flex items-center gap-1.5"><span class="kbd">1</span>–<span class="kbd">4</span> kiezen · <span class="kbd">Spatie</span> luisteren · <span class="kbd">Enter</span> verder</span><span>7 / 10 · Werk &amp; privé</span></div>
+  </div>
+ </div></div>
+</section>
+
+<!-- ================= MODES ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">Five ways to practise, mixed in every round</h2>
+ <p class="mt-1 max-w-3xl text-muted-foreground">Every mode maps onto the existing SM-2 grades: right first time = Goed (4), right after a hint = Moeilijk (3), wrong = Nog niet (1). The flashcard mode still offers Makkelijk (5). New cards get easier modes; well-known cards get harder ones.</p>
+ <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+  <div class="doc-card min-w-0 p-4"><div class="mb-3 grid h-20 place-items-center rounded-lg bg-lav text-lav-text"><i data-lucide="brain" class="size-8"></i></div><h3 class="flex items-center gap-2 font-bold">Kiezen<span class="badge bg-primary text-white">Nieuw</span></h3><p class="mt-1 text-sm text-muted-foreground">Pick the right translation out of four. Good for brand-new words.</p></div>
+  <div class="doc-card min-w-0 p-4"><div class="mb-3 grid h-20 place-items-center rounded-lg bg-info-soft text-info-text"><i data-lucide="headphones" class="size-8"></i></div><h3 class="flex items-center gap-2 font-bold">Luisteren<span class="badge bg-primary text-white">Nieuw</span></h3><p class="mt-1 text-sm text-muted-foreground">Hear the bundled Ronnie or Pim clip, then pick the sentence.</p></div>
+  <div class="doc-card min-w-0 p-4"><div class="mb-3 grid h-20 place-items-center rounded-lg bg-xp-soft"><div class="rounded-md border-2 border-input bg-card px-3 py-1.5 text-sm font-semibold">de bal<span class="border-r-2 border-primary">a</span></div></div><h3 class="flex items-center gap-2 font-bold">Typen<span class="badge bg-primary text-white">Nieuw</span></h3><p class="mt-1 text-sm text-muted-foreground">Type the Dutch word. Small typos are forgiven, and de/het counts as a hint.</p></div>
+  <div class="doc-card min-w-0 p-4"><div class="mb-3 grid h-20 grid-cols-2 content-center gap-1 rounded-lg bg-success-soft px-3 text-center text-[10px] font-semibold"><span class="rounded border-2 border-success bg-card">huur</span><span class="fa rounded border-2 border-success bg-card">اجاره</span><span class="rounded border bg-card">buren</span><span class="fa rounded border bg-card">همکار</span></div><h3 class="flex items-center gap-2 font-bold">Paren<span class="badge bg-primary text-white">Nieuw</span></h3><p class="mt-1 text-sm text-muted-foreground">A quick match-the-pairs game against the clock to close a round.</p></div>
+  <div class="doc-card min-w-0 p-4"><div class="mb-3 grid h-20 place-items-center rounded-lg bg-accent text-accent-foreground"><i data-lucide="layers" class="size-8"></i></div><h3 class="font-bold">Kaartje</h3><p class="mt-1 text-sm text-muted-foreground">Today's flip and self-rate card. It stays for sentences and grammar patterns.</p></div>
+ </div>
+</section>
+
+<!-- ================= MORE PHONE ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">Phone: route, themes and "Ik"</h2>
+ <div class="mt-5 flex flex-wrap items-start gap-9">
+  <!-- Route -->
+  <div><p class="label">4 · De route</p>
+   <div class="phone">
+    <div class="flex h-11 items-end justify-between px-7 pb-1 text-[13px] font-semibold"><span>9:50</span><span>5G</span></div>
+    <div class="flex items-center justify-between px-4 py-2"><h2 class="text-2xl font-bold tracking-tight">De route</h2><span class="badge bg-xp-soft text-xp-text">1 / 8 haltes</span></div>
+    <div class="relative">
+     <img src="img/journey.jpg" alt="Speelse kaart met een kronkelende route langs grachten, molens en tulpen" class="w-full">
+     <span class="stop done absolute w-[11%] -translate-x-1/2 -translate-y-1/2 aspect-square border-secondary" style="left:63.5%;top:6.2%"><i data-lucide="check"></i></span>
+     <div class="mascot absolute size-14 -translate-x-1/2 -translate-y-full border-2 border-secondary" style="left:39.6%;top:13.5%"><img src="img/m-wave.jpg" alt=""></div>
+     <span class="stop now absolute w-[12.5%] -translate-x-1/2 -translate-y-1/2 aspect-square" style="left:39.6%;top:18.9%">2</span>
+     <span class="stop absolute w-[11%] -translate-x-1/2 -translate-y-1/2 aspect-square border-secondary" style="left:66.4%;top:29.9%">3</span>
+     <span class="stop absolute w-[11%] -translate-x-1/2 -translate-y-1/2 aspect-square border-secondary" style="left:32.2%;top:43.3%">4</span>
+     <span class="stop absolute w-[11%] -translate-x-1/2 -translate-y-1/2 aspect-square border-secondary" style="left:63%;top:58.3%">5</span>
+     <span class="stop absolute w-[11%] -translate-x-1/2 -translate-y-1/2 aspect-square border-secondary" style="left:31.3%;top:71.9%">6</span>
+     <span class="stop absolute w-[11%] -translate-x-1/2 -translate-y-1/2 aspect-square border-secondary" style="left:63.5%;top:83.3%">7</span>
+     <span class="stop absolute w-[11%] -translate-x-1/2 -translate-y-1/2 aspect-square border-secondary" style="left:32.7%;top:93.8%"><i data-lucide="trophy"></i></span>
+    </div>
+    <div class="card absolute inset-x-4 bottom-[98px] p-4 shadow-xl">
+     <p class="text-[11px] font-semibold uppercase tracking-wider text-primary">Halte 2 · A2</p>
+     <h3 class="mt-0.5 text-lg font-bold leading-tight">Vertellen wat je hebt gedaan</h3>
+     <div class="mt-3 grid gap-1.5 text-sm">
+      <p class="flex items-center gap-2"><span class="grid size-6 place-items-center rounded-md bg-success-soft text-success-text"><i data-lucide="check" class="size-3.5"></i></span>5 min herhalen: 8 kaartjes</p>
+      <p class="flex items-center gap-2"><span class="grid size-6 place-items-center rounded-md bg-lav text-lav-text"><i data-lucide="puzzle" class="size-3.5"></i></span>5 min zinsbouw: perfectum</p>
+      <p class="flex items-center gap-2"><span class="grid size-6 place-items-center rounded-md bg-accent text-accent-foreground"><i data-lucide="mic" class="size-3.5"></i></span>5 min hardop: je weekend</p>
+     </div>
+     <div class="progress my-3"><div style="width:35%"></div></div>
+     <button class="btn btn-lg btn-default btn-game w-full">Ga verder bij halte 2</button>
+    </div>
+    <nav class="absolute inset-x-0 bottom-0 flex h-[84px] items-start justify-around border-t bg-card px-2 pt-2.5">
+     <a class="mtab"><i data-lucide="sun" class="size-6"></i>Vandaag</a><a class="mtab"><i data-lucide="compass" class="size-6"></i>Thema’s</a>
+     <a class="mtab -mt-7"><span class="grid size-[60px] place-items-center rounded-full bg-primary text-white" style="box-shadow:0 5px 0 hsl(var(--primary-shadow)),0 0 0 6px hsl(var(--background))"><i data-lucide="zap" class="size-7"></i></span>Oefen</a>
+     <a class="mtab active"><i data-lucide="map" class="size-6"></i>Route</a><a class="mtab"><i data-lucide="award" class="size-6"></i>Ik</a>
+    </nav>
+   </div>
+  </div>
+  <!-- Thema's -->
+  <div><p class="label">5 · Thema’s</p>
+   <div class="phone">
+    <div class="flex h-11 items-end justify-between px-7 pb-1 text-[13px] font-semibold"><span>9:51</span><span>5G</span></div>
+    <div class="flex items-center justify-between px-4 py-2"><h2 class="text-2xl font-bold tracking-tight">Thema’s</h2><span class="badge bg-accent text-accent-foreground"><i data-lucide="flame"></i>6</span></div>
+    <div class="flex flex-col gap-3 px-4">
+     <div class="flex h-11 items-center gap-2 rounded-md border border-input bg-card px-3 text-sm text-muted-foreground"><i data-lucide="search"></i>Zoek een thema of woord</div>
+     <div class="flex gap-1 overflow-hidden rounded-lg bg-muted p-1 text-sm font-medium text-muted-foreground"><span class="rounded-md bg-card px-3 py-1.5 text-foreground shadow-sm">Alles</span><span class="whitespace-nowrap px-3 py-1.5">Elke dag</span><span class="px-3 py-1.5">Werk</span><span class="whitespace-nowrap px-3 py-1.5">Vrije tijd</span><span class="px-3 py-1.5">Taal</span></div>
+     <div class="grid grid-cols-2 gap-2.5">
+      <div class="card overflow-hidden"><div class="art aspect-[4/3]"><img src="img/t1.jpg" alt=""></div><div class="p-2.5"><p class="text-sm font-bold leading-tight">Naar de huisarts</p><div class="mt-1.5 flex items-center justify-between"><span class="flex text-xp"><i data-lucide="star" class="size-3.5 fill-current"></i><i data-lucide="star" class="size-3.5 fill-current"></i><i data-lucide="star" class="size-3.5 text-border"></i></span><span class="text-[11px] text-muted-foreground">12/12</span></div></div></div>
+      <div class="card overflow-hidden"><div class="art aspect-[4/3]"><img src="img/t2.jpg" alt=""></div><div class="p-2.5"><p class="text-sm font-bold leading-tight">Onderweg</p><div class="mt-1.5 flex items-center justify-between"><span class="flex text-xp"><i data-lucide="star" class="size-3.5 fill-current"></i><i data-lucide="star" class="size-3.5 text-border"></i><i data-lucide="star" class="size-3.5 text-border"></i></span><span class="text-[11px] text-muted-foreground">20/30</span></div></div></div>
+      <div class="card overflow-hidden"><div class="art aspect-[4/3]"><img src="img/t3.jpg" alt=""></div><div class="p-2.5"><p class="text-sm font-bold leading-tight">Werk &amp; privé</p><div class="progress mt-2 h-1.5"><div style="width:15%"></div></div></div></div>
+      <div class="card overflow-hidden"><div class="art aspect-[4/3]"><img src="img/t4.jpg" alt=""></div><div class="p-2.5"><p class="text-sm font-bold leading-tight">Thuis &amp; buurt</p><span class="badge mt-1.5 bg-accent px-1.5 text-[10px] text-accent-foreground">Nieuw</span></div></div>
+      <div class="card overflow-hidden"><div class="art aspect-[4/3]"><img src="img/t5.jpg" alt=""></div><div class="p-2.5"><p class="text-sm font-bold leading-tight">Eten &amp; uitgaan</p></div></div>
+      <div class="card overflow-hidden"><div class="art aspect-[4/3]"><img src="img/t6.jpg" alt=""></div><div class="p-2.5"><p class="text-sm font-bold leading-tight">Een praatje</p></div></div>
+     </div>
+    </div>
+    <nav class="absolute inset-x-0 bottom-0 flex h-[84px] items-start justify-around border-t bg-card px-2 pt-2.5">
+     <a class="mtab"><i data-lucide="sun" class="size-6"></i>Vandaag</a><a class="mtab active"><i data-lucide="compass" class="size-6"></i>Thema’s</a>
+     <a class="mtab -mt-7"><span class="grid size-[60px] place-items-center rounded-full bg-primary text-white" style="box-shadow:0 5px 0 hsl(var(--primary-shadow)),0 0 0 6px hsl(var(--background))"><i data-lucide="zap" class="size-7"></i></span>Oefen</a>
+     <a class="mtab"><i data-lucide="map" class="size-6"></i>Route</a><a class="mtab"><i data-lucide="award" class="size-6"></i>Ik</a>
+    </nav>
+   </div>
+  </div>
+  <!-- Ik -->
+  <div><p class="label">6 · Ik &amp; stempels</p>
+   <div class="phone">
+    <div class="flex h-11 items-end justify-between px-7 pb-1 text-[13px] font-semibold"><span>9:52</span><span>5G</span></div>
+    <div class="flex items-center justify-between px-4 py-2"><h2 class="text-2xl font-bold tracking-tight">Ik</h2><span class="grid size-8 place-items-center rounded-full bg-info text-xs font-bold text-info-text">K</span></div>
+    <div class="flex flex-col gap-3 px-4">
+     <div class="rounded-xl border bg-xp-soft p-4">
+      <div class="mb-3 flex items-center gap-3"><span class="grid size-14 place-items-center rounded-lg bg-xp text-2xl font-extrabold text-white" style="box-shadow:0 4px 0 hsl(40 70% 50%)">3</span><div><p class="text-lg font-bold">Buurtbewoner</p><p class="flex items-center gap-1 text-xs text-xp-text">Nog 160 XP tot Fietser<i data-lucide="bike"></i></p></div></div>
+      <div class="progress h-2.5 bg-xp/25"><div class="bg-xp" style="width:68%"></div></div>
+     </div>
+     <div class="grid grid-cols-3 gap-2 text-center">
+      <div class="card p-2.5"><p class="flex items-center justify-center gap-1 text-xl font-extrabold text-accent-foreground"><i data-lucide="flame" class="size-4"></i>6</p><p class="text-[11px] text-muted-foreground">dagen reeks</p></div>
+      <div class="card p-2.5"><p class="text-xl font-extrabold">148</p><p class="text-[11px] text-muted-foreground">woorden goed</p></div>
+      <div class="card p-2.5"><p class="text-xl font-extrabold">4</p><p class="text-[11px] text-muted-foreground">thema’s met ★</p></div>
+     </div>
+     <div class="flex items-baseline justify-between"><h3 class="font-bold">Stempelkaart</h3><span class="text-xs text-muted-foreground">3 / 24</span></div>
+     <div class="grid grid-cols-3 gap-3 text-center text-[11px] font-medium text-muted-foreground">
+      <div><div class="stamp mb-1"><img src="img/s2.jpg" alt=""></div>Eerste thema</div>
+      <div><div class="stamp mb-1"><img src="img/s4.jpg" alt=""></div>50 kaartjes</div>
+      <div><div class="stamp mb-1"><img src="img/s5.jpg" alt=""></div>Avondleerder</div>
+      <div><div class="stamp locked mb-1"><img src="img/s1.jpg" alt=""></div>7 dagen</div>
+      <div><div class="stamp locked mb-1"><img src="img/s3.jpg" alt=""></div>Halte 4</div>
+      <div><div class="stamp locked mb-1"><img src="img/s6.jpg" alt=""></div>Route klaar</div>
+     </div>
+    </div>
+    <nav class="absolute inset-x-0 bottom-0 flex h-[84px] items-start justify-around border-t bg-card px-2 pt-2.5">
+     <a class="mtab"><i data-lucide="sun" class="size-6"></i>Vandaag</a><a class="mtab"><i data-lucide="compass" class="size-6"></i>Thema’s</a>
+     <a class="mtab -mt-7"><span class="grid size-[60px] place-items-center rounded-full bg-primary text-white" style="box-shadow:0 5px 0 hsl(var(--primary-shadow)),0 0 0 6px hsl(var(--background))"><i data-lucide="zap" class="size-7"></i></span>Oefen</a>
+     <a class="mtab"><i data-lucide="map" class="size-6"></i>Route</a><a class="mtab active"><i data-lucide="award" class="size-6"></i>Ik</a>
+    </nav>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= SYSTEM ================= -->
+<section class="mt-14">
+ <h2 class="text-2xl font-bold tracking-tight">shadcn/ui theme and components</h2>
+ <p class="mt-1 max-w-3xl text-muted-foreground">Standard shadcn CSS variables with a Dutch palette and a larger radius (1rem) for a friendlier feel. Two custom additions: a "game" Button variant with a pressable bottom edge, and success / xp / info tokens for game feedback. Icons stay Lucide, the set the site already ships. The illustrations were generated with Codex in one shared palette.</p>
+ <div class="mt-5 grid gap-3 lg:grid-cols-[1.2fr_1fr]">
+  <div class="doc-card min-w-0">
+   <p class="label">Tokens</p>
+   <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-primary"></div><p class="p-2 text-xs font-semibold">--primary<span class="block font-normal text-muted-foreground">Oranje</span></p></div>
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-secondary"></div><p class="p-2 text-xs font-semibold">--secondary<span class="block font-normal text-muted-foreground">Navy</span></p></div>
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-success"></div><p class="p-2 text-xs font-semibold">--success<span class="block font-normal text-muted-foreground">Goed</span></p></div>
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-destructive"></div><p class="p-2 text-xs font-semibold">--destructive<span class="block font-normal text-muted-foreground">Bijna</span></p></div>
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-xp"></div><p class="p-2 text-xs font-semibold">--xp<span class="block font-normal text-muted-foreground">Beloning</span></p></div>
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-info"></div><p class="p-2 text-xs font-semibold">--info<span class="block font-normal text-muted-foreground">Luisteren</span></p></div>
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-accent"></div><p class="p-2 text-xs font-semibold">--accent<span class="block font-normal text-muted-foreground">Actief</span></p></div>
+    <div class="overflow-hidden rounded-lg border"><div class="h-12 bg-background"></div><p class="p-2 text-xs font-semibold">--background<span class="block font-normal text-muted-foreground">Room</span></p></div>
+   </div>
+  </div>
+  <div class="doc-card min-w-0">
+   <p class="label">Components used</p>
+   <div class="flex flex-wrap gap-2">
+    <button class="btn btn-default btn-game">Button · game</button><button class="btn btn-secondary">secondary</button><button class="btn btn-outline">outline</button>
+   </div>
+   <div class="mt-4 flex flex-wrap gap-1.5">
+    <span class="badge border-border bg-card">Card</span><span class="badge border-border bg-card">Badge</span><span class="badge border-border bg-card">Progress</span><span class="badge border-border bg-card">Tabs</span><span class="badge border-border bg-card">Toggle Group</span><span class="badge border-border bg-card">Drawer</span><span class="badge border-border bg-card">Sheet</span><span class="badge border-border bg-card">Dialog</span><span class="badge border-border bg-card">Avatar</span><span class="badge border-border bg-card">Input</span><span class="badge border-border bg-card">Sidebar</span><span class="badge border-border bg-card">Separator</span><span class="badge border-border bg-card">Sonner (toasts)</span><span class="badge border-border bg-card">Kbd</span>
+   </div>
+   <div class="mt-4 h-px bg-border"></div>
+   <p class="mt-4 text-sm text-muted-foreground"><strong class="text-foreground">Build note:</strong> shadcn/ui is React + Tailwind. The site today is plain HTML, CSS and JS. Implementing this means moving the app to Vite + React + Tailwind. The content files, locales, audio, SM-2 logic and Supabase sync carry over unchanged.</p>
+  </div>
+ </div>
+</section>
+
+</div>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>try{lucide.createIcons()}catch(e){}</script>

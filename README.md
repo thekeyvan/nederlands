@@ -1,9 +1,11 @@
 # Mijn Nederlands
 
-A small, open-source Dutch learning site for A2–B1, with translations in your own language. Built with plain HTML, CSS and JavaScript. [Live example](https://nederlands.keyvanmahmoudi.com).
+A small, open-source Dutch learning site for A2–B1 that feels like a game, with translations in your own language. Built with React, TypeScript, Vite, Tailwind CSS and [shadcn/ui](https://ui.shadcn.com). [Live example](https://nederlands.keyvanmahmoudi.com).
 
-- An eight-step A2–B1 classroom review path with shared card progress and focused practice
-- A daily learning dashboard, searchable topic cards, phone navigation and focused word detail sheets
+- Five practice modes mixed into every round (choose, listen, type, fill the gap, flashcard), all feeding the same SM-2 schedule
+- An honest game layer: daily streak, XP and playful levels, daily missions, theme stars and a stamp card, all calculated from real review history
+- An eight-step A2–B1 classroom review path, shown as an illustrated canal route
+- A daily mission, illustrated topic cards, a mascot, light and dark themes, phone and laptop layouts
 - 20 themed word webs with 624 words and expressions, each with a Dutch usage example and Persian translation
 - 105 practical sentences and 20 short role-play conversations, including the GP, pharmacy and municipality
 - 48 grammar patterns, recall practice and SM-2 spaced repetition
@@ -14,7 +16,7 @@ A small, open-source Dutch learning site for A2–B1, with translations in your 
 
 ## Run your own copy
 
-Requires Node.js 22+ and Python 3 for the example development server.
+Requires Node.js 22+.
 
 ```sh
 npm ci
@@ -22,7 +24,7 @@ npm test
 npm run dev
 ```
 
-Open http://localhost:8080. A fresh fork works without an account or external database. `npm run build` creates `dist/`; any static host can serve that folder. Only the application and assets are copied, not SQL, tests, contributor documents or environment files.
+Open http://localhost:5173. A fresh fork works without an account or external database. `npm run build` type-checks, builds `dist/` with Vite and writes the public deployment settings; any static host can serve that folder. Only the application and its assets are shipped, not SQL, tests, contributor documents or environment files. `npm run preview` serves the production build locally.
 
 ## Add your language
 
@@ -34,7 +36,7 @@ Translate `locales/es.js`, set the language name, Dutch language name, direction
 
 The navigation stays in simple Dutch: Dutch is the language being learned. Meanings, example translations, grammar explanations and secondary learning hints come from the selected pack. Persian is the only complete bundled pack today. Adding a pack changes the learner's translation language, not the target language.
 
-See [the UX and design notes](docs/DESIGN.md) for the interface structure and design references. `index.html` is the canonical app template; the build preserves `/leren.html` as an alias. The resource collection is at `/bronnen.html#bronnen`.
+See [the UX and design notes](docs/DESIGN.md) for the interface structure, the game rules and design references. `index.html` is the app entry; the build preserves `/leren.html` as an alias. The resource collection is in the app at `/#bronnen`; old `/bronnen.html` and `#week` links still work.
 
 ## Add themes or sentences
 
@@ -65,6 +67,6 @@ Progress is tied to stable content IDs, independent of the translation language.
 
 ## License and sources
 
-[MIT](LICENSE) covers the original code, illustrations and original learning content in this repository. You may fork, modify and share it, including commercially, while retaining the license notice. Linked websites, books, logos and third-party materials retain their own rights; the license does not grant rights to their content. Lucide icons have their own [license](assets/icons/LICENSE). The vendored Supabase SDK has its own [MIT notice](assets/supabase.LICENSE.txt). Audio generation sources and model notices are in [the audio guide](docs/AUDIO.md) and [audio credits](assets/audio/NOTICE.md).
+[MIT](LICENSE) covers the original code, illustrations and original learning content in this repository. You may fork, modify and share it, including commercially, while retaining the license notice. Linked websites, books, logos and third-party materials retain their own rights; the license does not grant rights to their content. The illustrations and mascot were generated for this project with OpenAI image generation through Codex; their sources are in `docs/design/img/`. Lucide icons, shadcn/ui components, Radix UI and the Supabase SDK are open-source dependencies under their own licenses. Audio generation sources and model notices are in [the audio guide](docs/AUDIO.md) and [audio credits](public/assets/audio/NOTICE.md).
 
 The resource collection was inspired by Regina Coeli's study advice. The core learning topics were rewritten from Dutch lessons; the practical dialogues were written for this project. No private chat transcripts, course screenshots, access codes or personal financial details are included. The site is independent and is not an official Regina Coeli product.

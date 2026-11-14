@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {courseLessons} from '../content/course.js';
 import {baseSentences} from '../content/grammar.js';
-import {themes} from '../learning-data.js';
-import {cards,planSession} from '../learning-model.js';
-import {scheduleReview} from '../srs.js';
+import {themes} from '../src/core/learning-data.js';
+import {cards,planSession} from '../src/core/learning-model.js';
+import {scheduleReview} from '../src/core/srs.js';
 
 test('classroom path resolves existing cards and grammar without duplicating progress',()=>{
  assert.equal(courseLessons.length,8);

@@ -7,8 +7,8 @@ import {baseSentences} from '../content/grammar.js';
 import {basePhrases} from '../content/phrases.js';
 import {baseDialogues} from '../content/dialogues.js';
 import {locales} from '../locales/index.js';
-import {translateCard} from '../i18n.js';
-import {makeQueue,validReviews,scheduleReview} from '../srs.js';
+import {translateCard} from '../src/core/i18n.js';
+import {makeQueue,validReviews,scheduleReview} from '../src/core/srs.js';
 const cards=[...baseVocabulary,...baseSentences,...basePhrases];
 const ids=new Set(cards.map(card=>card.id));
 test('every theme has practical sentences and a coherent dialogue structure',()=>{

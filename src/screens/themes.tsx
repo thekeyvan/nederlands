@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from 'react';
-import {ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff, Search, Zap} from 'lucide-react';
+import {ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff, Gamepad2, Search, Zap} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
@@ -105,8 +105,9 @@ function ThemeDetail({theme, initialTopic}: {theme: Theme; initialTopic: Route['
             <span className="text-muted-foreground tabular-nums">{stats.done}/{stats.total} geoefend · {stats.known} goed onthouden</span>
           </div>
           <Progress value={stats.total ? (stats.done / stats.total) * 100 : 0} className="h-2 max-w-md" aria-label={`${stats.done} van ${stats.total} geoefend`} />
-          <div className="mt-2">
+          <div className="mt-2 flex flex-wrap gap-3">
             <Button size="xl" game onClick={() => start({theme: theme.id, type: 'all', label: theme.title})}><Zap />Oefen dit thema</Button>
+            <Button size="xl" variant="info" game onClick={() => navigate('spellen', {theme: theme.id})}><Gamepad2 />Speel met dit thema</Button>
           </div>
         </div>
       </header>

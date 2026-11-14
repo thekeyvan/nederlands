@@ -17,6 +17,7 @@ import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
 import {themes} from '@/core/learning-data.js';
 import {resumeTheme} from '@/core/learning-model.js';
+import {games} from '@/games/registry';
 
 export function TodayScreen() {
   const game = useGame();
@@ -108,6 +109,22 @@ export function TodayScreen() {
           </section>
 
           <div className="grid gap-4 sm:grid-cols-2 xl:hidden">{rail}</div>
+
+          <section aria-labelledby="games-title">
+            <SectionTitle title={<span id="games-title">Even spelen?</span>} action={<Button variant="ghost" size="sm" className="text-primary" onClick={() => navigate('spellen')}>Alle {games.length} spellen<ChevronRight /></Button>} />
+            <div className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
+              {games.slice(0, 4).map((game) => (
+                <button key={game.id} type="button" onClick={() => navigate('spellen', {game: game.id})}
+                  className="group w-40 shrink-0 snap-start overflow-hidden rounded-xl border bg-card text-left shadow-[0_4px_0_var(--border)] transition hover:-translate-y-0.5 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:w-auto">
+                  <img src={game.image} alt="" className="aspect-[4/3] w-full object-cover" draggable={false} loading="lazy" />
+                  <span className="block p-3">
+                    <span className="block text-sm font-bold">{game.title}</span>
+                    <span className="block text-xs text-muted-foreground">{game.skill} · {game.length}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </section>
 
           <section aria-labelledby="themes-title">
             <SectionTitle title={<span id="themes-title">Waar wil je over praten?</span>} action={<Button variant="ghost" size="sm" className="text-primary" onClick={() => navigate('woorden')}>Alle {themes.length} thema’s<ChevronRight /></Button>} />

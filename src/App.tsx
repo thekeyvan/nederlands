@@ -17,16 +17,17 @@ import {GrammarScreen} from '@/screens/grammar';
 import {RouteScreen} from '@/screens/route';
 import {MeScreen} from '@/screens/me';
 import {ResourcesScreen} from '@/screens/resources';
+import {GamesScreen} from '@/screens/games';
 
 function Screens() {
   const route = useRoute();
   const {session} = usePractice();
   const audio = useAudio();
   const first = useRef(true);
-  const focus = route.panel === 'oefenen' && session !== null;
+  const focus = (route.panel === 'oefenen' && session !== null) || (route.panel === 'spellen' && route.game !== null);
 
   // On every navigation: stop audio, update the title, return to the top and move focus to the heading.
-  const key = `${route.panel}:${route.theme ?? ''}:${route.rule ?? ''}:${route.step ?? ''}`;
+  const key = `${route.panel}:${route.theme ?? ''}:${route.rule ?? ''}:${route.step ?? ''}:${route.game ?? ''}`;
   useEffect(() => {
     audio.cancel();
     document.title = `${panelTitles[route.panel]} — Mijn Nederlands`;
@@ -50,6 +51,7 @@ function Screens() {
       {route.panel === 'vandaag' && <TodayScreen />}
       {route.panel === 'woorden' && <ThemesScreen themeId={route.theme} topic={route.topic} />}
       {route.panel === 'oefenen' && <PracticeScreen />}
+      {route.panel === 'spellen' && <GamesScreen game={route.game} theme={route.theme} />}
       {route.panel === 'zinnen' && <GrammarScreen rule={route.rule} />}
       {route.panel === 'route' && <RouteScreen step={route.step} />}
       {route.panel === 'voortgang' && <MeScreen />}

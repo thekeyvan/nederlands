@@ -3,6 +3,7 @@
 A small, open-source Dutch learning site for A2–B1 that feels like a game, with translations in your own language. Built with React, TypeScript, Vite, Tailwind CSS and [shadcn/ui](https://ui.shadcn.com). [Live example](https://nederlands.keyvanmahmoudi.com).
 
 - Five practice modes mixed into every round (choose, listen, type, fill the gap, flashcard), all feeding the same SM-2 schedule
+- Seven study games: De of het?, Zinnen bouwen (word order), Werkwoorden (past forms), Zinnen aanvullen, Luisterdictee, Gesprekken and Tijdrace, with personal bests
 - An honest game layer: daily streak, XP and playful levels, daily missions, theme stars and a stamp card, all calculated from real review history
 - An eight-step A2–B1 classroom review path, shown as an illustrated canal route
 - A daily mission, illustrated topic cards, a mascot, light and dark themes, phone and laptop layouts

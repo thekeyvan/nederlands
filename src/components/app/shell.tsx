@@ -1,5 +1,5 @@
 import type {ReactNode} from 'react';
-import {Flame, Laptop, Library, Menu, Moon, Puzzle, Shield, Star, Sun, Zap} from 'lucide-react';
+import {Flame, Laptop, Library, Map, Menu, Moon, Puzzle, Shield, Star, Sun, Zap} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
@@ -83,6 +83,7 @@ function MobileTopBar() {
             <Button variant="ghost" size="icon" aria-label="Meer"><Menu /></Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem onSelect={() => navigate('route')}><Map />De route</DropdownMenuItem>
             <DropdownMenuItem onSelect={() => navigate('zinnen')}><Puzzle />Zinsbouw</DropdownMenuItem>
             <DropdownMenuItem onSelect={() => navigate('bronnen')}><Library />Websites & boeken</DropdownMenuItem>
             <DropdownMenuItem asChild><a href="./privacy.html"><Shield />Privacy</a></DropdownMenuItem>
@@ -96,7 +97,8 @@ function MobileTopBar() {
   );
 }
 
-const mobileTabs: {panel: Panel; label: string; icon: NavItem['icon']}[] = [mainNav[0], mainNav[1], mainNav[2], mainNav[3], {...mainNav[5], label: 'Ik'}];
+const byPanel = (panel: Panel) => mainNav.find((item) => item.panel === panel)!;
+const mobileTabs: {panel: Panel; label: string; icon: NavItem['icon']}[] = [byPanel('vandaag'), byPanel('woorden'), byPanel('oefenen'), byPanel('spellen'), {...byPanel('voortgang'), label: 'Ik'}];
 
 function MobileNav({panel}: {panel: Panel}) {
   return (

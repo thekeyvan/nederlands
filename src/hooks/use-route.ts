@@ -1,11 +1,11 @@
 import {useSyncExternalStore} from 'react';
 
-export type Panel = 'vandaag' | 'woorden' | 'oefenen' | 'zinnen' | 'route' | 'voortgang' | 'bronnen';
-export interface Route {panel: Panel; theme: string | null; topic: 'words' | 'phrases' | 'dialogue'; rule: string | null; step: number | null; section: 'bronnen' | 'week'}
+export type Panel = 'vandaag' | 'woorden' | 'oefenen' | 'spellen' | 'zinnen' | 'route' | 'voortgang' | 'bronnen';
+export interface Route {panel: Panel; theme: string | null; topic: 'words' | 'phrases' | 'dialogue'; rule: string | null; step: number | null; section: 'bronnen' | 'week'; game: string | null}
 
-const panels: Panel[] = ['vandaag', 'woorden', 'oefenen', 'zinnen', 'route', 'voortgang', 'bronnen'];
+const panels: Panel[] = ['vandaag', 'woorden', 'oefenen', 'spellen', 'zinnen', 'route', 'voortgang', 'bronnen'];
 export const panelTitles: Record<Panel, string> = {
-  vandaag: 'Vandaag', woorden: 'Thema’s', oefenen: 'Oefenen', zinnen: 'Zinsbouw', route: 'De route', voortgang: 'Ik', bronnen: 'Bronnen',
+  vandaag: 'Vandaag', woorden: 'Thema’s', oefenen: 'Oefenen', spellen: 'Spellen', zinnen: 'Zinsbouw', route: 'De route', voortgang: 'Ik', bronnen: 'Bronnen',
 };
 
 let cached: {key: string; route: Route} | null = null;
@@ -29,7 +29,7 @@ function parse(): Route {
   const theme = params.get('thema');
   if (!panels.includes(panel)) panel = theme ? 'woorden' : 'vandaag';
   const step = Number(params.get('halte'));
-  const route: Route = {panel, theme, topic, rule: params.get('regel'), step: Number.isInteger(step) && step > 0 ? step : null, section};
+  const route: Route = {panel, theme, topic, rule: params.get('regel'), step: Number.isInteger(step) && step > 0 ? step : null, section, game: params.get('spel')};
   cached = {key, route};
   return route;
 }
@@ -54,9 +54,10 @@ export function useRoute() {
   );
 }
 
-export function navigate(panel: Panel, options: {theme?: string | null; rule?: string | null; step?: number | null; replace?: boolean} = {}) {
+export function navigate(panel: Panel, options: {theme?: string | null; rule?: string | null; step?: number | null; game?: string | null; replace?: boolean} = {}) {
   const url = new URL(location.href);
-  for (const key of ['thema', 'regel', 'halte']) url.searchParams.delete(key);
+  for (const key of ['thema', 'regel', 'halte', 'spel']) url.searchParams.delete(key);
+  if (options.game) url.searchParams.set('spel', options.game);
   if (options.theme) url.searchParams.set('thema', options.theme);
   if (options.rule) url.searchParams.set('regel', options.rule);
   if (options.step) url.searchParams.set('halte', String(options.step));
@@ -66,8 +67,9 @@ export function navigate(panel: Panel, options: {theme?: string | null; rule?: s
 }
 
 /** Plain links for real <a href> elements (open in new tab still works). */
-export function hrefFor(panel: Panel, options: {theme?: string; rule?: string; step?: number} = {}) {
+export function hrefFor(panel: Panel, options: {theme?: string; rule?: string; step?: number; game?: string} = {}) {
   const params = new URLSearchParams();
+  if (options.game) params.set('spel', options.game);
   if (options.theme) params.set('thema', options.theme);
   if (options.rule) params.set('regel', options.rule);
   if (options.step) params.set('halte', String(options.step));

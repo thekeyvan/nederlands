@@ -8,6 +8,7 @@ Mijn Nederlands should feel like a small game you want to come back to, without 
 | --- | --- |
 | Vandaag (`#vandaag`) | Daily mission ring and one start button, route strip, continue card, recommended themes and the game cards |
 | Thema’s (`#woorden`) | Illustrated theme cards with stars; a theme page with words, practical sentences and a chat-style dialogue with role-play mode |
+| Spellen (`#spellen`, `?spel=`) | Seven study games with personal bests; `?thema=` plays with one theme’s content |
 | Oefenen (`#oefenen`) | Setup, then a full-screen round (navigation hidden), then a reward screen with an optional pairs bonus game |
 | De route (`#route`) | The eight classroom steps as stops on an illustrated canal map, with each step’s review, grammar and speaking task |
 | Zinsbouw (`#zinnen`) | Searchable grammar patterns; `?regel=` opens one |
@@ -27,6 +28,20 @@ Each card gets a mode when it appears, based on its review state:
 - Grammar patterns: **Zinsbouw**, type the missing word.
 
 Answers map onto the existing SM-2 grades: right first time 4, right with a hint or a small slip 3, wrong 1. The flashcard keeps the learner’s four ratings, including 5. Distractors come from the same theme first. Space replays audio or reveals a flashcard, 1–4 choose, Enter continues.
+
+## Study games
+
+| Game | Skill | How it works |
+| --- | --- | --- |
+| De of het? | Words | 60 seconds of articles; keys D/H or arrows |
+| Zinnen bouwen | Word order | Tap the words into order; the first word is given and the full stop stays apart. A wrong answer shows the most common order and says other orders can exist |
+| Werkwoorden | Grammar | Choose the imperfectum or perfectum. Wrong options are typical learner mistakes: hebben/zijn swapped (never for verbs of movement), t/d swapped, ge- added or dropped, the past instead of the participle, or a regular form for a strong verb |
+| Zinnen aanvullen | Sentences and grammar | One word missing from a practical sentence or grammar pattern; distractors are content words or other grammar answers, capitalised to fit the gap |
+| Luisterdictee | Listening and spelling | Hear a word or sentence and type it; small slips count as “bijna” |
+| Gesprekken | Speaking | The setting is shown, the other person speaks, and you pick your reply from three |
+| Tijdrace | Words | As many translations as possible in 60 seconds |
+
+Games never change the SM-2 schedule and do not add XP. Personal bests stay in the browser. After a game, missed cards can be sent to a normal practice round.
 
 ## Game rules
 

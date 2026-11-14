@@ -17,6 +17,8 @@ Small improvements are welcome: clearer A2–B1 wording, corrected translations,
 | `src/core/learning-model.js` | Pure session, activity and theme helpers |
 | `src/core/game.js` | Streak, XP, levels, stars, stamps, missions and route progress (derived, never stored) |
 | `src/core/practice.js` | Practice modes, answer options, typed-answer checking and grade mapping |
+| `src/core/games.js` | Rounds for the study games, learner-mistake distractors and personal bests |
+| `src/games/` | The seven study games and their shared shell |
 | `src/core/i18n.js` | Language pack selection, text direction and fonts |
 | `src/core/*.d.ts` | Types for the plain-JS core, used by the React UI |
 | `src/screens/` | Vandaag, Thema’s, Oefenen, Zinsbouw, De route, Ik and Bronnen |

@@ -19,6 +19,7 @@ struct NedfaApp: App {
             .preferredColorScheme(preferences.appearance == "light" ? .light : preferences.appearance == "dark" ? .dark : nil)
             .onOpenURL { cloud.handle($0) }
             .task { await cloud.start() }
+            .task(priority: .background) { await ContentUpdater.check() }
             .alert("Let op", isPresented: Binding(get: { cloud.message != nil }, set: { if !$0 { cloud.message = nil } })) {
                 Button("OK", role: .cancel) {}
             } message: { Text(cloud.message ?? "") }

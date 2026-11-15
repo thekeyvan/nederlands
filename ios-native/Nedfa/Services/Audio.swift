@@ -21,7 +21,8 @@ final class Audio: NSObject, AVAudioPlayerDelegate {
         return FileManager.default.fileExists(atPath: url.path()) ? url : nil
     }
 
-    func has(_ text: String?) -> Bool { text.map { Content.shared.audio.clips[$0] != nil } ?? false }
+    /// Only clips that ship with this build: content downloaded later may name sentences without a clip yet.
+    func has(_ text: String?) -> Bool { text.flatMap { url(for: $0) } != nil }
 
     func play(_ text: String, speed: Double? = nil) {
         stop()

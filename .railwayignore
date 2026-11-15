@@ -1,0 +1,8 @@
+.claude/
+ios/
+ios-native/
+docs/
+build/
+.react-router/
+node_modules/
+public/img/

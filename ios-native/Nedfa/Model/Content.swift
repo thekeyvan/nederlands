@@ -143,6 +143,7 @@ struct GameData: Codable {
 }
 
 struct ContentFile: Codable {
+    let version: String?
     let themes: [Theme]
     let groups: [ThemeGroup]
     let cards: [Card]
@@ -156,10 +157,11 @@ struct ContentFile: Codable {
     let games: GameData
 }
 
-/// All content, loaded once from the app bundle.
+/// All content, loaded once at launch: the newest copy from nedfa.nl if one was downloaded, else the bundled one.
 final class Content: Sendable {
     static let shared = Content()
 
+    let version: String?
     let themes: [Theme]
     let groups: [ThemeGroup]
     let cards: [Card]
@@ -174,8 +176,8 @@ final class Content: Sendable {
     private let byId: [String: Card]
 
     private init() {
-        let url = Bundle.main.url(forResource: "content", withExtension: "json")!
-        let file = try! JSONDecoder().decode(ContentFile.self, from: Data(contentsOf: url))
+        let file = ContentUpdater.downloaded() ?? (try! JSONDecoder().decode(ContentFile.self, from: Data(contentsOf: Bundle.main.url(forResource: "content", withExtension: "json")!)))
+        version = file.version
         themes = file.themes
         groups = file.groups
         cards = file.cards

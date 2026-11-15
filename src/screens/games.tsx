@@ -141,7 +141,7 @@ function GameIntro({game, theme, onStart}: {game: GameInfo; theme: string; onSta
       <img src={game.image} alt="" className="mx-auto mt-2 aspect-square w-full max-w-64 rounded-3xl bg-[#fcfaf6] object-cover" draggable={false} />
       <div className="mt-5 flex flex-wrap items-center gap-2">
         <Badge className={game.tint}>{game.skill}</Badge>
-        <Badge variant="outline"><Timer />{game.length}</Badge>
+        <Badge variant="outline"><Timer />{game.id === 'gesprek' && themeTitle ? '1 gesprek' : game.length}</Badge>
         {themeTitle && <Badge variant="outline">{themeTitle}</Badge>}
       </div>
       <h1 className="mt-3 text-3xl font-extrabold tracking-tight">{game.title}</h1>

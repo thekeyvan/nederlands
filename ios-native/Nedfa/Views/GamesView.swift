@@ -21,7 +21,7 @@ enum GameID: String, CaseIterable, Identifiable {
         case .aanvullen: "10 zinnen"
         case .werkwoorden: "10 vragen"
         case .dictee: "8 opnames"
-        case .gesprek: "3 gesprekken"
+        case .gesprek: "1 of 3 gesprekken"
         }
     }
     var howTo: [String] {
@@ -32,7 +32,7 @@ enum GameID: String, CaseIterable, Identifiable {
         case .aanvullen: ["In elke zin mist één woord.", "Kies het woord dat past.", "Tien zinnen per ronde."]
         case .werkwoorden: ["Je ziet een werkwoord.", "Kies de goede verleden tijd of het voltooid deelwoord.", "Let op hebben of zijn, t of d."]
         case .dictee: ["Tik op de luidspreker en luister.", "Typ wat je hoort. Je mag vaker luisteren.", "Een kleine typfout telt ook als goed."]
-        case .gesprek: ["Je leest een kort gesprek.", "Kies bij jouw beurt wat jij zegt.", "Drie gesprekken per ronde."]
+        case .gesprek: ["Lees of luister wat de ander zegt.", "Bij jouw beurt zie je wat je wilt zeggen. Kies de Nederlandse zin die dat zegt.", "Vanuit een situatie oefen je het gesprek van die situatie; in de Arcade drie gesprekken."]
         }
     }
     static let sections: [(String, [GameID])] = [("Woorden", [.lidwoord, .tijdrace]), ("Zinnen", [.zinsbouwer, .aanvullen, .werkwoorden]), ("Luisteren & spreken", [.dictee, .gesprek])]
@@ -224,7 +224,7 @@ struct GameFlow: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 Art(name: "games/\(game.game.rawValue)", size: 220).frame(maxWidth: .infinity)
-                HStack { Label(game.game.length, systemImage: "timer"); if let theme = Content.shared.theme(game.theme) { Text("· \(theme.title)") } }.font(.subheadline).foregroundStyle(.secondary)
+                HStack { Label(game.game == .gesprek && Content.shared.theme(game.theme) != nil ? "1 gesprek" : game.game.length, systemImage: "timer"); if let theme = Content.shared.theme(game.theme) { Text("· \(theme.title)") } }.font(.subheadline).foregroundStyle(.secondary)
                 Text(game.game.title).font(.largeTitle.weight(.heavy))
                 ForEach(Array(game.game.howTo.enumerated()), id: \.offset) { index, line in
                     HStack(alignment: .top, spacing: 12) {
@@ -344,8 +344,9 @@ struct GamePlay: View {
     }
     private func conversations() -> [GameData.Conversation] {
         let all = Content.shared.games.conversations.shuffled()
+        // From a situation: only its own conversation, so you stay in that situation. In the Arcade: three.
         let own = all.filter { conversation in Content.shared.dialogues.first(where: { $0.id == conversation.dialogueId })?.themeId == theme }
-        return Array((own + all.filter { c in !own.contains { $0.dialogueId == c.dialogueId } }).prefix(3))
+        return own.isEmpty ? Array(all.prefix(3)) : Array(own.prefix(1))
     }
 }
 
@@ -468,6 +469,14 @@ struct RaceGame: View {
     }
 }
 
+/// A grammar card's translation belongs to its example; show it only when the question is that same sentence.
+private func sameSentenceTranslation(_ question: Question) -> String? {
+    guard let translation = question.card.translation, let example = question.card.example,
+          let answer = question.options.first(where: \.correct)?.label else { return nil }
+    let sentence = question.title.replacingOccurrences(of: #"\s*\([^)]*\)\s*$"#, with: "", options: .regularExpression).replacingOccurrences(of: "___", with: answer)
+    return Answer.normalize(sentence) == Answer.normalize(example) ? translation : nil
+}
+
 struct QuestionGame: View {
     let questions: [Question]
     let finish: (GameResult) -> Void
@@ -485,7 +494,7 @@ struct QuestionGame: View {
                     VStack(alignment: .leading, spacing: 18) {
                         Text(question.subtitle).font(.headline).foregroundStyle(.secondary)
                         Text(question.title.replacingOccurrences(of: "___", with: " ____ ")).font(.title.weight(.bold))
-                        if let meaning = question.card.meaning { Persian(text: meaning) }
+                        if let meaning = question.card.meaning ?? sameSentenceTranslation(question) { Persian(text: meaning) }
                         OptionList(options: question.options, outcome: outcome) { option in
                             outcome = Outcome(grade: 4, correct: option.correct, result: option.correct ? .correct : .wrong)
                             if option.correct { score += 1; Haptics.success() } else { misses.append(question.card); Haptics.error() }
@@ -592,13 +601,26 @@ struct ConversationGame: View {
                 let dialogue = Content.shared.dialogues.first { $0.id == current.dialogueId }
                 ScrollView {
                     VStack(alignment: .leading, spacing: 12) {
-                        if let dialogue, let theme = Content.shared.theme(dialogue.themeId) { PictureRow(picture: "themes/\(theme.id)", title: theme.title, detail: "Gesprek \(conversation + 1) van \(conversations.count)") }
+                        if let dialogue, let theme = Content.shared.theme(dialogue.themeId) {
+                            PictureRow(picture: "themes/\(theme.id)", title: theme.title, detail: conversations.count > 1 ? "Gesprek \(conversation + 1) van \(conversations.count) · \(theme.intro)" : theme.intro)
+                        }
                         ForEach(Array(current.steps.prefix(step + 1).enumerated()), id: \.offset) { offset, item in
                             if let line = Content.shared.line(item.lineId) {
                                 if item.options == nil || offset < step {
                                     bubble(line)
                                 } else if let options = item.options {
                                     Text("Wat zeg jij?").font(.headline).foregroundStyle(.secondary)
+                                    // What you want to say, in Persian: so you know your goal and choose the Dutch sentence that says it.
+                                    if !line.translation.isEmpty {
+                                        VStack(alignment: .trailing, spacing: 4) {
+                                            Label("Je wilt zeggen:", systemImage: "quote.bubble.fill").font(.caption.weight(.bold)).foregroundStyle(Color.goldInk)
+                                            Persian(text: line.translation, font: .body.weight(.semibold), color: .primary)
+                                        }
+                                        .padding(12).frame(maxWidth: .infinity, alignment: .trailing)
+                                        .background(Color.butterSoft, in: RoundedRectangle(cornerRadius: 14))
+                                        .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(Color.butter.opacity(0.6), style: StrokeStyle(lineWidth: 1.5, dash: [5])))
+                                        Text("Kies de Nederlandse zin:").font(.subheadline.weight(.semibold)).foregroundStyle(.secondary).padding(.top, 4)
+                                    }
                                     ForEach(options, id: \.lineId) { option in
                                         if let text = Content.shared.line(option.lineId) {
                                             Button { pick(option, line: line) } label: {

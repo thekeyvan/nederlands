@@ -162,9 +162,9 @@ export function ConversationGame({game, theme, onAgain}: Props) {
   const [roundId] = useState(() => newRoundId(game.id));
   const chosen = useMemo<Dialogue[]>(() => {
     const random = seededRandom(roundId);
+    // From a situation: only its own conversation, so you stay in that situation. In the Arcade: three.
     const themed = dialogues.find((dialogue) => dialogue.themeId === theme);
-    const others = shuffle(dialogues.filter((dialogue) => dialogue !== themed), random);
-    return (themed ? [themed, ...others] : others).slice(0, 3);
+    return themed ? [themed] : shuffle(dialogues, random).slice(0, 3);
   }, [roundId, theme]);
   const steps = useMemo(() => chosen.map((dialogue) => dialogueSteps(dialogue, dialogues, `${roundId}:${dialogue.id}`)), [chosen, roundId]);
   const total = steps.flat().filter((step) => step.options).length;
@@ -202,7 +202,7 @@ export function ConversationGame({game, theme, onAgain}: Props) {
   return (
     <GameFrame>
       <GameBar game={game} progress={conversation / steps.length} score={score} theme={theme} />
-      <p className="mt-2 text-center text-xs text-muted-foreground">Gesprek {conversation + 1} van {steps.length}</p>
+      <p className="mt-2 text-center text-xs text-muted-foreground">{steps.length > 1 ? `Gesprek ${conversation + 1} van ${steps.length}` : 'Een gesprek'}</p>
       {setting && (
         <div key={setting.id} className="mt-5 flex items-center gap-3 rounded-xl border bg-card p-3">
           <ThemeArt theme={setting} className="size-16 shrink-0 rounded-lg" />
@@ -225,6 +225,12 @@ export function ConversationGame({game, theme, onAgain}: Props) {
               {waiting ? (
                 <div className="flex w-full flex-col items-end gap-2">
                   <p className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground"><MessageCircle className="size-4" />Wat zeg jij?</p>
+                  {/* What you want to say, in Persian: so you know your goal and choose the Dutch sentence that says it. */}
+                  <div className="w-full max-w-[90%] rounded-xl border-2 border-dashed border-xp/50 bg-xp-soft px-3.5 py-2.5 text-right text-xp-foreground">
+                    <p className="text-xs font-bold">Je wilt zeggen:</p>
+                    <Translation className="mt-0.5 text-[15px] font-semibold text-foreground">{item.line.translation}</Translation>
+                  </div>
+                  <p className="text-sm font-medium text-muted-foreground">Kies de Nederlandse zin:</p>
                   {item.options!.map((option, index) => (
                     <button key={option.line.id} type="button" onClick={() => answer(index)}
                       className="max-w-[90%] rounded-2xl rounded-br-md border-2 border-primary/30 bg-card px-4 py-3 text-right font-medium shadow-[0_3px_0_var(--border)] transition hover:border-primary hover:bg-accent/50 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none" lang="nl">

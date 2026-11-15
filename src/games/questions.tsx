@@ -4,7 +4,7 @@ import {ListenButton} from '@/components/listen-button';
 import {Translation} from '@/components/translation';
 import {useAudio} from '@/hooks/use-audio';
 import {clozeItem, pick, roundPool, verbItems, verbQuestion, type ClozeItem} from '@/core/games.js';
-import {seededRandom, shuffle} from '@/core/practice.js';
+import {normalizeAnswer, seededRandom, shuffle} from '@/core/practice.js';
 import {vocabulary} from '@/core/learning-data.js';
 import {phrases} from '@/core/phrase-data.js';
 import {sentences} from '@/core/sentence-data.js';
@@ -83,6 +83,10 @@ export function VerbGame(props: Props) {
   return <QuestionRun {...props} roundId={roundId} questions={questions} />;
 }
 
+/** A grammar card's translation belongs to its example; show it only when the exercise is that same sentence. */
+const sameSentence = (card: Card, answer: string) =>
+  normalizeAnswer((card.prompt ?? '').replace(/\s*\([^)]*\)\s*$/, '').replace('___', answer)) === normalizeAnswer(card.example ?? '');
+
 /** Zinnen aanvullen: practical sentences and grammar patterns with one word missing. */
 export function ClozeGame(props: Props) {
   const [roundId] = useState(() => newRoundId(props.game.id));
@@ -103,7 +107,7 @@ export function ClozeGame(props: Props) {
             <h1 className="mt-4 text-2xl leading-relaxed font-bold sm:text-3xl" lang="nl">
               {item.before}<span className="mx-1 inline-block min-w-20 rounded-md border-b-4 border-primary px-2 text-center text-primary">…</span>{item.after}
             </h1>
-            {!grammar && <Translation className="mt-2 text-muted-foreground">{item.card.meaning}</Translation>}
+            <Translation className="mt-2 text-muted-foreground">{grammar ? (sameSentence(item.card, item.answer) ? item.card.translation : undefined) : item.card.meaning}</Translation>
           </div>
         ),
         explain: (

@@ -218,13 +218,15 @@ struct LevelRing: View {
     let progress: Double
     var size: CGFloat = 46
     var body: some View {
+        // A gold level coin with the number, and a thin ring around it that fills with XP (no dark track).
         ZStack {
-            Circle().stroke(Color.track, lineWidth: 5)
-            Circle().trim(from: 0, to: progress).stroke(Color.butter, style: StrokeStyle(lineWidth: 5, lineCap: .round)).rotationEffect(.degrees(-90))
-            Text("\(number)").font(.game(size * 0.38, .black)).foregroundStyle(Color(light: 0x24416A, dark: 0xFFFFFF)).monospacedDigit()
+            Circle().fill(Color.butter).padding(7)
+                .overlay(Circle().fill(.white.opacity(0.35)).frame(width: size * 0.22).offset(x: -size * 0.12, y: -size * 0.14).blur(radius: 2).padding(7))
+            Circle().stroke(Color.butter.opacity(0.22), lineWidth: 3.5)
+            Circle().trim(from: 0, to: max(0.001, progress)).stroke(Color.butter, style: StrokeStyle(lineWidth: 3.5, lineCap: .round)).rotationEffect(.degrees(-90))
+            Text("\(number)").font(.game(size * 0.4, .black)).foregroundStyle(Color.navy).monospacedDigit()
         }
         .frame(width: size, height: size)
-        .background(Color.surface, in: Circle())
         .accessibilityLabel("Niveau \(number)")
     }
 }

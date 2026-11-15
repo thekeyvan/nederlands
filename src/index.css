@@ -169,6 +169,9 @@
   h1, h2, h3 {
     text-wrap: balance;
     letter-spacing: -0.02em;
+    /* Long Dutch compounds (verantwoordelijkheid) must never run off a phone screen. */
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
   /* Translation text uses the language pack's font and direction. */
   .translation {

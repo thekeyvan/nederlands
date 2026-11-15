@@ -10,6 +10,10 @@ import type {GameInfo} from '@/games/registry';
 
 interface Props {game: GameInfo; theme: string; onAgain: () => void}
 
+/** Big for short words, smaller for long compounds, so every noun fits on one line of a phone. */
+const wordSize = (word: string) =>
+  word.length <= 9 ? 'text-5xl sm:text-6xl' : word.length <= 13 ? 'text-4xl sm:text-6xl' : word.length <= 20 ? 'text-3xl sm:text-5xl' : 'text-2xl sm:text-4xl';
+
 /** De of het? Sixty seconds of articles. Keys: D or ←, H or →. */
 export function ArticleGame({game, theme, onAgain}: Props) {
   const [roundId] = useState(() => newRoundId(game.id));
@@ -46,9 +50,9 @@ export function ArticleGame({game, theme, onAgain}: Props) {
     <GameFrame>
       <GameBar game={game} seconds={left} score={score} theme={theme} />
       <div className="flex flex-1 flex-col items-center justify-center gap-8 py-10 text-center">
-        <div key={index} className="animate-pop">
+        <div key={index} className="w-full min-w-0 animate-pop">
           <p className="text-sm font-semibold text-muted-foreground">De of het?</p>
-          <h1 className={cn('mt-3 text-5xl font-extrabold tracking-tight sm:text-6xl', picked && (right ? 'text-success-foreground' : 'text-destructive-foreground'))} lang="nl">
+          <h1 className={cn('mt-3 font-extrabold tracking-tight', wordSize(item.noun), picked && (right ? 'text-success-foreground' : 'text-destructive-foreground'))} lang="nl">
             {picked ? <><span className="underline decoration-4 underline-offset-8">{item.article}</span> {item.noun}</> : item.noun}
           </h1>
           <Translation className="mx-auto mt-3 text-muted-foreground">{item.card.meaning}</Translation>

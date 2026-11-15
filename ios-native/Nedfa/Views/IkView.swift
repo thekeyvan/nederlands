@@ -38,8 +38,11 @@ struct IkView: View {
                                     Art(name: "stamps/\(stamp.id)", size: 74, corner: 22)
                                         .saturation(earned ? 1 : 0).opacity(earned ? 1 : 0.4)
                                         .tile(radius: 22, depth: earned ? 5 : 2)
-                                    Text(stamp.title).font(.game(12, .heavy)).multilineTextAlignment(.center).lineLimit(2).foregroundStyle(earned ? .primary : .secondary)
+                                        .padding(.bottom, earned ? 0 : 3) // same height, earned or not
+                                    // Always room for two lines, so one- and two-line titles keep the badges in one row.
+                                    Text(stamp.title).font(.game(12, .heavy)).multilineTextAlignment(.center).lineLimit(2, reservesSpace: true).foregroundStyle(earned ? .primary : .secondary)
                                 }
+                                .frame(maxWidth: .infinity, alignment: .top)
                                 .accessibilityElement(children: .combine)
                                 .accessibilityLabel("\(stamp.title), \(earned ? "verdiend" : "nog niet verdiend: \(stamp.description)")")
                             }

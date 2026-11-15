@@ -420,7 +420,7 @@ struct RouteMap: View {
                         Art(name: "themes/\(item.lesson.themeIds.first ?? "route")", size: current ? 84 : 72, corner: current ? 42 : 36)
                     }
                 }
-                Text(item.lesson.title).font(.game(13, .heavy)).foregroundStyle(locked ? .secondary : .primary).lineLimit(2).multilineTextAlignment(.center).frame(width: 150)
+                Text(item.lesson.title).font(.game(13, .heavy)).foregroundStyle(locked ? .secondary : .primary).lineLimit(2, reservesSpace: true).multilineTextAlignment(.center).frame(width: 150)
                 if item.complete { StarsView(count: 3) } else if current { Text("Start").font(.caption.weight(.black)).foregroundStyle(Color.brand) }
             }
             .overlay(alignment: .leading) { if current { HeroMascot(mood: .wave, size: 58).offset(x: -78, y: -14) } }

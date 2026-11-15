@@ -230,7 +230,7 @@ struct PathStrip: View {
                                     Art(name: "themes/\(stop.lesson.themeIds.first ?? "route")", size: 84, corner: 18)
                                 }
                             }
-                            Text(stop.lesson.title).font(.game(13, .heavy)).foregroundStyle(locked ? .secondary : .primary).lineLimit(2).multilineTextAlignment(.center).frame(height: 34)
+                            Text(stop.lesson.title).font(.game(13, .heavy)).foregroundStyle(locked ? .secondary : .primary).lineLimit(2, reservesSpace: true).multilineTextAlignment(.center).frame(height: 34)
                             if stop.complete {
                                 StarsView(count: 3)
                             } else if isCurrent {

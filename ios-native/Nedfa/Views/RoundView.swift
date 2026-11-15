@@ -57,10 +57,9 @@ struct RoundView: View {
             .gameBackground()
             .feedbackScreen("Rondje: \(round.label)", restoresOnClose: true)
             .toolbar(.hidden, for: .navigationBar)
-            .confirmationDialog("Stoppen met dit rondje?", isPresented: $confirmQuit, titleVisibility: .visible) {
-                Button("Stoppen", role: .destructive) { dismiss() }
-                Button("Doorgaan", role: .cancel) {}
-            } message: { Text("Wat je al hebt beantwoord, is bewaard.") }
+            .confirm("Stoppen met dit rondje?", isPresented: $confirmQuit,
+                     message: "Wat je al hebt beantwoord, is bewaard. De andere kaartjes komen later terug.",
+                     action: "Stoppen", destructive: true, cancel: "Doorgaan") { dismiss() }
         }
         .onDisappear { Audio.shared.stop() }
     }

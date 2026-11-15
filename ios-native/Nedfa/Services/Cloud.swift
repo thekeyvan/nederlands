@@ -102,6 +102,19 @@ final class Cloud {
         request.nonce = SHA256.hash(data: Data(nonce.utf8)).map { String(format: "%02x", $0) }.joined()
     }
 
+    /// Links Apple from an ordinary button (after the learner confirmed), without the system Sign in with Apple button.
+    func linkApple() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        appleRequest(request, link: true)
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        let bridge = AppleBridge { result in Task { @MainActor in await Cloud.shared.appleCompletion(result); Cloud.shared.appleBridge = nil } }
+        appleBridge = bridge
+        controller.delegate = bridge
+        controller.presentationContextProvider = bridge
+        controller.performRequests()
+    }
+    @ObservationIgnored private var appleBridge: AppleBridge?
+
     func appleCompletion(_ result: Result<ASAuthorization, Error>) async {
         let failed = "Inloggen met Apple lukt nu niet. Probeer het later opnieuw."
         switch result {
@@ -359,4 +372,17 @@ enum Keychain {
         SecItemAdd(item as CFDictionary, nil)
     }
     static func delete() { SecItemDelete(query as CFDictionary) }
+}
+
+/// Hands the result of a programmatic Sign in with Apple request back to Cloud.
+final class AppleBridge: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    let done: (Result<ASAuthorization, Error>) -> Void
+    init(done: @escaping (Result<ASAuthorization, Error>) -> Void) { self.done = done }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) { done(.success(authorization)) }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) { done(.failure(error)) }
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        MainActor.assumeIsolated {
+            UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.flatMap(\.windows).first { $0.isKeyWindow } ?? ASPresentationAnchor()
+        }
+    }
 }

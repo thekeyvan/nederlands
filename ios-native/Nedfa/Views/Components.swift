@@ -428,3 +428,19 @@ struct FittedSheet<Content: View>: View {
         .gameBackground()
     }
 }
+
+// MARK: Confirmations
+
+extension View {
+    /// Asks before a big step (signing out, deleting, linking, stopping): a short question, what will happen,
+    /// and two buttons — `cancel` keeps everything as it is, `action` does it. The same wording as on the website.
+    func confirm(_ title: String, isPresented: Binding<Bool>, message: String, action: String, destructive: Bool = false,
+                 cancel: String = "Annuleren", perform: @escaping () -> Void) -> some View {
+        alert(title, isPresented: isPresented) {
+            Button(cancel, role: .cancel) {}
+            Button(action, role: destructive ? .destructive : nil, action: perform)
+        } message: {
+            Text(message)
+        }
+    }
+}

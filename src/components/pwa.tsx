@@ -186,7 +186,7 @@ function WebAppCard() {
                 <p className="text-xs text-muted-foreground">Alle audio van {audio.voiceName} (± 37 MB). Wat je al hebt gehoord, staat er al op.</p>
               </div>
               {complete ? (
-                <Confirm title="Offline audio verwijderen?" description={`De audio van ${audio.voiceName} wordt van dit apparaat gewist (± 37 MB). Zonder internet hoor je dan niets meer; je kunt alles later opnieuw downloaden.`} action="Verwijder" destructive onConfirm={() => offline.remove()}>
+                <Confirm title="Offline audio verwijderen?" description={`De audio van ${audio.voiceName} wordt van dit apparaat gewist (± 37 MB). Zonder internet hoor je dan niets meer; je kunt alles later opnieuw downloaden.`} action="Verwijder audio" destructive onConfirm={() => offline.remove()}>
                   {(open) => <Button variant="ghost" size="sm" onClick={open}><Trash2 />Verwijder</Button>}
                 </Confirm>
               ) : (

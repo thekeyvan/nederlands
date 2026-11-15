@@ -59,7 +59,7 @@ function SessionView({session}: {session: Session}) {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pt-4 pb-40 sm:px-6 lg:pt-8">
       <div className="flex items-center gap-3">
-        <QuitButton label="Stoppen met oefenen" title="Stoppen met dit rondje?" description="Wat je al hebt beantwoord, is bewaard. De rest van de kaartjes komt een volgende keer."
+        <QuitButton label="Stoppen met oefenen" title="Stoppen met dit rondje?" description="Wat je al hebt beantwoord, is bewaard. De andere kaartjes komen later terug."
           confirm={session.results.length > 0 && session.results.length < session.queue.length} onQuit={() => close()} />
         <Progress value={(session.results.length / session.queue.length) * 100} className="h-3.5 flex-1 bg-success/15" indicatorClassName="bg-success" aria-label={`Kaartje ${session.index + 1} van ${session.queue.length}`} />
         {session.combo >= 2 ? (

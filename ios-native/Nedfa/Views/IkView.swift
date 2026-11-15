@@ -214,18 +214,14 @@ struct SettingsView: View {
         .feedbackScreen("Instellingen")
         .sheet(isPresented: $showSignIn) { SignInSheet() }
         .sheet(isPresented: $showLevelTest) { LevelTestView() }
-        .confirmationDialog("Uitloggen?", isPresented: $confirmSignOut, titleVisibility: .visible) {
-            Button("Uitloggen", role: .destructive) { Task { await cloud.signOut() } }
-            Button("Annuleren", role: .cancel) {}
-        } message: {
-            Text("Je voortgang blijft opgeslagen in je account. Op deze iPhone oefen je daarna als gast, tot je weer inlogt.")
-        }
-        .confirmationDialog(cloud.user == nil ? "Je voortgang wissen?" : "Je account verwijderen?", isPresented: $confirmDelete, titleVisibility: .visible) {
-            Button(cloud.user == nil ? "Wis alles" : "Verwijder mijn account", role: .destructive) { Task { _ = await cloud.deleteAccount() } }
-            Button("Annuleren", role: .cancel) {}
-        } message: {
-            Text(cloud.user == nil ? "Alles op deze iPhone wordt gewist: je oefeningen, planning, reeks, records en instellingen. Dit kun je niet ongedaan maken." : "Je account en alles wat erbij is opgeslagen worden definitief verwijderd, online en op deze iPhone. Dit kun je niet ongedaan maken.")
-        }
+        .confirm("Uitloggen?", isPresented: $confirmSignOut,
+                 message: "Je voortgang blijft bewaard in je account. Op deze iPhone oefen je daarna als gast, tot je weer inlogt.",
+                 action: "Uitloggen") { Task { await cloud.signOut() } }
+        .confirm(cloud.user == nil ? "Je voortgang wissen?" : "Je account verwijderen?", isPresented: $confirmDelete,
+                 message: cloud.user == nil
+                    ? "Alles op deze iPhone wordt gewist: je oefeningen, planning, reeks, records en instellingen. Dit kun je niet ongedaan maken."
+                    : "Je account en alles wat erbij hoort worden definitief verwijderd, online en op deze iPhone. Dit kun je niet ongedaan maken.",
+                 action: cloud.user == nil ? "Wis alles" : "Verwijder account", destructive: true) { Task { _ = await cloud.deleteAccount() } }
     }
 }
 
@@ -264,7 +260,7 @@ struct SignInMethodRow: View {
     let user: Cloud.User
     @State private var cloud = Cloud.shared
     @State private var confirmUnlink = false
-    @Environment(\.colorScheme) private var scheme
+    @State private var confirmLink = false
 
     var body: some View {
         let linked = user.has(provider)
@@ -282,22 +278,19 @@ struct SignInMethodRow: View {
             if linked {
                 if user.providers.count > 1 { Button("Ontkoppel") { confirmUnlink = true }.font(.subheadline).foregroundStyle(.secondary).buttonStyle(.borderless) }
                 else { Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.success) }
-            } else if provider == "apple" {
-                SignInWithAppleButton(.continue) { cloud.appleRequest($0, link: true) } onCompletion: { result in Task { await cloud.appleCompletion(result) } }
-                    .signInWithAppleButtonStyle(scheme == .dark ? .white : .black)
-                    .frame(width: 120, height: 34)
-                    .clipShape(Capsule())
-                    .accessibilityLabel("Koppel Apple")
             } else {
-                Button("Koppelen") { Task { await cloud.signInWithGoogle(link: true) } }.buttonStyle(.bordered).buttonBorderShape(.capsule)
+                Button("Koppelen") { confirmLink = true }.buttonStyle(.bordered).buttonBorderShape(.capsule)
+                    .accessibilityLabel("Koppel \(name)")
             }
         }
-        .confirmationDialog("\(name) ontkoppelen?", isPresented: $confirmUnlink, titleVisibility: .visible) {
-            Button("Ontkoppel \(name)", role: .destructive) { Task { await cloud.unlink(provider) } }
-            Button("Annuleren", role: .cancel) {}
-        } message: {
-            Text("Je kunt dan niet meer met \(name) inloggen op dit account. Je voortgang blijft bewaard en je kunt \(name) later opnieuw koppelen.")
+        .confirm("\(name) koppelen?", isPresented: $confirmLink,
+                 message: "Daarna kun je met \(user.providers.contains("apple") ? "Apple" : "Google") én \(name) op hetzelfde account inloggen. Heb je met dat \(name)-account al geoefend, dan voegen we die voortgang samen.",
+                 action: "Koppelen") {
+            if provider == "apple" { cloud.linkApple() } else { Task { await cloud.signInWithGoogle(link: true) } }
         }
+        .confirm("\(name) ontkoppelen?", isPresented: $confirmUnlink,
+                 message: "Je kunt dan niet meer met \(name) inloggen op dit account. Je voortgang blijft bewaard en je kunt \(name) later opnieuw koppelen.",
+                 action: "Ontkoppelen", destructive: true) { Task { await cloud.unlink(provider) } }
     }
 }
 

@@ -129,7 +129,7 @@ export function SettingsScreen() {
             <Row title={cloud.user.email || cloud.user.name || 'Je account'} detail={syncMessages[cloud.status]} titleClassName="font-medium" />
             <SignInMethod provider="apple" linked={cloud.user.providers} />
             <SignInMethod provider="google" linked={cloud.user.providers} />
-            <Confirm title="Uitloggen?" description="Je voortgang blijft opgeslagen in je account. Op dit apparaat oefen je daarna als gast, tot je weer inlogt." action="Uitloggen" onConfirm={signOut}>
+            <Confirm title="Uitloggen?" description="Je voortgang blijft bewaard in je account. Op dit apparaat oefen je daarna als gast, tot je weer inlogt." action="Uitloggen" onConfirm={signOut}>
               {(open) => <Row onClick={open} chevron={false} title="Uitloggen" titleClassName="font-medium text-primary" />}
             </Confirm>
           </>
@@ -169,7 +169,12 @@ function SignInMethod({provider, linked}: {provider: 'apple' | 'google'; linked:
             {(open) => <Button size="sm" variant="ghost" className="text-muted-foreground" onClick={open}>Ontkoppelen</Button>}
           </Confirm>
         )
-        : <Button size="sm" variant="outline" onClick={() => void linkProvider(provider)}>Koppelen</Button>} />
+        : (
+          <Confirm title={`${name} koppelen?`} action="Koppelen" onConfirm={() => linkProvider(provider)}
+            description={`Daarna kun je met ${linked.includes('apple') ? 'Apple' : 'Google'} én ${name} op hetzelfde account inloggen. Heb je met dat ${name}-account al geoefend, dan voegen we die voortgang samen.`}>
+            {(open) => <Button size="sm" variant="outline" onClick={open}>Koppelen</Button>}
+          </Confirm>
+        )} />
   );
 }
 
@@ -196,13 +201,13 @@ function DeleteData({signedIn}: {signedIn: boolean}) {
             <DialogTitle>{signedIn ? 'Je account verwijderen?' : 'Je voortgang wissen?'}</DialogTitle>
             <DialogDescription>
               {signedIn
-                ? 'Je account en alles wat erbij is opgeslagen worden definitief verwijderd: je oefeningen, je planning, je streak en je instellingen. Ook alles op dit apparaat wordt gewist. Dit kun je niet ongedaan maken.'
-                : 'Alles op dit apparaat wordt gewist: je oefeningen, je planning, je streak, je records en je instellingen. Dit kun je niet ongedaan maken.'}
+                ? 'Je account en alles wat erbij hoort worden definitief verwijderd: je oefeningen, je planning, je reeks en je instellingen, online en op dit apparaat. Dit kun je niet ongedaan maken.'
+                : 'Alles op dit apparaat wordt gewist: je oefeningen, je planning, je reeks, je records en je instellingen. Dit kun je niet ongedaan maken.'}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <DialogClose asChild><Button variant="outline">Annuleren</Button></DialogClose>
-            <Button variant="destructive" disabled={busy} onClick={() => void confirm()}><Trash2 />{busy ? 'Bezig…' : signedIn ? 'Verwijder mijn account' : 'Wis alles'}</Button>
+            <Button variant="destructive" disabled={busy} onClick={() => void confirm()}><Trash2 />{busy ? 'Bezig…' : signedIn ? 'Verwijder account' : 'Wis alles'}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

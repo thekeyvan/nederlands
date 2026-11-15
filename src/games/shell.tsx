@@ -21,7 +21,7 @@ export function GameBar({game, progress, seconds, score}: {game: GameInfo; progr
   const {close} = usePractice();
   return (
     <div className="flex items-center gap-3">
-      <QuitButton label="Stoppen met dit spel" title="Stoppen met dit spel?" description="Je score van deze ronde telt dan niet mee voor je record."
+      <QuitButton label="Stoppen met dit spel" title="Stoppen met dit spel?" description="Je score van dit spel telt dan niet mee voor je record."
         confirm={score > 0 || (progress ?? 0) > 0 || seconds !== undefined} onQuit={() => close()} />
       {seconds !== undefined ? (
         <>

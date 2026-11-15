@@ -213,10 +213,9 @@ struct GameFlow: View {
                 }
             }
         }
-        .confirmationDialog("Stoppen met dit spel?", isPresented: $confirmQuit, titleVisibility: .visible) {
-            Button("Stoppen", role: .destructive) { dismiss() }
-            Button("Doorgaan", role: .cancel) {}
-        } message: { Text("Je score van deze ronde telt dan niet mee voor je record.") }
+        .confirm("Stoppen met dit spel?", isPresented: $confirmQuit,
+                 message: "Je score van dit spel telt dan niet mee voor je record.",
+                 action: "Stoppen", destructive: true, cancel: "Doorgaan") { dismiss() }
         .feedbackScreen("Spel: \(game.game.title)", details: ["game": game.game.rawValue, "theme": game.theme], restoresOnClose: true)
         .onDisappear { Audio.shared.stop() }
     }

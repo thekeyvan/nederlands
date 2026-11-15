@@ -3,7 +3,7 @@ import {hrefFor, navigate, type Panel} from '@/hooks/use-route';
 
 const parts: {panel: Panel; label: string}[] = [
   {panel: 'woorden', label: 'Thema’s'},
-  {panel: 'zinnen', label: 'Zinsbouw'},
+  {panel: 'zinnen', label: 'Grammatica'},
   {panel: 'route', label: 'Route'},
 ];
 

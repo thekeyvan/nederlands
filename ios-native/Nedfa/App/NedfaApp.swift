@@ -70,6 +70,15 @@ final class PracticeSession {
         round = Round(cards: cards, label: label, drill: drill)
     }
 
+    /// Onregelmatig: a round from one set, or the forms that are due from all sets ("all").
+    func start(irregular setId: String, label: String) {
+        let cards = Irregular.round(setId, reviews: Learner.shared.reviews)
+        guard !cards.isEmpty else { return }
+        Haptics.tap()
+        game = nil
+        round = Round(cards: cards, label: label, drill: false, irregular: setId)
+    }
+
     func start(theme: String = "all", kind: Planner.Kind = .all, label: String, limit: Int = 20, cardIds: [String]? = nil) {
         start(Planner.plan(reviews: Learner.shared.reviews, theme: theme, kind: kind, limit: limit, cardIds: cardIds), label: label)
     }

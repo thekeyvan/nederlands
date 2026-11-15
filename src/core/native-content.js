@@ -12,6 +12,7 @@ import {examplesFor} from './grammar-examples.js';
 import {patternDrill, orderItem, pickOptions} from '../lib/drill.ts';
 import {groups} from '../site/content.js';
 import {passMark, placementQuestions} from './level.js';
+import {irregularIntro, irregularSets} from './irregular.js';
 
 
 const audio = (text) => Boolean(text && Object.hasOwn(audioCatalog.clips, text));
@@ -50,6 +51,15 @@ export function buildNativeContent() {
   dialogues: dialogues.map((dialogue) => ({id: dialogue.id, themeId: dialogue.themeId, lines: dialogue.lines.map((line) => ({id: line.id, speaker: line.speaker, nl: line.nl, translation: line.translation, hasAudio: audio(line.nl)}))})),
   lessons: courseLessons.map(({id, title, level, grammarIds, themeIds, cardIds, goal, task}) => ({id, title, level, grammarIds, themeIds, cardIds, goal, task})),
   levels,
+  // Onregelmatig (build 23+): sets of irregular forms, each form a review card practised with mode "form".
+  irregular: {
+    intro: irregularIntro,
+    sets: irregularSets.map(({id, kind, group, title, pattern, level, rule, cards: list, rows}) => ({id, kind, group, title, pattern, level, rule, cardIds: list.map((card) => card.id), rows})),
+    cards: irregularSets.flatMap((set) => set.cards).map((card) => ({
+      ...cardJson({...card, mode: undefined}), meaningOptions: null, dutchOptions: null, mode: 'form',
+      set: card.set, chain: card.chain ?? null, labels: card.labels ?? null, ask: card.ask ?? null, accept: card.accept, choices: card.choices,
+    })),
+  },
   placement: {passMark, questions: placementQuestions},
   stamps: stamps.map(({id, title, description}) => ({id, title, description})),
   resources: resources.map(({id, name, categories, level, cost, description, url, steps, time, note}) => ({id, name, categories, level, cost, description, url, steps, time: time ?? null, note: note ?? null})),

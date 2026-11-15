@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Onregelmatig: irregular forms (see docs/CONTENT.md)",
+  "type": "object",
+  "required": ["fa", "sets"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "fa": {"type": "string", "description": "One Persian line about how to learn them."},
+    "sets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "title", "pattern", "level", "fa", "items"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9-]+$", "description": "Never changes."},
+          "kind": {"enum": ["verb", "present", "plural", "compare"]},
+          "title": {"type": "string"},
+          "pattern": {"type": "string", "description": "One example row, e.g. blijven · bleef · is gebleven"},
+          "level": {"enum": ["A0", "A1", "A2", "B1", "B2"]},
+          "fa": {"type": "string", "description": "The rule, in Persian."},
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["nl", "fa"],
+              "properties": {
+                "nl": {"type": "string"},
+                "fa": {"type": "string"},
+                "id": {"type": "string"},
+                "ids": {"type": "object", "additionalProperties": {"type": "string"}},
+                "past": {"type": "string"},
+                "pastPlural": {"type": "string"},
+                "perfect": {"type": "string", "pattern": "^(heeft|is|heeft/is) \\S+$"},
+                "wrongPast": {"type": "array", "items": {"type": "string"}},
+                "wrongPerfect": {"type": "array", "items": {"type": "string"}},
+                "prompt": {"type": "string", "pattern": "___"},
+                "answer": {"type": "string"},
+                "accept": {"type": "array", "items": {"type": "string"}},
+                "wrong": {"type": "array", "items": {"type": "string"}},
+                "more": {"type": "string"},
+                "most": {"type": "string"},
+                "wrongMore": {"type": "array", "items": {"type": "string"}},
+                "wrongMost": {"type": "array", "items": {"type": "string"}}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

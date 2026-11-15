@@ -11,6 +11,7 @@ content/
   schema/             JSON Schemas (your editor and AI tools use them for autocomplete and checks)
   course.js           the route: eight stops that combine themes and rules
   placement.json      the niveautest: five questions per level (A0, A1, A2, B1)
+  irregular.json      Onregelmatig: strong verbs, plurals, comparisons and present-tense forms
 ```
 
 After any change run:
@@ -59,6 +60,17 @@ Dialogue lines have `speaker`, `nl` and `fa`. The learner is always `"Jij"`; a d
 ## A new grammar rule
 
 Copy a file in `content/grammar/`. The `id` is `zin:` plus the file name. `prompt` has exactly one `___` where `answer` goes. Give at least three `examples`; each `gap` is a whole word that appears exactly once in its sentence (it is hidden in the gap exercise). Then import it in `content/index.js` and add it to `grammarFiles`.
+
+## Onregelmatig (irregular forms)
+
+`content/irregular.json` holds the sets under Leren › Grammatica › Onregelmatig. Each set has a `kind`:
+
+- `verb`: `{"nl": "blijven", "fa": "ماندن", "past": "bleef", "pastPlural": "bleven", "perfect": "is gebleven"}`. Write `"heeft/is gereden"` when both are right. Every verb becomes two cards (verleden tijd, voltooide tijd).
+- `plural`: `{"nl": "de stad", "fa": "شهر", "answer": "de steden", "wrong": [three mistakes]}`
+- `compare`: `{"nl": "goed", "fa": "خوب", "more": "beter", "most": "best", "wrongMore": [...], "wrongMost": [...]}`
+- `present`: `{"nl": "zijn", "fa": "بودن", "prompt": "Hij ___ ziek.", "answer": "is", "wrong": [...]}`
+
+Every form is a review card (`onr:<word>:<form>`) with the normal schedule; new forms are chosen from four options, known ones are typed. For verbs the wrong options are made from typical mistakes (blijfde, geblijfd, heeft gebleven); add `"wrongPast"` / `"wrongPerfect"` when those are odd, and `"accept"` for a second right answer (`"wou"`). Never rename a verb, word or prompt that learners have practised; give it `"id"` (or `"ids"`) with the old id instead.
 
 ## The niveautest and levels
 

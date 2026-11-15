@@ -8,7 +8,7 @@ struct Option: Codable, Hashable {
 
 struct Card: Codable, Identifiable, Hashable {
     enum Kind: String, Codable { case word, phrase, grammar }
-    enum Mode: String, Codable { case choose, reverse, listen, type, gap, flash, order, pick }
+    enum Mode: String, Codable { case choose, reverse, listen, type, gap, flash, order, pick, form }
     struct Order: Codable, Hashable {
         let first: String
         let tiles: [String]
@@ -41,6 +41,13 @@ struct Card: Codable, Identifiable, Hashable {
     var mode: Mode? = nil
     var order: Order? = nil
     var pick: [Option]? = nil
+    // Onregelmatig (mode .form): the set, the whole row, which cell is asked, accepted answers and the four choices.
+    var set: String? = nil
+    var chain: [String]? = nil
+    var labels: [String]? = nil
+    var ask: Int? = nil
+    var accept: [String]? = nil
+    var choices: [Option]? = nil
 
     /// What the card is called in lists: the Dutch word or sentence, or the pattern's title.
     var label: String { nl ?? title ?? id }
@@ -158,6 +165,25 @@ struct GameData: Codable {
     let conversations: [Conversation]
 }
 
+/// Onregelmatig: sets of irregular forms (strong verbs, plurals, comparisons, present tense) you learn by heart.
+struct IrregularData: Codable {
+    struct Row: Codable, Hashable { let id: String; let cells: [String]; let fa: String }
+    struct Set: Codable, Identifiable, Hashable {
+        let id: String
+        let kind: String
+        let group: String
+        let title: String
+        let pattern: String
+        let level: String
+        let rule: String
+        let cardIds: [String]
+        let rows: [Row]
+    }
+    let intro: String
+    let sets: [Set]
+    let cards: [Card]
+}
+
 struct ContentFile: Codable {
     let version: String?
     let themes: [Theme]
@@ -172,6 +198,8 @@ struct ContentFile: Codable {
     let resources: [Resource]
     let audio: AudioCatalog
     let games: GameData
+    /// Missing in content downloaded before Onregelmatig existed.
+    let irregular: IrregularData?
 }
 
 /// All content, loaded once at launch: the newest copy from nedfa.nl if one was downloaded, else the bundled one.
@@ -191,6 +219,7 @@ final class Content: Sendable {
     let resources: [Resource]
     let audio: AudioCatalog
     let games: GameData
+    let irregular: IrregularData
     private let byId: [String: Card]
 
     private init() {
@@ -210,10 +239,15 @@ final class Content: Sendable {
         resources = file.resources
         audio = file.audio
         games = file.games
-        byId = Dictionary(uniqueKeysWithValues: file.cards.map { ($0.id, $0) })
+        irregular = file.irregular ?? bundled().irregular ?? IrregularData(intro: "", sets: [], cards: [])
+        byId = Dictionary((file.cards + irregular.cards).map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     }
 
     func card(_ id: String) -> Card? { byId[id] }
+    /// Every id progress can be saved for: lesson cards and irregular forms.
+    var allIds: Swift.Set<String> { Swift.Set(byId.keys) }
+    func irregularSet(_ id: String) -> IrregularData.Set? { irregular.sets.first { $0.id == id } }
+    func irregularCards(in set: IrregularData.Set) -> [Card] { set.cardIds.compactMap { byId[$0] } }
     func theme(_ id: String) -> Theme? { themes.first { $0.id == id } }
     var words: [Card] { cards.filter { $0.kind == .word } }
     var phrases: [Card] { cards.filter { $0.kind == .phrase } }

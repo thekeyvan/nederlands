@@ -5,6 +5,8 @@ import path from 'node:path';
 import {grammarFiles, groups, themeFiles} from '../content/index.js';
 import {lineId, phraseId, slug, wordId} from '../content/ids.js';
 import {audioCatalog} from '../src/core/audio-catalog.js';
+import irregular from '../content/irregular.json' with {type: 'json'};
+import {irregularCards} from '../src/core/irregular.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const KINDS = ['woord', 'werkwoord', 'uitdrukking'];
@@ -106,6 +108,34 @@ export function checkContent() {
     claim(rule.id, file);
   }
 
+  // Onregelmatig: every set and form is complete, every form has three wrong answers, ids are unique.
+  const IRREGULAR_KINDS = {verb: ['past', 'pastPlural', 'perfect'], present: ['prompt', 'answer'], plural: ['answer'], compare: ['more', 'most']};
+  text(irregular.fa, 'content/irregular.json', 'fa', {fa: true});
+  const setIds = new Set();
+  irregular.sets.forEach((set, index) => {
+    const where = `content/irregular.json › sets[${index}] (${set.id ?? '?'})`;
+    if (!/^[a-z0-9-]+$/.test(set.id ?? '')) errors.push(`${where}: id may only have a–z, 0–9 and -`);
+    if (setIds.has(set.id)) errors.push(`${where}: set id "${set.id}" is used twice`);
+    setIds.add(set.id);
+    if (!IRREGULAR_KINDS[set.kind]) { errors.push(`${where}: "kind" must be one of ${Object.keys(IRREGULAR_KINDS).join(', ')}`); return; }
+    text(set.title, where, 'title');
+    text(set.pattern, where, 'pattern');
+    text(set.fa, where, 'fa', {fa: true});
+    if (!LEVELS.includes(set.level)) errors.push(`${where}: "level" must be one of ${LEVELS.join(', ')}`);
+    set.items.forEach((item, itemIndex) => {
+      const at = `${where} › items[${itemIndex}] (${item.nl ?? '?'})`;
+      text(item.nl, at, 'nl');
+      text(item.fa, at, 'fa', {fa: true});
+      for (const field of IRREGULAR_KINDS[set.kind]) text(item[field], at, field);
+      if (set.kind === 'verb' && item.perfect && !/^(heeft|is|heeft\/is) \S+$/.test(item.perfect)) errors.push(`${at}: "perfect" is "heeft …", "is …" or "heeft/is …"`);
+      if (set.kind === 'present' && !item.prompt?.includes('___')) errors.push(`${at}: "prompt" needs ___ where the answer goes`);
+    });
+  });
+  for (const card of irregularCards) {
+    claim(card.id, `content/irregular.json (${card.title})`);
+    if (card.choices.length !== 4) errors.push(`content/irregular.json › ${card.id}: needs three different wrong answers (now ${card.choices.length - 1}); add "wrong…" in the file`);
+  }
+
   // Audio: every Dutch text needs a clip; new content gets them with scripts/generate-audio.py (docs/AUDIO.md).
   const texts = new Set();
   for (const theme of themeFiles) {
@@ -125,6 +155,6 @@ if (process.argv[1] && new URL(import.meta.url).pathname === process.argv[1]) {
   for (const line of warnings) console.warn(`warning  ${line}`);
   for (const line of errors) console.error(`error    ${line}`);
   const words = themeFiles.reduce((sum, theme) => sum + theme.words.length, 0);
-  console.log(`\n${themeFiles.length} themes, ${words} words, ${grammarFiles.length} grammar rules: ${errors.length} errors, ${warnings.length} warnings.`);
+  console.log(`\n${themeFiles.length} themes, ${words} words, ${grammarFiles.length} grammar rules, ${irregularCards.length} irregular forms: ${errors.length} errors, ${warnings.length} warnings.`);
   process.exit(errors.length ? 1 : 0);
 }

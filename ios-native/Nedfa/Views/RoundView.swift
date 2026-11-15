@@ -5,6 +5,8 @@ struct Round: Identifiable {
     let cards: [Card]
     let label: String
     let drill: Bool
+    /// Onregelmatig: the set (or "all") this round came from, so "Nog een rondje" plans a new one.
+    var irregular: String? = nil
 }
 
 struct Outcome { let grade: Int; let correct: Bool; let result: Answer.Result; var hint: String? = nil }
@@ -83,8 +85,8 @@ struct RoundView: View {
     }
 
     private func again() {
-        let next = round.drill ? round.cards : Planner.plan(reviews: Learner.shared.reviews)
-        PracticeSession.shared.round = Round(cards: next.isEmpty ? round.cards : next, label: round.label, drill: round.drill)
+        let next = round.irregular.map { Irregular.round($0, reviews: Learner.shared.reviews) } ?? (round.drill ? round.cards : Planner.plan(reviews: Learner.shared.reviews))
+        PracticeSession.shared.round = Round(cards: next.isEmpty ? round.cards : next, label: round.label, drill: round.drill, irregular: round.irregular)
     }
 }
 
@@ -108,6 +110,7 @@ struct CardRunner: View {
                 case .flash: FlashCard(card: card, answer: answer)
                 case .order: OrderCard(card: card, outcome: outcome, answer: answer)
                 case .pick: OptionsCard(question: "Welke zin is goed?", subtitle: card.translation, options: card.pick ?? [], outcome: outcome, answer: answer)
+                case .form: FormCard(card: card, outcome: outcome, answer: answer)
                 }
             }
             .padding(.top, 12)
@@ -283,6 +286,89 @@ struct GapCard: View {
     }
 }
 
+/// Onregelmatig: one cell of a row (blijven · ? · is gebleven), or a present-tense form in a sentence.
+/// New forms are chosen from four options with typical mistakes; after two good answers you type them.
+struct FormCard: View {
+    let card: Card
+    let outcome: Outcome?
+    let answer: (Outcome) -> Void
+    @State private var typed = false
+    @State private var hard = false
+    @State private var value = ""
+    @State private var chosen: String?
+    @State private var hinted = false
+
+    var body: some View {
+        let shown = typed ? value : chosen ?? ""
+        Eyebrow(typed ? "Typ de goede vorm" : "Kies de goede vorm")
+        HStack(spacing: 12) {
+            MascotActor(pose: .think, moment: hard ? .ponder : nil, size: 84, delay: 0.25)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(card.title ?? "").font(.game(30, .black)).minimumScaleFactor(0.6).lineLimit(1)
+                Text(card.meaning ?? "").font(.subheadline).foregroundStyle(.secondary)
+            }
+        }
+        if let chain = card.chain {
+            HStack(alignment: .top, spacing: 8) {
+                ForEach(chain.indices, id: \.self) { index in cell(index, chain[index], shown: shown) }
+            }
+        } else {
+            let parts = (card.prompt ?? "").components(separatedBy: "___")
+            (Text(parts.first ?? "") + Text(shown.isEmpty ? " … " : " \(shown) ").foregroundColor(gapColor).underline() + Text(parts.count > 1 ? parts[1] : ""))
+                .font(.title2.weight(.bold))
+                .padding(18).frame(maxWidth: .infinity, alignment: .leading).tile(radius: 22)
+        }
+        if typed {
+            AnswerField(value: $value, placeholder: card.ask == 2 && Irregular.isVerb(card) ? "heeft of is + deelwoord" : "Typ hier…", outcome: outcome, submit: check)
+            if outcome == nil {
+                HStack {
+                    if hinted, let rule = card.rule { Persian(text: rule) } else { Button("Toon de regel", systemImage: "lightbulb") { hinted = true } }
+                    Spacer()
+                    Button("Ik weet het niet") { answer(Outcome(grade: 1, correct: false, result: .wrong)) }.foregroundStyle(.secondary)
+                }
+                .font(.subheadline)
+            }
+        } else {
+            OptionList(options: card.choices ?? [], outcome: outcome) { option in
+                chosen = option.label
+                answer(Outcome(grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? .correct : .wrong))
+            }
+        }
+        Color.clear.frame(height: 0).onAppear {
+            let review = Learner.shared.reviews[card.id]
+            typed = Irregular.typed(review)
+            hard = (review?.grade ?? 5) < 3
+        }
+    }
+
+    private var gapColor: Color { outcome.map { $0.result == .wrong ? .danger : .success } ?? .brand }
+
+    private func cell(_ index: Int, _ text: String, shown: String) -> some View {
+        let asked = index == card.ask
+        let later = index > (card.ask ?? 0)
+        let value = asked ? (shown.isEmpty ? "?" : shown) : later ? "…" : text
+        let label = (card.labels?[index] ?? "") + (index > 0 && Irregular.isVerb(card) ? " · hij" : "")
+        let fill: Color = asked ? (outcome.map { $0.result == .wrong ? Color.dangerSoft : Color.mintSoft } ?? .surface) : .surface
+        return VStack(alignment: .leading, spacing: 8) {
+            Text(label).font(.caption2.weight(.bold)).foregroundStyle(.secondary).lineLimit(2, reservesSpace: true)
+            Spacer(minLength: 0)
+            Text(value).font(.game(18, .black)).foregroundStyle(asked && outcome == nil ? Color.brand : .primary)
+                .minimumScaleFactor(0.6).lineLimit(2)
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, minHeight: 92, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(fill))
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .strokeBorder(asked ? (outcome.map { $0.result == .wrong ? Color.danger : Color.mint } ?? Color.brand) : Color.edge, style: StrokeStyle(lineWidth: 2, dash: asked && outcome == nil ? [6] : [])))
+        .opacity(later ? 0.5 : 1)
+    }
+
+    private func check() {
+        let (result, why) = Irregular.check(value, card: card)
+        answer(Outcome(grade: Answer.grade(result, hinted: hinted), correct: result != .wrong, result: result, hint: why))
+    }
+}
+
 struct OrderCard: View {
     let card: Card
     let outcome: Outcome?
@@ -394,21 +480,25 @@ struct FeedbackPanel: View {
         let good = outcome.result == .correct
         let close = outcome.result == .close
         let ink: Color = good ? .success : close ? .goldInk : .danger
-        let whole = card.mode != nil
-        let answerText = whole ? card.example : card.kind == .grammar ? card.answer : card.nl
+        let form = card.mode == .form
+        let whole = card.mode != nil && !form
+        let answerText = form ? card.note : whole ? card.example : card.kind == .grammar ? card.answer : card.nl
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
                 MascotActor(pose: good || close ? .cheer : .oops,
                             moment: good || close ? ([3, 5, 10, 15, 20, 30].contains(combo) ? .doubleHop : .hop) : .nope,
                             size: 64)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(good ? "Top!" : close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.game(22, .black)).foregroundStyle(ink)
-                    if outcome.result != .correct || card.kind == .grammar, let answerText { Text(answerText).font(.headline) }
+                    Text(good ? "Top!" : close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : outcome.hint == "aux" ? "Bijna! Met hebben of zijn:" : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.game(22, .black)).foregroundStyle(ink)
+                    if outcome.result != .correct || card.kind == .grammar || form, let answerText { Text(answerText).font(.headline) }
                 }
                 Spacer(minLength: 0)
                 Text("+\(XP.forGrade(outcome.grade)) XP").font(.game(16, .black)).foregroundStyle(Color.goldInk)
             }
-            if card.kind != .grammar, let example = card.example {
+            if form {
+                if card.chain != nil, let meaning = card.meaning { Persian(text: meaning, font: .footnote) }
+                if outcome.result != .correct, let rule = card.rule { Persian(text: rule, font: .footnote) }
+            } else if card.kind != .grammar, let example = card.example {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 2) { Text(example).font(.subheadline); if let translation = card.translation { Persian(text: translation, font: .footnote) } }
                     ListenButton(text: example, size: 13)

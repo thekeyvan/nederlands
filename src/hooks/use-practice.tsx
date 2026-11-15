@@ -1,6 +1,7 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
 import {getProgress, reviewCard} from '@/core/progress-store.js';
 import {planSession} from '@/core/learning-model.js';
+import {irregularRound} from '@/core/irregular.js';
 import {gameStats, xpForGrade, type StampId} from '@/core/game.js';
 import type {Card} from '@/core/types';
 
@@ -8,7 +9,7 @@ import type {Card} from '@/core/types';
  * Practice rounds and games open as a layer over the screen you are on. Closing the layer
  * (Stop, Klaar, the browser's back button) brings you back to exactly that screen and scroll position.
  */
-export interface SessionOptions {theme?: string; type?: string; limit?: number; cardIds?: string[]; label?: string; queue?: Card[]; drill?: boolean}
+export interface SessionOptions {theme?: string; type?: string; limit?: number; cardIds?: string[]; label?: string; queue?: Card[]; drill?: boolean; /** Onregelmatig: a round from this set (or 'all'), planned again for "Nog een rondje". */ irregular?: string}
 export interface AnswerResult {cardId: string; grade: number; correct: boolean; xp: number}
 export interface Session {
   id: number;
@@ -106,7 +107,7 @@ export function PracticeProvider({children}: {children: ReactNode}) {
   const start = useCallback((options: SessionOptions = {}) => {
     const theme = options.theme ?? 'all';
     const type = options.type ?? 'all';
-    const queue = options.queue ?? planSession(getProgress().reviews, {theme, type, limit: options.limit ?? 20, cardIds: options.cardIds});
+    const queue = options.queue ?? (options.irregular ? irregularRound(options.irregular, getProgress().reviews) : planSession(getProgress().reviews, {theme, type, limit: options.limit ?? 20, cardIds: options.cardIds}));
     begin(queue, {...options, theme, type});
   }, [begin]);
 

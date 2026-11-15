@@ -92,7 +92,7 @@ export function gradeAnswer(result,{hinted=false}={}){
 // Pick distinct word/meaning pairs for the bonus game after a round.
 export function pairsFrom(cards,pool,{count=5,seed='pairs'}={}){
  const random=seededRandom(seed);
- const words=[...cards,...shuffle(pool,random)].filter(card=>cardKind(card)==='word'&&card.meaning);
+ const words=[...cards,...shuffle(pool,random)].filter(card=>cardKind(card)==='word'&&card.meaning&&!card.id.startsWith('onr:'));
  const chosen=[],meanings=new Set(),dutch=new Set();
  for(const card of words){
   if(chosen.some(item=>item.id===card.id)||meanings.has(card.meaning)||dutch.has(card.nl))continue;

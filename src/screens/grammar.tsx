@@ -19,8 +19,10 @@ import {audioUrl} from '@/core/audio-playback.js';
 import {patternDrill} from '@/lib/drill';
 import {sceneFor} from '@/lib/illustrations';
 import type {Card} from '@/core/types';
+import {IrregularBanner, IrregularScreen, irregularRule} from '@/screens/irregular';
 
 export function GrammarScreen({rule}: {rule: string | null}) {
+  if (rule?.startsWith(irregularRule)) return <IrregularScreen rule={rule} />;
   const card = rule ? sentences.find((item) => item.id === rule) : undefined;
   return card ? <PatternScreen card={card} /> : <PatternList />;
 }
@@ -35,6 +37,7 @@ function PatternList() {
     <Page>
       <ScreenTitle title="Leren" />
       <LearnTabs active="zinnen" />
+      <IrregularBanner />
       <div className="mb-3 flex items-center gap-4 rounded-2xl border bg-card p-3 sm:max-w-3xl">
         <img src={sceneFor('zinsbouw')} alt="" className="size-20 shrink-0 rounded-xl bg-[#fcfaf6] object-cover" draggable={false} />
         <div className="min-w-0"><p className="text-lg font-bold">Zo valt alles op z’n plek</p><p className="text-sm text-muted-foreground">{sentences.length} patronen, elk met zes oefeningen</p></div>

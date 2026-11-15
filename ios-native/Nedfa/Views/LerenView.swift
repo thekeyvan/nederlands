@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Leren: the path as a game map, all themes as tiles, and the grammar rules.
 struct LerenView: View {
-    enum Part: String, CaseIterable { case pad = "Pad", themas = "Thema’s", zinsbouw = "Zinsbouw" }
+    enum Part: String, CaseIterable { case pad = "Pad", themas = "Thema’s", zinsbouw = "Grammatica" }
     @State private var part: Part = .pad
 
     var body: some View {
@@ -30,6 +30,8 @@ struct LerenView: View {
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
             .navigationDestination(for: PatternLink.self) { PatternDetailView(cardId: $0.id) }
+            .navigationDestination(for: IrregularLink.self) { _ in IrregularOverview() }
+            .navigationDestination(for: IrregularSetLink.self) { IrregularSetView(setId: $0.id) }
         }
     }
 }
@@ -263,6 +265,8 @@ struct PatternList: View {
         let needle = query.lowercased()
         let cards = Content.shared.grammar.filter { needle.isEmpty || "\($0.title ?? "") \($0.pattern ?? "") \($0.example ?? "")".lowercased().contains(needle) }
         List {
+            IrregularBanner()
+                .listRowBackground(Color.clear).listRowSeparator(.hidden).listRowInsets(EdgeInsets(top: 8, leading: 20, bottom: 4, trailing: 20))
             SearchField(prompt: "Zoek bijvoorbeeld omdat", text: $query)
                 .listRowBackground(Color.clear).listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 4, trailing: 20))
             Section {

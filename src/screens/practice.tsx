@@ -29,6 +29,7 @@ import type {Card as LearningCard} from '@/core/types';
 import {orderItem, pickOptions} from '@/lib/drill';
 import {builderCorrect} from '@/core/games.js';
 import {audioUrl} from '@/core/audio-playback.js';
+import {checkForm, formInput} from '@/core/irregular.js';
 
 /** A practice round, shown as a layer over the screen it was started from. */
 export function PracticeLayer({session}: {session: Session}) {
@@ -49,6 +50,7 @@ const modeBadges: Record<Mode, {label: string; variant: 'lavender' | 'info' | 'x
   type: {label: 'Typen', variant: 'xp'},
   gap: {label: 'Zinsbouw', variant: 'success'},
   flash: {label: 'Kaartje', variant: 'streak'},
+  form: {label: 'Onregelmatig', variant: 'xp'},
 };
 
 function SessionView({session}: {session: Session}) {
@@ -84,7 +86,7 @@ function CardRunner({card, position, answered, combo, onAnswer, onNext}: {card: 
     if (outcome) return;
     setOutcome(result);
     onAnswer(result);
-    if (result.correct && card.nl && cardKind(card) !== 'grammar' && mode !== 'listen') audio.play(card.nl);
+    if (result.correct && card.nl && cardKind(card) !== 'grammar' && mode !== 'listen' && audioUrl(card.nl, 'ronnie')) audio.play(card.nl);
   }, [outcome, onAnswer, audio, card, mode]);
   const badge = modeBadges[mode];
   return (
@@ -99,6 +101,7 @@ function CardRunner({card, position, answered, combo, onAnswer, onNext}: {card: 
       {mode === 'gap' && <GapCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'order' && <OrderCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'pick' && <PickCard card={card} outcome={outcome} onSubmit={submit} />}
+      {mode === 'form' && <FormCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'flash' && <FlashCard card={card} onRate={(grade) => { onAnswer({grade, correct: grade >= 3, result: grade >= 3 ? 'correct' : 'wrong'}); onNext(); }} />}
       {outcome && answered && mode !== 'flash' && <Feedback card={card} mode={mode} outcome={outcome} combo={combo} onNext={onNext} />}
     </div>
@@ -296,6 +299,74 @@ function GapCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outcom
   );
 }
 
+/**
+ * Onregelmatig: one form of a row (blijven · ___ · is gebleven) or a present-tense form in a sentence.
+ * New forms are chosen from four options with typical mistakes; after two good answers you type them.
+ */
+function FormCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outcome | null; onSubmit: (outcome: Outcome) => void}) {
+  const [input] = useState(() => formInput(getProgress().reviews[card.id]));
+  const [hard] = useState(() => (getProgress().reviews[card.id]?.grade ?? 5) < 3);
+  const [value, setValue] = useState('');
+  const [chosen, setChosen] = useState<string | null>(null);
+  const [hinted, setHinted] = useState(false);
+  const options = useMemo<Option[]>(() => (card.choices ?? []).map((choice, index) => ({id: `c${index}`, ...choice})), [card]);
+  const pick = (option: Option) => {
+    if (outcome) return;
+    setChosen(option.id);
+    onSubmit({grade: gradeAnswer(option.correct ? 'correct' : 'wrong'), correct: option.correct, result: option.correct ? 'correct' : 'wrong'});
+  };
+  const check = () => {
+    const {result, hint} = checkForm(value, card);
+    onSubmit({grade: gradeAnswer(result, {hinted}), correct: result !== 'wrong', result, hint});
+  };
+  const shown = input === 'type' ? value : options.find((option) => option.id === chosen)?.label ?? '';
+  const gapClass = cn('inline-block min-w-16 rounded-md border-b-4 px-2 text-center', outcome ? (outcome.result === 'wrong' ? 'border-destructive text-destructive-foreground' : 'border-success text-success-foreground') : 'border-primary text-primary');
+  const [before, after] = (card.prompt ?? '').split('___');
+  return (
+    <>
+      <p className="font-semibold text-muted-foreground">{input === 'type' ? 'Typ de goede vorm.' : 'Kies de goede vorm.'}</p>
+      <div className="mt-5 flex items-center gap-3">
+        <MascotActor pose="think" moment={hard ? 'ponder' : undefined} delay={250} className="-my-3 size-20 shrink-0 sm:size-24" />
+        <div className="min-w-0">
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang="nl">{card.title}</h1>
+          <Translation className="mt-0.5 text-muted-foreground">{card.meaning}</Translation>
+        </div>
+      </div>
+      {card.chain ? (
+        <ol className={cn('my-6 grid gap-2 sm:my-8', card.chain.length === 3 ? 'grid-cols-3' : 'grid-cols-2')} lang="nl">
+          {card.chain.map((cell, index) => {
+            const asked = index === card.ask;
+            const later = index > card.ask!;
+            return (
+              <li key={index} className={cn('flex min-h-24 flex-col justify-between gap-2 rounded-xl border-2 bg-card p-2.5', asked && (outcome ? (outcome.result === 'wrong' ? 'border-destructive bg-destructive-soft' : 'border-success bg-success-soft') : 'border-dashed border-primary'), later && 'opacity-50')}>
+                <span className="text-[11px] leading-tight font-semibold text-muted-foreground">{card.labels?.[index]}{index > 0 && cardIsVerb(card) ? ' · hij' : ''}</span>
+                <span className={cn('leading-tight font-bold sm:text-xl', Math.max(...(asked ? shown || '?' : later ? '…' : cell).split(' ').map((word) => word.length)) > 8 ? 'text-[15px]' : 'text-lg', asked && !outcome && 'text-primary')}>{asked ? shown || '?' : later ? '…' : cell}</span>
+              </li>
+            );
+          })}
+        </ol>
+      ) : (
+        <div className="my-6 rounded-xl border bg-card p-5 sm:my-8">
+          <p className="text-2xl leading-relaxed font-bold" lang="nl">{before}<span className={gapClass}>{shown || '…'}</span>{after}</p>
+        </div>
+      )}
+      {input === 'choose' ? <OptionList options={options} chosen={chosen} outcome={outcome} translated={false} onPick={pick} /> : (
+        <>
+          <AnswerInput value={value} onChange={setValue} onSubmit={check} disabled={Boolean(outcome)} outcome={outcome} placeholder={card.ask === 2 && cardIsVerb(card) ? 'heeft of is + deelwoord' : 'Typ hier…'} />
+          {!outcome && (
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {hinted ? <Translation className="text-sm text-muted-foreground">{card.rule}</Translation>
+                : <Button variant="ghost" size="sm" onClick={() => setHinted(true)}><Lightbulb />Toon de regel</Button>}
+              <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={() => onSubmit({grade: 1, correct: false, result: 'wrong'})}>Ik weet het niet</Button>
+            </div>
+          )}
+        </>
+      )}
+    </>
+  );
+}
+const cardIsVerb = (card: LearningCard) => card.labels?.[0] === 'werkwoord';
+
 /** Put the words in order. The first word is given; tap a placed word to take it back. */
 function OrderCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outcome | null; onSubmit: (outcome: Outcome) => void}) {
   const item = useMemo(() => orderItem(card), [card]);
@@ -444,10 +515,11 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
   }, [onNext]);
   useEffect(() => haptic(outcome.result === 'wrong' ? 'error' : 'success'), [outcome.result]);
   const grammar = cardKind(card) === 'grammar';
+  const form = mode === 'form';
   const whole = mode === 'order' || mode === 'pick' || (mode === 'gap' && Boolean(card.mode));
   const answerText = whole ? card.example : grammar ? card.answer : card.nl;
   const tone = outcome.result === 'correct' ? 'success' : outcome.result === 'close' ? 'xp' : 'destructive';
-  const title = outcome.result === 'correct' ? ['Goed zo!', 'Precies!', 'Top!', 'Lekker bezig!'][answerText!.length % 4] : outcome.result === 'close' ? (outcome.hint === 'article' ? 'Bijna! Let op de of het.' : 'Bijna! Kleine typfout.') : 'Nog niet. Dit is het:';
+  const title = outcome.result === 'correct' ? ['Goed zo!', 'Precies!', 'Top!', 'Lekker bezig!'][answerText!.length % 4] : outcome.result === 'close' ? (outcome.hint === 'article' ? 'Bijna! Let op de of het.' : outcome.hint === 'aux' ? 'Bijna! Met hebben of zijn:' : 'Bijna! Kleine typfout.') : 'Nog niet. Dit is het:';
   const Icon = outcome.result === 'wrong' ? CircleX : CircleCheck;
   return (
     <div role="status" className={cn('fixed inset-x-0 bottom-0 z-40 animate-in slide-in-from-bottom-4 border-t-2 px-4 pt-4 pb-safe sm:px-6 lg:static lg:mt-6 lg:rounded-2xl lg:border-2 lg:px-6 lg:pb-5',
@@ -464,9 +536,17 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
             <Badge className="relative ml-auto bg-card text-xp-foreground lg:ml-2"><Star />+{xpForGrade(outcome.grade)} XP
             </Badge>
           </div>
-          {mode === 'choose' && outcome.result !== 'correct' && <p className="mt-1 text-lg font-semibold"><span lang="nl">{card.nl}</span> = <Translation as="span">{card.meaning}</Translation></p>}
-          {mode !== 'choose' && (outcome.result !== 'correct' || grammar) && <p className="mt-1 text-lg font-semibold" lang="nl">{answerText}</p>}
-          {!grammar && card.example && (
+          {form && (
+            <div className="mt-1">
+              <p className="text-lg font-semibold" lang="nl">{card.note}</p>
+              {card.chain ? <Translation className="text-sm opacity-80">{card.meaning}</Translation> : null}
+              {outcome.result !== 'correct' && <Translation className="mt-1 text-sm opacity-80">{card.rule}</Translation>}
+              {outcome.result === 'wrong' && <p className="mt-1 text-xs opacity-80">Deze vorm komt morgen terug.</p>}
+            </div>
+          )}
+          {!form && mode === 'choose' && outcome.result !== 'correct' && <p className="mt-1 text-lg font-semibold"><span lang="nl">{card.nl}</span> = <Translation as="span">{card.meaning}</Translation></p>}
+          {!form && mode !== 'choose' && (outcome.result !== 'correct' || grammar) && <p className="mt-1 text-lg font-semibold" lang="nl">{answerText}</p>}
+          {!form && !grammar && card.example && (
             <div className="mt-1 flex items-start gap-1">
               <div className="min-w-0">
                 <p className="text-sm" lang="nl">{card.example}</p>
@@ -475,7 +555,7 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
               <ListenButton text={card.example} className="-mt-1 shrink-0" />
             </div>
           )}
-          {!grammar && !card.example && card.meaning && <Translation className="text-sm opacity-80">{card.meaning}</Translation>}
+          {!form && !grammar && !card.example && card.meaning && <Translation className="text-sm opacity-80">{card.meaning}</Translation>}
           {grammar && whole && card.example && audioUrl(card.example, 'ronnie') && <ListenButton text={card.example} className="-mt-1" />}
           {grammar && <Translation className="mt-1 text-sm opacity-80">{whole ? card.translation : card.rule}</Translation>}
           {outcome.result === 'wrong' && !card.mode && <p className="mt-1 text-xs opacity-80">Dit kaartje komt morgen terug.</p>}

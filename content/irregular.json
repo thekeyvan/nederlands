@@ -1,0 +1,284 @@
+{
+  "$schema": "./schema/irregular.schema.json",
+  "fa": "سه حالت را حفظ کن: مصدر، گذشته و اسم مفعول. هر مجموعه یک الگوی صدا دارد؛ با یاد گرفتن الگو، فعل‌های بیشتری را بلد می‌شوی.",
+  "sets": [
+    {
+      "id": "kern",
+      "kind": "verb",
+      "title": "zijn, hebben, gaan…",
+      "pattern": "zijn · was · is geweest",
+      "level": "A1",
+      "fa": "پرکاربردترین فعل‌ها کاملاً بی‌قاعده‌اند و تقریباً در هر جمله‌ای می‌آیند. این‌ها را از حفظ یاد بگیر.",
+      "items": [
+        {"nl": "zijn", "fa": "بودن", "past": "was", "pastPlural": "waren", "perfect": "is geweest", "wrongPast": ["waren", "wees", "zijnde"], "wrongPerfect": ["heeft geweest", "is gezijnd", "is gewest"]},
+        {"nl": "hebben", "fa": "داشتن", "past": "had", "pastPlural": "hadden", "perfect": "heeft gehad", "wrongPast": ["hadden", "hebde", "hadt"], "wrongPerfect": ["is gehad", "heeft gehebd", "heeft gehadt"]},
+        {"nl": "gaan", "fa": "رفتن", "past": "ging", "pastPlural": "gingen", "perfect": "is gegaan", "wrongPast": ["gingen", "gaade", "gong"], "wrongPerfect": ["heeft gegaan", "is gegaat", "is geging"]},
+        {"nl": "komen", "fa": "آمدن", "past": "kwam", "pastPlural": "kwamen", "perfect": "is gekomen", "wrongPast": ["kwamen", "koomde", "kam"], "wrongPerfect": ["heeft gekomen", "is gekoomd", "is gekwamen"]},
+        {"nl": "doen", "fa": "انجام دادن", "past": "deed", "pastPlural": "deden", "perfect": "heeft gedaan", "wrongPast": ["deden", "doede", "dee"], "wrongPerfect": ["is gedaan", "heeft gedoen", "heeft gedoet"]},
+        {"nl": "zien", "fa": "دیدن", "past": "zag", "pastPlural": "zagen", "perfect": "heeft gezien", "wrongPast": ["zagen", "ziede", "zeg"], "wrongPerfect": ["is gezien", "heeft gezagen", "heeft geziet"]},
+        {"nl": "staan", "fa": "ایستادن", "past": "stond", "pastPlural": "stonden", "perfect": "heeft gestaan", "wrongPast": ["stonden", "staade", "stand"], "wrongPerfect": ["is gestaan", "heeft gestond", "heeft gestaat"]},
+        {"nl": "worden", "fa": "شدن", "past": "werd", "pastPlural": "werden", "perfect": "is geworden", "wrongPast": ["werden", "wordde", "wierd"], "wrongPerfect": ["heeft geworden", "is geword", "is gewordt"]},
+        {"nl": "zeggen", "fa": "گفتن", "past": "zei", "pastPlural": "zeiden", "perfect": "heeft gezegd", "wrongPast": ["zeiden", "zeggde", "zag"], "wrongPerfect": ["is gezegd", "heeft gezeggen", "heeft gezegt"]},
+        {"nl": "weten", "fa": "دانستن", "past": "wist", "pastPlural": "wisten", "perfect": "heeft geweten", "wrongPast": ["wisten", "weette", "wat"], "wrongPerfect": ["is geweten", "heeft geweet", "heeft gewist"]}
+      ]
+    },
+    {
+      "id": "modaal",
+      "kind": "verb",
+      "title": "kunnen, mogen, zitten…",
+      "pattern": "kunnen · kon · heeft gekund",
+      "level": "A2",
+      "fa": "فعل‌های وجهی و چند فعل روزمره. گذشتهٔ آن‌ها را زیاد می‌شنوی: ik kon، ik moest، ik zat.",
+      "items": [
+        {"nl": "kunnen", "fa": "توانستن", "past": "kon", "pastPlural": "konden", "perfect": "heeft gekund", "wrongPast": ["konden", "kunde", "kan"], "wrongPerfect": ["is gekund", "heeft gekunnen", "heeft gekont"]},
+        {"nl": "willen", "fa": "خواستن", "past": "wilde", "pastPlural": "wilden", "perfect": "heeft gewild", "accept": ["wou"], "wrongPast": ["wilden", "wol", "wilt"], "wrongPerfect": ["is gewild", "heeft gewillen", "heeft gewilt"]},
+        {"nl": "mogen", "fa": "اجازه داشتن", "past": "mocht", "pastPlural": "mochten", "perfect": "heeft gemogen", "wrongPast": ["mochten", "moogde", "mag"], "wrongPerfect": ["is gemogen", "heeft gemaagd", "heeft gemoogd"]},
+        {"nl": "moeten", "fa": "مجبور بودن، باید", "past": "moest", "pastPlural": "moesten", "perfect": "heeft gemoeten", "wrongPast": ["moesten", "moette", "moet"], "wrongPerfect": ["is gemoeten", "heeft gemoest", "heeft gemoet"]},
+        {"nl": "zitten", "fa": "نشستن", "past": "zat", "pastPlural": "zaten", "perfect": "heeft gezeten", "wrongPast": ["zaten", "zitte", "zitde"], "wrongPerfect": ["is gezeten", "heeft gezit", "heeft gezitten"]},
+        {"nl": "liggen", "fa": "دراز کشیدن، قرار داشتن", "past": "lag", "pastPlural": "lagen", "perfect": "heeft gelegen", "wrongPast": ["lagen", "ligde", "legde"], "wrongPerfect": ["is gelegen", "heeft geligd", "heeft gelegd"]},
+        {"nl": "slaan", "fa": "زدن", "past": "sloeg", "pastPlural": "sloegen", "perfect": "heeft geslagen", "wrongPast": ["sloegen", "slaade", "sloog"], "wrongPerfect": ["is geslagen", "heeft geslaand", "heeft gesloegen"]}
+      ]
+    },
+    {
+      "id": "ij-ee",
+      "kind": "verb",
+      "title": "ij → ee → ee",
+      "pattern": "blijven · bleef · is gebleven",
+      "level": "A2",
+      "fa": "در این گروه ij در گذشته و در اسم مفعول به ee تبدیل می‌شود. یک فعل این گروه را بلد باشی، بقیه را هم بلدی.",
+      "items": [
+        {"nl": "blijven", "fa": "ماندن", "past": "bleef", "pastPlural": "bleven", "perfect": "is gebleven"},
+        {"nl": "schrijven", "fa": "نوشتن", "past": "schreef", "pastPlural": "schreven", "perfect": "heeft geschreven"},
+        {"nl": "kijken", "fa": "نگاه کردن، تماشا کردن", "past": "keek", "pastPlural": "keken", "perfect": "heeft gekeken"},
+        {"nl": "krijgen", "fa": "گرفتن، دریافت کردن", "past": "kreeg", "pastPlural": "kregen", "perfect": "heeft gekregen"},
+        {"nl": "rijden", "fa": "رانندگی کردن، (با ماشین یا دوچرخه) رفتن", "past": "reed", "pastPlural": "reden", "perfect": "heeft/is gereden"},
+        {"nl": "lijken", "fa": "شبیه بودن، به نظر رسیدن", "past": "leek", "pastPlural": "leken", "perfect": "heeft geleken"},
+        {"nl": "begrijpen", "fa": "فهمیدن", "past": "begreep", "pastPlural": "begrepen", "perfect": "heeft begrepen"},
+        {"nl": "verdwijnen", "fa": "ناپدید شدن", "past": "verdween", "pastPlural": "verdwenen", "perfect": "is verdwenen"},
+        {"nl": "snijden", "fa": "بریدن", "past": "sneed", "pastPlural": "sneden", "perfect": "heeft gesneden"},
+        {"nl": "stijgen", "fa": "بالا رفتن (مثلاً قیمت)", "past": "steeg", "pastPlural": "stegen", "perfect": "is gestegen"},
+        {"nl": "wijzen", "fa": "اشاره کردن، نشان دادن", "past": "wees", "pastPlural": "wezen", "perfect": "heeft gewezen"},
+        {"nl": "bijten", "fa": "گاز گرفتن", "past": "beet", "pastPlural": "beten", "perfect": "heeft gebeten"}
+      ]
+    },
+    {
+      "id": "ie-oo",
+      "kind": "verb",
+      "title": "ie / ui → oo → oo",
+      "pattern": "kiezen · koos · heeft gekozen",
+      "level": "A2",
+      "fa": "ie یا ui در گذشته و در اسم مفعول به oo تبدیل می‌شود: kiezen → koos → gekozen و sluiten → sloot → gesloten.",
+      "items": [
+        {"nl": "kiezen", "fa": "انتخاب کردن", "past": "koos", "pastPlural": "kozen", "perfect": "heeft gekozen"},
+        {"nl": "verliezen", "fa": "باختن، گم کردن", "past": "verloor", "pastPlural": "verloren", "perfect": "heeft verloren"},
+        {"nl": "vliegen", "fa": "پرواز کردن", "past": "vloog", "pastPlural": "vlogen", "perfect": "heeft/is gevlogen"},
+        {"nl": "liegen", "fa": "دروغ گفتن", "past": "loog", "pastPlural": "logen", "perfect": "heeft gelogen"},
+        {"nl": "bieden", "fa": "پیشنهاد دادن", "past": "bood", "pastPlural": "boden", "perfect": "heeft geboden"},
+        {"nl": "verbieden", "fa": "ممنوع کردن", "past": "verbood", "pastPlural": "verboden", "perfect": "heeft verboden"},
+        {"nl": "schieten", "fa": "شلیک کردن", "past": "schoot", "pastPlural": "schoten", "perfect": "heeft geschoten"},
+        {"nl": "genieten", "fa": "لذت بردن", "past": "genoot", "pastPlural": "genoten", "perfect": "heeft genoten"},
+        {"nl": "sluiten", "fa": "بستن", "past": "sloot", "pastPlural": "sloten", "perfect": "heeft gesloten"},
+        {"nl": "ruiken", "fa": "بو کردن، بو دادن", "past": "rook", "pastPlural": "roken", "perfect": "heeft geroken"},
+        {"nl": "buigen", "fa": "خم شدن، خم کردن", "past": "boog", "pastPlural": "bogen", "perfect": "heeft gebogen"},
+        {"nl": "schuiven", "fa": "هل دادن، جابه‌جا کردن", "past": "schoof", "pastPlural": "schoven", "perfect": "heeft geschoven"}
+      ]
+    },
+    {
+      "id": "i-o",
+      "kind": "verb",
+      "title": "i → o → o",
+      "pattern": "drinken · dronk · heeft gedronken",
+      "level": "A2",
+      "fa": "i در گذشته و در اسم مفعول به o تبدیل می‌شود: drinken → dronk → gedronken.",
+      "items": [
+        {"nl": "beginnen", "fa": "شروع کردن", "past": "begon", "pastPlural": "begonnen", "perfect": "is begonnen"},
+        {"nl": "drinken", "fa": "نوشیدن", "past": "dronk", "pastPlural": "dronken", "perfect": "heeft gedronken"},
+        {"nl": "vinden", "fa": "پیدا کردن؛ نظری داشتن", "past": "vond", "pastPlural": "vonden", "perfect": "heeft gevonden"},
+        {"nl": "zingen", "fa": "آواز خواندن", "past": "zong", "pastPlural": "zongen", "perfect": "heeft gezongen"},
+        {"nl": "springen", "fa": "پریدن", "past": "sprong", "pastPlural": "sprongen", "perfect": "heeft/is gesprongen"},
+        {"nl": "winnen", "fa": "بردن (در بازی یا مسابقه)", "past": "won", "pastPlural": "wonnen", "perfect": "heeft gewonnen"},
+        {"nl": "binden", "fa": "بستن (با طناب)", "past": "bond", "pastPlural": "bonden", "perfect": "heeft gebonden"},
+        {"nl": "klinken", "fa": "به گوش رسیدن، صدا دادن", "past": "klonk", "pastPlural": "klonken", "perfect": "heeft geklonken"},
+        {"nl": "stinken", "fa": "بوی بد دادن", "past": "stonk", "pastPlural": "stonken", "perfect": "heeft gestonken"},
+        {"nl": "schrikken", "fa": "ترسیدن، جا خوردن", "past": "schrok", "pastPlural": "schrokken", "perfect": "is geschrokken"}
+      ]
+    },
+    {
+      "id": "e-o",
+      "kind": "verb",
+      "title": "e → o / ie → o",
+      "pattern": "trekken · trok · heeft getrokken",
+      "level": "B1",
+      "fa": "e به o تبدیل می‌شود: trekken → trok → getrokken. در چند فعل گذشته ie دارد: helpen → hielp → geholpen.",
+      "items": [
+        {"nl": "zwemmen", "fa": "شنا کردن", "past": "zwom", "pastPlural": "zwommen", "perfect": "heeft/is gezwommen"},
+        {"nl": "trekken", "fa": "کشیدن", "past": "trok", "pastPlural": "trokken", "perfect": "heeft/is getrokken"},
+        {"nl": "vechten", "fa": "جنگیدن، دعوا کردن", "past": "vocht", "pastPlural": "vochten", "perfect": "heeft gevochten"},
+        {"nl": "schenken", "fa": "ریختن (نوشیدنی)؛ هدیه دادن", "past": "schonk", "pastPlural": "schonken", "perfect": "heeft geschonken"},
+        {"nl": "smelten", "fa": "ذوب شدن", "past": "smolt", "pastPlural": "smolten", "perfect": "is gesmolten"},
+        {"nl": "helpen", "fa": "کمک کردن", "past": "hielp", "pastPlural": "hielpen", "perfect": "heeft geholpen"},
+        {"nl": "sterven", "fa": "مردن", "past": "stierf", "pastPlural": "stierven", "perfect": "is gestorven"}
+      ]
+    },
+    {
+      "id": "e-a",
+      "kind": "verb",
+      "title": "e → a → e / o",
+      "pattern": "lezen · las · heeft gelezen",
+      "level": "A2",
+      "fa": "e در گذشته a می‌شود و اسم مفعول دوباره e یا o دارد: lezen → las → gelezen، spreken → sprak → gesproken. در جمع، a کشیده است: lazen، spraken.",
+      "items": [
+        {"nl": "lezen", "fa": "خواندن (کتاب)", "past": "las", "pastPlural": "lazen", "perfect": "heeft gelezen"},
+        {"nl": "geven", "fa": "دادن", "past": "gaf", "pastPlural": "gaven", "perfect": "heeft gegeven"},
+        {"nl": "eten", "fa": "خوردن", "past": "at", "pastPlural": "aten", "perfect": "heeft gegeten"},
+        {"nl": "vergeten", "fa": "فراموش کردن", "past": "vergat", "pastPlural": "vergaten", "perfect": "heeft/is vergeten"},
+        {"nl": "vergeven", "fa": "بخشیدن", "past": "vergaf", "pastPlural": "vergaven", "perfect": "heeft vergeven"},
+        {"nl": "meten", "fa": "اندازه گرفتن", "past": "mat", "pastPlural": "maten", "perfect": "heeft gemeten"},
+        {"nl": "genezen", "fa": "خوب شدن، شفا یافتن", "past": "genas", "pastPlural": "genazen", "perfect": "is genezen"},
+        {"nl": "nemen", "fa": "برداشتن، گرفتن", "past": "nam", "pastPlural": "namen", "perfect": "heeft genomen"},
+        {"nl": "spreken", "fa": "صحبت کردن", "past": "sprak", "pastPlural": "spraken", "perfect": "heeft gesproken"},
+        {"nl": "breken", "fa": "شکستن", "past": "brak", "pastPlural": "braken", "perfect": "heeft/is gebroken"},
+        {"nl": "stelen", "fa": "دزدیدن", "past": "stal", "pastPlural": "stalen", "perfect": "heeft gestolen"}
+      ]
+    },
+    {
+      "id": "ie",
+      "kind": "verb",
+      "title": "→ ie / i → …",
+      "pattern": "slapen · sliep · heeft geslapen",
+      "level": "A2",
+      "fa": "گذشته ie یا i دارد و اسم مفعول همان صدای مصدر را: slapen → sliep → geslapen و hangen → hing → gehangen.",
+      "items": [
+        {"nl": "slapen", "fa": "خوابیدن", "past": "sliep", "pastPlural": "sliepen", "perfect": "heeft geslapen"},
+        {"nl": "lopen", "fa": "راه رفتن", "past": "liep", "pastPlural": "liepen", "perfect": "heeft/is gelopen"},
+        {"nl": "laten", "fa": "گذاشتن، اجازه دادن", "past": "liet", "pastPlural": "lieten", "perfect": "heeft gelaten"},
+        {"nl": "vallen", "fa": "افتادن", "past": "viel", "pastPlural": "vielen", "perfect": "is gevallen"},
+        {"nl": "houden", "fa": "نگه داشتن؛ (houden van) دوست داشتن", "past": "hield", "pastPlural": "hielden", "perfect": "heeft gehouden"},
+        {"nl": "roepen", "fa": "صدا زدن", "past": "riep", "pastPlural": "riepen", "perfect": "heeft geroepen"},
+        {"nl": "blazen", "fa": "فوت کردن، وزیدن", "past": "blies", "pastPlural": "bliezen", "perfect": "heeft geblazen"},
+        {"nl": "hangen", "fa": "آویزان بودن، آویزان کردن", "past": "hing", "pastPlural": "hingen", "perfect": "heeft gehangen"},
+        {"nl": "vangen", "fa": "گرفتن (مثلاً توپ)", "past": "ving", "pastPlural": "vingen", "perfect": "heeft gevangen"},
+        {"nl": "ontvangen", "fa": "دریافت کردن، پذیرایی کردن", "past": "ontving", "pastPlural": "ontvingen", "perfect": "heeft ontvangen"}
+      ]
+    },
+    {
+      "id": "cht",
+      "kind": "verb",
+      "title": "dacht, bracht, kocht",
+      "pattern": "denken · dacht · heeft gedacht",
+      "level": "A2",
+      "fa": "گذشته و اسم مفعول به cht ختم می‌شوند و صدای وسط عوض می‌شود: denken → dacht → gedacht، kopen → kocht → gekocht.",
+      "items": [
+        {"nl": "denken", "fa": "فکر کردن", "past": "dacht", "pastPlural": "dachten", "perfect": "heeft gedacht"},
+        {"nl": "bedenken", "fa": "ابداع کردن، به فکر چیزی رسیدن", "past": "bedacht", "pastPlural": "bedachten", "perfect": "heeft bedacht"},
+        {"nl": "brengen", "fa": "آوردن، بردن", "past": "bracht", "pastPlural": "brachten", "perfect": "heeft gebracht"},
+        {"nl": "kopen", "fa": "خریدن", "past": "kocht", "pastPlural": "kochten", "perfect": "heeft gekocht"},
+        {"nl": "verkopen", "fa": "فروختن", "past": "verkocht", "pastPlural": "verkochten", "perfect": "heeft verkocht"},
+        {"nl": "zoeken", "fa": "جستجو کردن، گشتن", "past": "zocht", "pastPlural": "zochten", "perfect": "heeft gezocht"},
+        {"nl": "bezoeken", "fa": "دیدن کردن، ملاقات کردن", "past": "bezocht", "pastPlural": "bezochten", "perfect": "heeft bezocht"}
+      ]
+    },
+    {
+      "id": "half",
+      "kind": "verb",
+      "title": "Half onregelmatig",
+      "pattern": "lachen · lachte · heeft gelachen",
+      "level": "B1",
+      "fa": "نیمه‌بی‌قاعده: گذشته منظم است ولی اسم مفعول نه (lachen → lachte → gelachen)، یا برعکس (vragen → vroeg → gevraagd).",
+      "items": [
+        {"nl": "lachen", "fa": "خندیدن", "past": "lachte", "pastPlural": "lachten", "perfect": "heeft gelachen"},
+        {"nl": "bakken", "fa": "پختن (در فر)، سرخ کردن", "past": "bakte", "pastPlural": "bakten", "perfect": "heeft gebakken"},
+        {"nl": "wassen", "fa": "شستن", "past": "waste", "pastPlural": "wasten", "perfect": "heeft gewassen"},
+        {"nl": "braden", "fa": "کباب کردن، سرخ کردن (گوشت)", "past": "braadde", "pastPlural": "braadden", "perfect": "heeft gebraden"},
+        {"nl": "heten", "fa": "نام داشتن", "past": "heette", "pastPlural": "heetten", "perfect": "heeft geheten"},
+        {"nl": "scheiden", "fa": "جدا کردن؛ طلاق گرفتن", "past": "scheidde", "pastPlural": "scheidden", "perfect": "heeft/is gescheiden", "wrongPerfect": ["heeft gescheid", "heeft gescheidt", "is gescheid"]},
+        {"nl": "vragen", "fa": "پرسیدن، خواستن", "past": "vroeg", "pastPlural": "vroegen", "perfect": "heeft gevraagd"},
+        {"nl": "dragen", "fa": "حمل کردن؛ (لباس) پوشیدن", "past": "droeg", "pastPlural": "droegen", "perfect": "heeft gedragen"},
+        {"nl": "varen", "fa": "با قایق یا کشتی رفتن", "past": "voer", "pastPlural": "voeren", "perfect": "heeft/is gevaren"}
+      ]
+    },
+    {
+      "id": "nu",
+      "kind": "present",
+      "title": "Ik, jij, hij",
+      "pattern": "ik ben · jij bent · hij is",
+      "level": "A1",
+      "fa": "زمان حال چند فعل بی‌قاعده است، مثل ik ben و hij is. نکتهٔ مهم: وقتی jij بعد از فعل بیاید، t حذف می‌شود؛ پس می‌گوییم Word jij و نه Wordt jij.",
+      "items": [
+        {"nl": "zijn", "fa": "بودن", "prompt": "Jij ___ te laat.", "answer": "bent", "wrong": ["is", "ben", "zijn"]},
+        {"nl": "zijn", "fa": "بودن", "prompt": "Hij ___ vandaag ziek.", "answer": "is", "wrong": ["bent", "ben", "zijn"]},
+        {"nl": "hebben", "fa": "داشتن", "prompt": "Zij ___ twee kinderen.", "answer": "heeft", "wrong": ["hebt", "heb", "hebben"]},
+        {"nl": "hebben", "fa": "داشتن", "prompt": "___ jij een fiets?", "answer": "Heb", "wrong": ["Hebt", "Heeft", "Hebben"]},
+        {"nl": "kunnen", "fa": "توانستن", "prompt": "Ik ___ morgen niet komen.", "answer": "kan", "wrong": ["kun", "kunt", "kunnen"]},
+        {"nl": "kunnen", "fa": "توانستن", "prompt": "Mijn broer ___ goed koken.", "answer": "kan", "wrong": ["kunt", "kun", "kant"]},
+        {"nl": "willen", "fa": "خواستن", "prompt": "Ik ___ graag een kop koffie.", "answer": "wil", "wrong": ["wilt", "willen", "wild"]},
+        {"nl": "zullen", "fa": "(برای آینده یا پیشنهاد)", "prompt": "Ik ___ je morgen bellen.", "answer": "zal", "wrong": ["zul", "zult", "zullen"]},
+        {"nl": "mogen", "fa": "اجازه داشتن", "prompt": "Hier ___ je niet roken.", "answer": "mag", "wrong": ["magt", "mogt", "mogen"]},
+        {"nl": "gaan", "fa": "رفتن", "prompt": "Hij ___ morgen naar Utrecht.", "answer": "gaat", "wrong": ["ga", "gaan", "gaant"]},
+        {"nl": "doen", "fa": "انجام دادن", "prompt": "Wat ___ jij in het weekend?", "answer": "doe", "wrong": ["doet", "doen", "doed"]},
+        {"nl": "zien", "fa": "دیدن", "prompt": "Zij ___ haar moeder elke week.", "answer": "ziet", "wrong": ["zie", "zien", "ziedt"]},
+        {"nl": "komen", "fa": "آمدن", "prompt": "___ je ook naar het feest?", "answer": "Kom", "wrong": ["Komt", "Komen", "Koom"]},
+        {"nl": "staan", "fa": "ایستادن", "prompt": "De koffie ___ klaar.", "answer": "staat", "wrong": ["sta", "staan", "staad"]},
+        {"nl": "worden", "fa": "شدن", "prompt": "Ik ___ volgende week dertig.", "answer": "word", "wrong": ["wordt", "worden", "wordd"]},
+        {"nl": "worden", "fa": "شدن", "prompt": "Mijn zus ___ morgen dertig.", "answer": "wordt", "wrong": ["word", "worden", "wordd"]},
+        {"nl": "worden", "fa": "شدن", "prompt": "___ jij ook dertig dit jaar?", "answer": "Word", "wrong": ["Wordt", "Worden", "Wort"]},
+        {"nl": "vinden", "fa": "نظری داشتن، به نظر کسی آمدن", "prompt": "Hoe ___ je mijn nieuwe jas?", "answer": "vind", "wrong": ["vindt", "vint", "vinden"]},
+        {"nl": "vinden", "fa": "نظری داشتن، به نظر کسی آمدن", "prompt": "Mijn moeder ___ het eten lekker.", "answer": "vindt", "wrong": ["vind", "vint", "vinden"]},
+        {"nl": "antwoorden", "fa": "جواب دادن", "prompt": "Hij ___ niet op mijn vraag.", "answer": "antwoordt", "wrong": ["antwoord", "antwoordd", "antwoorden"]}
+      ]
+    },
+    {
+      "id": "meervoud",
+      "kind": "plural",
+      "title": "Lastige meervouden",
+      "pattern": "de stad · de steden",
+      "level": "A1",
+      "fa": "بیشتر جمع‌ها با -en یا -s ساخته می‌شوند، ولی املا تغییر می‌کند (huis → huizen، dag → dagen) و چند کلمه کاملاً بی‌قاعده‌اند (stad → steden، kind → kinderen).",
+      "items": [
+        {"nl": "de stad", "fa": "شهر", "answer": "de steden", "wrong": ["de stadden", "de stads", "de staden"]},
+        {"nl": "het schip", "fa": "کشتی", "answer": "de schepen", "wrong": ["de schippen", "de schips", "de schipen"]},
+        {"nl": "het kind", "fa": "بچه", "answer": "de kinderen", "wrong": ["de kinden", "de kinds", "de kindens"]},
+        {"nl": "het ei", "fa": "تخم‌مرغ", "answer": "de eieren", "wrong": ["de eien", "de eis", "de eiren"]},
+        {"nl": "het lid", "fa": "عضو", "answer": "de leden", "wrong": ["de lidden", "de lids", "de liden"]},
+        {"nl": "de dag", "fa": "روز", "answer": "de dagen", "wrong": ["de daggen", "de dags", "de daagen"]},
+        {"nl": "het glas", "fa": "لیوان", "answer": "de glazen", "wrong": ["de glassen", "de glasen", "de glaasen"]},
+        {"nl": "het dak", "fa": "سقف، بام", "answer": "de daken", "wrong": ["de dakken", "de daaken", "de daks"]},
+        {"nl": "de weg", "fa": "راه، جاده", "answer": "de wegen", "wrong": ["de weggen", "de weegen", "de wegs"]},
+        {"nl": "het huis", "fa": "خانه", "answer": "de huizen", "wrong": ["de huisen", "de huises", "de huiss"]},
+        {"nl": "de brief", "fa": "نامه", "answer": "de brieven", "wrong": ["de briefen", "de briefs", "de brieffen"]},
+        {"nl": "de reis", "fa": "سفر", "answer": "de reizen", "wrong": ["de reisen", "de reizzen", "de reises"]},
+        {"nl": "de straat", "fa": "خیابان", "answer": "de straten", "wrong": ["de straaten", "de straatten", "de straats"]},
+        {"nl": "het been", "fa": "پا، ساق پا", "answer": "de benen", "wrong": ["de beenen", "de beens", "de bennen"]},
+        {"nl": "de kat", "fa": "گربه", "answer": "de katten", "wrong": ["de katen", "de kats", "de kaaten"]},
+        {"nl": "de vis", "fa": "ماهی", "answer": "de vissen", "wrong": ["de visen", "de visses", "de viezen"]},
+        {"nl": "de foto", "fa": "عکس", "answer": "de foto’s", "accept": ["de foto's"], "wrong": ["de fotoos", "de fotoën", "de fotoes"]},
+        {"nl": "de baby", "fa": "نوزاد", "answer": "de baby’s", "accept": ["de baby's"], "wrong": ["de babies", "de babyen", "de babyes"]},
+        {"nl": "de koe", "fa": "گاو", "answer": "de koeien", "wrong": ["de koes", "de koeën", "de koeiens"]},
+        {"nl": "de jongen", "fa": "پسر", "answer": "de jongens", "wrong": ["de jongenen", "de jongs", "de jongenes"]}
+      ]
+    },
+    {
+      "id": "vergelijken",
+      "kind": "compare",
+      "title": "Beter, meer, liever",
+      "pattern": "goed · beter · best",
+      "level": "A2",
+      "fa": "صفت تفضیلی با -er و صفت عالی با -st ساخته می‌شود. ولی goed، veel، weinig و graag بی‌قاعده‌اند. بعد از r یک d اضافه می‌شود: duur → duurder.",
+      "items": [
+        {"nl": "goed", "fa": "خوب", "more": "beter", "most": "best", "wrongMore": ["goeder", "meer goed", "bester"], "wrongMost": ["goedst", "betst", "meest goed"]},
+        {"nl": "veel", "fa": "زیاد", "more": "meer", "most": "meest", "wrongMore": ["veeler", "meerder", "veelder"], "wrongMost": ["veelst", "meerst", "meesten"]},
+        {"nl": "weinig", "fa": "کم", "more": "minder", "most": "minst", "wrongMore": ["weiniger", "minderder", "minner"], "wrongMost": ["weinigst", "minderst", "minnest"]},
+        {"nl": "graag", "fa": "با کمال میل، (با دوست داشتن)", "more": "liever", "most": "liefst", "wrongMore": ["graager", "liefer", "meer graag"], "wrongMost": ["graagst", "lieverst", "meest graag"]},
+        {"nl": "duur", "fa": "گران", "more": "duurder", "most": "duurst", "wrongMore": ["duurer", "duuder", "meer duur"], "wrongMost": ["duurderst", "duurdst", "duust"]},
+        {"nl": "ver", "fa": "دور", "more": "verder", "most": "verst", "wrongMore": ["verer", "verrer", "meer ver"], "wrongMost": ["verderst", "verrst", "verdst"]},
+        {"nl": "lief", "fa": "مهربان، نازنین", "more": "liever", "most": "liefst", "wrongMore": ["liefer", "lieffer", "meer lief"], "wrongMost": ["lievst", "lieverst", "lieffst"]},
+        {"nl": "groot", "fa": "بزرگ", "more": "groter", "most": "grootst", "wrongMore": ["grooter", "grotter", "meer groot"], "wrongMost": ["grotst", "grooterst", "grotest"]},
+        {"nl": "dik", "fa": "چاق، کلفت", "more": "dikker", "most": "dikst", "wrongMore": ["diker", "dikkerer", "meer dik"], "wrongMost": ["dikkest", "dikkerst", "diekst"]},
+        {"nl": "zwaar", "fa": "سنگین", "more": "zwaarder", "most": "zwaarst", "wrongMore": ["zwaarer", "zwarer", "meer zwaar"], "wrongMost": ["zwaarderst", "zwarst", "zwaardst"]},
+        {"nl": "lekker", "fa": "خوشمزه", "more": "lekkerder", "most": "lekkerst", "wrongMore": ["lekkerer", "lekkrer", "meer lekker"], "wrongMost": ["lekkerderst", "lekkerdst", "lekkerest"]},
+        {"nl": "wit", "fa": "سفید", "more": "witter", "most": "witst", "wrongMore": ["witer", "wittter", "meer wit"], "wrongMost": ["wittst", "witterst", "witest"]},
+        {"nl": "vaak", "fa": "اغلب، زیاد (دفعات)", "more": "vaker", "most": "vaakst", "wrongMore": ["vaaker", "vakker", "meer vaak"], "wrongMost": ["vaakerst", "vakst", "vaakste"]}
+      ]
+    }
+  ]
+}

@@ -26,7 +26,7 @@ final class Learner {
 
     private func load(_ id: String) {
         identity = id
-        let valid = Set(Content.shared.cards.map(\.id))
+        let valid = Content.shared.allIds
         guard let data = try? Data(contentsOf: file(id)), let saved = try? Self.decoder.decode(Saved.self, from: data) else {
             reviews = [:]; events = []; return
         }
@@ -57,7 +57,7 @@ final class Learner {
     }
 
     func merge(reviews remote: [String: Review], events remoteEvents: [ReviewEvent]) {
-        let valid = Set(Content.shared.cards.map(\.id))
+        let valid = Content.shared.allIds
         for (id, review) in remote where valid.contains(id) {
             if let local = reviews[id], local.lastReviewed >= review.lastReviewed { continue }
             reviews[id] = review

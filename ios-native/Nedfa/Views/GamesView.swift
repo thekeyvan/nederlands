@@ -93,6 +93,7 @@ struct SpellenView: View {
                 }
                 .padding(.bottom, 30)
             }
+            .feedbackScreen("Arcade")
             .statusBarScrim()
             .gameBackground()
             .toolbar(.hidden, for: .navigationBar)
@@ -216,6 +217,7 @@ struct GameFlow: View {
             Button("Stoppen", role: .destructive) { dismiss() }
             Button("Doorgaan", role: .cancel) {}
         } message: { Text("Je score van deze ronde telt dan niet mee voor je record.") }
+        .feedbackScreen("Spel: \(game.game.title)", details: ["game": game.game.rawValue, "theme": game.theme], restoresOnClose: true)
         .onDisappear { Audio.shared.stop() }
     }
 

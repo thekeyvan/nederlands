@@ -55,6 +55,7 @@ struct RoundView: View {
                 }
             }
             .gameBackground()
+            .feedbackScreen("Rondje: \(round.label)", restoresOnClose: true)
             .toolbar(.hidden, for: .navigationBar)
             .confirmationDialog("Stoppen met dit rondje?", isPresented: $confirmQuit, titleVisibility: .visible) {
                 Button("Stoppen", role: .destructive) { dismiss() }

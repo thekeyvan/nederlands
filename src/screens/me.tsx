@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {ChevronRight, Flame, Laptop, Moon, Settings, Shield, Sun, Trash2} from 'lucide-react';
+import {ChevronRight, Flame, Laptop, MessageCircleHeart, Moon, Settings, Shield, Sun, Trash2} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog';
 import {Label} from '@/components/ui/label';
@@ -15,6 +15,7 @@ import {Group, GroupLabel, Row, RowIcon, ScreenTitle} from '@/components/app/lis
 import {AppleLogo, GoogleLogo, openSignIn, useCanSignIn} from '@/components/app/sign-in';
 import {AppCard} from '@/components/pwa';
 import {Confirm} from '@/components/confirm';
+import {FeedbackSheet} from '@/components/feedback';
 import {Page} from '@/components/page';
 import {useAudio} from '@/hooks/use-audio';
 import {syncMessages, useCloud} from '@/hooks/use-cloud';
@@ -79,6 +80,7 @@ export function SettingsScreen() {
   const [preferences, update] = usePreferences();
   const audio = useAudio();
   const {preference, setPreference} = useTheme();
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const packs = Object.values(locales);
   return (
     <Page className="max-w-2xl">
@@ -132,11 +134,13 @@ export function SettingsScreen() {
       </Group>
       <GroupLabel>Meer</GroupLabel>
       <Group>
+        <Row onClick={() => setFeedbackOpen(true)} leading={<RowIcon className="bg-primary/15 text-primary"><MessageCircleHeart /></RowIcon>} title="Feedback geven" detail="Een probleem, een idee of een compliment" titleClassName="font-medium" />
         <Row onClick={() => navigate('bronnen')} leading={<img src={sceneFor('bronnen')} alt="" className="size-10 shrink-0 rounded-lg bg-[#fcfaf6] object-cover" draggable={false} />} title="Websites & boeken" titleClassName="font-medium" />
         <li><a href="/privacy" className="flex min-h-[52px] items-center gap-3 px-3.5 py-2.5 hover:bg-muted/60"><RowIcon className="bg-info-soft text-info-foreground"><Shield /></RowIcon><span className="flex-1 text-[15px] font-medium">Privacy</span><ChevronRight className="size-4 text-muted-foreground/60" /></a></li>
       </Group>
       <GroupLabel>App</GroupLabel>
       <AppCard />
+      <FeedbackSheet open={feedbackOpen} onOpenChange={setFeedbackOpen} />
     </Page>
   );
 }

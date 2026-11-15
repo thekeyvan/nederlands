@@ -25,6 +25,7 @@ struct LerenView: View {
                 .background(Color.ground)
                 .scrollEdgeFade()
             }
+            .feedbackScreen("Leren")
             .gameBackground()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
@@ -155,6 +156,7 @@ struct ThemeDetailView: View {
             }
         }
         .navigationTitle(theme.title)
+        .feedbackScreen("Thema: \(theme.title)", details: ["theme": theme.id])
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $word) { WordSheet(card: $0) }
         .sheet(isPresented: $showGames) { ThemeGamesSheet(theme: theme) }
@@ -201,42 +203,52 @@ struct DialogueView: View {
 struct WordSheet: View {
     let card: Card
     @Environment(\.dismiss) private var dismiss
-    @State private var progress = Learner.shared
 
     var body: some View {
-        NavigationStack {
-            List {
-                Section {
-                    HStack {
-                        Text(card.nl ?? "").font(.title2.weight(.bold))
+        FittedSheet(title: card.themeTitle) {
+            VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(card.nl ?? "").font(.game(26, .black))
                         Spacer()
                         ListenButton(text: card.nl ?? "")
                     }
-                    if let meaning = card.meaning { Persian(text: meaning, font: .title3) }
-                }
-                if let example = card.example {
-                    Section("Zo gebruik je het") {
-                        HStack(alignment: .top) { Text(example).font(.body.weight(.medium)); Spacer(); ListenButton(text: example, size: 14) }
-                        if let translation = card.translation { Persian(text: translation) }
+                    if let meaning = card.meaning {
+                        Divider()
+                        Persian(text: meaning, font: .title3, color: .primary).frame(maxWidth: .infinity, alignment: .trailing)
                     }
+                }
+                .card(padding: 18, radius: 24)
+                if let example = card.example {
+                    Text("Zo gebruik je het").font(.game(17, .heavy)).padding(.top, 6)
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack(alignment: .top) { Text(example).font(.body.weight(.semibold)); Spacer(); ListenButton(text: example, size: 14) }
+                        if let translation = card.translation {
+                            Divider()
+                            Persian(text: translation).frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
+                    .card(padding: 18, radius: 24)
                 }
                 if let forms = card.forms, forms.count == 3 {
-                    Section("Vormen") {
+                    Text("Vormen").font(.game(17, .heavy)).padding(.top, 6)
+                    VStack(spacing: 10) {
                         LabeledContent("Imperfectum", value: forms[0])
+                        Divider()
                         LabeledContent("Perfectum", value: forms[1])
+                        Divider()
                         LabeledContent("Soort", value: forms[2])
                     }
+                    .card(padding: 18, radius: 24)
                 }
-                Section {
-                    Button { dismiss(); PracticeSession.shared.start([card], label: "Eén kaartje") } label: { Label("Oefen dit kaartje", systemImage: "bolt.fill") }
-                        .buttonStyle(GameButtonStyle()).listRowInsets(EdgeInsets()).listRowBackground(Color.clear)
-                }
+                Button { dismiss(); PracticeSession.shared.start([card], label: "Eén kaartje") } label: { Label("Oefen dit kaartje", systemImage: "bolt.fill") }
+                    .buttonStyle(GameButtonStyle())
+                    .padding(.top, 8)
             }
-            .navigationTitle(card.themeTitle ?? "")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Klaar") { dismiss() } } }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 12)
         }
-        .presentationDetents([.medium, .large])
+        .feedbackScreen("Kaartje: \(card.nl ?? "")", details: ["card": card.id], restoresOnClose: true)
     }
 }
 
@@ -379,7 +391,7 @@ struct RouteMap: View {
             }
             .onAppear { if stats.currentStop > 1 { reader.scrollTo(stats.currentStop, anchor: .center) } }
         }
-        .sheet(item: $stop) { StopSheet(stop: $0).presentationDetents([.medium, .large]) }
+        .sheet(item: $stop) { StopSheet(stop: $0) }
     }
 
     private func path(count: Int, point: (Int) -> CGPoint) -> Path {

@@ -70,3 +70,20 @@ create table if not exists learning_preferences (
  data jsonb not null default '{}'::jsonb check (jsonb_typeof(data)='object' and octet_length(data::text)<100000),
  updated_at timestamptz not null default now()
 );
+
+-- Feedback from the app (shake the iPhone) and the website. Account is optional (deleted with the account);
+-- the screen and device context make reports useful; a screenshot only when the learner leaves it switched on.
+create table if not exists feedback (
+ id uuid primary key default gen_random_uuid(),
+ created_at timestamptz not null default now(),
+ user_id uuid references users(id) on delete cascade,
+ kind text not null check (kind in ('idee','probleem','compliment','anders')),
+ message text not null check (length(message) between 1 and 4000),
+ screen text,
+ context jsonb not null default '{}'::jsonb check (jsonb_typeof(context)='object' and octet_length(context::text)<10000),
+ platform text,
+ app_version text,
+ screenshot bytea check (screenshot is null or octet_length(screenshot) < 2000000),
+ status text not null default 'nieuw' check (status in ('nieuw','gezien','gepland','opgelost','niet doen'))
+);
+create index if not exists feedback_new on feedback (created_at desc) where status = 'nieuw';

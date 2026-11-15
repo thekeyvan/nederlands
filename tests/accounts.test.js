@@ -101,5 +101,41 @@ test('accounts: one learner for Apple and Google, merging and the progress API',
     }
   });
 
+  await t.test('feedback: anyone can send, only admins can read', async () => {
+    const reader = await auth.signInIdentity(google('g6', 'team@example.com'));
+    const learner = await auth.signInIdentity(google('g7', 'leerling@example.com'));
+    process.env.FEEDBACK_ADMINS = reader;
+    const app = express();
+    app.set('trust proxy', true);
+    app.use('/api', accountApi());
+    const server = app.listen(0);
+    const base = `http://127.0.0.1:${server.address().port}/api`;
+    try {
+      const post = (body, token) => fetch(`${base}/feedback`, {method: 'POST', headers: {'Content-Type': 'application/json', ...(token ? {Authorization: `Bearer ${token}`} : {})}, body: JSON.stringify(body)});
+      const pixel = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 1, 2, 3]).toString('base64');
+      assert.equal((await post({kind: 'probleem', message: 'De knop doet niets', screen: 'Thema: Werk', context: {card: 'werk:de-baan'}, platform: 'ios', appVersion: '1.0 (12)', screenshot: pixel}, await auth.createSession(learner))).status, 201);
+      assert.equal((await post({kind: 'idee', message: 'Meer spellen!'})).status, 201);
+      assert.equal((await post({kind: 'idee', message: '   '})).status, 400);
+      assert.equal((await post({kind: 'idee', message: 'x', screenshot: Buffer.from('not an image').toString('base64')})).status, 400);
+
+      assert.equal((await fetch(`${base}/feedback`, {headers: {Authorization: `Bearer ${await auth.createSession(learner)}`}})).status, 404);
+      const token = await auth.createSession(reader);
+      const list = await (await fetch(`${base}/feedback`, {headers: {Authorization: `Bearer ${token}`}})).json();
+      assert.equal(list.feedback.length, 2);
+      const report = list.feedback.find((item) => item.kind === 'probleem');
+      assert.equal(report.email, 'leerling@example.com');
+      assert.equal(report.context.card, 'werk:de-baan');
+      assert.equal(report.has_screenshot, true);
+      const image = await fetch(`${base}/feedback/${report.id}/screenshot`, {headers: {Authorization: `Bearer ${token}`}});
+      assert.equal(image.headers.get('content-type'), 'image/jpeg');
+      assert.equal((await fetch(`${base}/feedback/${report.id}`, {method: 'PATCH', headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}`}, body: JSON.stringify({status: 'gepland'})})).status, 200);
+      // Deleting the account also removes what that learner sent.
+      await pool.query('delete from users where id=$1', [learner]);
+      assert.equal((await pool.query('select count(*)::int as n from feedback')).rows[0].n, 1);
+    } finally {
+      server.close();
+    }
+  });
+
   await pool.end();
 });

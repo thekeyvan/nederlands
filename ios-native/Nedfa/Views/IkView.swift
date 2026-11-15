@@ -70,6 +70,7 @@ struct IkView: View {
                 }
                 .padding(.vertical, 12)
             }
+            .feedbackScreen("Ik")
             .statusBarScrim()
             .gameBackground()
             .toolbar(.hidden, for: .navigationBar)
@@ -182,12 +183,19 @@ struct SettingsView: View {
                 Button(cloud.user == nil ? "Wis mijn voortgang" : "Account verwijderen", role: .destructive) { confirmDelete = true }
             }
             Section("Meer") {
+                Button { Feedback.shared.present(kind: .idee) } label: {
+                    HStack {
+                        Label { VStack(alignment: .leading, spacing: 1) { Text("Feedback geven").foregroundStyle(Color.primary); Text("Of schud je iPhone, op elk scherm").font(.caption).foregroundStyle(Color(.secondaryLabel)) } } icon: { Image(systemName: "bubble.left.and.text.bubble.right.fill") }
+                        Spacer()
+                    }
+                }
                 NavigationLink { ResourcesView() } label: { PictureRow(picture: "themes/bronnen", title: "Websites & boeken", size: 36) }
                 Link(destination: URL(string: "https://nedfa.nl/privacy")!) { Label("Privacy", systemImage: "hand.raised") }
                 Link(destination: URL(string: "https://nedfa.nl")!) { Label("nedfa.nl", systemImage: "globe") }
             }
         }
         .navigationTitle("Instellingen")
+        .feedbackScreen("Instellingen")
         .sheet(isPresented: $showSignIn) { SignInSheet() }
         .confirmationDialog("Uitloggen?", isPresented: $confirmSignOut, titleVisibility: .visible) {
             Button("Uitloggen", role: .destructive) { Task { await cloud.signOut() } }
@@ -327,6 +335,7 @@ struct SignInReasons: View {
 struct SignInSheet: View {
     @Environment(\.dismiss) private var dismiss
     var body: some View {
+        FittedSheet {
         VStack(spacing: 20) {
             Mascot(mood: .wave, size: 110).padding(.top, 24)
             Text("Log in en ga overal verder").font(.title2.weight(.bold)).multilineTextAlignment(.center)
@@ -335,7 +344,7 @@ struct SignInSheet: View {
             Text("Je kunt je account altijd verwijderen bij Ik › Instellingen.").font(.footnote).foregroundStyle(.secondary).multilineTextAlignment(.center)
         }
         .padding(24)
-        .presentationDetents([.medium, .large])
+        }
     }
 }
 

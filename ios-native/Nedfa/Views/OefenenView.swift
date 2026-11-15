@@ -65,12 +65,13 @@ struct OefenenView: View {
                 }
                 .padding(.bottom, 30)
             }
+            .feedbackScreen("Vandaag")
             .statusBarScrim()
             .gameBackground()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
             .sheet(isPresented: $showSignIn) { SignInSheet() }
-            .sheet(item: $stop) { StopSheet(stop: $0).presentationDetents([.medium, .large]) }
+            .sheet(item: $stop) { StopSheet(stop: $0) }
         }
     }
 
@@ -256,7 +257,7 @@ struct StopSheet: View {
     let stop: Stats.Stop
     @Environment(\.dismiss) private var dismiss
     var body: some View {
-        ScrollView {
+        FittedSheet {
             VStack(alignment: .leading, spacing: 18) {
                 HStack(spacing: 14) {
                     Art(name: "themes/\(stop.lesson.themeIds.first ?? "route")", size: 76)
@@ -279,7 +280,6 @@ struct StopSheet: View {
             }
             .padding(24)
         }
-        .gameBackground()
     }
 }
 

@@ -33,11 +33,11 @@ const safeReturn = (value) => (typeof value === 'string' && /^\/(?!\/)[\w\-./?=&
 export function accountApi() {
   const api = express.Router();
   // Only these paths; /api/v1 (the content API) is handled by React Router.
-  api.use(['/auth', '/me'], (req, res, next) => {
+  api.use(['/auth', '/me', '/feedback'], (req, res, next) => {
     res.set('Cache-Control', 'no-store');
     if (!pool) return res.status(503).json({error: 'unavailable'});
     next();
-  }, express.json({limit: '1mb'}));
+  }, express.json({limit: '3mb'}));
 
   // Looks up the learner; `required` answers 401 without one.
   const who = (required) => async (req, res, next) => {
@@ -198,6 +198,67 @@ export function accountApi() {
     } catch {
       return res.status(400).json({error: 'invalid'});
     }
+    res.json({ok: true});
+  });
+
+  // MARK: Feedback (shake the iPhone, or Instellingen → Feedback geven)
+
+  const recent = new Map();
+  /** At most 10 reports per address per hour, so a loop or a prank cannot flood the table. */
+  const tooMany = (key) => {
+    const now = Date.now();
+    const times = (recent.get(key) || []).filter((time) => now - time < 3600_000);
+    times.push(now);
+    recent.set(key, times);
+    return times.length > 10;
+  };
+  const kinds = ['idee', 'probleem', 'compliment', 'anders'];
+  const text = (value, max) => (typeof value === 'string' && value.trim() ? value.trim().slice(0, max) : null);
+
+  api.post('/feedback', who(false), async (req, res) => {
+    if (tooMany(req.ip)) return res.status(429).json({error: 'too-many'});
+    const body = req.body || {};
+    const message = text(body.message, 4000);
+    if (!message) return res.status(400).json({error: 'empty'});
+    let screenshot = null;
+    if (typeof body.screenshot === 'string' && body.screenshot) {
+      screenshot = Buffer.from(body.screenshot.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+      const jpeg = screenshot[0] === 0xff && screenshot[1] === 0xd8;
+      const png = screenshot[0] === 0x89 && screenshot[1] === 0x50;
+      if ((!jpeg && !png) || screenshot.length > 1_900_000) return res.status(400).json({error: 'screenshot'});
+    }
+    const context = body.context && typeof body.context === 'object' && !Array.isArray(body.context) ? body.context : {};
+    const {rows: [row]} = await pool.query(
+      `insert into feedback(user_id,kind,message,screen,context,platform,app_version,screenshot) values($1,$2,$3,$4,$5,$6,$7,$8) returning id`,
+      [req.userId, kinds.includes(body.kind) ? body.kind : 'anders', message, text(body.screen, 200), JSON.stringify(context).length < 10000 ? context : {},
+        text(body.platform, 40), text(body.appVersion, 40), screenshot]);
+    res.status(201).json({id: row.id});
+  });
+
+  // Reading feedback: only for the accounts in FEEDBACK_ADMINS (comma-separated user ids).
+  const admins = (process.env.FEEDBACK_ADMINS || '').split(',').map((id) => id.trim()).filter(Boolean);
+  const admin = (req, res, next) => (admins.includes(req.userId) ? next() : res.status(404).json({error: 'not-found'}));
+
+  api.get('/feedback', who(true), admin, async (req, res) => {
+    const status = typeof req.query.status === 'string' ? req.query.status : null;
+    const {rows} = await pool.query(
+      `select f.id,f.created_at,f.kind,f.message,f.screen,f.context,f.platform,f.app_version,f.status,
+              f.screenshot is not null as has_screenshot, u.email
+       from feedback f left join users u on u.id=f.user_id
+       where ($1::text is null or f.status=$1) order by f.created_at desc limit 200`, [status]);
+    res.json({feedback: rows});
+  });
+
+  api.get('/feedback/:id/screenshot', who(true), admin, async (req, res) => {
+    const {rows: [row]} = await pool.query('select screenshot from feedback where id=$1', [req.params.id]).catch(() => ({rows: []}));
+    if (!row?.screenshot) return res.status(404).end();
+    res.type(row.screenshot[0] === 0x89 ? 'png' : 'jpeg').send(row.screenshot);
+  });
+
+  api.patch('/feedback/:id', who(true), admin, async (req, res) => {
+    const status = req.body?.status;
+    if (!['nieuw', 'gezien', 'gepland', 'opgelost', 'niet doen'].includes(status)) return res.status(400).json({error: 'status'});
+    await pool.query('update feedback set status=$2 where id=$1', [req.params.id, status]);
     res.json({ok: true});
   });
 

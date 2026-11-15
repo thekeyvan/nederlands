@@ -386,3 +386,43 @@ struct PictureRow: View {
         .padding(.vertical, 2)
     }
 }
+
+// MARK: Sheets
+
+private struct SheetHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = max(value, nextValue()) }
+}
+
+/// A bottom sheet exactly as tall as its content, so everything is visible at once.
+/// It only scrolls when the content is taller than the screen. Use it for every sheet.
+struct FittedSheet<Content: View>: View {
+    var title: String? = nil
+    @ViewBuilder var content: Content
+    @State private var contentHeight: CGFloat = 320
+    @Environment(\.dismiss) private var dismiss
+    private let headerHeight: CGFloat = 56
+
+    var body: some View {
+        VStack(spacing: 0) {
+            if let title {
+                ZStack {
+                    Text(title).font(.headline).lineLimit(1).padding(.horizontal, 80)
+                    HStack { Spacer(); Button("Klaar") { dismiss() }.font(.body.weight(.semibold)).foregroundStyle(Color.brand) }
+                }
+                .frame(height: headerHeight)
+                .padding(.horizontal, 20)
+            }
+            ScrollView {
+                content.background(GeometryReader { Color.clear.preference(key: SheetHeightKey.self, value: $0.size.height) })
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+        .onPreferenceChange(SheetHeightKey.self) { contentHeight = $0 }
+        // The system caps a detent at the large size; the content then scrolls.
+        .presentationDetents([.height(contentHeight + (title == nil ? 4 : headerHeight))])
+        .presentationDragIndicator(.visible)
+        .presentationCornerRadius(32)
+        .gameBackground()
+    }
+}

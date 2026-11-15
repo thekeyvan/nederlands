@@ -20,6 +20,8 @@ export default function Privacy() {
     <h2>Met een account (Apple of Google)</h2>
     <p>Log je in met Google, dan geeft Google je naam, e-mailadres, profielfoto en een accountnummer door. We vragen geen toegang tot je Gmail, Drive of andere Google-bestanden. Log je in met Apple, dan geeft Apple een accountnummer, een e-mailadres (dat je kunt verbergen) en de eerste keer je naam door. Je wachtwoord komt nooit bij ons terecht.</p>
     <p>Wij bewaren je account en leergegevens in onze eigen database bij Railway: welke kaartjes je hebt geoefend, je antwoorden (moeilijk of makkelijk), de volgende herhaaldatum, bewaarde bronnen, je weekplan en je dagdoel. Zo kun je op een ander apparaat verdergaan. Je reeks, punten (XP), sterren en stempels worden uit die oefeningen berekend en niet apart opgeslagen. De database staat in Nederland (Railway, regio EU West). Je leergegevens zijn gekoppeld aan je eigen account; andere bezoekers kunnen ze niet bekijken.</p>
+    <h2>Feedback</h2>
+    <p>Stuur je feedback (schud je iPhone, of kies <strong>Instellingen → Feedback geven</strong>), dan bewaren we je bericht met het scherm waar je was, de versie van de app en het soort apparaat. Een schermafbeelding gaat alleen mee als je die aan laat staan. Ben je ingelogd, dan koppelen we het aan je account; verwijder je je account, dan verdwijnt je feedback ook.</p>
     <h2>Waarom en hoe lang?</h2>
     <p>We gebruiken deze gegevens om je voortgang te bewaren en oefeningen te plannen. We verkopen je leergegevens niet en gebruiken ze niet voor advertenties. De site heeft geen eigen advertentie- of analysetrackers. Je gegevens blijven bewaard totdat je je account verwijdert. Uitloggen wist je online voortgang niet.</p>
     <h2>Luisteren</h2>

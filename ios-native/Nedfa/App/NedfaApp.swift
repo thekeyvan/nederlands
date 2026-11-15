@@ -17,6 +17,7 @@ struct NedfaApp: App {
             }
             .tint(.brand)
             .preferredColorScheme(preferences.appearance == "light" ? .light : preferences.appearance == "dark" ? .dark : nil)
+            .shakeForFeedback()
             .onOpenURL { cloud.handle($0) }
             .task { await cloud.start() }
             .task(priority: .background) { await ContentUpdater.check() }

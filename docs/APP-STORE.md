@@ -1,6 +1,6 @@
 # App Store listing
 
-The iOS app is the same React app, bundled with Capacitor (`npm run build:ios`, then archive in Xcode).
+The iOS app is the native SwiftUI app in `ios-native/` (`npm run build:native`, then archive; see Release steps).
 
 - **Bundle ID:** com.keyvanmahmoudi.nederlands · **Team:** K&S Apps (95YDC2AP63)
 - **Primary language:** Dutch · **Category:** Education (secondary: Games / Word) · **Price:** free
@@ -41,7 +41,30 @@ nederlands,dutch,inburgering,taal,leren,A2,B1,woorden,grammatica,staatsexamen,NT
 
 ## Review notes
 
-The app works without an account ("Eerst proberen zonder account" on the first screen). Sign in with Apple or Google is optional and only syncs learning progress. Account deletion: Ik tab → gear icon (Instellingen) → Account verwijderen. Audio is bundled in the app.
+Answer to Apple's "Guideline 2.1 – Information Needed" (15 Nov 2026). Paste into App Review Information → Notes (max 4000 characters) and attach or link the screen recording.
+
+```
+1. SCREEN RECORDING
+A screen recording made on an iPhone with the latest iOS is attached [or: available at <link>]. It starts at the Home Screen with launching the app and shows: the first screen, trying the app without an account, a practice round, a game, the level test, Sign in with Apple, linking Google in Settings, giving feedback, signing out, and deleting the account (Ik tab → gear icon → Account verwijderen → confirm).
+
+2. PURPOSE AND AUDIENCE
+Nedfa helps adults who speak Persian (Farsi) learn Dutch from zero to level B1, mostly newcomers in the Netherlands preparing for the civic integration exam (inburgering) or daily life. Each Dutch word and sentence comes with a Persian translation and Dutch audio. A few minutes a day of spaced repetition, short games and themed lessons (doctor, work, municipality, housing) help them use Dutch in real situations. The app is free, has no ads and no in-app purchases.
+
+3. HOW TO USE IT
+No login is needed. On the first screen tap "Eerst proberen zonder account". On the Vandaag tab tap "Start" for a practice round; "Leren" has themes and grammar, "Arcade" has seven games, "Ik" shows progress. The level test is on the Vandaag tab ("Hoe goed ken je Nederlands al?"). Signing in with Apple or Google is optional and only syncs progress with the website nedfa.nl. Feedback: shake the iPhone, or Ik → gear icon → Feedback geven. Account deletion: Ik → gear icon → Account verwijderen; this deletes the account and all its data on our server immediately.
+
+4. EXTERNAL SERVICES
+- Sign in with Apple and Google Sign-In (optional login only).
+- Our own server at nedfa.nl, hosted on Railway (EU, Netherlands): stores account, learning progress and feedback in a PostgreSQL database.
+- Umami, self-hosted on the same Railway project: anonymous, cookieless usage statistics (no account id, can be switched off in Settings).
+No AI services, payment processors or third-party data providers. The Dutch audio is bundled in the app.
+
+5. REGIONS
+The app works the same in all regions; there are no regional differences in features or content.
+
+6. REGULATED INDUSTRY / THIRD-PARTY MATERIAL
+Not applicable. All lessons, translations, pictures and audio are our own. Links to official Dutch websites (for example DUO and inburgeren.nl) only open those sites.
+```
 
 ## Privacy (App Store nutrition label)
 

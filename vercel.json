@@ -57,8 +57,8 @@
       "permanent": true
     },
     {
-      "source": "/nl/:path*",
-      "destination": "/:path*",
+      "source": "/nl/(.*)",
+      "destination": "/$1",
       "permanent": true
     }
   ]

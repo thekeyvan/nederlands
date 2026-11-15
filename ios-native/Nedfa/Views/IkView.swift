@@ -235,7 +235,7 @@ struct SignInButtons: View {
             .frame(height: 52)
             .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             Button { Task { await cloud.signInWithGoogle(); done() } } label: {
-                Label("Doorgaan met Google", systemImage: "g.circle.fill").font(.headline).frame(maxWidth: .infinity, minHeight: 52)
+                Label("Ga door met Google", systemImage: "g.circle.fill").font(.headline).frame(maxWidth: .infinity, minHeight: 52)
             }
             .foregroundStyle(.primary)
             .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
@@ -246,12 +246,20 @@ struct SignInButtons: View {
 
 struct SignInReasons: View {
     var body: some View {
+        // Icons in one fixed column, so every line of text starts at the same place.
         VStack(alignment: .leading, spacing: 10) {
-            Label("Op je telefoon in de app", systemImage: "iphone")
-            Label("Op je laptop op nedfa.nl", systemImage: "laptopcomputer")
-            Label("Je reeks, XP en planning gaan mee", systemImage: "icloud")
+            row("Op je telefoon in de app", "iphone")
+            row("Op je laptop op nedfa.nl", "laptopcomputer")
+            row("Je reeks, XP en planning gaan mee", "icloud")
         }
         .font(.subheadline)
+    }
+
+    private func row(_ text: String, _ icon: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon).font(.body.weight(.semibold)).foregroundStyle(Color.brand).frame(width: 28, alignment: .center)
+            Text(text)
+        }
     }
 }
 

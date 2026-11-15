@@ -101,15 +101,15 @@ export function AccountButton() {
   return <Button size="sm" className="h-8 px-3" onClick={openSignIn}><LogIn />Inloggen</Button>;
 }
 
-/** A gentle reminder on Vandaag for learners without an account. */
+/** A short reminder on Oefenen for learners without an account. */
 export function SignInNudge({className}: {className?: string}) {
   const cloud = useCloud();
   const canSignIn = useCanSignIn();
   if (cloud.user || !canSignIn || cloud.status === 'starting') return null;
   return (
     <div className={cn('flex items-center gap-3 rounded-xl border border-info/30 bg-info-soft p-3 text-info-foreground', className)}>
-      <Mascot mood="think" className="size-11" />
-      <p className="min-w-0 flex-1 text-sm"><span className="font-semibold">Je voortgang staat alleen op dit apparaat.</span> Log in om ook op je andere apparaten en op de website verder te gaan.</p>
+      <Mascot mood="think" className="size-10" />
+      <p className="min-w-0 flex-1 text-sm font-medium">Log in en ga ook op de website verder.</p>
       <Button size="sm" variant="info" className="shrink-0" onClick={openSignIn}>Inloggen</Button>
     </div>
   );

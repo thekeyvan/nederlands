@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useRef, useState, type ReactNode} from 'react';
-import {ArrowRight, Check, Gamepad2, RotateCcw, Timer, Trophy, X, Zap} from 'lucide-react';
+import {ArrowRight, Check, RotateCcw, Timer, Trophy, X, Zap} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Progress} from '@/components/ui/progress';
@@ -8,7 +8,6 @@ import {Mascot} from '@/components/game/mascot';
 import {ListenButton} from '@/components/listen-button';
 import {Translation} from '@/components/translation';
 import {cn} from '@/lib/utils';
-import {navigate} from '@/hooks/use-route';
 import {usePractice} from '@/hooks/use-practice';
 import {useGameRecords} from '@/hooks/use-game-records';
 import type {Card} from '@/core/types';
@@ -18,11 +17,12 @@ import {QuitButton} from '@/components/quit-button';
 import type {GameInfo} from '@/games/registry';
 
 /** Top bar for every game: leave, progress or timer, score. */
-export function GameBar({game, progress, seconds, score, theme}: {game: GameInfo; progress?: number; seconds?: number; score: number; theme: string}) {
+export function GameBar({game, progress, seconds, score}: {game: GameInfo; progress?: number; seconds?: number; score: number; theme?: string}) {
+  const {close} = usePractice();
   return (
     <div className="flex items-center gap-3">
       <QuitButton label="Stoppen met dit spel" title="Stoppen met dit spel?" description="Je score van deze ronde telt dan niet mee voor je record."
-        confirm={score > 0 || (progress ?? 0) > 0 || seconds !== undefined} onQuit={() => navigate('spellen', {theme: theme === 'all' ? null : theme})} />
+        confirm={score > 0 || (progress ?? 0) > 0 || seconds !== undefined} onQuit={() => close()} />
       {seconds !== undefined ? (
         <>
           <Progress value={(seconds / 60) * 100} className="h-3.5 flex-1 bg-destructive/15" indicatorClassName={seconds <= 10 ? 'bg-destructive' : 'bg-primary'} aria-label={`Nog ${seconds} seconden`} />
@@ -130,9 +130,9 @@ const recorded = new Map<string, ReturnType<ReturnType<typeof useGameRecords>['r
 export const newRoundId = (game: string) => `${game}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
 
 /** End of a game: score, personal best, mistakes and what to do next. */
-export function GameOver({game, roundId, score, total, misses, theme, onAgain}: {game: GameInfo; roundId: string; score: number; total?: number; misses: Miss[]; theme: string; onAgain: () => void}) {
+export function GameOver({game, roundId, score, total, misses, onAgain}: {game: GameInfo; roundId: string; score: number; total?: number; misses: Miss[]; theme?: string; onAgain: () => void}) {
   const {record} = useGameRecords();
-  const {start} = usePractice();
+  const {start, close} = usePractice();
   const [result] = useState(() => {
     const saved = recorded.get(roundId) ?? record(game.id, score);
     recorded.set(roundId, saved);
@@ -168,8 +168,8 @@ export function GameOver({game, roundId, score, total, misses, theme, onAgain}: 
       )}
       <div className="mt-6 flex w-full flex-col gap-3">
         <Button size="xl" game onClick={onAgain}><RotateCcw />Nog een keer</Button>
-        {cards.length > 0 && <Button size="xl" variant="info" game onClick={() => start({cardIds: cards.map((card) => card.id), theme: 'all', type: 'all', limit: 20, label: `Fouten uit ${game.title}`})}><Zap />Oefen deze kaartjes</Button>}
-        <Button size="xl" variant="outline" onClick={() => navigate('spellen', {theme: theme === 'all' ? null : theme})}><Gamepad2 />Terug naar de spellen</Button>
+        {cards.length > 0 && <Button size="xl" variant="info" game onClick={() => start({queue: cards, label: `Fouten uit ${game.title}`})}><Zap />Oefen deze kaartjes</Button>}
+        <Button size="xl" variant="outline" onClick={() => close()}>Klaar</Button>
       </div>
       <p className="mt-4 text-xs text-muted-foreground">Spellen veranderen je herhaalplanning niet. Met “Oefen deze kaartjes” zet je je fouten in een gewoon rondje.</p>
     </div>

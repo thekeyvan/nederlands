@@ -1,5 +1,5 @@
 import type {Card, Review} from './types';
-export type Mode = 'choose' | 'reverse' | 'listen' | 'type' | 'gap' | 'flash';
+export type Mode = 'choose' | 'reverse' | 'listen' | 'type' | 'gap' | 'flash' | 'order' | 'pick';
 export function cardKind(card: Card): 'grammar' | 'phrase' | 'word';
 export function chooseMode(card: Card, review: Review | undefined, position?: number): Mode;
 export interface Option {id: string; label: string; correct: boolean}

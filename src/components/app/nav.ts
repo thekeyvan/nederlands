@@ -1,37 +1,39 @@
-import {Award, Compass, Gamepad2, Library, Map, Puzzle, Sun, Zap, type LucideIcon} from 'lucide-react';
-import type {Panel, Route} from '@/hooks/use-route';
+import {BookOpen, Gamepad2, UserRound, Zap, type LucideIcon} from 'lucide-react';
+import {setRouteDescriber, type Panel, type Route, panelTitles} from '@/hooks/use-route';
+import {themes} from '@/core/learning-data.js';
+import {sentences} from '@/core/sentence-data.js';
 
 export interface NavItem {panel: Panel; label: string; icon: LucideIcon}
-export const mainNav: NavItem[] = [
-  {panel: 'vandaag', label: 'Vandaag', icon: Sun},
-  {panel: 'woorden', label: 'Thema’s', icon: Compass},
-  {panel: 'zinnen', label: 'Zinsbouw', icon: Puzzle},
-  {panel: 'route', label: 'De route', icon: Map},
+
+/** The four sections, the same in the phone's tab bar and the laptop's sidebar. */
+export const tabs: NavItem[] = [
   {panel: 'oefenen', label: 'Oefenen', icon: Zap},
+  {panel: 'woorden', label: 'Leren', icon: BookOpen},
   {panel: 'spellen', label: 'Spellen', icon: Gamepad2},
-  {panel: 'voortgang', label: 'Ik', icon: Award},
-];
-export const extraNav: NavItem[] = [{panel: 'bronnen', label: 'Websites & boeken', icon: Library}];
-
-/** Phone tabs. "Leren" holds Thema’s, Zinsbouw and De route (switched with tabs on those screens). */
-export const mobileTabs: NavItem[] = [
-  {panel: 'vandaag', label: 'Vandaag', icon: Sun},
-  {panel: 'woorden', label: 'Leren', icon: Compass},
-  {panel: 'oefenen', label: 'Oefen', icon: Zap},
-  {panel: 'spellen', label: 'Spellen', icon: Gamepad2},
-  {panel: 'voortgang', label: 'Ik', icon: Award},
+  {panel: 'voortgang', label: 'Ik', icon: UserRound},
 ];
 
-/** Which phone tab a screen belongs to, so you always see where you are. */
+/** Which tab a screen belongs to, so you always see where you are. */
 export function tabOf(panel: Panel): Panel {
   if (panel === 'zinnen' || panel === 'route') return 'woorden';
-  if (panel === 'bronnen') return 'voortgang';
+  if (panel === 'instellingen' || panel === 'bronnen') return 'voortgang';
   return panel;
 }
 
-/** The screen one level up, for the back button. Null on the top level of a tab. */
-export function parentOf(route: Route): {panel: Panel; label: string} | null {
-  if (route.panel === 'woorden' && route.theme) return {panel: 'woorden', label: 'Thema’s'};
-  if (route.panel === 'bronnen') return {panel: 'voortgang', label: 'Ik'};
+/** The screen one level up. Null on the first screen of a tab (Leren's three parts all count as its first screen). */
+export function parentOf(route: Route): Panel | null {
+  if (route.panel === 'woorden' && route.theme) return 'woorden';
+  if (route.panel === 'zinnen' && route.rule) return 'zinnen';
+  if (route.panel === 'instellingen') return 'voortgang';
+  if (route.panel === 'bronnen') return 'instellingen';
   return null;
 }
+
+/** The name a back button shows for this screen. */
+export function titleOf(route: Route): string {
+  if (route.panel === 'woorden' && route.theme) return themes.find((theme) => theme.id === route.theme)?.title ?? 'Thema';
+  if (route.panel === 'zinnen' && route.rule) return sentences.find((card) => card.id === route.rule)?.title ?? 'Zinsbouw';
+  return panelTitles[route.panel];
+}
+
+setRouteDescriber(titleOf);

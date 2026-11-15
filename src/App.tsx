@@ -8,53 +8,61 @@ import {PwaUpdates} from '@/components/pwa';
 import {ThemeProvider} from '@/hooks/use-theme';
 import {AudioProvider, useAudio} from '@/hooks/use-audio';
 import {PracticeProvider, usePractice} from '@/hooks/use-practice';
-import {navigate, panelTitles, useRoute} from '@/hooks/use-route';
-import {parentOf} from '@/components/app/nav';
+import {cameBack, goBack, navigate, openedFrom, savedScroll, useRoute} from '@/hooks/use-route';
+import {parentOf, titleOf} from '@/components/app/nav';
 import {useIsDesktop} from '@/hooks/use-media-query';
 import {initCloud} from '@/core/cloud.js';
-import {TodayScreen} from '@/screens/today';
+import {OefenenScreen} from '@/screens/oefenen';
 import {ThemesScreen} from '@/screens/themes';
-import {PracticeScreen} from '@/screens/practice';
+import {PracticeLayer} from '@/screens/practice';
 import {GrammarScreen} from '@/screens/grammar';
 import {RouteScreen} from '@/screens/route';
-import {MeScreen} from '@/screens/me';
+import {MeScreen, SettingsScreen} from '@/screens/me';
 import {ResourcesScreen} from '@/screens/resources';
 import {hideSplash} from '@/lib/native';
-import {GamesScreen} from '@/screens/games';
+import {GameLayer, GamesScreen} from '@/screens/games';
 import {WelcomeScreen, useWelcome} from '@/screens/welcome';
 import {SignInSheet} from '@/components/app/sign-in';
 
 function Screens() {
   const route = useRoute();
-  const {session} = usePractice();
+  const {session, game, playGame} = usePractice();
   const audio = useAudio();
   const first = useRef(true);
-  const focus = (route.panel === 'oefenen' && session !== null) || (route.panel === 'spellen' && route.game !== null);
+  const layer = session ? <PracticeLayer session={session} /> : game ? <GameLayer open={game} /> : null;
 
-  // iOS: swiping from the left edge goes back. Never mid-round (that has its own Stop button),
-  // to the parent screen when there is one, and otherwise to the previous screen.
+  // Old links to a game (?spel=) open it over the Spellen tab.
+  useEffect(() => {
+    if (!route.game) return;
+    const theme = route.theme ?? 'all';
+    navigate('spellen', {replace: true});
+    playGame(route.game, theme);
+  }, [route.game, route.theme, playGame]);
+
+  // iOS: swiping from the left edge goes back, like the back button. Never during a round or game.
   useEffect(() => {
     const onBack = () => {
-      if (focus) return;
+      if (layer) return;
       const parent = parentOf(route);
-      if (parent) navigate(parent.panel);
-      else if (route.panel !== 'vandaag') history.back();
+      if (parent || openedFrom()) goBack(parent);
     };
     window.addEventListener('native-back', onBack);
     return () => window.removeEventListener('native-back', onBack);
-  }, [focus, route]);
+  }, [layer, route]);
 
-  // On every navigation: stop audio, update the title, return to the top and move focus to the heading.
-  const key = `${route.panel}:${route.theme ?? ''}:${route.rule ?? ''}:${route.step ?? ''}:${route.game ?? ''}`;
+  // On every screen change: stop audio, update the title, and go to the top, or back to where you were
+  // when you came back to this screen. Focus moves to the heading for screen readers.
+  const key = `${route.panel}:${route.theme ?? ''}:${route.rule ?? ''}:${route.step ?? ''}`;
   useEffect(() => {
     audio.cancel();
-    document.title = `${panelTitles[route.panel]} — Nedfa`;
+    document.title = `${titleOf(route)} — Nedfa`;
     if (first.current) {
       first.current = false;
       return;
     }
-    window.scrollTo({top: 0, behavior: 'instant'});
+    const top = cameBack ? savedScroll() : 0;
     requestAnimationFrame(() => {
+      window.scrollTo({top, behavior: 'instant'});
       const heading = document.querySelector<HTMLElement>('main h1');
       if (heading) {
         heading.tabIndex = -1;
@@ -65,14 +73,14 @@ function Screens() {
   }, [key]);
 
   return (
-    <AppShell route={route} focus={focus}>
-      {route.panel === 'vandaag' && <TodayScreen />}
+    <AppShell route={route} layer={layer}>
+      {route.panel === 'oefenen' && <OefenenScreen />}
       {route.panel === 'woorden' && <ThemesScreen themeId={route.theme} topic={route.topic} />}
-      {route.panel === 'oefenen' && <PracticeScreen />}
-      {route.panel === 'spellen' && <GamesScreen game={route.game} theme={route.theme} />}
       {route.panel === 'zinnen' && <GrammarScreen rule={route.rule} />}
       {route.panel === 'route' && <RouteScreen step={route.step} />}
+      {route.panel === 'spellen' && <GamesScreen />}
       {route.panel === 'voortgang' && <MeScreen />}
+      {route.panel === 'instellingen' && <SettingsScreen />}
       {route.panel === 'bronnen' && <ResourcesScreen section={route.section} />}
     </AppShell>
   );

@@ -1,21 +1,18 @@
 import {useEffect, useMemo, useState} from 'react';
-import {ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff, Gamepad2, Search, Zap} from 'lucide-react';
+import {ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff, Gamepad2, Search, Zap} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
-import {Progress} from '@/components/ui/progress';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {Switch} from '@/components/ui/switch';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import {ToggleGroup, ToggleGroupItem} from '@/components/ui/toggle-group';
 import {Mascot} from '@/components/game/mascot';
 import {Stars} from '@/components/game/stars';
 import {ThemeArt} from '@/components/game/theme-art';
 import {ListenButton} from '@/components/listen-button';
-import {Page, PageHeader} from '@/components/page';
+import {Page} from '@/components/page';
 import {ResponsiveSheet} from '@/components/responsive-sheet';
-import {ThemeCard} from '@/components/theme-card';
 import {Translation} from '@/components/translation';
 import {cn} from '@/lib/utils';
 import {plural} from '@/lib/text';
@@ -24,20 +21,15 @@ import {usePractice} from '@/hooks/use-practice';
 import {navigate, type Route} from '@/hooks/use-route';
 import {themes, vocabulary, searchVocabulary} from '@/core/learning-data.js';
 import {dialogues, phrases} from '@/core/phrase-data.js';
-import {themeMeta, themeStats} from '@/core/learning-model.js';
+import {themeStats} from '@/core/learning-model.js';
 import {themeStars} from '@/core/game.js';
 import {progressStatus} from '@/core/srs.js';
 import {locale} from '@/core/i18n.js';
 import {LearnTabs} from '@/components/app/learn-tabs';
+import {Group, Row, ScreenTitle} from '@/components/app/list';
+import {ThemeGamesSheet} from '@/screens/games';
 import type {Card, Review, Theme} from '@/core/types';
 
-const groups = [
-  {id: 'all', label: 'Alles'},
-  {id: 'dagelijks', label: 'Elke dag'},
-  {id: 'werk', label: 'Werk'},
-  {id: 'vrijetijd', label: 'Vrije tijd'},
-  {id: 'taal', label: 'Taal & contact'},
-];
 
 export function ThemesScreen({themeId, topic}: {themeId: string | null; topic: Route['topic']}) {
   const theme = themes.find((item) => item.id === themeId);
@@ -47,35 +39,36 @@ export function ThemesScreen({themeId, topic}: {themeId: string | null; topic: R
 function ThemeLibrary() {
   const {reviews} = useProgress();
   const [query, setQuery] = useState('');
-  const [group, setGroup] = useState('all');
-  const visible = themes.filter((theme) => (group === 'all' || themeMeta(theme).group === group) && `${theme.title} ${theme.meaning} ${theme.intro}`.toLocaleLowerCase('nl').includes(query.trim().toLocaleLowerCase('nl')));
+  const needle = query.trim().toLocaleLowerCase('nl');
+  const visible = themes.filter((theme) => `${theme.title} ${theme.meaning} ${theme.intro}`.toLocaleLowerCase('nl').includes(needle));
   return (
-    <Page wide>
+    <Page>
+      <ScreenTitle title="Leren" />
       <LearnTabs active="woorden" />
-      <PageHeader eyebrow="Woorden die je echt gebruikt" title="Kies je volgende gesprek." description="Woorden, handige zinnen en een gesprekje. Alles bij elkaar, met sterren voor wat je al kent." />
-      <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center">
-        <label className="relative block lg:w-80">
-          <span className="sr-only">Zoek een thema</span>
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-          <Input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`Zoek een thema, ook in het ${locale.dutchName}`} className="h-11 bg-card pl-9" dir="auto" />
-        </label>
-        <div className="no-scrollbar -mx-4 overflow-x-auto px-4 lg:mx-0 lg:px-0">
-          <ToggleGroup type="single" value={group} onValueChange={(value) => value && setGroup(value)} variant="outline" aria-label="Soort thema" className="w-max">
-            {groups.map((item) => <ToggleGroupItem key={item.id} value={item.id} className="px-4 data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground">{item.label}</ToggleGroupItem>)}
-          </ToggleGroup>
-        </div>
-      </div>
-      <p className="mb-3 text-sm text-muted-foreground" role="status">{plural(visible.length, 'thema', 'thema’s')} om te ontdekken</p>
+      <label className="relative mb-3 block sm:max-w-md">
+        <span className="sr-only">Zoek een thema</span>
+        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+        <Input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Zoek een thema" className="h-10 border-0 bg-muted pl-9 text-[15px]" dir="auto" />
+      </label>
       {visible.length ? (
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
-          {visible.map((theme) => <ThemeCard key={theme.id} theme={theme} reviews={reviews} />)}
-        </div>
+        <Group className="max-w-3xl">
+          {visible.map((theme) => {
+            const stats = themeStats(theme.id, reviews);
+            const stars = themeStars(stats);
+            const words = vocabulary.filter((card) => card.themeId === theme.id).length;
+            const sentences = phrases.filter((card) => card.themeId === theme.id).length;
+            return (
+              <Row key={theme.id} onClick={() => navigate('woorden', {theme: theme.id})} leading={<ThemeArt theme={theme} className="size-11 shrink-0 rounded-lg" />}
+                title={theme.title} detail={stats.done ? `${stats.done} van ${stats.total} geoefend` : `${words} woorden · ${sentences} zinnen`}
+                trailing={stats.done ? <Stars count={stars} className="[&_svg]:size-3.5" /> : <Badge variant="streak">Nieuw</Badge>} />
+            );
+          })}
+        </Group>
       ) : (
         <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed p-10 text-center">
-          <Mascot mood="think" className="size-24" />
-          <h2 className="text-lg font-bold">Geen thema gevonden.</h2>
-          <p className="text-sm text-muted-foreground">Probeer een ander woord of bekijk alle thema’s.</p>
-          <Button variant="outline" onClick={() => { setQuery(''); setGroup('all'); }}>Toon alle thema’s</Button>
+          <Mascot mood="think" className="size-20" />
+          <p className="font-semibold">Geen thema gevonden.</p>
+          <Button variant="outline" onClick={() => setQuery('')}>Toon alle thema’s</Button>
         </div>
       )}
     </Page>
@@ -85,34 +78,30 @@ function ThemeLibrary() {
 function ThemeDetail({theme, initialTopic}: {theme: Theme; initialTopic: Route['topic']}) {
   const {reviews} = useProgress();
   const {start} = usePractice();
+  const [playing, setPlaying] = useState(false);
   const [topic, setTopic] = useState<string>(initialTopic);
   const stats = themeStats(theme.id, reviews);
   const stars = themeStars(stats);
-  const meta = themeMeta(theme);
   const words = vocabulary.filter((card) => card.themeId === theme.id);
   const themePhrases = phrases.filter((card) => card.themeId === theme.id);
   useEffect(() => setTopic(initialTopic), [initialTopic]);
   return (
     <Page wide>
-      <Button variant="ghost" size="sm" className="-ml-2 mb-3 hidden lg:inline-flex" onClick={() => navigate('woorden')}><ArrowLeft />Alle thema’s</Button>
-      <header className="mb-6 grid gap-5 md:grid-cols-[minmax(0,280px)_1fr] md:items-center">
-        <ThemeArt theme={theme} className="aspect-[2/1] w-full rounded-2xl border sm:aspect-[16/10] md:aspect-square" />
-        <div className="flex min-w-0 flex-col gap-2">
-          <p className="text-xs font-semibold tracking-wider text-primary uppercase">{meta.label}</p>
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{theme.title}</h1>
-          <Translation className="text-lg text-muted-foreground">{theme.meaning}</Translation>
-          <p className="text-muted-foreground">{theme.intro}</p>
-          <div className="mt-1 flex flex-wrap items-center gap-3 text-sm">
-            <Stars count={stars} />
-            <span className="text-muted-foreground tabular-nums">{stats.done}/{stats.total} geoefend · {stats.known} goed onthouden</span>
-          </div>
-          <Progress value={stats.total ? (stats.done / stats.total) * 100 : 0} className="h-2 max-w-md" aria-label={`${stats.done} van ${stats.total} geoefend`} />
-          <div className="mt-2 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
-            <Button size="xl" game className="px-3" onClick={() => start({theme: theme.id, type: 'all', label: theme.title})}><Zap />Oefenen</Button>
-            <Button size="xl" variant="info" game className="px-3" onClick={() => navigate('spellen', {theme: theme.id})}><Gamepad2 />Spelen</Button>
+      <header className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
+        <div className="flex items-center gap-4">
+          <ThemeArt theme={theme} className="size-20 shrink-0 rounded-2xl border md:size-36" />
+          <div className="flex min-w-0 flex-col gap-1">
+            <h1 className="text-[26px] leading-tight font-extrabold tracking-tight sm:text-4xl">{theme.title}</h1>
+            <Translation className="text-muted-foreground">{theme.meaning}</Translation>
+            <div className="flex items-center gap-2 text-sm"><Stars count={stars} /><span className="text-muted-foreground tabular-nums">{stats.done}/{stats.total}</span></div>
           </div>
         </div>
+        <div className="grid grid-cols-2 gap-3 md:ml-auto md:w-80">
+          <Button size="xl" game className="px-3" onClick={() => start({theme: theme.id, type: 'all', label: theme.title})}><Zap />Oefenen</Button>
+          <Button size="xl" variant="info" game className="px-3" onClick={() => setPlaying(true)}><Gamepad2 />Spelen</Button>
+        </div>
       </header>
+      <ThemeGamesSheet theme={theme} open={playing} onOpenChange={setPlaying} />
       <Tabs value={topic} onValueChange={setTopic}>
         <TabsList className="mb-4 h-11 w-full sm:w-fit">
           <TabsTrigger value="words" className="px-4">Woorden <Badge variant="secondary" className="ml-1 bg-muted text-muted-foreground">{words.length}</Badge></TabsTrigger>

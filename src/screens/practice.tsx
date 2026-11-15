@@ -1,128 +1,38 @@
 import {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
-import {ArrowRight, Brain, Check, CircleCheck, CircleX, Flame, Headphones, Keyboard, Layers, Lightbulb, Puzzle, Sparkles, Star, Timer, Trophy, Turtle, Volume2, X, Zap} from 'lucide-react';
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
+import {ArrowRight, Check, CircleCheck, CircleX, Flame, Lightbulb, Puzzle, Sparkles, Star, Timer, Trophy, Turtle, Volume2, X, Zap} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent} from '@/components/ui/card';
 import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
 import {Progress} from '@/components/ui/progress';
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {Confetti} from '@/components/game/confetti';
 import {Mascot} from '@/components/game/mascot';
 import {Stamp} from '@/components/game/stamp';
 import {ListenButton} from '@/components/listen-button';
-import {Page, PageHeader} from '@/components/page';
+import {Page} from '@/components/page';
 import {Translation} from '@/components/translation';
 import {cn} from '@/lib/utils';
 import {plural} from '@/lib/text';
 import {useAudio} from '@/hooks/use-audio';
 import {useGame} from '@/hooks/use-progress';
 import {usePractice, type Session} from '@/hooks/use-practice';
-import {navigate} from '@/hooks/use-route';
 import {getProgress} from '@/core/progress-store.js';
 import {ratings, scheduleReview} from '@/core/srs.js';
 import {buildOptions, cardKind, checkTyped, chooseMode, gradeAnswer, pairsFrom, shuffle, seededRandom, type Mode, type Option} from '@/core/practice.js';
-import {themes, vocabulary} from '@/core/learning-data.js';
+import {vocabulary} from '@/core/learning-data.js';
 import {phrases} from '@/core/phrase-data.js';
 import {stamps, xpForGrade} from '@/core/game.js';
 import {t} from '@/core/i18n.js';
 import {haptic} from '@/lib/native';
 import {QuitButton} from '@/components/quit-button';
 import type {Card as LearningCard} from '@/core/types';
+import {orderItem, pickOptions} from '@/lib/drill';
+import {builderCorrect} from '@/core/games.js';
+import {audioUrl} from '@/core/audio-playback.js';
 
-export function PracticeScreen() {
-  const {session} = usePractice();
-  if (!session) return <PracticeSetup />;
+/** A practice round, shown as a layer over the screen it was started from. */
+export function PracticeLayer({session}: {session: Session}) {
   if (session.index >= session.queue.length) return <RoundComplete session={session} />;
   return <SessionView session={session} />;
-}
-
-/* ------------------------------------------------------------------ setup */
-
-const modeList = [
-  {icon: Brain, title: 'Kiezen', copy: 'Kies de goede vertaling.', tint: 'bg-lavender text-lavender-foreground'},
-  {icon: Headphones, title: 'Luisteren', copy: 'Hoor het en kies wat je hoort.', tint: 'bg-info-soft text-info-foreground'},
-  {icon: Keyboard, title: 'Typen', copy: 'Typ het Nederlandse woord.', tint: 'bg-xp-soft text-xp-foreground'},
-  {icon: Puzzle, title: 'Zinsbouw', copy: 'Vul het ontbrekende woord in.', tint: 'bg-success-soft text-success-foreground'},
-  {icon: Layers, title: 'Kaartje', copy: 'Denk na, draai om en kies.', tint: 'bg-accent text-accent-foreground'},
-];
-
-function PracticeSetup() {
-  const game = useGame();
-  const {start, theme, type, setTheme, setType} = usePractice();
-  const due = game.dueCards;
-  return (
-    <Page>
-      <PageHeader eyebrow="Een beetje blijft hangen" title="Wat weet je nog?" />
-      <div className="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
-        <Card className="relative overflow-hidden">
-          <CardContent className="flex flex-col items-center gap-4 py-6 text-center sm:py-8">
-            <Mascot mood={due ? 'think' : 'wave'} className="size-28" />
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight">Klein rondje. Groot verschil.</h2>
-              <p className="mt-1 text-muted-foreground">{due ? `${plural(due, 'kaartje wacht', 'kaartjes wachten')} op je. Daarna een paar nieuwe.` : 'Alles is herhaald. Je krijgt een paar nieuwe kaartjes.'}</p>
-            </div>
-            <Button size="xl" game onClick={() => start()}>Begin met oefenen<ArrowRight /></Button>
-            <div className="flex flex-wrap justify-center gap-2 text-xs text-muted-foreground">
-              <Badge variant="xp"><Star />+{xpForGrade(4)} XP per goed antwoord</Badge>
-              <Badge variant="streak"><Flame />Combo’s voor goede reeksen</Badge>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex flex-col gap-4">
-            <h2 className="font-bold">Kies wat je oefent</h2>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="practice-theme">Thema</Label>
-              <Select value={theme} onValueChange={setTheme}>
-                <SelectTrigger id="practice-theme" className="w-full"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Alle thema’s</SelectItem>
-                  {themes.map((item) => <SelectItem key={item.id} value={item.id}>{item.title}</SelectItem>)}
-                  <SelectItem value="zinsbouw">Zinsbouw</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="practice-type">Inhoud</Label>
-              <Select value={type} onValueChange={setType}>
-                <SelectTrigger id="practice-type" className="w-full"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Woorden + zinnen</SelectItem>
-                  <SelectItem value="woorden">Alleen woorden</SelectItem>
-                  <SelectItem value="praktisch">Praktische zinnen</SelectItem>
-                  <SelectItem value="zinnen">Alleen zinsbouw</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <p className="text-xs text-muted-foreground">Maximaal 20 kaartjes per rondje, met maximaal 5 nieuwe. Eerst wat je moet herhalen.</p>
-          </CardContent>
-        </Card>
-      </div>
-      <h2 className="mt-8 mb-3 text-lg font-bold">Vijf manieren om te oefenen</h2>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-        {modeList.map((mode) => (
-          <div key={mode.title} className="rounded-xl border bg-card p-4">
-            <span className={cn('mb-3 grid size-11 place-items-center rounded-lg', mode.tint)}><mode.icon className="size-5" /></span>
-            <p className="font-semibold">{mode.title}</p>
-            <p className="text-sm text-muted-foreground">{mode.copy}</p>
-          </div>
-        ))}
-      </div>
-      <Accordion type="single" collapsible className="mt-6">
-        <AccordionItem value="method">
-          <AccordionTrigger>Hoe werkt slim herhalen?</AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-2 text-muted-foreground">
-            <p>We gebruiken SM-2. Goede antwoorden komen steeds later terug; moeilijke kaartjes eerder. Nieuwe kaartjes kies je eerst uit vier antwoorden; kaartjes die je goed kent, typ je zelf.</p>
-            <p>Goed in één keer telt als <strong>Goed</strong>. Goed met een hint of een kleine typfout telt als <strong>Moeilijk</strong>. Fout telt als <strong>Nog niet</strong>: dat kaartje komt morgen terug.</p>
-            <Translation>{t('method')}</Translation>
-            <a href="https://www.super-memory.com/english/ol/sm2.htm" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline-offset-4 hover:underline">Over de methode ↗</a>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </Page>
-  );
 }
 
 /* ---------------------------------------------------------------- session */
@@ -130,6 +40,8 @@ function PracticeSetup() {
 type Outcome = {grade: number; correct: boolean; result: 'correct' | 'close' | 'wrong'; hint?: string};
 
 const modeBadges: Record<Mode, {label: string; variant: 'lavender' | 'info' | 'xp' | 'success' | 'streak'}> = {
+  order: {label: 'Volgorde', variant: 'info'},
+  pick: {label: 'Kies de zin', variant: 'lavender'},
   choose: {label: 'Kiezen', variant: 'lavender'},
   reverse: {label: 'Kiezen', variant: 'lavender'},
   listen: {label: 'Luisteren', variant: 'info'},
@@ -139,7 +51,7 @@ const modeBadges: Record<Mode, {label: string; variant: 'lavender' | 'info' | 'x
 };
 
 function SessionView({session}: {session: Session}) {
-  const {stop, answer, next} = usePractice();
+  const {close, answer, next} = usePractice();
   const card = session.queue[session.index];
   const answered = session.results.length > session.index;
   const xp = session.results.reduce((sum, result) => sum + result.xp, 0);
@@ -147,7 +59,7 @@ function SessionView({session}: {session: Session}) {
     <div className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-4 pt-4 pb-40 sm:px-6 lg:pt-8">
       <div className="flex items-center gap-3">
         <QuitButton label="Stoppen met oefenen" title="Stoppen met dit rondje?" description="Wat je al hebt beantwoord, is bewaard. De rest van de kaartjes komt een volgende keer."
-          confirm={session.results.length > 0 && session.results.length < session.queue.length} onQuit={stop} />
+          confirm={session.results.length > 0 && session.results.length < session.queue.length} onQuit={() => close()} />
         <Progress value={(session.results.length / session.queue.length) * 100} className="h-3.5 flex-1 bg-success/15" indicatorClassName="bg-success" aria-label={`Kaartje ${session.index + 1} van ${session.queue.length}`} />
         {session.combo >= 2 ? (
           <Badge key={session.combo} variant="streak" className="animate-pop h-7 px-2.5 text-sm"><Flame />{session.combo}×</Badge>
@@ -155,7 +67,7 @@ function SessionView({session}: {session: Session}) {
           <Badge variant="xp" className="h-7 px-2.5 text-sm"><Star />+{xp}</Badge>
         )}
       </div>
-      <p className="mt-2 text-center text-xs text-muted-foreground tabular-nums">{session.index + 1} / {session.queue.length}{card.themeTitle ? ` · ${card.themeTitle}` : cardKind(card) === 'grammar' ? ' · Zinsbouw' : ''}</p>
+      <p className="mt-2 text-center text-xs text-muted-foreground tabular-nums">{session.index + 1} / {session.queue.length}{session.options.label ? ` · ${session.options.label}` : card.themeTitle ? ` · ${card.themeTitle}` : ''}</p>
       <CardRunner key={`${session.id}:${session.index}`} card={card} position={session.index} answered={answered}
         onAnswer={(outcome) => answer(outcome.grade, outcome.correct)} onNext={next} />
     </div>
@@ -164,7 +76,7 @@ function SessionView({session}: {session: Session}) {
 
 function CardRunner({card, position, answered, onAnswer, onNext}: {card: LearningCard; position: number; answered: boolean; onAnswer: (outcome: Outcome) => void; onNext: () => void}) {
   // The mode is fixed when the card appears, so it does not change once the answer is saved.
-  const [mode] = useState<Mode>(() => chooseMode(card, getProgress().reviews[card.id], position));
+  const [mode] = useState<Mode>(() => card.mode ?? chooseMode(card, getProgress().reviews[card.id], position));
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const audio = useAudio();
   const submit = useCallback((result: Outcome) => {
@@ -184,6 +96,8 @@ function CardRunner({card, position, answered, onAnswer, onNext}: {card: Learnin
       {mode === 'listen' && <ListenCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'type' && <TypeCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'gap' && <GapCard card={card} outcome={outcome} onSubmit={submit} />}
+      {mode === 'order' && <OrderCard card={card} outcome={outcome} onSubmit={submit} />}
+      {mode === 'pick' && <PickCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'flash' && <FlashCard card={card} onRate={(grade) => { onAnswer({grade, correct: grade >= 3, result: grade >= 3 ? 'correct' : 'wrong'}); onNext(); }} />}
       {outcome && answered && mode !== 'flash' && <Feedback card={card} mode={mode} outcome={outcome} onNext={onNext} />}
     </div>
@@ -378,6 +292,69 @@ function GapCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outcom
   );
 }
 
+/** Put the words in order. The first word is given; tap a placed word to take it back. */
+function OrderCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outcome | null; onSubmit: (outcome: Outcome) => void}) {
+  const item = useMemo(() => orderItem(card), [card]);
+  const [chosen, setChosen] = useState<string[]>([]);
+  if (!item) return null;
+  const used = new Set(chosen);
+  const remaining = item.tiles.filter((tile) => !used.has(tile.id));
+  const words = chosen.map((id) => item.tiles.find((tile) => tile.id === id)!.text);
+  const check = () => {
+    const right = builderCorrect(item, words);
+    onSubmit({grade: right ? 4 : 1, correct: right, result: right ? 'correct' : 'wrong'});
+  };
+  return (
+    <>
+      <p className="font-semibold text-muted-foreground">Zet de woorden in de goede volgorde</p>
+      <Translation className="mt-3 text-xl font-medium">{card.translation}</Translation>
+      <div className={cn('my-6 flex min-h-24 flex-wrap content-start items-center gap-2 rounded-2xl border-2 border-dashed p-3 transition',
+        outcome?.correct === true && 'border-success bg-success-soft', outcome?.correct === false && 'border-destructive bg-destructive-soft')} aria-label="Jouw zin" lang="nl">
+        <span className="rounded-lg bg-secondary px-3 py-2 font-semibold text-secondary-foreground">{item.first}</span>
+        {chosen.map((id) => (
+          <button key={id} type="button" disabled={Boolean(outcome)} onClick={() => setChosen(chosen.filter((value) => value !== id))}
+            className="animate-pop rounded-lg border-2 border-primary/40 bg-accent px-3 py-2 font-semibold text-accent-foreground">
+            {item.tiles.find((tile) => tile.id === id)!.text}
+          </button>
+        ))}
+        {item.ending && <span className="text-xl font-bold text-muted-foreground">{item.ending}</span>}
+      </div>
+      <div className="flex min-h-14 flex-wrap justify-center gap-2" lang="nl">
+        {remaining.map((tile) => (
+          <button key={tile.id} type="button" disabled={Boolean(outcome)} onClick={() => setChosen([...chosen, tile.id])}
+            className="rounded-lg border-2 bg-card px-4 py-2.5 text-lg font-semibold shadow-[0_3px_0_var(--border)] transition active:translate-y-0.5 active:shadow-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
+            {tile.text}
+          </button>
+        ))}
+      </div>
+      {!outcome && (
+        <div className="mt-6 flex justify-center gap-3">
+          <Button variant="outline" size="lg" disabled={!chosen.length} onClick={() => setChosen(chosen.slice(0, -1))}>Terug</Button>
+          <Button size="xl" game disabled={remaining.length > 0} onClick={check}>Controleer</Button>
+        </div>
+      )}
+    </>
+  );
+}
+
+/** Choose the sentence with the right word order. */
+function PickCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outcome | null; onSubmit: (outcome: Outcome) => void}) {
+  const options = useMemo(() => pickOptions(card), [card]);
+  const [chosen, setChosen] = useState<string | null>(null);
+  const pick = (option: Option) => {
+    if (outcome) return;
+    setChosen(option.id);
+    onSubmit({grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? 'correct' : 'wrong'});
+  };
+  return (
+    <>
+      <p className="font-semibold text-muted-foreground">Welke zin is goed?</p>
+      <Translation className="my-5 text-xl font-medium">{card.translation}</Translation>
+      <OptionList options={options} chosen={chosen} outcome={outcome} translated={false} onPick={pick} />
+    </>
+  );
+}
+
 function FlashCard({card, onRate}: {card: LearningCard; onRate: (grade: number) => void}) {
   const [revealed, setRevealed] = useState(false);
   const grammar = cardKind(card) === 'grammar';
@@ -463,7 +440,8 @@ function Feedback({card, mode, outcome, onNext}: {card: LearningCard; mode: Mode
   }, [onNext]);
   useEffect(() => haptic(outcome.result === 'wrong' ? 'error' : 'success'), [outcome.result]);
   const grammar = cardKind(card) === 'grammar';
-  const answerText = grammar ? card.answer : card.nl;
+  const whole = mode === 'order' || mode === 'pick' || (mode === 'gap' && Boolean(card.mode));
+  const answerText = whole ? card.example : grammar ? card.answer : card.nl;
   const tone = outcome.result === 'correct' ? 'success' : outcome.result === 'close' ? 'xp' : 'destructive';
   const title = outcome.result === 'correct' ? ['Goed zo!', 'Precies!', 'Top!', 'Lekker bezig!'][answerText!.length % 4] : outcome.result === 'close' ? (outcome.hint === 'article' ? 'Bijna! Let op de of het.' : 'Bijna! Kleine typfout.') : 'Nog niet. Dit is het:';
   const Icon = outcome.result === 'wrong' ? CircleX : CircleCheck;
@@ -493,8 +471,9 @@ function Feedback({card, mode, outcome, onNext}: {card: LearningCard; mode: Mode
             </div>
           )}
           {!grammar && !card.example && card.meaning && <Translation className="text-sm opacity-80">{card.meaning}</Translation>}
-          {grammar && <Translation className="mt-1 text-sm opacity-80">{card.rule}</Translation>}
-          {outcome.result === 'wrong' && <p className="mt-1 text-xs opacity-80">Dit kaartje komt morgen terug.</p>}
+          {grammar && whole && card.example && audioUrl(card.example, 'ronnie') && <ListenButton text={card.example} className="-mt-1" />}
+          {grammar && <Translation className="mt-1 text-sm opacity-80">{whole ? card.translation : card.rule}</Translation>}
+          {outcome.result === 'wrong' && !card.mode && <p className="mt-1 text-xs opacity-80">Dit kaartje komt morgen terug.</p>}
         </div>
         <Button ref={ref} size="xl" game variant={tone === 'success' ? 'success' : tone === 'xp' ? 'default' : 'destructive'} className="w-full lg:w-auto" onClick={onNext}>
           Verder<ArrowRight />
@@ -507,7 +486,7 @@ function Feedback({card, mode, outcome, onNext}: {card: LearningCard; mode: Mode
 /* ---------------------------------------------------------------- complete */
 
 function RoundComplete({session}: {session: Session}) {
-  const {start, stop} = usePractice();
+  const {start, close} = usePractice();
   const game = useGame();
   const [pairs, setPairs] = useState(false);
   const results = session.results;
@@ -516,7 +495,8 @@ function RoundComplete({session}: {session: Session}) {
   const newStamps = stamps.filter((stamp) => game.earned.includes(stamp.id) && !session.before.earned.includes(stamp.id));
   const levelUp = game.level.number > session.before.level;
   const pairCards = useMemo(() => pairsFrom(session.queue, vocabulary, {count: 5, seed: String(session.id)}), [session.queue, session.id]);
-  const again = () => start(session.options.cardIds || session.options.theme ? session.options : {});
+  // Pattern rounds and fixed lists repeat the same cards; other rounds plan fresh ones.
+  const again = () => start(session.options.drill ? session.options : {...session.options, queue: undefined});
 
   if (pairs) return <PairsGame cards={pairCards} onDone={() => setPairs(false)} />;
 
@@ -527,7 +507,7 @@ function RoundComplete({session}: {session: Session}) {
         <h1 className="text-3xl font-extrabold">Je bent weer bij.</h1>
         <p className="text-muted-foreground">Voor deze keuze zijn nu geen kaartjes klaar. Kies een ander thema of kom later terug.</p>
         <div className="flex flex-wrap justify-center gap-3">
-          <Button variant="outline" size="lg" onClick={() => { stop(); navigate('woorden'); }}>Ontdek een thema</Button>
+          <Button variant="outline" size="lg" onClick={() => close()}>Terug</Button>
           <Button size="lg" game onClick={() => start({theme: 'all', type: 'all'})}>Oefen alles</Button>
         </div>
       </Page>
@@ -561,7 +541,7 @@ function RoundComplete({session}: {session: Session}) {
       <div className="mt-6 flex w-full flex-col gap-3">
         <Button size="xl" game onClick={again}>Nog een rondje<ArrowRight /></Button>
         {pairCards.length >= 4 && <Button size="xl" variant="info" game onClick={() => setPairs(true)}><Puzzle />Bonus: speel paren</Button>}
-        <Button size="xl" variant="outline" onClick={() => { stop(); navigate('vandaag'); }}>Terug naar Vandaag</Button>
+        <Button size="xl" variant="outline" onClick={() => close()}>Klaar</Button>
       </div>
     </div>
   );

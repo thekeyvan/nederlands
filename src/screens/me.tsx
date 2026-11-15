@@ -1,214 +1,137 @@
 import {useState} from 'react';
-import {BarChart3, Flame, Library, LogOut, Moon, Settings, Shield, Sun, Laptop, Trash2, Trophy, Volume2} from 'lucide-react';
-import {Badge} from '@/components/ui/badge';
+import {ChevronRight, Flame, Laptop, Library, LogIn, Moon, Settings, Shield, Sun, Trash2} from 'lucide-react';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import {Checkbox} from '@/components/ui/checkbox';
 import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog';
 import {Label} from '@/components/ui/label';
-import {Progress} from '@/components/ui/progress';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {ToggleGroup, ToggleGroupItem} from '@/components/ui/toggle-group';
-import {LevelCard, StampsCard, StreakCard} from '@/components/game/cards';
+import {LevelCard, MissionsCard, StampsCard, StreakCard} from '@/components/game/cards';
 import {Stars} from '@/components/game/stars';
 import {ThemeArt} from '@/components/game/theme-art';
 import {Avatar} from '@/components/app/account-chip';
+import {Group, GroupLabel, Row, RowIcon, ScreenTitle} from '@/components/app/list';
+import {openSignIn, useCanSignIn} from '@/components/app/sign-in';
 import {AppCard} from '@/components/pwa';
-import {Page, PageHeader} from '@/components/page';
-import {Translation} from '@/components/translation';
-import {cn} from '@/lib/utils';
+import {Page} from '@/components/page';
 import {useAudio} from '@/hooks/use-audio';
 import {syncMessages, useCloud} from '@/hooks/use-cloud';
 import {useGame} from '@/hooks/use-progress';
 import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
 import {useTheme, type ThemePreference} from '@/hooks/use-theme';
-import {appleAvailable, deleteAccount, forgetDevice, signOut} from '@/core/cloud.js';
-import {SignInButtons, SignInReasons} from '@/components/app/sign-in';
+import {deleteAccount, forgetDevice, signOut} from '@/core/cloud.js';
 import {dailyGoals} from '@/core/state.js';
-import {chooseLocale, locale, locales, t} from '@/core/i18n.js';
-import {cards} from '@/core/learning-model.js';
-import {ratings} from '@/core/srs.js';
+import {chooseLocale, locale, locales} from '@/core/i18n.js';
 
 export function MeScreen() {
   const game = useGame();
   const cloud = useCloud();
-  const [showAll, setShowAll] = useState(false);
-  const [tab, setTab] = useState<'voortgang' | 'instellingen'>('voortgang');
-  const {events} = game.progress;
+  const canSignIn = useCanSignIn();
   const week = game.activity.week;
-  const max = Math.max(5, ...week.map((day) => day.count));
-  const themeRows = game.themes.filter((item) => showAll || item.stats.done > 0);
-  const stats = [
-    {label: 'dagen op rij', value: game.streak.count, icon: <Flame className="size-4 text-primary" />},
-    {label: 'langste reeks', value: game.bestStreak, icon: <Trophy className="size-4 text-xp-foreground" />},
-    {label: 'kaartjes geoefend', value: game.practisedCards},
-    {label: 'goed onthouden', value: game.knownCards},
-    {label: 'vandaag herhalen', value: game.dueCards},
-  ];
+  const themeRows = game.themes.filter((item) => item.stats.done > 0);
   return (
     <Page>
-      <PageHeader eyebrow="Jouw voortgang en instellingen" title={cloud.user?.name ? `Hoi ${cloud.user.name.split(' ')[0]}!` : 'Je ziet het groeien.'} description={cloud.user ? syncMessages[cloud.status] : undefined}
-        action={cloud.user ? <Avatar name={cloud.user.name} className="size-14 text-lg" /> : undefined} />
-      {!cloud.user && <div className="mb-5"><AccountCard withDelete={false} /></div>}
-      <div role="tablist" aria-label="Ik" className="mb-5 grid grid-cols-2 gap-1 rounded-xl bg-muted p-1 sm:inline-grid">
-        {([['voortgang', 'Voortgang', BarChart3], ['instellingen', 'Instellingen', Settings]] as const).map(([id, label, Icon]) => (
-          <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
-            className={cn('flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:px-4',
-              tab === id ? 'bg-card font-semibold text-foreground shadow-sm' : 'hover:text-foreground')}>
-            <Icon className="size-4" aria-hidden />{label}
-          </button>
-        ))}
-      </div>
-      {tab === 'voortgang' ? (<>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 [&>*]:min-w-0">
-        <LevelCard stats={game} />
-        <StreakCard stats={game} week={week} />
-      </div>
-      <dl className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
-        {stats.map((stat) => (
-          <div key={stat.label} className="rounded-xl border bg-card p-3 text-center">
-            <dd className="flex items-center justify-center gap-1 text-2xl font-extrabold tabular-nums">{stat.icon}{stat.value}</dd>
-            <dt className="text-xs text-muted-foreground">{stat.label}</dt>
-          </div>
-        ))}
-      </dl>
-
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr] [&>*]:min-w-0">
-        <StampsCard stats={game} labels />
-        <Card className="gap-3 py-4">
-          <CardHeader className="px-4"><CardTitle className="text-sm">De laatste 7 dagen</CardTitle><CardDescription>Geoefende kaartjes per dag</CardDescription></CardHeader>
-          <CardContent className="px-4">
-            <div className="flex h-40 items-end justify-between gap-2" role="list">
-              {week.map((day, index) => (
-                <div key={index} role="listitem" className="flex h-full flex-1 flex-col items-center justify-end gap-1.5" aria-label={`${day.date.toLocaleDateString('nl-NL')}: ${day.count} kaartjes`}>
-                  <span className="text-xs font-semibold tabular-nums">{day.count || ''}</span>
-                  <span className={cn('w-full max-w-10 rounded-t-md', day.count ? 'bg-primary' : 'bg-muted')} style={{height: `${Math.max(6, (day.count / max) * 100)}%`}} />
-                  <span className="text-[11px] text-muted-foreground">{day.label.replace('.', '')}</span>
-                </div>
-              ))}
+      <ScreenTitle title="Ik" action={
+        <Button variant="secondary" size="icon" className="rounded-full bg-muted text-foreground hover:bg-muted/70" onClick={() => navigate('instellingen')} aria-label="Instellingen"><Settings className="size-5" /></Button>
+      } />
+      <div className="grid gap-x-6 gap-y-4 lg:grid-cols-2 [&>*]:min-w-0">
+        <div className="flex flex-col gap-4">
+          {cloud.user ? (
+            <Group><Row leading={<Avatar name={cloud.user.name} className="size-11 text-base" />} title={cloud.user.name || 'Mijn account'} detail={syncMessages[cloud.status]} /></Group>
+          ) : canSignIn && cloud.status !== 'starting' ? (
+            <Group><Row onClick={openSignIn} leading={<RowIcon className="bg-info-soft text-info-foreground"><LogIn /></RowIcon>} title="Inloggen" detail="Ga verder op je telefoon en de website" /></Group>
+          ) : null}
+          <dl className="grid grid-cols-3 gap-2 text-center">
+            <div className="rounded-xl border bg-card py-3"><dd className="flex items-center justify-center gap-1 text-2xl font-extrabold text-primary tabular-nums"><Flame className="size-5" />{game.streak.count}</dd><dt className="text-xs text-muted-foreground">{game.streak.count === 1 ? 'dag' : 'dagen'} op rij</dt></div>
+            <div className="rounded-xl border bg-card py-3"><dd className="text-2xl font-extrabold text-xp-foreground tabular-nums">{game.xp}</dd><dt className="text-xs text-muted-foreground">XP</dt></div>
+            <div className="rounded-xl border bg-card py-3"><dd className="text-2xl font-extrabold tabular-nums">{game.knownCards}</dd><dt className="text-xs text-muted-foreground">onthouden</dt></div>
+          </dl>
+          <LevelCard stats={game} />
+          <StreakCard stats={game} week={week} />
+        </div>
+        <div className="flex flex-col gap-4">
+          <MissionsCard events={game.progress.events} />
+          <StampsCard stats={game} labels />
+          {themeRows.length > 0 && (
+            <div>
+              <GroupLabel className="mt-0">Jouw thema’s</GroupLabel>
+              <Group>
+                {themeRows.map(({theme, stats, stars}) => (
+                  <Row key={theme.id} onClick={() => navigate('woorden', {theme: theme.id})} leading={<ThemeArt theme={theme} className="size-10 shrink-0 rounded-lg" />}
+                    title={theme.title} detail={`${stats.done} van ${stats.total} geoefend · ${stats.known} onthouden`} trailing={<Stars count={stars} className="[&_svg]:size-3.5" />} />
+                ))}
+              </Group>
             </div>
-          </CardContent>
-        </Card>
+          )}
+        </div>
       </div>
-
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr] [&>*]:min-w-0">
-        <Card className="gap-3 py-4">
-          <CardHeader className="flex items-center justify-between px-4">
-            <CardTitle className="text-sm">Jouw thema’s</CardTitle>
-            <Label className="flex items-center gap-2 text-xs font-normal text-muted-foreground"><Checkbox checked={showAll} onCheckedChange={(value) => setShowAll(value === true)} />Ook nieuwe thema’s</Label>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-2 px-4">
-            {themeRows.length ? themeRows.map(({theme, stats: themeStats, stars}) => (
-              <button key={theme.id} type="button" onClick={() => navigate('woorden', {theme: theme.id})} className="flex items-center gap-3 rounded-lg border p-2 text-left transition hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
-                <ThemeArt theme={theme} className="size-12 shrink-0 rounded-md" />
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-center justify-between gap-2"><span className="truncate text-sm font-semibold">{theme.title}</span><Stars count={stars} /></span>
-                  <Progress value={(themeStats.done / themeStats.total) * 100} className="mt-1.5 h-1.5" aria-label={`${themeStats.done} van ${themeStats.total} geoefend`} />
-                  <span className="mt-1 block text-[11px] text-muted-foreground tabular-nums">{themeStats.done}/{themeStats.total} · {themeStats.known} onthouden</span>
-                </span>
-              </button>
-            )) : <p className="py-4 text-center text-sm text-muted-foreground">Nog een leeg begin. Na je eerste kaartje zie je hier je thema’s.</p>}
-          </CardContent>
-        </Card>
-        <Card className="gap-3 py-4">
-          <CardHeader className="px-4"><CardTitle className="text-sm">De laatste keer</CardTitle></CardHeader>
-          <CardContent className="flex flex-col divide-y px-4">
-            {events.length ? [...events].slice(-8).reverse().map((event) => {
-              const card = cards.find((item) => item.id === event.cardId);
-              const rating = ratings.find((item) => item.grade === event.grade);
-              return (
-                <div key={event.id} className="flex items-center justify-between gap-3 py-2 text-sm">
-                  <span className="truncate font-medium" lang="nl">{card?.nl || card?.title || event.cardId}</span>
-                  <span className="shrink-0 text-xs text-muted-foreground"><Badge variant={event.grade >= 3 ? 'success' : 'outline'} className="mr-1.5">{rating?.label}</Badge>{new Date(event.at).toLocaleDateString('nl-NL', {day: 'numeric', month: 'short'})}</span>
-                </div>
-              );
-            }) : <p className="py-4 text-center text-sm text-muted-foreground">Hier komen je laatste oefeningen. Begin met een klein rondje.</p>}
-          </CardContent>
-        </Card>
-      </div>
-
-      </>) : (<>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 [&>*]:min-w-0">
-        {cloud.user ? <AccountCard /> : (
-          <Card>
-            <CardHeader><CardTitle>Je gegevens</CardTitle><CardDescription>Je voortgang staat alleen op dit apparaat. Log in om hem ook op andere apparaten te hebben.</CardDescription></CardHeader>
-            <CardContent><DeleteData signedIn={false} /></CardContent>
-          </Card>
-        )}
-        <SettingsCard />
-        <AppCard />
-      </div>
-      <div className="mt-6 flex flex-wrap gap-2">
-        <Button variant="outline" onClick={() => navigate('bronnen')}><Library />Websites & boeken</Button>
-        <Button variant="outline" asChild><a href="./privacy.html"><Shield />Privacy</a></Button>
-      </div>
-      </>)}
     </Page>
   );
 }
 
-function SettingsCard() {
+/** Instellingen, opened with the gear on Ik: grouped rows like the iPhone's own Settings. */
+export function SettingsScreen() {
+  const cloud = useCloud();
+  const canSignIn = useCanSignIn();
   const [preferences, update] = usePreferences();
   const audio = useAudio();
   const {preference, setPreference} = useTheme();
   const packs = Object.values(locales);
+  const provider = cloud.user?.provider === 'apple' ? 'Apple' : 'Google';
   return (
-    <Card>
-      <CardHeader><CardTitle>Instellingen</CardTitle><CardDescription>Je dagdoel reist mee met je account.</CardDescription></CardHeader>
-      <CardContent className="flex flex-col gap-5">
-        <div className="flex flex-col gap-2">
-          <Label>Dagdoel</Label>
+    <Page className="max-w-2xl">
+      <h1 className="mb-2 text-[28px] font-extrabold tracking-tight">Instellingen</h1>
+      <GroupLabel>Oefenen</GroupLabel>
+      <Group>
+        <li className="flex flex-col gap-2 border-b px-3.5 py-3">
+          <span className="text-[15px] font-medium">Dagdoel</span>
           <ToggleGroup type="single" variant="outline" value={String(preferences.goal)} onValueChange={(value) => value && update((current) => ({...current, goal: Number(value)}))} className="w-full">
             {dailyGoals.map((goal) => <ToggleGroupItem key={goal} value={String(goal)} className="flex-1">{goal} kaartjes</ToggleGroupItem>)}
           </ToggleGroup>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Label>Weergave</Label>
-          <ToggleGroup type="single" variant="outline" value={preference} onValueChange={(value) => value && setPreference(value as ThemePreference)} className="w-full">
-            <ToggleGroupItem value="system" className="flex-1"><Laptop />Apparaat</ToggleGroupItem>
-            <ToggleGroupItem value="light" className="flex-1"><Sun />Licht</ToggleGroupItem>
-            <ToggleGroupItem value="dark" className="flex-1"><Moon />Donker</ToggleGroupItem>
-          </ToggleGroup>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <div><p className="text-sm font-medium">Nederlandse audio</p><p className="text-xs text-muted-foreground">{audio.voiceName} · {String(audio.speed).replace('.', ',')}×</p></div>
-          <Button variant="outline" onClick={() => audio.setSettingsOpen(true)}><Volume2 />Stem en snelheid</Button>
-        </div>
+        </li>
+        <Row onClick={() => audio.setSettingsOpen(true)} title="Stem en snelheid" titleClassName="font-medium" trailing={<span className="text-sm text-muted-foreground">{audio.voiceName} · {String(audio.speed).replace('.', ',')}×</span>} />
         {packs.length > 1 && (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="translation-language">Vertaling</Label>
+          <li className="flex items-center justify-between gap-3 px-3.5 py-2.5">
+            <Label htmlFor="translation-language" className="text-[15px] font-medium">Vertaling</Label>
             <Select value={locale.code} onValueChange={chooseLocale}>
-              <SelectTrigger id="translation-language" className="w-full"><SelectValue /></SelectTrigger>
+              <SelectTrigger id="translation-language" className="w-36"><SelectValue /></SelectTrigger>
               <SelectContent>{packs.map((pack) => <SelectItem key={pack.code} value={pack.code}>{pack.name}</SelectItem>)}</SelectContent>
             </Select>
-          </div>
+          </li>
         )}
-      </CardContent>
-    </Card>
-  );
-}
-
-function AccountCard({withDelete = true}: {withDelete?: boolean}) {
-  const cloud = useCloud();
-  const available = !['local-only', 'unavailable', 'starting'].includes(cloud.status);
-  const provider = cloud.user?.provider === 'apple' ? 'Apple' : 'Google';
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{cloud.user ? 'Je bent ingelogd.' : available ? 'Neem je voortgang mee.' : 'Je oefent op dit apparaat.'}</CardTitle>
-        <CardDescription>{cloud.user ? `Je oefeningen worden bij je ${provider}-account bewaard.` : available ? (appleAvailable() ? 'Log in met Apple of Google om op al je apparaten verder te gaan. Met Google kun je ook op de website verder.' : 'Log in met Google om op je telefoon en computer verder te gaan.') : 'Deze versie werkt zonder account. Je voortgang blijft op dit apparaat.'}</CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        {available && <Translation className="text-sm text-muted-foreground">{t(cloud.user ? 'accountSignedIn' : 'accountGuest')}</Translation>}
-        {available && <p className="text-sm" role="status">{syncMessages[cloud.status]}</p>}
-        {available && !cloud.user && <SignInReasons className="sm:hidden" />}
-        {available && (cloud.user
-          ? <Button variant="outline" className="self-start" onClick={() => void signOut()}><LogOut />Uitloggen</Button>
-          : <SignInButtons className="sm:max-w-sm" />)}
-        {withDelete && <DeleteData signedIn={Boolean(cloud.user)} />}
-      </CardContent>
-    </Card>
+      </Group>
+      <GroupLabel>Weergave</GroupLabel>
+      <Group className="p-1.5">
+        <li>
+          <ToggleGroup type="single" value={preference} onValueChange={(value) => value && setPreference(value as ThemePreference)} className="grid w-full grid-cols-3 rounded-lg bg-muted p-0.5">
+            <ToggleGroupItem value="light" className="rounded-md data-[state=on]:bg-card data-[state=on]:shadow-sm"><Sun />Licht</ToggleGroupItem>
+            <ToggleGroupItem value="dark" className="rounded-md data-[state=on]:bg-card data-[state=on]:shadow-sm"><Moon />Donker</ToggleGroupItem>
+            <ToggleGroupItem value="system" className="rounded-md data-[state=on]:bg-card data-[state=on]:shadow-sm"><Laptop />Systeem</ToggleGroupItem>
+          </ToggleGroup>
+        </li>
+      </Group>
+      <GroupLabel>Account</GroupLabel>
+      <Group>
+        {cloud.user ? (
+          <>
+            <Row title={`Ingelogd met ${provider}`} detail={syncMessages[cloud.status]} titleClassName="font-medium" />
+            <Row onClick={() => void signOut()} chevron={false} title="Uitloggen" titleClassName="font-medium text-primary" />
+          </>
+        ) : canSignIn && cloud.status !== 'starting' ? (
+          <Row onClick={openSignIn} title="Inloggen met Apple of Google" detail="Je voortgang staat nu alleen op dit apparaat" titleClassName="font-medium text-primary" />
+        ) : (
+          <Row title="Je oefent op dit apparaat" detail={syncMessages[cloud.status]} titleClassName="font-medium" />
+        )}
+        <DeleteData signedIn={Boolean(cloud.user)} />
+      </Group>
+      <GroupLabel>Meer</GroupLabel>
+      <Group>
+        <Row onClick={() => navigate('bronnen')} leading={<RowIcon className="bg-accent text-accent-foreground"><Library /></RowIcon>} title="Websites & boeken" titleClassName="font-medium" />
+        <li><a href="./privacy.html" className="flex min-h-[52px] items-center gap-3 px-3.5 py-2.5 hover:bg-muted/60"><RowIcon className="bg-info-soft text-info-foreground"><Shield /></RowIcon><span className="flex-1 text-[15px] font-medium">Privacy</span><ChevronRight className="size-4 text-muted-foreground/60" /></a></li>
+      </Group>
+      <GroupLabel>App</GroupLabel>
+      <AppCard />
+    </Page>
   );
 }
 
@@ -225,10 +148,10 @@ function DeleteData({signedIn}: {signedIn: boolean}) {
     location.reload();
   };
   return (
-    <div className="mt-2 border-t pt-4">
+    <li className="border-b last:border-b-0">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="ghost" size="sm" className="-ml-2 text-destructive hover:bg-destructive/10 hover:text-destructive"><Trash2 />{signedIn ? 'Account verwijderen' : 'Wis mijn voortgang'}</Button>
+          <button type="button" className="flex min-h-[52px] w-full items-center px-3.5 py-2.5 text-left text-[15px] font-medium text-destructive hover:bg-muted/60">{signedIn ? 'Account verwijderen' : 'Wis mijn voortgang'}</button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -245,6 +168,6 @@ function DeleteData({signedIn}: {signedIn: boolean}) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </li>
   );
 }

@@ -5,6 +5,8 @@ export interface Card {
   id: string; themeId: string; nl?: string; kind?: string; example?: string; forms?: string[];
   meaning?: string; translation?: string; themeTitle?: string; level?: string;
   title?: string; pattern?: string; prompt?: string; answer?: string; rule?: string; note?: string;
+  /** Set on exercises built for one pattern, so the round shows exactly that kind of exercise. */
+  mode?: 'choose' | 'reverse' | 'listen' | 'type' | 'gap' | 'flash' | 'order' | 'pick';
 }
 export interface Review {ease: number; interval: number; repetitions: number; due: string; lastReviewed: string; grade: number; reviews: number}
 export interface ReviewEvent {id: string; cardId: string; grade: number; at: string}

@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
-import {useRegisterSW} from 'virtual:pwa-register/react';
+import {useRegisterSW} from '@/lib/register-sw';
 import {toast} from 'sonner';
 import {Bell, CloudDownload, Download, MonitorSmartphone, Share, Smartphone, Trash2, WifiOff} from 'lucide-react';
 import {Button} from '@/components/ui/button';

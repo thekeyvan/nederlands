@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 // Service worker: the app shell and illustrations are precached, so the app opens offline.
 // Audio clips are cached the first time they play (or all at once from Ik → Offline luisteren).
-import {cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute} from 'workbox-precaching';
+import {cleanupOutdatedCaches, precacheAndRoute} from 'workbox-precaching';
 import {NavigationRoute, registerRoute} from 'workbox-routing';
 import {CacheFirst, NetworkFirst} from 'workbox-strategies';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
@@ -16,9 +16,9 @@ cleanupOutdatedCaches();
 // Control open pages as soon as the first version installs; later versions still wait for “Vernieuwen”.
 clientsClaim();
 
-// The app (/leren.html, with ?thema= links or the OAuth ?code=) uses the cached app shell, also offline.
-// The public pages (/, /woorden/, /grammatica/ …) always come from the network.
-registerRoute(new NavigationRoute(createHandlerBoundToURL('leren.html'), {allowlist: [/\/leren\.html$/]}));
+// The app page (/leren.html, with ?thema= links or the OAuth ?code=) comes from the server when online and
+// from the last saved copy when offline. The public pages (/, /woorden/, /grammatica/ …) always come from the network.
+registerRoute(new NavigationRoute(new NetworkFirst({cacheName: 'nedfa-app-page', networkTimeoutSeconds: 4, plugins: [new CacheableResponsePlugin({statuses: [200]})]}), {allowlist: [/^\/leren\.html$/]}));
 
 // Audio players ask for byte ranges, which cannot be cached directly. Fetch the whole clip
 // once, keep it, and answer later range requests from the cache.

@@ -1,75 +1,11 @@
 import path from 'node:path';
 import {defineConfig} from 'vite';
-import react from '@vitejs/plugin-react';
+import {reactRouter} from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
-import {VitePWA} from 'vite-plugin-pwa';
 
-// Relative asset URLs let the same build run on the website and inside the iOS app.
-export default defineConfig(({mode}) => ({
-  base: './',
-  plugins: [
-    react(),
-    tailwindcss(),
-    VitePWA({
-      strategies: 'injectManifest',
-      srcDir: 'src',
-      filename: 'sw.ts',
-      registerType: 'prompt',
-      injectRegister: false,
-      includeAssets: ['favicon.png', 'apple-touch-icon.png'],
-      manifest: {
-        id: './',
-        name: 'Nedfa',
-        short_name: 'Nedfa',
-        description: 'Elke dag een beetje Nederlands, als een spel: thema’s, audio, spellen en slim herhalen voor A2–B1.',
-        lang: 'nl',
-        dir: 'ltr',
-        start_url: './leren.html',
-        scope: './',
-        display: 'standalone',
-        display_override: ['standalone', 'minimal-ui'],
-        orientation: 'any',
-        background_color: '#fcfaf6',
-        theme_color: '#fcfaf6',
-        categories: ['education', 'games'],
-        icons: [
-          {src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any'},
-          {src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any'},
-          {src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable'},
-        ],
-        shortcuts: [
-          {name: 'Oefenen', short_name: 'Oefenen', url: './leren.html#oefenen', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
-          {name: 'Spellen', short_name: 'Spellen', url: './leren.html#spellen', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
-          {name: 'Thema’s', short_name: 'Thema’s', url: './leren.html#woorden', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
-        ],
-      },
-      injectManifest: {
-        globPatterns: ['**/*.{js,css,html,woff2,jpg,png,svg}'],
-        globIgnores: ['assets/audio/**'],
-        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
-      },
-      devOptions: {enabled: false},
-      // The iOS app ships its files in the bundle; WKWebView does not run service workers there.
-      disable: mode === 'native',
-    }),
-  ],
+export default defineConfig({
+  plugins: [tailwindcss(), reactRouter()],
   resolve: {alias: {'@': path.resolve(import.meta.dirname, 'src')}},
-  build: {
-    outDir: mode === 'native' ? 'dist-native' : 'dist',
-    // Most of the main chunk is lesson content and the translation pack, which every screen needs.
-    chunkSizeWarningLimit: 1100,
-    manifest: mode !== 'native',
-    rollupOptions: {
-      input: {
-        // The app lives at /leren.html; the public pages (/, /woorden/, /grammatica/ …) are written by
-        // scripts/site/build-site.mjs after the build and share the stylesheet from the `site` entry.
-        main: path.resolve(import.meta.dirname, 'leren.html'),
-        ...(mode === 'native' ? {} : {
-          bronnen: path.resolve(import.meta.dirname, 'bronnen.html'),
-          privacy: path.resolve(import.meta.dirname, 'privacy.html'),
-          site: path.resolve(import.meta.dirname, 'src/site/site.ts'),
-        }),
-      },
-    },
-  },
-}));
+  // Most of the app chunk is lesson content and the translation pack, which every screen needs.
+  build: {chunkSizeWarningLimit: 1100},
+});

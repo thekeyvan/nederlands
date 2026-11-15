@@ -1,25 +1,18 @@
-<!doctype html>
-<html lang="nl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Welke gegevens Nedfa gebruikt, waarom en hoe lang.">
-<meta name="theme-color" content="#fcfaf6">
-<title>Privacy — Nedfa</title>
-<link rel="icon" href="/favicon.png" type="image/png">
-<script type="module" src="/src/static-page.ts"></script>
-</head>
-<body class="bg-background text-foreground">
-<header class="border-b bg-sidebar">
-  <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-3 sm:px-6">
-    <a href="./" class="flex items-center gap-2.5 font-bold"><img src="/img/logo.png" alt="" width="36" height="36" class="size-9 rounded-xl">nedfa</a>
-    <a href="./leren.html" class="rounded-md px-3 py-1.5 text-sm font-medium hover:bg-muted">Naar leren →</a>
-  </div>
-</header>
-<main id="main" class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-  <article class="flex flex-col gap-3 leading-relaxed [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-bold [&_p]:text-muted-foreground">
-    <p class="text-xs font-semibold tracking-wider !text-primary uppercase">Je gegevens</p>
-    <h1 class="text-4xl font-extrabold tracking-tight">Privacy, in het kort.</h1>
+import type {Route} from './+types/privacy';
+import {SITE} from '../../site/lang';
+
+export const meta: Route.MetaFunction = () => [
+  {title: 'Privacy — Nedfa'},
+  {name: 'description', content: 'Welke gegevens Nedfa gebruikt, waarom en hoe lang.'},
+  {tagName: 'link', rel: 'canonical', href: `${SITE}/privacy.html`},
+];
+
+export default function Privacy() {
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <article className="flex flex-col gap-3 leading-relaxed [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-bold [&_p]:text-muted-foreground">
+    <p className="text-xs font-semibold tracking-wider !text-primary uppercase">Je gegevens</p>
+    <h1 className="text-4xl font-extrabold tracking-tight">Privacy, in het kort.</h1>
     <p>Laatst aangepast: 15 november 2026. Dit geldt voor de website en de iPhone-app Nedfa.</p>
     <h2>Zonder account</h2>
     <p>Je oefeningen, bewaarde bronnen, weekplan, dagdoel en spelrecords blijven op je apparaat (in de browser of in de app). We gebruiken lokale opslag om dit te onthouden, net als je gekozen weergave (licht of donker). Je wist dit met <strong>Ik → Instellingen → Wis mijn voortgang</strong>.</p>
@@ -32,11 +25,11 @@
     <h2>Luisteren</h2>
     <p>De Nederlandse audio staat op deze website. We sturen geen woorden of zinnen naar een spraakdienst. We nemen je stem niet op. Je gekozen stem en snelheid blijven in deze browser.</p>
     <h2>Andere diensten</h2>
-    <p>Vercel levert de website, Apple en Google verzorgen het inloggen en Supabase bewaart je account en voortgang. Kies je een dagelijkse herinnering in de app, dan plant je iPhone die zelf in; daar is geen server bij nodig. De lettertypen en illustraties staan op deze website zelf. Deze diensten ontvangen technische gegevens, zoals je IP-adres, bij het leveren van hun dienst. Links naar andere leersites openen websites met hun eigen privacyregels.</p>
+    <p>Railway levert de website en de content-API, Apple en Google verzorgen het inloggen en Supabase bewaart je account en voortgang. Kies je een dagelijkse herinnering in de app, dan plant je iPhone die zelf in; daar is geen server bij nodig. De lettertypen en illustraties staan op deze website zelf. Deze diensten ontvangen technische gegevens, zoals je IP-adres, bij het leveren van hun dienst. Links naar andere leersites openen websites met hun eigen privacyregels.</p>
     <h2>Inzien of verwijderen</h2>
     <p>Je voortgang zie je onder ‘Ik’; het tandwiel rechtsboven opent Instellingen. Met <strong>Ik → Instellingen → Account verwijderen</strong> verwijder je je account en alles wat erbij is opgeslagen, online én op je apparaat. Dat gebeurt meteen en kan niet ongedaan worden gemaakt. Voor vragen of een kopie van je gegevens mail je naar <a href="mailto:hallo@nedfa.nl">hallo@nedfa.nl</a>. Zet je wachtwoord nooit in je bericht. Je kunt de koppeling ook intrekken via je Apple- of Google-account.</p>
-    <p class="mt-4"><a class="font-semibold !text-primary underline-offset-4 hover:underline" href="./leren.html">Terug naar leren →</a></p>
-  </article>
-</main>
-</body>
-</html>
+    <p className="mt-4"><a className="font-semibold !text-primary underline-offset-4 hover:underline" href="/leren.html">Terug naar leren →</a></p>
+      </article>
+    </div>
+  );
+}

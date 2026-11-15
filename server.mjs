@@ -1,0 +1,39 @@
+// Production server (Railway): static files, security headers, old-URL redirects and React Router's server rendering.
+import compression from 'compression';
+import express from 'express';
+import {createRequestHandler} from '@react-router/express';
+
+const build = await import('./build/server/index.js');
+const app = express();
+app.disable('x-powered-by');
+app.set('trust proxy', true);
+app.use(compression());
+
+app.use((req, res, next) => {
+  res.set({
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'X-Frame-Options': 'DENY',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Strict-Transport-Security': 'max-age=31536000',
+  });
+  // One address for everyone: https://nedfa.nl (the old Vercel domain and www redirect here).
+  const host = req.hostname;
+  if (host === 'www.nedfa.nl' || host === 'nederlands.keyvanmahmoudi.com') return res.redirect(301, `https://nedfa.nl${req.originalUrl}`);
+  next();
+});
+
+// Dutch moved from /nl/ to the root.
+app.get(['/nl', '/nl/{*rest}'], (req, res) => res.redirect(301, req.originalUrl.replace(/^\/nl/, '') || '/'));
+app.get('/health', (_req, res) => res.type('text').send('ok'));
+
+// Files with a hash in their name never change; audio and pictures change rarely; the service worker must be fresh.
+app.use('/assets/audio', express.static('build/client/assets/audio', {maxAge: '7d'}));
+app.use('/assets', express.static('build/client/assets', {immutable: true, maxAge: '1y'}));
+const fresh = /(?:\/sw\.js|\.webmanifest)$/;
+app.use(express.static('build/client', {maxAge: '1h', index: false, redirect: false, setHeaders: (res, file) => { if (fresh.test(file)) res.setHeader('Cache-Control', 'no-cache'); }}));
+
+app.all('/{*path}', createRequestHandler({build, mode: process.env.NODE_ENV}));
+
+const port = Number(process.env.PORT) || 3000;
+app.listen(port, () => console.log(`Nedfa on http://localhost:${port}`));

@@ -16,7 +16,7 @@ export default defineConfig(({mode}) => ({
       filename: 'sw.ts',
       registerType: 'prompt',
       injectRegister: false,
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.png', 'apple-touch-icon.png'],
       manifest: {
         id: './',
         name: 'Nedfa',

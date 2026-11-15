@@ -1,11 +1,13 @@
 import {useState} from 'react';
-import {ChevronRight, Flame, Laptop, Library, LogIn, Moon, Settings, Shield, Sun, Trash2} from 'lucide-react';
+import {ChevronRight, Flame, Laptop, Moon, Settings, Shield, Sun, Trash2} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog';
 import {Label} from '@/components/ui/label';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {ToggleGroup, ToggleGroupItem} from '@/components/ui/toggle-group';
 import {LevelCard, MissionsCard, StampsCard, StreakCard} from '@/components/game/cards';
+import {Mascot} from '@/components/game/mascot';
+import {sceneFor} from '@/lib/illustrations';
 import {Stars} from '@/components/game/stars';
 import {ThemeArt} from '@/components/game/theme-art';
 import {Avatar} from '@/components/app/account-chip';
@@ -39,14 +41,14 @@ export function MeScreen() {
           {cloud.user ? (
             <Group><Row leading={<Avatar name={cloud.user.name} className="size-11 text-base" />} title={cloud.user.name || 'Mijn account'} detail={syncMessages[cloud.status]} /></Group>
           ) : canSignIn && cloud.status !== 'starting' ? (
-            <Group><Row onClick={openSignIn} leading={<RowIcon className="bg-info-soft text-info-foreground"><LogIn /></RowIcon>} title="Inloggen" detail="Ga verder op je telefoon en de website" /></Group>
+            <Group><Row onClick={openSignIn} leading={<Mascot mood="wave" className="size-12" />} title="Inloggen" detail="Ga verder op je telefoon en de website" /></Group>
           ) : null}
           <dl className="grid grid-cols-3 gap-2 text-center">
             <div className="rounded-xl border bg-card py-3"><dd className="flex items-center justify-center gap-1 text-2xl font-extrabold text-primary tabular-nums"><Flame className="size-5" />{game.streak.count}</dd><dt className="text-xs text-muted-foreground">{game.streak.count === 1 ? 'dag' : 'dagen'} op rij</dt></div>
             <div className="rounded-xl border bg-card py-3"><dd className="text-2xl font-extrabold text-xp-foreground tabular-nums">{game.xp}</dd><dt className="text-xs text-muted-foreground">XP</dt></div>
             <div className="rounded-xl border bg-card py-3"><dd className="text-2xl font-extrabold tabular-nums">{game.knownCards}</dd><dt className="text-xs text-muted-foreground">onthouden</dt></div>
           </dl>
-          <LevelCard stats={game} />
+          <div className="flex items-center gap-3"><Mascot mood={game.streak.today ? 'cheer' : 'wave'} className="size-20 shrink-0" /><LevelCard stats={game} className="flex-1" /></div>
           <StreakCard stats={game} week={week} />
         </div>
         <div className="flex flex-col gap-4">
@@ -126,7 +128,7 @@ export function SettingsScreen() {
       </Group>
       <GroupLabel>Meer</GroupLabel>
       <Group>
-        <Row onClick={() => navigate('bronnen')} leading={<RowIcon className="bg-accent text-accent-foreground"><Library /></RowIcon>} title="Websites & boeken" titleClassName="font-medium" />
+        <Row onClick={() => navigate('bronnen')} leading={<img src={sceneFor('bronnen')} alt="" className="size-10 shrink-0 rounded-lg bg-[#fcfaf6] object-cover" draggable={false} />} title="Websites & boeken" titleClassName="font-medium" />
         <li><a href="./privacy.html" className="flex min-h-[52px] items-center gap-3 px-3.5 py-2.5 hover:bg-muted/60"><RowIcon className="bg-info-soft text-info-foreground"><Shield /></RowIcon><span className="flex-1 text-[15px] font-medium">Privacy</span><ChevronRight className="size-4 text-muted-foreground/60" /></a></li>
       </Group>
       <GroupLabel>App</GroupLabel>

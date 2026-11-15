@@ -1,7 +1,8 @@
 # Public site and SEO
 
-The public pages are for Persian speakers (mainly Iranians, also Afghans) who want to learn Dutch. They are written
-in Persian (`lang="fa" dir="rtl"`), with every Dutch word marked `lang="nl" dir="ltr"`.
+The public pages are for Persian speakers (mainly Iranians, also Afghans) who want to learn Dutch. Every page exists
+in Persian at `/…` (`lang="fa" dir="rtl"`) and in Dutch at `/nl/…`, linked with `hreflang` (x-default: Persian).
+Dutch words are marked `lang="nl" dir="ltr"`, Persian fragments on Dutch pages `lang="fa" dir="rtl"`.
 
 `scripts/site/build-site.mjs` writes them after `vite build`, from the same content files as the app
 (`content/*.js` and the Persian pack in `locales/`). Adding a theme or grammar pattern adds its page, sitemap
@@ -38,8 +39,8 @@ Technical setup:
 - `llms.txt` summarises the site for AI assistants; `llms-full.txt` holds all words, phrases, dialogues and
   grammar in plain text.
 - Pages are static HTML with one small script (light/dark theme); no content depends on JavaScript.
-- Images: theme scenes from the app, `src/site/img/hero.webp`, `inburgering.webp` and the share images
-  `og.jpg` / `inburgering-og.jpg` (made with Codex image generation in the app's illustration style).
+- Images: the 3D mascot scenes from the app (themes, games, sections), `src/site/img/hero.webp`, `inburgering.webp`,
+  `logo.png` and the share images `og.jpg` / `inburgering-og.jpg`, all made with Codex image generation.
 
 Search Console: the `nedfa.nl` domain property is verified with a DNS TXT record in Cloudflare; the sitemap
 `https://nedfa.nl/sitemap.xml` is submitted there.

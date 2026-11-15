@@ -39,7 +39,7 @@ export function GameList({theme, onPick}: {theme: string; onPick?: () => void}) 
               const record = records[id];
               return (
                 <Row key={id} onClick={() => { onPick?.(); playGame(id, theme); }} chevron={false} label={`${game.title} spelen`}
-                  leading={<img src={game.image} alt="" className="size-11 shrink-0 rounded-lg object-cover" draggable={false} loading="lazy" />}
+                  leading={<img src={game.image} alt="" className="size-12 shrink-0 rounded-xl bg-[#fcfaf6] object-cover" draggable={false} loading="lazy" />}
                   title={game.title} detail={`${game.length} · ${record ? `record ${record.best}` : 'nog niet gespeeld'}`}
                   trailing={<Play className="size-4 shrink-0 fill-current text-primary" aria-hidden />} />
               );
@@ -103,7 +103,7 @@ function GameIntro({game, theme, onStart}: {game: GameInfo; theme: string; onSta
         <Button variant="ghost" size="icon" className="-ml-2" onClick={() => close()} aria-label="Sluiten"><X className="size-6" /></Button>
         {record && <Badge variant="xp" className="h-7 px-2.5 text-sm"><Trophy />Record {record.best}</Badge>}
       </div>
-      <img src={game.image} alt="" className="mt-2 aspect-[16/9] w-full rounded-2xl border object-cover" draggable={false} />
+      <img src={game.image} alt="" className="mx-auto mt-2 aspect-square w-full max-w-64 rounded-3xl bg-[#fcfaf6] object-cover" draggable={false} />
       <div className="mt-5 flex flex-wrap items-center gap-2">
         <Badge className={game.tint}>{game.skill}</Badge>
         <Badge variant="outline"><Timer />{game.length}</Badge>

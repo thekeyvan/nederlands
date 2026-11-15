@@ -1,9 +1,10 @@
-import {Bike, Check, Flame, MessageCircle, RotateCcw, Sparkles, Star} from 'lucide-react';
+import {Bike, Check, Flame, Star} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Progress} from '@/components/ui/progress';
 import {Stamp} from '@/components/game/stamp';
 import {cn} from '@/lib/utils';
+import {practiceScene} from '@/lib/illustrations';
 import {plural} from '@/lib/text';
 import {dailyMissions, stamps, type GameStats} from '@/core/game.js';
 import type {ReviewEvent} from '@/core/types';
@@ -71,8 +72,7 @@ export function LevelCard({stats, className}: {stats: GameStats; className?: str
   );
 }
 
-const missionIcons = {rotate: RotateCcw, sparkles: Sparkles, message: MessageCircle};
-const missionTints = {rotate: 'bg-info-soft text-info-foreground', sparkles: 'bg-accent text-accent-foreground', message: 'bg-lavender text-lavender-foreground'};
+const missionPictures = {rotate: 'fouten', sparkles: 'woorden', message: 'zinnen'} as const;
 
 export function MissionsCard({events, className}: {events: ReviewEvent[]; className?: string}) {
   const missions = dailyMissions(events);
@@ -85,10 +85,12 @@ export function MissionsCard({events, className}: {events: ReviewEvent[]; classN
       </CardHeader>
       <CardContent className="flex flex-col gap-3 px-4">
         {missions.map((mission) => {
-          const Icon = mission.done ? Check : missionIcons[mission.icon];
           return (
             <div key={mission.id} className="flex items-center gap-3">
-              <span className={cn('grid size-9 shrink-0 place-items-center rounded-lg', mission.done ? 'bg-success text-white' : missionTints[mission.icon])}><Icon className="size-4" aria-hidden /></span>
+              <span className="relative shrink-0">
+                <img src={practiceScene(missionPictures[mission.icon])} alt="" className={cn('size-11 rounded-xl bg-[#fcfaf6]', mission.done && 'opacity-60')} draggable={false} />
+                {mission.done && <span className="absolute -end-1 -bottom-1 grid size-5 place-items-center rounded-full bg-success text-white ring-2 ring-card"><Check className="size-3" aria-hidden /></span>}
+              </span>
               <div className="min-w-0 flex-1">
                 <p className={cn('text-sm font-medium', mission.done && 'text-muted-foreground line-through decoration-success/60')}>{mission.title}</p>
                 <Progress value={(mission.count / mission.target) * 100} className="mt-1.5 h-1.5" indicatorClassName={mission.done ? 'bg-success' : undefined} aria-label={`${mission.title}: ${mission.count} van ${mission.target}`} />

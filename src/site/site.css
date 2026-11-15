@@ -3,6 +3,9 @@ html[lang="fa"] body {
   font-family: var(--font-fa);
   line-height: 1.85;
 }
+[lang="fa"] {
+  font-family: var(--font-fa);
+}
 [lang="nl"] {
   font-family: var(--font-sans);
   line-height: 1.6;

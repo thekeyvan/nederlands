@@ -1,11 +1,13 @@
 import {useMemo, useState} from 'react';
-import {ArrowRight, ChevronDown, Flame, Layers, MapPin, MessageSquare, Puzzle, RotateCcw} from 'lucide-react';
+import {ArrowRight, ChevronDown, Flame} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Select, SelectContent, SelectItem, SelectTrigger} from '@/components/ui/select';
 import {GoalRing} from '@/components/game/goal-ring';
 import {ThemeArt} from '@/components/game/theme-art';
-import {Group, GroupLabel, Row, RowIcon, ScreenTitle} from '@/components/app/list';
+import {Group, GroupLabel, Row, ScreenTitle} from '@/components/app/list';
+import {Mascot} from '@/components/game/mascot';
+import {practiceScene, sceneFor} from '@/lib/illustrations';
 import {SignInNudge} from '@/components/app/sign-in';
 import {Page} from '@/components/page';
 import {useGame} from '@/hooks/use-progress';
@@ -43,10 +45,10 @@ export function OefenenScreen() {
   const step = game.route.steps[game.route.current];
 
   const rows = [
-    {id: 'woorden', title: 'Woorden', icon: Layers, tint: 'bg-accent text-accent-foreground', count: counts.woorden, run: () => start({theme, type: 'woorden', label: themeTitle ? `${themeTitle} · woorden` : 'Woorden'})},
-    {id: 'praktisch', title: 'Handige zinnen', icon: MessageSquare, tint: 'bg-info-soft text-info-foreground', count: counts.praktisch, run: () => start({theme, type: 'praktisch', label: themeTitle ? `${themeTitle} · zinnen` : 'Handige zinnen'})},
-    {id: 'zinnen', title: 'Zinsbouw', icon: Puzzle, tint: 'bg-lavender text-lavender-foreground', count: counts.zinnen, run: () => start({theme: 'zinsbouw', type: 'zinnen', label: 'Zinsbouw'})},
-    {id: 'fouten', title: 'Mijn fouten', icon: RotateCcw, tint: 'bg-destructive-soft text-destructive-foreground', count: mistakes.length, run: () => start({queue: mistakes, label: 'Mijn fouten'})},
+    {id: 'woorden', title: 'Woorden', image: practiceScene('woorden'), count: counts.woorden, run: () => start({theme, type: 'woorden', label: themeTitle ? `${themeTitle} · woorden` : 'Woorden'})},
+    {id: 'praktisch', title: 'Handige zinnen', image: practiceScene('zinnen'), count: counts.praktisch, run: () => start({theme, type: 'praktisch', label: themeTitle ? `${themeTitle} · zinnen` : 'Handige zinnen'})},
+    {id: 'zinnen', title: 'Zinsbouw', image: practiceScene('zinsbouw'), count: counts.zinnen, run: () => start({theme: 'zinsbouw', type: 'zinnen', label: 'Zinsbouw'})},
+    {id: 'fouten', title: 'Mijn fouten', image: practiceScene('fouten'), count: mistakes.length, run: () => start({queue: mistakes, label: 'Mijn fouten'})},
   ];
 
   return (
@@ -67,6 +69,7 @@ export function OefenenScreen() {
                 <h2 id="daily-title" className="text-lg font-bold sm:text-xl">{today >= goal ? 'Dagdoel gehaald' : 'Dagrondje'}</h2>
                 <p className="text-sm opacity-75">{daily.length ? `${daily.length} kaartjes · ± ${Math.max(2, Math.round(daily.length * 0.4))} min` : 'Alles is herhaald'}</p>
               </div>
+              <Mascot mood={today >= goal ? 'cheer' : daily.length ? 'wave' : 'sleep'} className="size-16 shrink-0 sm:size-20" />
             </div>
             <Button size="xl" game className="mt-4 w-full" disabled={!daily.length} onClick={() => start({queue: daily, label: 'Dagrondje', theme: due ? 'all' : resumeId})}>
               {today >= goal ? 'Nog een rondje' : 'Start'}<ArrowRight />
@@ -88,7 +91,7 @@ export function OefenenScreen() {
             <Group>
               {rows.map((row) => (
                 <Row key={row.id} onClick={row.count ? row.run : undefined} label={`${row.title}: ${row.count} kaartjes`}
-                  leading={<RowIcon className={row.tint}><row.icon /></RowIcon>} title={row.title} className={row.count ? undefined : 'opacity-50'}
+                  leading={<img src={row.image} alt="" className="size-12 shrink-0 rounded-xl bg-[#fcfaf6] object-cover" draggable={false} />} title={row.title} className={row.count ? undefined : 'opacity-50'}
                   trailing={<span className="text-sm font-semibold text-primary tabular-nums">{row.count || '–'}</span>} />
               ))}
             </Group>
@@ -100,7 +103,7 @@ export function OefenenScreen() {
             <Row onClick={() => navigate('woorden', {theme: resume.id})} leading={<ThemeArt theme={resume} className="size-11 shrink-0 rounded-lg" />}
               title={resume.title} detail={resumeStats ? `${resumeStats.done} van ${resumeStats.total} geoefend` : undefined} />
             {step && (
-              <Row onClick={() => navigate('route', {step: game.route.current + 1})} leading={<RowIcon className="bg-success-soft text-success-foreground"><MapPin /></RowIcon>}
+              <Row onClick={() => navigate('route', {step: game.route.current + 1})} leading={<img src={sceneFor('route')} alt="" className="size-11 shrink-0 rounded-lg bg-[#fcfaf6] object-cover" draggable={false} />}
                 title={`Halte ${game.route.current + 1}: ${step.lesson.title}`} detail={`Route · ${step.done} van ${step.total} geoefend`} />
             )}
           </Group>

@@ -114,7 +114,7 @@ export function FeedbackBar({tone, title, children, onNext}: {tone: 'success' | 
       tone === 'wrong' && 'border-destructive/30 bg-destructive-soft text-destructive-foreground')}>
       <div className="mx-auto flex max-w-3xl flex-col gap-3 lg:flex-row lg:items-center">
         <div className="min-w-0 flex-1">
-          <p className="text-lg font-bold">{title}</p>
+          <p className="flex items-center gap-2 text-lg font-bold"><Mascot mood={tone === 'wrong' ? 'think' : 'cheer'} className="size-11 animate-pop" />{title}</p>
           {children}
         </div>
         <Button ref={ref} size="xl" game variant={tone === 'success' ? 'success' : tone === 'close' ? 'default' : 'destructive'} className="w-full lg:w-auto" onClick={onNext}>Verder<ArrowRight /></Button>

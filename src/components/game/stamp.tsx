@@ -7,8 +7,8 @@ export function Stamp({id, earned, className, showLabel = false}: {id: StampId; 
   const stamp = stamps.find((item) => item.id === id)!;
   return (
     <figure className={cn('flex flex-col items-center gap-1.5 text-center', className)}>
-      <span className="relative block aspect-square w-full overflow-hidden rounded-full bg-[#fcfaf6]">
-        <img src={stampFor(id)} alt="" className={cn('size-full object-cover transition', !earned && 'opacity-30 grayscale')} draggable={false} />
+      <span className="relative block aspect-square w-full overflow-hidden rounded-[28%] bg-[#fcfaf6]">
+        <img src={stampFor(id)} alt="" className={cn('size-full object-contain transition', !earned && 'opacity-30 grayscale')} draggable={false} />
         {!earned && (
           <span className="absolute inset-0 grid place-items-center">
             <Lock className="size-4 text-slate-500" aria-hidden />

@@ -453,6 +453,7 @@ function Feedback({card, mode, outcome, onNext}: {card: LearningCard; mode: Mode
       <div className="mx-auto flex max-w-3xl flex-col gap-3 lg:flex-row lg:items-center">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
+            <Mascot mood={outcome.result === 'wrong' ? 'think' : 'cheer'} className="size-11 animate-pop" />
             <Icon className="size-6 shrink-0" aria-hidden />
             <p className="text-lg font-bold">{title}</p>
             <Badge className="relative ml-auto bg-card text-xp-foreground lg:ml-2"><Star />+{xpForGrade(outcome.grade)} XP

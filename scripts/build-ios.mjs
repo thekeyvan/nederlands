@@ -9,7 +9,7 @@ let key = process.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY || '';
 let appleWeb = process.env.PUBLIC_APPLE_WEB_SIGNIN === '1';
 if (!url || !key) {
   // Fall back to the live site's public settings (the same values any visitor's browser receives).
-  const response = await fetch('https://nederlands.keyvanmahmoudi.com/deployment-config.json');
+  const response = await fetch('https://nedfa.nl/deployment-config.json');
   ({url, key} = await response.json());
 }
 if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url) || !key?.startsWith('sb_publishable_')) throw new Error('Missing public Supabase settings.');

@@ -1,7 +1,7 @@
-import type {Card} from '@/core/types';
-import {examplesFor, type GrammarExample} from '@/core/grammar-examples.js';
-import {builderItem} from '@/core/games.js';
-import {seededRandom, shuffle} from '@/core/practice.js';
+import type {Card} from '../core/types.ts';
+import {examplesFor, type GrammarExample} from '../core/grammar-examples.js';
+import {builderItem} from '../core/games.js';
+import {seededRandom, shuffle} from '../core/practice.js';
 
 const endPunctuation = /[.?!…]+$/;
 const bare = (token: string) => token.replace(/^[„“"'(]+|[.,!?;:…"”')]+$/g, '');

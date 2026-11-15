@@ -8,3 +8,5 @@ deployment-config.json
 dist-native/
 docs/app-store-screenshots/
 .venv-audio/
+ios-native/Nedfa/Resources/*.json
+ios-native/Nedfa.xcodeproj/

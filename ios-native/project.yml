@@ -1,0 +1,71 @@
+# The native SwiftUI app. Generate the Xcode project with: xcodegen generate (in ios-native/).
+name: Nedfa
+options:
+  bundleIdPrefix: com.keyvanmahmoudi
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: nl
+  createIntermediateGroups: true
+packages:
+  Supabase:
+    url: https://github.com/supabase/supabase-swift
+    from: 2.20.0
+settings:
+  base:
+    DEVELOPMENT_TEAM: 95YDC2AP63
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "9"
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+targets:
+  Nedfa:
+    type: application
+    platform: iOS
+    sources:
+      - path: Nedfa
+        excludes:
+          - "Resources/*.json"
+      - path: Nedfa/Resources/content.json
+        buildPhase: resources
+      - path: Nedfa/Resources/config.json
+        buildPhase: resources
+      - path: ../public/assets/audio
+        type: folder
+        buildPhase: resources
+      - path: ../src/assets/illustrations
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: Supabase
+        product: Supabase
+    entitlements:
+      path: Nedfa/Nedfa.entitlements
+      properties:
+        com.apple.developer.applesignin: [Default]
+    info:
+      path: Nedfa/Info.plist
+      properties:
+        CFBundleDisplayName: Nedfa
+        CFBundleDevelopmentRegion: nl
+        ITSAppUsesNonExemptEncryption: false
+        LSApplicationCategoryType: public.app-category.education
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+          UIImageName: LaunchMascot
+          UIImageRespectsSafeAreaInsets: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIRequiredDeviceCapabilities: [arm64]
+        CFBundleURLTypes:
+          - CFBundleURLName: com.keyvanmahmoudi.nederlands
+            CFBundleURLSchemes: [com.keyvanmahmoudi.nederlands]
+        UIBackgroundModes: []
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.keyvanmahmoudi.nederlands
+        PRODUCT_NAME: Nedfa
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        ENABLE_PREVIEWS: YES

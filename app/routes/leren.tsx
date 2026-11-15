@@ -28,7 +28,7 @@ export const links: Route.LinksFunction = () => [{rel: 'manifest', href: '/manif
 function Loading() {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-4" role="status">
-      <img src="/img/logo.png" alt="" width={88} height={88} className="size-22 animate-pulse rounded-3xl" />
+      <img src="/img/logo.png" alt="" width={88} height={88} className="size-22 rounded-3xl" />
       <p className="text-sm font-medium text-muted-foreground">Even laden…</p>
       <noscript><p className="max-w-xs px-6 text-center text-sm">Zet JavaScript aan om te oefenen. De <a className="underline" href="/privacy">privacyinformatie</a> kun je ook zonder bekijken.</p></noscript>
     </div>

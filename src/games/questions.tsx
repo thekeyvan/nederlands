@@ -42,7 +42,7 @@ function QuestionRun({game, theme, onAgain, roundId, questions}: Props & {roundI
     <GameFrame>
       <GameBar game={game} progress={index / questions.length} score={score} theme={theme} />
       <p className="mt-2 text-center text-xs text-muted-foreground tabular-nums">{index + 1} / {questions.length}</p>
-      <div key={question.key} className="mt-6 flex animate-pop flex-col gap-6 sm:mt-10">
+      <div key={question.key} className="mt-6 flex flex-col gap-6 sm:mt-10">
         {question.prompt}
         <ChoiceGrid options={question.options} picked={picked} onPick={choose} />
       </div>

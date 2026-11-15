@@ -30,7 +30,7 @@ export function RouteStrip({route, className}: {route: Route; className?: string
             <li key={step.lesson.id} className="relative">
               <button type="button" onClick={() => navigate('route', {step: index + 1})} className="group flex w-full flex-col items-center gap-2 rounded-lg focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                 aria-label={`Halte ${index + 1}: ${step.lesson.title}, ${step.done} van ${step.total} geoefend`}>
-                {state === 'now' && <Mascot mood="wave" className="absolute -top-10 size-10 animate-pop" />}
+                {state === 'now' && <Mascot mood="wave" className="absolute -top-10 size-10" />}
                 <StopMarker state={state} className="size-12 group-hover:scale-105" label={step.complete ? <Check className="size-5" /> : last ? <Trophy className="size-5" /> : index + 1} />
                 <span className={cn('text-[11px] leading-tight', state === 'open' ? 'text-muted-foreground' : 'font-semibold')}>{short[index] ?? step.lesson.title}</span>
               </button>

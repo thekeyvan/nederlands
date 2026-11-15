@@ -50,7 +50,7 @@ export function ArticleGame({game, theme, onAgain}: Props) {
     <GameFrame>
       <GameBar game={game} seconds={left} score={score} theme={theme} />
       <div className="flex flex-1 flex-col items-center justify-center gap-8 py-10 text-center">
-        <div key={index} className="w-full min-w-0 animate-pop">
+        <div key={index} className="w-full min-w-0">
           <p className="text-sm font-semibold text-muted-foreground">De of het?</p>
           <h1 className={cn('mt-3 font-extrabold tracking-tight', wordSize(item.noun), picked && (right ? 'text-success-foreground' : 'text-destructive-foreground'))} lang="nl">
             {picked ? <><span className="underline decoration-4 underline-offset-8">{item.article}</span> {item.noun}</> : item.noun}
@@ -63,7 +63,7 @@ export function ArticleGame({game, theme, onAgain}: Props) {
               className={cn('h-28 rounded-2xl border-2 text-4xl font-extrabold shadow-[0_5px_0_var(--border)] transition focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none active:translate-y-1 active:shadow-none',
                 article === 'de' ? 'border-primary/40 bg-accent text-accent-foreground' : 'border-secondary/40 bg-info-soft text-info-foreground',
                 picked && article === item.article && 'border-success bg-success-soft text-success-foreground',
-                picked === article && article !== item.article && 'animate-wiggle border-destructive bg-destructive-soft text-destructive-foreground')}>
+                picked === article && article !== item.article && 'border-destructive bg-destructive-soft text-destructive-foreground')}>
               {article}
               <span className="mt-1 hidden text-[11px] font-medium opacity-60 [@media(hover:hover)]:block">{article === 'de' ? 'D of ←' : 'H of →'}</span>
             </button>
@@ -101,7 +101,7 @@ export function RaceGame({game, theme, onAgain}: Props) {
   return (
     <GameFrame>
       <GameBar game={game} seconds={left} score={score} theme={theme} />
-      <div key={index} className="mt-8 flex animate-pop flex-col gap-6 sm:mt-12">
+      <div key={index} className="mt-8 flex flex-col gap-6 sm:mt-12">
         <div className="flex items-center gap-3">
           <ListenButton text={card.nl!} variant="info" size="icon-lg" className="size-12 rounded-xl" />
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang="nl">{card.nl}</h1>

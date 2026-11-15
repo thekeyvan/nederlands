@@ -131,10 +131,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-sidebar: var(--sidebar);
-  --animate-pop: pop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1);
-  --animate-float-up: float-up 0.9s ease-out forwards;
-  --animate-wiggle: wiggle 0.4s ease-in-out;
-  --animate-confetti: confetti 1.6s ease-out forwards;
 }
 
 /* Mascot moments (src/components/game/mascot-actor.tsx): played once, only the character moves. */
@@ -181,23 +177,6 @@
   .mascot-star { display: none; }
 }
 
-@keyframes pop {
-  0% { transform: scale(0.85); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-@keyframes float-up {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-36px); opacity: 0; }
-}
-@keyframes wiggle {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-@keyframes confetti {
-  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
-  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; }
-}
 
 @layer base {
   * {

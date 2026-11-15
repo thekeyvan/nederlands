@@ -3,8 +3,7 @@ import {ArrowRight, Check, RotateCcw, Timer, Trophy, X, Zap} from 'lucide-react'
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Progress} from '@/components/ui/progress';
-import {Confetti} from '@/components/game/confetti';
-import {Mascot} from '@/components/game/mascot';
+import {MascotActor} from '@/components/game/mascot-actor';
 import {ListenButton} from '@/components/listen-button';
 import {Translation} from '@/components/translation';
 import {cn} from '@/lib/utils';
@@ -32,7 +31,7 @@ export function GameBar({game, progress, seconds, score}: {game: GameInfo; progr
       ) : (
         <Progress value={(progress ?? 0) * 100} className="h-3.5 flex-1 bg-success/15" indicatorClassName="bg-success" aria-label={`${game.title}: voortgang`} />
       )}
-      <Badge key={score} variant="xp" className="h-7 animate-pop px-2.5 text-sm tabular-nums"><Check />{score}</Badge>
+      <Badge key={score} variant="xp" className="h-7 px-2.5 text-sm tabular-nums"><Check />{score}</Badge>
     </div>
   );
 }
@@ -78,8 +77,8 @@ export function ChoiceGrid({options, picked, onPick, translated = false, columns
             <button type="button" disabled={picked !== null} onClick={() => pick(index)}
               className={cn('flex min-h-14 w-full items-center gap-3 rounded-xl border-2 bg-card px-4 py-3 text-left font-medium shadow-[0_3px_0_var(--border)] transition focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none',
                 state === 'idle' && 'hover:-translate-y-0.5 hover:border-primary/40 active:translate-y-0.5 active:shadow-none',
-                state === 'right' && 'animate-pop border-success bg-success-soft text-success-foreground shadow-[0_3px_0_var(--success)]',
-                state === 'wrong' && 'animate-wiggle border-destructive bg-destructive-soft text-destructive-foreground shadow-[0_3px_0_var(--destructive)]',
+                state === 'right' && 'border-success bg-success-soft text-success-foreground shadow-[0_3px_0_var(--success)]',
+                state === 'wrong' && 'border-destructive bg-destructive-soft text-destructive-foreground shadow-[0_3px_0_var(--destructive)]',
                 state === 'dim' && 'opacity-45')}>
               <kbd className="hidden size-6 shrink-0 place-items-center rounded-md border text-[11px] font-semibold text-muted-foreground sm:grid">{index + 1}</kbd>
               {state === 'right' && <Check className="size-5 shrink-0" aria-label="goed" />}
@@ -115,7 +114,7 @@ export function FeedbackBar({tone, title, children, onNext}: {tone: 'success' | 
       tone === 'wrong' && 'border-destructive/30 bg-destructive-soft text-destructive-foreground')}>
       <div className="mx-auto flex max-w-3xl flex-col gap-3 lg:flex-row lg:items-center">
         <div className="min-w-0 flex-1">
-          <p className="flex items-center gap-2 text-lg font-bold"><Mascot mood={tone === 'wrong' ? 'think' : 'cheer'} className="size-11 animate-pop" />{title}</p>
+          <p className="flex items-center gap-2 text-lg font-bold"><MascotActor pose={tone === 'wrong' ? 'oops' : 'cheer'} moment={tone === 'wrong' ? 'nope' : 'hop'} className="-my-2 size-14" />{title}</p>
           {children}
         </div>
         <Button ref={ref} size="xl" game variant={tone === 'success' ? 'success' : tone === 'close' ? 'default' : 'destructive'} className="w-full lg:w-auto" onClick={onNext}>Verder<ArrowRight /></Button>
@@ -144,8 +143,7 @@ export function GameOver({game, roundId, score, total, misses, onAgain}: {game: 
   const cards = [...new Map(misses.filter((miss) => miss.card).map((miss) => [miss.card!.id, miss.card!])).values()];
   return (
     <div className="relative mx-auto flex min-h-dvh w-full max-w-xl flex-col items-center px-4 pt-8 pb-10 text-center">
-      {result.isBest && score > 0 && <Confetti />}
-      <Mascot mood={good ? 'cheer' : 'think'} className="size-36 animate-pop sm:size-44" label="De mascotte" />
+      <MascotActor pose={good ? 'cheer' : 'oops'} moment={good ? 'double' : 'nope'} stars={good} delay={200} className="size-40 sm:size-48" label="De mascotte" />
       <p className="mt-4 text-xs font-semibold tracking-wider text-primary uppercase">{game.title}</p>
       <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">{total ? `${score} van de ${total} goed` : `${score} goed!`}</h1>
       <p className="mt-1 text-muted-foreground">

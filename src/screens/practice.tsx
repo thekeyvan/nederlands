@@ -4,7 +4,6 @@ import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Progress} from '@/components/ui/progress';
-import {Confetti} from '@/components/game/confetti';
 import {Mascot} from '@/components/game/mascot';
 import {MascotActor} from '@/components/game/mascot-actor';
 import {Stamp} from '@/components/game/stamp';
@@ -64,7 +63,7 @@ function SessionView({session}: {session: Session}) {
           confirm={session.results.length > 0 && session.results.length < session.queue.length} onQuit={() => close()} />
         <Progress value={(session.results.length / session.queue.length) * 100} className="h-3.5 flex-1 bg-success/15" indicatorClassName="bg-success" aria-label={`Kaartje ${session.index + 1} van ${session.queue.length}`} />
         {session.combo >= 2 ? (
-          <Badge key={session.combo} variant="streak" className="animate-pop h-7 px-2.5 text-sm"><Flame />{session.combo}×</Badge>
+          <Badge key={session.combo} variant="streak" className="h-7 px-2.5 text-sm"><Flame />{session.combo}×</Badge>
         ) : (
           <Badge variant="xp" className="h-7 px-2.5 text-sm"><Star />+{xp}</Badge>
         )}
@@ -137,8 +136,8 @@ function OptionList({options, chosen, outcome, translated, onPick}: {options: Op
             <button type="button" disabled={Boolean(outcome)} onClick={() => onPick(option)}
               className={cn('flex min-h-14 w-full items-center gap-3 rounded-xl border-2 bg-card px-4 py-3 text-left font-medium shadow-[0_3px_0_var(--border)] transition focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none',
                 state === 'idle' && 'hover:-translate-y-0.5 hover:border-primary/40 active:translate-y-0.5 active:shadow-none',
-                state === 'right' && 'animate-pop border-success bg-success-soft text-success-foreground shadow-[0_3px_0_var(--success)]',
-                state === 'wrong' && 'animate-wiggle border-destructive bg-destructive-soft text-destructive-foreground shadow-[0_3px_0_var(--destructive)]',
+                state === 'right' && 'border-success bg-success-soft text-success-foreground shadow-[0_3px_0_var(--success)]',
+                state === 'wrong' && 'border-destructive bg-destructive-soft text-destructive-foreground shadow-[0_3px_0_var(--destructive)]',
                 state === 'dim' && 'opacity-45')}>
               <kbd className={cn('hidden size-6 shrink-0 place-items-center rounded-md border text-[11px] font-semibold text-muted-foreground sm:grid', state === 'right' && 'border-success text-success-foreground', state === 'wrong' && 'border-destructive text-destructive-foreground')}>{index + 1}</kbd>
               {state === 'right' && <Check className="size-5 shrink-0" aria-label="goed" />}
@@ -230,7 +229,7 @@ function AnswerInput({value, onChange, onSubmit, disabled, outcome, placeholder,
   return (
     <form onSubmit={(event) => { event.preventDefault(); if (!disabled) onSubmit(); }} className={cn('flex flex-col gap-3 sm:flex-row', className)}>
       <Input ref={ref} value={value} onChange={(event) => onChange(event.target.value)} disabled={disabled} placeholder={placeholder} lang="nl" autoCapitalize="off" autoCorrect="off" autoComplete="off" spellCheck={false}
-        className={cn('h-14 flex-1 bg-card text-lg', outcome?.result === 'correct' && 'border-success bg-success-soft', outcome?.result === 'close' && 'border-xp bg-xp-soft', outcome?.result === 'wrong' && 'animate-wiggle border-destructive bg-destructive-soft')} aria-label="Jouw antwoord" />
+        className={cn('h-14 flex-1 bg-card text-lg', outcome?.result === 'correct' && 'border-success bg-success-soft', outcome?.result === 'close' && 'border-xp bg-xp-soft', outcome?.result === 'wrong' && 'border-destructive bg-destructive-soft')} aria-label="Jouw antwoord" />
       {!outcome && <Button type="submit" size="xl" game disabled={!value.trim()}>Controleer</Button>}
     </form>
   );
@@ -315,7 +314,7 @@ function OrderCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outc
         <span className="rounded-lg bg-secondary px-3 py-2 font-semibold text-secondary-foreground">{item.first}</span>
         {chosen.map((id) => (
           <button key={id} type="button" disabled={Boolean(outcome)} onClick={() => setChosen(chosen.filter((value) => value !== id))}
-            className="animate-pop rounded-lg border-2 border-primary/40 bg-accent px-3 py-2 font-semibold text-accent-foreground">
+            className="rounded-lg border-2 border-primary/40 bg-accent px-3 py-2 font-semibold text-accent-foreground">
             {item.tiles.find((tile) => tile.id === id)!.text}
           </button>
         ))}
@@ -384,7 +383,7 @@ function FlashCard({card, onRate}: {card: LearningCard; onRate: (grade: number) 
         <h1 className="text-2xl font-bold sm:text-3xl" lang="nl">{grammar ? card.prompt : card.nl}</h1>
         <Translation className="mt-2 text-sm text-muted-foreground">{t(grammar ? 'grammarHint' : 'meaningHint')}</Translation>
         {revealed && (
-          <div className="mt-5 flex animate-pop flex-col items-center gap-2 border-t pt-5">
+          <div className="mt-5 flex flex-col items-center gap-2 border-t pt-5">
             {grammar ? (
               <>
                 <p className="text-xl font-bold text-primary" lang="nl">{card.answer}</p>
@@ -460,7 +459,6 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
             <Icon className="size-6 shrink-0" aria-hidden />
             <p className="text-lg font-bold">{title}</p>
             <Badge className="relative ml-auto bg-card text-xp-foreground lg:ml-2"><Star />+{xpForGrade(outcome.grade)} XP
-              <span aria-hidden className="animate-float-up pointer-events-none absolute inset-x-0 -top-1 text-center text-xs font-bold">+{xpForGrade(outcome.grade)}</span>
             </Badge>
           </div>
           {mode === 'choose' && outcome.result !== 'correct' && <p className="mt-1 text-lg font-semibold"><span lang="nl">{card.nl}</span> = <Translation as="span">{card.meaning}</Translation></p>}
@@ -532,13 +530,13 @@ function RoundComplete({session}: {session: Session}) {
       </div>
       {session.bestCombo >= 3 && <p className="mt-3 flex items-center gap-1.5 text-sm font-medium"><Zap className="size-4 text-primary" />Beste combo: {session.bestCombo} goed op rij</p>}
       {levelUp && (
-        <div className="mt-4 flex w-full animate-pop items-center gap-3 rounded-xl border-2 border-xp bg-xp-soft p-3 text-left">
+        <div className="mt-4 flex w-full items-center gap-3 rounded-xl border-2 border-xp bg-xp-soft p-3 text-left">
           <span className="grid size-12 shrink-0 place-items-center rounded-lg bg-xp text-xl font-extrabold text-white shadow-[0_3px_0_var(--xp-edge)]">{game.level.number}</span>
           <div><p className="font-bold">Nieuw niveau: {game.level.name}!</p><p className="text-sm text-muted-foreground">{game.level.next ? `Volgende: ${game.level.next.name}` : 'Het hoogste niveau.'}</p></div>
         </div>
       )}
       {newStamps.map((stamp) => (
-        <div key={stamp.id} className="mt-4 flex w-full animate-pop items-center gap-3 rounded-xl border-2 border-dashed border-primary/40 bg-card p-3 text-left">
+        <div key={stamp.id} className="mt-4 flex w-full items-center gap-3 rounded-xl border-2 border-dashed border-primary/40 bg-card p-3 text-left">
           <Stamp id={stamp.id} earned className="w-16 shrink-0" />
           <div><p className="flex items-center gap-1.5 font-bold"><Sparkles className="size-4 text-primary" />Nieuwe stempel: {stamp.title}</p><p className="text-sm text-muted-foreground">{stamp.description}</p></div>
         </div>
@@ -599,7 +597,6 @@ function PairsGame({cards, onDone}: {cards: LearningCard[]; onDone: () => void})
       </div>
       {finished ? (
         <div className="relative flex flex-1 flex-col items-center justify-center gap-3 text-center">
-          <Confetti pieces={24} />
           <Trophy className="size-16 text-xp" />
           <h1 className="text-3xl font-extrabold">Alle paren in {time}!</h1>
           <p className="text-muted-foreground">Een bonus voor de fun. Je planning verandert er niet door.</p>
@@ -617,7 +614,7 @@ function PairsGame({cards, onDone}: {cards: LearningCard[]; onDone: () => void})
                   className={cn('min-h-16 rounded-xl border-2 bg-card px-3 py-3 font-medium shadow-[0_3px_0_var(--border)] transition focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none',
                     selected === tile.key && 'border-secondary bg-info-soft',
                     done && 'border-success bg-success-soft text-success-foreground opacity-60 shadow-none',
-                    isWrong && 'animate-wiggle border-destructive bg-destructive-soft')}>
+                    isWrong && 'border-destructive bg-destructive-soft')}>
                   {tile.dutch ? <span lang="nl">{tile.label}</span> : <Translation as="span">{tile.label}</Translation>}
                 </button>
               );

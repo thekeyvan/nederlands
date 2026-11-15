@@ -6,6 +6,7 @@ import {Input} from '@/components/ui/input';
 import {Progress} from '@/components/ui/progress';
 import {Confetti} from '@/components/game/confetti';
 import {Mascot} from '@/components/game/mascot';
+import {MascotActor} from '@/components/game/mascot-actor';
 import {Stamp} from '@/components/game/stamp';
 import {ListenButton} from '@/components/listen-button';
 import {Page} from '@/components/page';
@@ -69,13 +70,13 @@ function SessionView({session}: {session: Session}) {
         )}
       </div>
       <p className="mt-2 text-center text-xs text-muted-foreground tabular-nums">{session.index + 1} / {session.queue.length}{session.options.label ? ` · ${session.options.label}` : card.themeTitle ? ` · ${card.themeTitle}` : ''}</p>
-      <CardRunner key={`${session.id}:${session.index}`} card={card} position={session.index} answered={answered}
+      <CardRunner key={`${session.id}:${session.index}`} card={card} position={session.index} answered={answered} combo={session.combo}
         onAnswer={(outcome) => answer(outcome.grade, outcome.correct)} onNext={next} />
     </div>
   );
 }
 
-function CardRunner({card, position, answered, onAnswer, onNext}: {card: LearningCard; position: number; answered: boolean; onAnswer: (outcome: Outcome) => void; onNext: () => void}) {
+function CardRunner({card, position, answered, combo, onAnswer, onNext}: {card: LearningCard; position: number; answered: boolean; combo: number; onAnswer: (outcome: Outcome) => void; onNext: () => void}) {
   // The mode is fixed when the card appears, so it does not change once the answer is saved.
   const [mode] = useState<Mode>(() => card.mode ?? chooseMode(card, getProgress().reviews[card.id], position));
   const [outcome, setOutcome] = useState<Outcome | null>(null);
@@ -100,7 +101,7 @@ function CardRunner({card, position, answered, onAnswer, onNext}: {card: Learnin
       {mode === 'order' && <OrderCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'pick' && <PickCard card={card} outcome={outcome} onSubmit={submit} />}
       {mode === 'flash' && <FlashCard card={card} onRate={(grade) => { onAnswer({grade, correct: grade >= 3, result: grade >= 3 ? 'correct' : 'wrong'}); onNext(); }} />}
-      {outcome && answered && mode !== 'flash' && <Feedback card={card} mode={mode} outcome={outcome} onNext={onNext} />}
+      {outcome && answered && mode !== 'flash' && <Feedback card={card} mode={mode} outcome={outcome} combo={combo} onNext={onNext} />}
     </div>
   );
 }
@@ -426,7 +427,7 @@ function FlashCard({card, onRate}: {card: LearningCard; onRate: (grade: number) 
 
 /* --------------------------------------------------------------- feedback */
 
-function Feedback({card, mode, outcome, onNext}: {card: LearningCard; mode: Mode; outcome: Outcome; onNext: () => void}) {
+function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mode: Mode; outcome: Outcome; combo: number; onNext: () => void}) {
   const ref = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     ref.current?.focus({preventScroll: true});
@@ -454,7 +455,8 @@ function Feedback({card, mode, outcome, onNext}: {card: LearningCard; mode: Mode
       <div className="mx-auto flex max-w-3xl flex-col gap-3 lg:flex-row lg:items-center">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <Mascot mood={outcome.result === 'wrong' ? 'think' : 'cheer'} className="size-11 animate-pop" />
+            <MascotActor pose={outcome.result === 'wrong' ? 'oops' : 'cheer'} className="size-14 -my-2"
+              moment={outcome.result === 'wrong' ? 'nope' : [3, 5, 10, 15, 20, 30].includes(combo) ? 'double' : 'hop'} />
             <Icon className="size-6 shrink-0" aria-hidden />
             <p className="text-lg font-bold">{title}</p>
             <Badge className="relative ml-auto bg-card text-xp-foreground lg:ml-2"><Star />+{xpForGrade(outcome.grade)} XP
@@ -520,8 +522,7 @@ function RoundComplete({session}: {session: Session}) {
 
   return (
     <div className="relative mx-auto flex min-h-dvh w-full max-w-xl flex-col items-center px-4 pt-8 pb-10 text-center">
-      <Confetti />
-      <Mascot mood="cheer" className="size-40 animate-pop sm:size-48" label="De mascotte juicht" />
+      <MascotActor pose="cheer" moment="double" stars delay={200} className="size-44 sm:size-52" label="De mascotte juicht" />
       <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Rondje klaar!</h1>
       <p className="text-muted-foreground">{right === results.length ? 'Alles goed. Wat knap!' : right >= results.length / 2 ? 'Lekker bezig. De moeilijke komen snel terug.' : 'Goed geoefend. Morgen gaat het al makkelijker.'}</p>
       <div className="mt-6 grid w-full grid-cols-3 gap-2.5">

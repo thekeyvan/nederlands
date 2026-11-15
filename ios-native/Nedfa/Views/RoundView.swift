@@ -29,7 +29,7 @@ struct RoundView: View {
                     CardRunner(card: card, position: index, outcome: $outcome, answer: answer)
                         .id("\(index)")
                         .padding(.horizontal)
-                        .safeAreaInset(edge: .bottom) { if let outcome { FeedbackPanel(card: card, outcome: outcome, next: next) } }
+                        .safeAreaInset(edge: .bottom) { if let outcome { FeedbackPanel(card: card, outcome: outcome, combo: combo, next: next) } }
                 } else {
                     RoundSummary(round: round, results: results, bestCombo: bestCombo, before: before, again: again, done: { dismiss() })
                         .statusBarScrim(.navy)
@@ -158,11 +158,12 @@ struct OptionList: View {
 
 /// The mascot asks; the word sits in a speech bubble with a listen button.
 struct PromptBubble<Content: View>: View {
-    var mood: Mood = .think
+    /// A card the learner got wrong last time: the mascot tilts its head and thinks.
+    var hard = false
     @ViewBuilder var content: () -> Content
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            Mascot(mood: mood, size: 84)
+            MascotActor(pose: .think, moment: hard ? .ponder : nil, size: 84, delay: 0.25)
             content()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16)
@@ -178,7 +179,7 @@ struct ChooseCard: View {
     let answer: (Outcome) -> Void
     var body: some View {
         Eyebrow(dutch ? "Hoe zeg je dit in het Nederlands?" : "Wat betekent dit?")
-        PromptBubble {
+        PromptBubble(hard: (Learner.shared.reviews[card.id]?.grade ?? 5) < 3) {
             if dutch {
                 Persian(text: card.meaning ?? "", font: .system(size: 26, weight: .bold), color: .primary)
             } else {
@@ -387,6 +388,8 @@ struct FlashCard: View {
 struct FeedbackPanel: View {
     let card: Card
     let outcome: Outcome
+    /// Right answers in a row, including this one; 3, 5, 10… get a double jump.
+    var combo = 0
     let next: () -> Void
     var body: some View {
         let good = outcome.result == .correct
@@ -396,7 +399,9 @@ struct FeedbackPanel: View {
         let answerText = whole ? card.example : card.kind == .grammar ? card.answer : card.nl
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                Mascot(mood: good || close ? .cheer : .think, size: 56)
+                MascotActor(pose: good || close ? .cheer : .oops,
+                            moment: good || close ? ([3, 5, 10, 15, 20, 30].contains(combo) ? .doubleHop : .hop) : .nope,
+                            size: 64)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(good ? "Top!" : close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.game(22, .black)).foregroundStyle(ink)
                     if outcome.result != .correct || card.kind == .grammar, let answerText { Text(answerText).font(.headline) }
@@ -452,7 +457,11 @@ struct RoundSummary: View {
                     }
                     .padding(.top, 30)
                 }
-                HeroMascot(mood: results.isEmpty ? .sleep : .cheer, size: 170).padding(.top, results.isEmpty ? 40 : 0)
+                if results.isEmpty {
+                    HeroMascot(mood: .sleep, size: 170).padding(.top, 40)
+                } else {
+                    MascotActor(pose: .cheer, moment: .doubleHop, size: 190, stars: true, delay: 0.2)
+                }
                 Text(results.isEmpty ? "Je bent weer bij." : "Rondje klaar!").font(.game(34, .black)).foregroundStyle(.white)
                 if !results.isEmpty {
                     Text(right == results.count ? "Alles goed. Wat knap!" : right * 2 >= results.count ? "Lekker bezig. De moeilijke komen snel terug." : "Goed geoefend. Morgen gaat het al makkelijker.").foregroundStyle(.white.opacity(0.75)).multilineTextAlignment(.center)

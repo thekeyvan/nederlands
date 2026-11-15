@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Mascot} from '@/components/game/mascot';
+import {MascotActor} from '@/components/game/mascot-actor';
 import {SignInButtons, SignInReasons, useCanSignIn} from '@/components/app/sign-in';
 import {Button} from '@/components/ui/button';
 import {useCloud} from '@/hooks/use-cloud';
@@ -43,7 +43,7 @@ export function WelcomeScreen({onDone}: {onDone: () => void}) {
     <main id="main" className="flex min-h-dvh flex-col bg-background" style={{paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)'}}>
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-6 pt-8 pb-6">
         <div className="flex flex-1 flex-col items-center justify-center text-center">
-          <Mascot mood="wave" className="size-36 animate-pop sm:size-44" label="De mascotte zwaait" />
+          <MascotActor pose="wave" moment="greet" delay={300} className="size-40 sm:size-48" label="De mascotte zwaait" />
           <p className="mt-6 text-xs font-semibold tracking-wider text-primary uppercase">Nedfa · Nederlands van nul tot B1</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Elke dag een beetje Nederlands.</h1>
           <p className="mt-3 text-muted-foreground">Thema’s met audio, spellen en slim herhalen. Een paar minuten per dag is genoeg.</p>

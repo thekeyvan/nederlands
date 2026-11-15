@@ -371,7 +371,7 @@ struct WelcomeView: View {
     var body: some View {
         VStack(spacing: 18) {
             Spacer()
-            Mascot(mood: .wave, size: 150)
+            MascotActor(pose: .wave, moment: .greet, size: 170, delay: 0.3)
             Text("NEDFA · NEDERLANDS VAN NUL TOT B1").font(.caption.weight(.bold)).foregroundStyle(Color.brand).tracking(1)
             Text("Elke dag een beetje Nederlands.").font(.largeTitle.weight(.heavy)).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
             Text("Thema’s met audio, spellen en slim herhalen. Een paar minuten per dag is genoeg.").foregroundStyle(.secondary).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)

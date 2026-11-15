@@ -137,6 +137,50 @@
   --animate-confetti: confetti 1.6s ease-out forwards;
 }
 
+/* Mascot moments (src/components/game/mascot-actor.tsx): played once, only the character moves. */
+@keyframes mascot-hop {
+  0% { transform: translateY(0) scale(1, 1); }
+  14% { transform: translateY(0) scale(1.12, 0.86); }
+  34% { transform: translateY(-30%) scale(0.93, 1.1) rotate(-4deg); }
+  56% { transform: translateY(0) scale(1.1, 0.9) rotate(2deg); }
+  72% { transform: translateY(0) scale(0.97, 1.03); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes mascot-hop-shadow { 0%, 100% { transform: scale(1); opacity: 1; } 14% { transform: scale(1.12); } 34% { transform: scale(0.55); opacity: 0.5; } 56% { transform: scale(1.1); opacity: 1; } }
+@keyframes mascot-double {
+  0% { transform: translateY(0) scale(1); }
+  8% { transform: translateY(0) scale(1.1, 0.88); }
+  22% { transform: translateY(-18%) scale(0.95, 1.08); }
+  36% { transform: translateY(0) scale(1.08, 0.92); }
+  50% { transform: translateY(-32%) scale(0.92, 1.1) rotate(-8deg); }
+  66% { transform: translateY(0) scale(1.12, 0.88) rotate(3deg); }
+  82% { transform: translateY(0) scale(0.97, 1.03); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes mascot-double-shadow { 0%, 100% { transform: scale(1); opacity: 1; } 22% { transform: scale(0.65); opacity: 0.6; } 36% { transform: scale(1.08); opacity: 1; } 50% { transform: scale(0.45); opacity: 0.4; } 66% { transform: scale(1.12); opacity: 1; } }
+@keyframes mascot-nope {
+  0% { transform: rotate(0) translateY(0); }
+  12% { transform: rotate(-7deg) translateY(1%); }
+  30% { transform: rotate(6deg) translateY(1.5%); }
+  48% { transform: rotate(-4deg) translateY(1.5%); }
+  66% { transform: rotate(2deg) translateY(1%); }
+  100% { transform: rotate(0) translateY(0); }
+}
+@keyframes mascot-greet { 0% { transform: translateY(0); } 30% { transform: translateY(-9%) rotate(-3deg); } 60% { transform: translateY(0) scale(1.04, 0.96); } 100% { transform: translateY(0); } }
+@keyframes mascot-star { 0% { opacity: 0; transform: translate(0, 0) scale(0.4); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.1) rotate(160deg); } }
+.mascot-body { transform-origin: 50% 92%; animation-fill-mode: both; }
+.mascot-body.hop { animation: mascot-hop 700ms cubic-bezier(.3, .7, .4, 1) both; }
+.mascot-body.double { animation: mascot-double 1150ms cubic-bezier(.3, .7, .4, 1) both; }
+.mascot-body.nope { animation: mascot-nope 620ms ease-out both; }
+.mascot-body.greet { animation: mascot-greet 650ms ease-out both; }
+.mascot-shadow.hop { animation: mascot-hop-shadow 700ms cubic-bezier(.3, .7, .4, 1) both; }
+.mascot-shadow.double { animation: mascot-double-shadow 1150ms cubic-bezier(.3, .7, .4, 1) both; }
+.mascot-star { animation: mascot-star 850ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .mascot-body, .mascot-shadow { animation: none !important; }
+  .mascot-star { display: none; }
+}
+
 @keyframes pop {
   0% { transform: scale(0.85); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }

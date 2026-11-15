@@ -158,14 +158,16 @@ struct OptionList: View {
     }
 }
 
-/// The mascot asks; the word sits in a speech bubble with a listen button.
+/// The mascot asks from just above the bubble; the word or sentence gets the full width, with a listen button.
 struct PromptBubble<Content: View>: View {
     /// A card the learner got wrong last time: the mascot tilts its head and thinks.
     var hard = false
     @ViewBuilder var content: () -> Content
     var body: some View {
-        HStack(alignment: .center, spacing: 12) {
-            MascotActor(pose: .think, moment: hard ? .ponder : nil, size: 84, delay: 0.25)
+        VStack(alignment: .leading, spacing: -6) {
+            MascotActor(pose: .think, moment: hard ? .ponder : nil, size: 60, shadow: false, delay: 0.25)
+                .padding(.leading, 10)
+                .zIndex(1)
             content()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16)
@@ -490,7 +492,7 @@ struct FeedbackPanel: View {
                             size: 64)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(good ? "Top!" : close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : outcome.hint == "aux" ? "Bijna! Met hebben of zijn:" : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.game(22, .black)).foregroundStyle(ink)
-                    if outcome.result != .correct || card.kind == .grammar || form, let answerText { Text(answerText).font(.headline) }
+                    if let answerText { Text(answerText).font(.headline) }
                 }
                 Spacer(minLength: 0)
                 Text("+\(XP.forGrade(outcome.grade)) XP").font(.game(16, .black)).foregroundStyle(Color.goldInk)
@@ -498,7 +500,11 @@ struct FeedbackPanel: View {
             if form {
                 if card.chain != nil, let meaning = card.meaning { Persian(text: meaning, font: .footnote) }
                 if outcome.result != .correct, let rule = card.rule { Persian(text: rule, font: .footnote) }
-            } else if card.kind != .grammar, let example = card.example {
+            } else if card.kind != .grammar {
+                // The translation of the answer, also when it was right (a sentence you heard, a word you picked).
+                if let meaning = card.meaning { Persian(text: meaning, font: .subheadline, color: .primary) }
+            }
+            if !form, card.kind != .grammar, let example = card.example {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 2) { Text(example).font(.subheadline); if let translation = card.translation { Persian(text: translation, font: .footnote) } }
                     ListenButton(text: example, size: 13)

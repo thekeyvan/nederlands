@@ -171,16 +171,19 @@ function ChooseCard({card, field, outcome, onSubmit}: {card: LearningCard; field
     <>
       <p className="font-semibold text-muted-foreground">{field === 'meaning' ? 'Wat betekent dit?' : 'Hoe zeg je dit in het Nederlands?'}</p>
       {field === 'nl' && <Translation className="text-sm text-muted-foreground">{t('reverseHint')}</Translation>}
-      <div className="my-6 flex items-center gap-4 sm:my-8">
-        <MascotActor pose="think" moment={hard ? 'ponder' : undefined} delay={250} className="-my-3 size-20 shrink-0 sm:size-24" />
+      {/* The mascot asks from just above the question, so the word or sentence gets the full width. */}
+      <div className="my-5 sm:my-8">
+        <MascotActor pose="think" moment={hard ? 'ponder' : undefined} delay={250} className="relative z-10 -mb-3 ml-3 size-16 sm:size-20" />
+        <div className="flex min-h-20 items-center gap-4 rounded-2xl border bg-card p-4">
         {field === 'meaning' ? (
           <>
             <ListenButton text={card.nl!} variant="info" size="icon-lg" className="size-14 rounded-xl shadow-[0_4px_0_var(--info)]" />
             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl" lang="nl">{card.nl}</h1>
           </>
         ) : (
-          <Translation as="h1" className="text-3xl font-bold sm:text-4xl">{card.meaning}</Translation>
+          <Translation as="h1" className="flex-1 text-3xl font-bold sm:text-4xl">{card.meaning}</Translation>
         )}
+        </div>
       </div>
       <OptionList options={options} chosen={chosen} outcome={outcome} translated={field === 'meaning'} onPick={pick} />
     </>
@@ -544,8 +547,10 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
               {outcome.result === 'wrong' && <p className="mt-1 text-xs opacity-80">Deze vorm komt morgen terug.</p>}
             </div>
           )}
-          {!form && mode === 'choose' && outcome.result !== 'correct' && <p className="mt-1 text-lg font-semibold"><span lang="nl">{card.nl}</span> = <Translation as="span">{card.meaning}</Translation></p>}
-          {!form && mode !== 'choose' && (outcome.result !== 'correct' || grammar) && <p className="mt-1 text-lg font-semibold" lang="nl">{answerText}</p>}
+          {/* Words and sentences: the Dutch answer and its translation, also when it was right. */}
+          {!form && !grammar && <p className="mt-1 text-lg font-semibold" lang="nl">{answerText}</p>}
+          {!form && !grammar && card.meaning && <Translation className="text-[15px] font-medium">{card.meaning}</Translation>}
+          {!form && grammar && <p className="mt-1 text-lg font-semibold" lang="nl">{answerText}</p>}
           {!form && !grammar && card.example && (
             <div className="mt-1 flex items-start gap-1">
               <div className="min-w-0">
@@ -555,7 +560,6 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
               <ListenButton text={card.example} className="-mt-1 shrink-0" />
             </div>
           )}
-          {!form && !grammar && !card.example && card.meaning && <Translation className="text-sm opacity-80">{card.meaning}</Translation>}
           {grammar && whole && card.example && audioUrl(card.example, 'ronnie') && <ListenButton text={card.example} className="-mt-1" />}
           {grammar && <Translation className="mt-1 text-sm opacity-80">{whole ? card.translation : card.rule}</Translation>}
           {outcome.result === 'wrong' && !card.mode && <p className="mt-1 text-xs opacity-80">Dit kaartje komt morgen terug.</p>}

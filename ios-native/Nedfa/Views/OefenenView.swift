@@ -42,7 +42,7 @@ struct OefenenView: View {
                     levelCard(stats)
 
                     PathStrip(stats: stats) { stop = $0 }
-                    missions(stats)
+                    missions(stats, theme: resumeId)
                     focused
                     if let resume = Content.shared.theme(resumeId) {
                         VStack(alignment: .leading, spacing: 12) {
@@ -142,11 +142,13 @@ struct OefenenView: View {
         }
     }
 
-    private func missions(_ stats: Stats) -> some View {
+    /// Each mission is a button that starts the round that completes it.
+    private func missions(_ stats: Stats, theme: String) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             SectionTitle("Missies van vandaag")
             VStack(spacing: 0) {
                 ForEach(Array(stats.missions.enumerated()), id: \.element.id) { index, mission in
+                    Button { session.start(Planner.mission(mission.id, reviews: progress.reviews, theme: theme), label: mission.title) } label: {
                     HStack(spacing: 12) {
                         Art(name: mission.picture, size: 44, corner: 12)
                         VStack(alignment: .leading, spacing: 6) {
@@ -158,8 +160,13 @@ struct OefenenView: View {
                         } else {
                             Text("\(min(mission.count, mission.target))/\(mission.target)").font(.game(15, .heavy)).foregroundStyle(.secondary).monospacedDigit()
                         }
+                        Image(systemName: "play.fill").font(.footnote).foregroundStyle(mission.done ? Color.secondary.opacity(0.5) : Color.brand)
                     }
                     .padding(.vertical, 10)
+                    .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("\(mission.title): \(min(mission.count, mission.target)) van \(mission.target). Start een rondje")
                     if index < stats.missions.count - 1 { Divider() }
                 }
             }

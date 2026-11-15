@@ -83,6 +83,27 @@ enum Planner {
         return SRS.queue(pool, reviews: reviews, limit: limit)
     }
 
+    /// A mission on Vandaag starts the round that completes it: old cards, new cards (from the theme you are on), or practical sentences.
+    static func mission(_ id: String, reviews: [String: Review], theme: String = "all", limit: Int = 5, now: Date = .now) -> [Card] {
+        let cards = Content.shared.cards
+        func oldest(_ list: [Card]) -> [Card] {
+            list.compactMap { card in reviews[card.id].map { (card, $0.lastReviewed) } }.sorted { $0.1 < $1.1 }.map(\.0)
+        }
+        switch id {
+        case "zinnen":
+            let queue = plan(reviews: reviews, kind: .praktisch, limit: limit)
+            return queue.isEmpty ? Array(oldest(Content.shared.phrases).prefix(limit)) : queue
+        case "nieuw":
+            let fresh = cards.filter { reviews[$0.id] == nil }
+            return Array((fresh.filter { $0.themeId == theme } + fresh.filter { $0.themeId != theme }).prefix(limit))
+        default:
+            let due: [Card] = cards.compactMap { card in reviews[card.id].flatMap { $0.due <= now ? (card, $0.due) : nil } }.sorted { $0.1 < $1.1 }.map(\.0)
+            let dueIds = Set(due.map(\.id))
+            let queue = Array((due + oldest(cards).filter { !dueIds.contains($0.id) }).prefix(limit))
+            return queue.isEmpty ? mission("nieuw", reviews: reviews, theme: theme, limit: limit, now: now) : queue
+        }
+    }
+
     /// New cards get recognition modes; cards you know well get recall (typing).
     static func mode(for card: Card, review: Review?, position: Int) -> Card.Mode {
         if let mode = card.mode { return mode }

@@ -17,7 +17,7 @@ import {usePractice} from '@/hooks/use-practice';
 import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
 import {themes} from '@/core/learning-data.js';
-import {cards, planSession, resumeTheme} from '@/core/learning-model.js';
+import {cards, missionRound, planSession, resumeTheme} from '@/core/learning-model.js';
 import {levelInfo, startTheme, suggestedThemes} from '@/core/level.js';
 import {openLevelTest} from '@/components/level-test';
 import type {Card, Level, Theme} from '@/core/types';
@@ -96,7 +96,7 @@ export function OefenenScreen() {
             <GroupLabel className="mt-2" action={<span className="text-xs font-semibold text-muted-foreground tabular-nums">Halte {Math.min(game.route.current + 1, game.route.steps.length)} van {game.route.steps.length}</span>}>Jouw pad</GroupLabel>
             <div className="rounded-2xl border bg-card px-3 pb-2"><RouteStrip route={game.route} /></div>
           </div>
-          <MissionsCard events={events} />
+          <MissionsCard events={events} onStart={(id, title) => start({queue: missionRound(id, reviews, {theme: resumeId}), label: title})} />
           <div>
             <GroupLabel className="mt-2" action={
               <Select value={theme} onValueChange={setTheme}>

@@ -6,4 +6,5 @@ export function themeStats(id: string, reviews: Record<string, Review>): {total:
 export function dayKey(date: Date): string;
 export function activity(events: ReviewEvent[], now?: Date): {today: number; week: {date: Date; label: string; count: number}[]};
 export function resumeTheme(events: Pick<ReviewEvent, 'cardId'>[]): string;
+export function missionRound(id: string, reviews: Record<string, Review>, options?: {theme?: string; now?: Date; limit?: number}): Card[];
 export function planSession(reviews: Record<string, Review>, options?: {theme?: string; type?: string; now?: Date; limit?: number; cardIds?: string[] | null}): Card[];

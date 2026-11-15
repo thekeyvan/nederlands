@@ -32,3 +32,20 @@ test('offline merge preserves the newest review and rejects corrupt state',()=>{
  assert.deepEqual(validReviews({a:b,b:b,c:{}},new Set(['a','c'])),{a:b});
  assert.deepEqual(validReviews(null,new Set()),{});
 });
+
+test('a mission starts the round that completes it', async () => {
+  const {missionRound, cards} = await import('../src/core/learning-model.js');
+  const day = 86400000;
+  const review = (dueDays, lastDays) => ({ease: 2.5, interval: 1, repetitions: 1, due: new Date(Date.now() + dueDays * day).toISOString(), lastReviewed: new Date(Date.now() - lastDays * day).toISOString(), grade: 4, reviews: 1});
+  const [a, b, c] = cards.filter((card) => !card.id.startsWith('phrase:'));
+  const reviews = {[a.id]: review(3, 1), [b.id]: review(-1, 2), [c.id]: review(2, 5)};
+  // Old cards: the due one first, then the ones practised longest ago.
+  assert.deepEqual(missionRound('herhaal', reviews).map((card) => card.id), [b.id, c.id, a.id]);
+  // New cards: never practised, from the theme you are on first.
+  const fresh = missionRound('nieuw', reviews, {theme: 'huisarts'});
+  assert.equal(fresh.length, 5);
+  assert.ok(fresh.every((card) => !reviews[card.id] && card.themeId === 'huisarts'));
+  assert.ok(missionRound('zinnen', reviews).every((card) => card.id.startsWith('phrase:')));
+  // Nothing practised yet: "old cards" starts with new ones instead of an empty round.
+  assert.equal(missionRound('herhaal', {}).length, 5);
+});

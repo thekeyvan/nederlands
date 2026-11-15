@@ -30,7 +30,8 @@ export const AppleLogo = ({className}: {className?: string}) => (
 );
 
 export const GoogleLogo = ({className}: {className?: string}) => (
-  <svg viewBox="0 0 24 24" aria-hidden className={cn('size-5', className)}>
+  // 17px: the G fills its box (22 of 24) while Apple's logo fills 18 of 24, so this makes them look the same size.
+  <svg viewBox="0 0 24 24" aria-hidden className={cn('size-[17px]', className)}>
     <path fill="#4285F4" d="M22.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.3h5.9a5.05 5.05 0 0 1-2.19 3.31v2.75h3.54c2.07-1.91 3.25-4.72 3.25-8.09Z" />
     <path fill="#34A853" d="M12 23c2.95 0 5.43-.98 7.24-2.64l-3.54-2.75c-.98.66-2.23 1.05-3.7 1.05-2.85 0-5.26-1.92-6.12-4.5H2.22v2.84A10.99 10.99 0 0 0 12 23Z" />
     <path fill="#FBBC05" d="M5.88 14.16a6.6 6.6 0 0 1 0-4.32V7H2.22a11 11 0 0 0 0 9.99l3.66-2.83Z" />

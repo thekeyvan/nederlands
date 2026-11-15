@@ -18,7 +18,8 @@ const questions = (lang: Lang): [string, string][] =>
         ['نِدفا برای چه سطحی مناسب است؟', 'برای کسانی که الفبای هلندی را می‌شناسند یا دورهٔ مقدماتی را گذرانده‌اند و می‌خواهند از سطح A2 به B1 برسند؛ مثلاً در کنار کلاس زبان یا برای آمادگی آزمون.'],
         ['آیا برای آزمون اینبورخرینگ (هم‌پذیری) کمک می‌کند؟', 'نِدفا موضوعات زندگی روزمره را تمرین می‌کند که در آزمون‌های شنیدن، خواندن، نوشتن و صحبت کردن می‌آیند: پزشک، شهرداری، کار، خانه و خرید. <a class="text-primary underline" href="/fa/inburgering/">راهنمای آزمون اینبورخرینگ</a> را هم ببینید.'],
         ['ترجمه‌ها به فارسی است؟', `بله. همهٔ ${num(lang, totals.words)} لغت، جمله‌ها و نکته‌های گرامری ترجمه و توضیح فارسی دارند و هر جملهٔ هلندی را می‌توانید با صدای هلندی بشنوید.`],
-        ['روی آیفون و کامپیوتر کار می‌کند؟', 'بله. نسخهٔ وب روی هر مرورگری کار می‌کند و اپ آیفون به‌زودی در App Store است. با ورود از طریق اپل یا گوگل، پیشرفت شما بین گوشی و کامپیوتر همگام می‌شود.'],
+        ['روی آیفون و کامپیوتر کار می‌کند؟', 'بله. نسخهٔ وب روی هر مرورگری کار می‌کند و اپ آیفون به‌زودی در App Store است. با ورود از طریق اپل یا گوگل، پیشرفت شما بین گوشی و کامپیوتر همگام می‌شود. اپل و گوگل با یک ایمیل به یک حساب می‌رسند و در تنظیمات می‌توانید هر دو را به حساب خود وصل کنید.'],
+        ['چطور نظر یا مشکلی را گزارش کنم؟', 'در اپ آیفون، گوشی را تکان دهید یا به «تنظیمات ← Feedback geven» بروید؛ در وب‌سایت هم همین گزینه در تنظیمات است. هر مشکل، ایده یا تعریفی به بهتر شدن نِدفا کمک می‌کند.'],
         ['یادگیری زبان هلندی برای فارسی‌زبان‌ها سخت است؟', `هلندی الفبای لاتین و ترتیب کلمات متفاوتی دارد، اما با تمرین روزانهٔ کوتاه به‌خوبی یاد گرفته می‌شود. نکته‌های مهم مثل ${nlh('de')} و ${nlh('het')}، جای فعل در جمله و افعال جداشدنی را در <a class="text-primary underline" href="/fa/grammatica/">بخش گرامر</a> به فارسی توضیح داده‌ایم.`],
       ]
     : [
@@ -26,7 +27,8 @@ const questions = (lang: Lang): [string, string][] =>
         ['Voor wie is Nedfa?', 'Voor Perzisch sprekenden (Iraniërs en Afghanen die Farsi of Dari spreken) die al een beetje Nederlands kennen en van A2 naar B1 willen, bijvoorbeeld naast een taalcursus of voor het inburgeringsexamen.'],
         ['Helpt Nedfa bij het inburgeringsexamen?', 'Nedfa oefent de onderwerpen van het dagelijks leven die in de examens luisteren, lezen, schrijven en spreken terugkomen: de huisarts, de gemeente, werk, wonen en boodschappen. Lees ook de <a class="text-primary underline" href="/inburgering/">uitleg over inburgering</a>.'],
         ['Zijn alle vertalingen in het Perzisch?', `Ja. Alle ${totals.words} woorden, de zinnen en de grammatica hebben een Perzische vertaling of uitleg, en elke Nederlandse zin hoor je met Nederlandse audio.`],
-        ['Werkt het op de iPhone en de computer?', 'Ja. De website werkt in elke browser en de iPhone-app komt binnenkort in de App Store. Log in met Apple of Google, dan gaat je voortgang mee tussen telefoon en computer.'],
+        ['Werkt het op de iPhone en de computer?', 'Ja. De website werkt in elke browser en de iPhone-app komt binnenkort in de App Store. Log in met Apple of Google, dan gaat je voortgang mee tussen telefoon en computer. Apple en Google met hetzelfde e-mailadres komen in hetzelfde account, en bij Instellingen koppel je ze ook zelf.'],
+        ['Hoe geef ik feedback?', 'Schud je iPhone in de app, of kies Instellingen → Feedback geven (ook op de website). Een probleem, een idee of een compliment: alles helpt om Nedfa beter te maken.'],
         ['Kan ik als Nederlander iemand helpen met Nedfa?', 'Zeker. Gebruik de <a class="text-primary underline" href="/woorden/">woordenlijsten per thema</a> en de <a class="text-primary underline" href="/grammatica/">grammatica</a> samen met een taalmaatje: de Nederlandse tekst staat er steeds naast de Perzische.'],
       ];
 

@@ -257,7 +257,7 @@ struct SignInMethodRow: View {
         let name = provider == "apple" ? "Apple" : "Google"
         HStack(spacing: 12) {
             Group {
-                if provider == "apple" { Image(systemName: "apple.logo").font(.title3) } else { GoogleLogo(size: 20) }
+                if provider == "apple" { Image(systemName: "apple.logo").font(.title3) } else { GoogleLogo(size: 17) }
             }
             .frame(width: 28)
             VStack(alignment: .leading, spacing: 1) {
@@ -306,7 +306,7 @@ struct SignInButtons: View {
             .frame(height: 52)
             .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             Button { Task { await cloud.signInWithGoogle(); done() } } label: {
-                HStack(spacing: 10) { GoogleLogo(size: 20); Text("Ga door met Google") }
+                HStack(spacing: 8) { GoogleLogo(size: 16); Text("Ga door met Google") }
                     .font(.system(size: 19, weight: .medium)).frame(maxWidth: .infinity, minHeight: 52)
             }
             .foregroundStyle(.primary)

@@ -9,11 +9,11 @@ import type { RenderToPipeableStreamOptions } from "react-dom/server";
 import { renderToPipeableStream } from "react-dom/server";
 import { NonceContext } from "./nonce";
 
-/** Pages may only run our own scripts and the inline ones React Router writes with this response's nonce. */
+/** Pages may only run our own scripts, the inline ones React Router writes with this response's nonce, and Sign in with Apple JS. */
 const policy = (nonce: string) =>
   [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}'`,
+    `script-src 'self' 'nonce-${nonce}' https://appleid.cdn-apple.com`,
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
     "img-src 'self' data:",

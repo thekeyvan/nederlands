@@ -64,8 +64,7 @@ extension View {
     /// A white card with a soft shadow.
     func card(padding: CGFloat = 16, radius: CGFloat = 26) -> some View {
         self.padding(padding)
-            .background(Color.surface, in: RoundedRectangle(cornerRadius: radius, style: .continuous))
-            .shadow(color: .black.opacity(0.06), radius: 14, y: 6)
+            .background(RoundedRectangle(cornerRadius: radius, style: .continuous).fill(Color.surface).shadow(color: .black.opacity(0.06), radius: 14, y: 6))
     }
 
     /// A tactile tile: a surface with a darker rim underneath, like a key.
@@ -81,6 +80,58 @@ extension View {
 
     /// The grey game background for a whole screen.
     func gameBackground() -> some View { self.background(Color.ground.ignoresSafeArea()) }
+
+    /// The screen colour behind the clock and battery, so content that scrolls up never runs under them.
+    func statusBarScrim(_ color: Color = .ground) -> some View {
+        self.safeAreaInset(edge: .top, spacing: 0) { Color.clear.frame(height: 0).background(color).scrollEdgeFade(color) }
+    }
+
+    /// A short fade below a fixed header, so content slides away softly instead of being cut off.
+    func scrollEdgeFade(_ color: Color = .ground) -> some View {
+        self.overlay(alignment: .bottom) {
+            LinearGradient(colors: [color, color.opacity(0)], startPoint: .top, endPoint: .bottom)
+                .frame(height: 14).offset(y: 14).allowsHitTesting(false)
+        }
+    }
+}
+
+/// The big title at the top of a tab, the same on Vandaag, Leren and Arcade.
+struct ScreenTitle<Trailing: View>: View {
+    let title: String
+    let eyebrow: String
+    @ViewBuilder var trailing: Trailing
+    init(_ title: String, eyebrow: String, @ViewBuilder trailing: () -> Trailing = { EmptyView() }) {
+        self.title = title; self.eyebrow = eyebrow; self.trailing = trailing()
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Eyebrow(eyebrow)
+            HStack(alignment: .firstTextBaseline) {
+                Text(title).font(.game(34, .black)).accessibilityAddTraits(.isHeader)
+                Spacer()
+                trailing
+            }
+        }
+    }
+}
+
+/// A rounded search field that lives in the content, not in the navigation bar.
+struct SearchField: View {
+    let prompt: String
+    @Binding var text: String
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+            TextField(prompt, text: $text).textInputAutocapitalization(.never).autocorrectionDisabled().submitLabel(.search)
+            if !text.isEmpty {
+                Button { text = "" } label: { Image(systemName: "xmark.circle.fill").foregroundStyle(.tertiary) }
+                    .accessibilityLabel("Wissen")
+            }
+        }
+        .font(.body)
+        .padding(.horizontal, 14).frame(height: 44)
+        .background(Color.surface, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+    }
 }
 
 /// The big pressable 3D button used to start rounds and games.
@@ -135,8 +186,7 @@ struct StatChip: View {
         .font(.game(16, .heavy))
         .foregroundStyle(color)
         .padding(.horizontal, 12).frame(height: 36)
-        .background(Color.surface, in: Capsule())
-        .shadow(color: .black.opacity(0.06), radius: 8, y: 3)
+        .background(Capsule().fill(Color.surface).shadow(color: .black.opacity(0.06), radius: 8, y: 3))
     }
 }
 

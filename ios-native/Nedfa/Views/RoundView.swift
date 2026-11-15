@@ -32,6 +32,7 @@ struct RoundView: View {
                         .safeAreaInset(edge: .bottom) { if let outcome { FeedbackPanel(card: card, outcome: outcome, next: next) } }
                 } else {
                     RoundSummary(round: round, results: results, bestCombo: bestCombo, before: before, again: again, done: { dismiss() })
+                        .statusBarScrim(.navy)
                 }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
@@ -49,6 +50,8 @@ struct RoundView: View {
                             .accessibilityLabel("Combo \(combo)")
                     }
                     .padding(.horizontal, 20).padding(.top, 8).padding(.bottom, 4)
+                    .background(Color.ground)
+                    .scrollEdgeFade()
                 }
             }
             .gameBackground()

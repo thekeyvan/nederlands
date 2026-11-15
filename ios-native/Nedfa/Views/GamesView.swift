@@ -73,11 +73,7 @@ struct SpellenView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 22) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Eyebrow("\(GameID.allCases.count) spellen")
-                        HStack {
-                            Text("Arcade").font(.game(34, .black))
-                            Spacer()
+                    ScreenTitle("Arcade", eyebrow: "\(GameID.allCases.count) spellen") {
                             Menu {
                                 Picker("Thema", selection: $theme) {
                                     Text("Alle thema’s").tag("all")
@@ -87,7 +83,6 @@ struct SpellenView: View {
                                 HStack(spacing: 4) { Text(Content.shared.theme(theme)?.title ?? "Alle thema’s").lineLimit(1); Image(systemName: "chevron.down").font(.caption2.weight(.bold)) }
                                     .font(.subheadline.weight(.semibold)).foregroundStyle(Color.brand)
                             }
-                        }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 8)
@@ -98,6 +93,7 @@ struct SpellenView: View {
                 }
                 .padding(.bottom, 30)
             }
+            .statusBarScrim()
             .gameBackground()
             .toolbar(.hidden, for: .navigationBar)
         }
@@ -128,8 +124,15 @@ struct FeaturedGame: View {
                     HStack(spacing: 8) { Image(systemName: "play.fill"); Text(record.map { "Speel · record \($0)" } ?? "Speel") }
                         .font(.game(16, .black)).foregroundStyle(Color.brand)
                         .padding(.horizontal, 18).frame(height: 44)
-                        .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                        .shadow(color: .black.opacity(0.12), radius: 0, y: 4)
+                        // A white key with a peach rim and a soft glow on the card, not a shadow on the letters.
+                        .background {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color(light: 0xF7C9A3, dark: 0xF2BE94)).offset(y: 4)
+                                    .shadow(color: Color.brandEdge.opacity(0.45), radius: 8, y: 6)
+                                RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.white)
+                            }
+                        }
+                        .padding(.bottom, 4)
                 }
                 .foregroundStyle(.white)
                 Spacer(minLength: 0)
@@ -139,7 +142,8 @@ struct FeaturedGame: View {
             .frame(maxWidth: .infinity, minHeight: 200, alignment: .leading)
         }
         .buttonStyle(PressableTile(fill: .brand, edge: .brandEdge, radius: 30))
-        .shadow(color: Color.brand.opacity(0.3), radius: 16, y: 10)
+        .compositingGroup()
+        .shadow(color: Color.brand.opacity(0.28), radius: 16, y: 10)
     }
 }
 

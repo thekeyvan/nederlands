@@ -19,7 +19,9 @@ const profile=next=>next?{id:next.id,name:next.user_metadata?.full_name||next.us
 const native=Capacitor.isNativePlatform();
 const AUTH_CALLBACK='com.keyvanmahmoudi.nederlands://auth';
 const APPLE_CLIENT_ID='com.keyvanmahmoudi.nederlands';
-// Apple sign-in: the native sheet in the iOS app; on the website once the Apple web flow is configured.
+// The Services ID registered for nedfa.nl; Supabase accepts its tokens without an OAuth secret.
+const APPLE_WEB_ID='com.keyvanmahmoudi.nederlands.web';
+// Apple sign-in: the native sheet in the iOS app; Sign in with Apple JS on the website.
 export const appleAvailable=()=>(native&&Capacitor.getPlatform()==='ios')||cloudConfig.appleWeb===true;
 
 async function providerReady(provider){
@@ -33,6 +35,8 @@ async function providerReady(provider){
 export async function signIn(provider='google'){
  if(user)return;
  if(!client){message('Inloggen is nu niet beschikbaar. Je kunt wel oefenen.');return;}
+ // Apple's popup must open straight from the tap, so this runs before anything is awaited.
+ if(provider==='apple'&&!native){await signInWithAppleWeb();return;}
  if(!await providerReady(provider))return;
  if(provider==='apple'&&native){await signInWithApple();return;}
  if(native){
@@ -66,6 +70,44 @@ async function signInWithApple(){
  if(error){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
  // Apple only shares the name the first time; keep it on the account.
  const name=[result.response.givenName,result.response.familyName].filter(Boolean).join(' ');
+ if(name&&!data.user?.user_metadata?.full_name)await client.auth.updateUser({data:{full_name:name}});
+}
+
+// Sign in with Apple JS: loaded and given a fresh nonce ahead of time, so the tap opens the popup at once.
+let appleWeb=null;
+async function prepareAppleWeb(){
+ if(native||!cloudConfig.appleWeb||typeof window==='undefined')return;
+ if(!window.AppleID){
+  await new Promise((resolve,reject)=>{
+   const script=document.createElement('script');
+   script.src='https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/nl_NL/appleid.auth.js';
+   script.async=true;script.onload=resolve;script.onerror=reject;
+   document.head.append(script);
+  });
+ }
+ const raw=hex(crypto.getRandomValues(new Uint8Array(32)));
+ const hashed=hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw)));
+ window.AppleID.auth.init({clientId:APPLE_WEB_ID,scope:'name email',redirectURI:`${location.origin}/leren`,usePopup:true,nonce:hashed});
+ appleWeb={raw};
+}
+
+async function signInWithAppleWeb(){
+ const prepared=appleWeb;
+ if(!prepared||!window.AppleID){message('Inloggen met Apple wordt nog geladen. Probeer het zo opnieuw.');void prepareAppleWeb().catch(()=>{});return;}
+ appleWeb=null;
+ let result;
+ try{result=await window.AppleID.auth.signIn();}
+ catch(error){
+  // Closing the Apple popup is not an error worth a message.
+  if(!/popup_closed|user_cancel/i.test(String(error?.error||error?.message||error)))message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');
+  return;
+ }finally{void prepareAppleWeb().catch(()=>{});}
+ const token=result?.authorization?.id_token;
+ if(!token){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
+ const {data,error}=await client.auth.signInWithIdToken({provider:'apple',token,nonce:prepared.raw});
+ if(error){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
+ // Apple only shares the name the first time; keep it on the account.
+ const name=[result.user?.name?.firstName,result.user?.name?.lastName].filter(Boolean).join(' ');
  if(name&&!data.user?.user_metadata?.full_name)await client.auth.updateUser({data:{full_name:name}});
 }
 
@@ -149,6 +191,7 @@ export async function initCloud(){
   const {App}=await import('@capacitor/app');
   App.addListener('appUrlOpen',event=>void finishNativeSignIn(event.url));
  }
+ void prepareAppleWeb().catch(()=>{});
  const params=new URLSearchParams(location.search);
  if(params.has('error')){message('Google-inloggen is niet afgerond. Je kunt het opnieuw proberen.');history.replaceState(null,'',location.pathname+location.hash);}
  const {data,error}=await client.auth.getSession();

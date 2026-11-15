@@ -65,6 +65,7 @@ struct OefenenView: View {
                 }
                 .padding(.bottom, 30)
             }
+            .statusBarScrim()
             .gameBackground()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
@@ -201,7 +202,7 @@ struct DailyCard: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
         )
-        .shadow(color: Color.navy.opacity(0.3), radius: 16, y: 8)
+        .background(RoundedRectangle(cornerRadius: 28, style: .continuous).fill(Color.navy).shadow(color: Color.navy.opacity(0.3), radius: 16, y: 8))
     }
 }
 

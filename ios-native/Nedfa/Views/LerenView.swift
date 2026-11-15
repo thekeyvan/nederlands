@@ -14,12 +14,19 @@ struct LerenView: View {
                 case .zinsbouw: PatternList()
                 }
             }
+            // A fixed header like Vandaag and Arcade: the title and the switch stay put, content scrolls underneath.
             .safeAreaInset(edge: .top, spacing: 0) {
-                Picker("Leren", selection: $part) { ForEach(Part.allCases, id: \.self) { Text($0.rawValue) } }
-                    .pickerStyle(.segmented).padding(.horizontal).padding(.bottom, 8).background(Color.ground, ignoresSafeAreaEdges: [])
+                VStack(alignment: .leading, spacing: 12) {
+                    ScreenTitle("Leren", eyebrow: "\(Content.shared.themes.count) thema’s · \(Content.shared.grammar.count) patronen")
+                    Picker("Leren", selection: $part) { ForEach(Part.allCases, id: \.self) { Text($0.rawValue) } }
+                        .pickerStyle(.segmented)
+                }
+                .padding(.horizontal, 20).padding(.top, 8).padding(.bottom, 10)
+                .background(Color.ground)
+                .scrollEdgeFade()
             }
             .gameBackground()
-            .navigationTitle("Leren")
+            .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
             .navigationDestination(for: PatternLink.self) { PatternDetailView(cardId: $0.id) }
         }
@@ -39,6 +46,10 @@ struct ThemesGrid: View {
         let needle = query.trimmingCharacters(in: .whitespaces).lowercased()
         let themes = Content.shared.themes.filter { needle.isEmpty || "\($0.title) \($0.meaning) \($0.intro)".lowercased().contains(needle) }
         ScrollView {
+            SearchField(prompt: "Zoek een thema", text: $query).padding(.horizontal, 20).padding(.top, 12)
+            if themes.isEmpty {
+                Text("Geen thema gevonden voor “\(query)”.").font(.subheadline).foregroundStyle(.secondary).padding(.top, 30)
+            }
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)], spacing: 16) {
                 ForEach(themes) { theme in
                     let item = stats.progress(for: theme.id)
@@ -66,7 +77,7 @@ struct ThemesGrid: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
         }
-        .searchable(text: $query, prompt: "Zoek een thema")
+        .scrollDismissesKeyboard(.immediately)
     }
 }
 
@@ -238,6 +249,8 @@ struct PatternList: View {
         let needle = query.lowercased()
         let cards = Content.shared.grammar.filter { needle.isEmpty || "\($0.title ?? "") \($0.pattern ?? "") \($0.example ?? "")".lowercased().contains(needle) }
         List {
+            SearchField(prompt: "Zoek bijvoorbeeld omdat", text: $query)
+                .listRowBackground(Color.clear).listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 4, trailing: 20))
             Section {
                 HStack(spacing: 14) {
                     Art(name: "themes/zinsbouw", size: 72)
@@ -264,7 +277,8 @@ struct PatternList: View {
                 }
             }
         }
-        .searchable(text: $query, prompt: "Zoek bijvoorbeeld omdat")
+        .scrollContentBackground(.hidden)
+        .scrollDismissesKeyboard(.immediately)
     }
 }
 

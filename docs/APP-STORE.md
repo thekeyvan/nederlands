@@ -60,6 +60,8 @@ The app works without an account ("Eerst proberen zonder account" on the first s
 
 - The app uses the native Apple sheet; Supabase checks the token against the client IDs
   `com.keyvanmahmoudi.nederlands` (app) and `com.keyvanmahmoudi.nederlands.web` (website Services ID).
-- The website flow also needs Supabase's **Secret Key (for OAuth)**: a JWT signed with the
-  Sign in with Apple key (Key ID 964J6WBXRJ, team 95YDC2AP63). It expires every 6 months.
-  After pasting it in Supabase, set `PUBLIC_APPLE_WEB_SIGNIN=1` in Vercel so the website shows the Apple button.
+- The website uses Sign in with Apple JS (a popup) with the Services ID, whose website URLs list
+  `nedfa.nl` and the return URL `https://nedfa.nl/leren`. The token goes to Supabase with
+  `signInWithIdToken`, so no OAuth secret key is needed and nothing expires every 6 months.
+  Both client IDs belong to the same primary App ID, so the app and the website see the same Apple account.
+- `PUBLIC_APPLE_WEB_SIGNIN=0` on Railway hides the Apple button on the website.

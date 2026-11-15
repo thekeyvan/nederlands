@@ -13,6 +13,14 @@ struct IkView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 22) {
+                    ScreenTitle("Ik", eyebrow: cloud.user == nil ? "Je voortgang" : "Je account") {
+                        NavigationLink { SettingsView() } label: {
+                            Image(systemName: "gearshape.fill").font(.system(size: 17, weight: .bold)).foregroundStyle(.secondary).frame(width: 40, height: 40)
+                        }
+                        .buttonStyle(PressableTile(radius: 20))
+                        .accessibilityLabel("Instellingen")
+                    }
+                    .padding(.horizontal, 20)
                     profile(stats).padding(.horizontal, 20)
                     HStack(spacing: 10) {
                         tile("\(stats.streak.count)", stats.streak.count == 1 ? "dag op rij" : "dagen op rij", color: .brand)
@@ -62,13 +70,9 @@ struct IkView: View {
                 }
                 .padding(.vertical, 12)
             }
+            .statusBarScrim()
             .gameBackground()
-            .navigationTitle("Ik")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink { SettingsView() } label: { Image(systemName: "gearshape.fill") }.accessibilityLabel("Instellingen")
-                }
-            }
+            .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
             .sheet(isPresented: $showSignIn) { SignInSheet() }
         }

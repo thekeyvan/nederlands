@@ -34,23 +34,25 @@ struct RoundView: View {
                     RoundSummary(round: round, results: results, bestCombo: bestCombo, before: before, again: again, done: { dismiss() })
                 }
             }
-            .toolbar {
+            .safeAreaInset(edge: .top, spacing: 0) {
                 if index < round.cards.count {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button { results.isEmpty ? dismiss() : (confirmQuit = true) } label: { Image(systemName: "xmark").font(.headline) }
-                            .accessibilityLabel("Stoppen met oefenen")
-                    }
-                    ToolbarItem(placement: .principal) {
-                        VStack(spacing: 4) {
-                            ProgressView(value: Double(results.count), total: Double(round.cards.count)).tint(.success).frame(width: 180)
-                            Text("\(index + 1) / \(round.cards.count) · \(round.label)").font(.caption2).foregroundStyle(.secondary)
+                    HStack(spacing: 14) {
+                        Button { results.isEmpty ? dismiss() : (confirmQuit = true) } label: {
+                            Image(systemName: "xmark").font(.system(size: 16, weight: .bold)).foregroundStyle(.secondary).frame(width: 40, height: 40)
                         }
+                        .buttonStyle(PressableTile(radius: 20))
+                        .accessibilityLabel("Stoppen met oefenen")
+                        ThickProgress(value: Double(results.count) / Double(max(1, round.cards.count)), color: .mint, height: 16)
+                            .accessibilityLabel("\(index + 1) van \(round.cards.count)")
+                        HStack(spacing: 3) { Image(systemName: "flame.fill"); Text("\(combo)").monospacedDigit() }
+                            .font(.game(17, .black)).foregroundStyle(combo >= 2 ? Color.brand : Color.secondary.opacity(0.5))
+                            .accessibilityLabel("Combo \(combo)")
                     }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        if combo >= 2 { Label("\(combo)×", systemImage: "flame.fill").foregroundStyle(Color.brand).font(.subheadline.weight(.bold)) }
-                    }
+                    .padding(.horizontal, 20).padding(.top, 8).padding(.bottom, 4)
                 }
             }
+            .gameBackground()
+            .toolbar(.hidden, for: .navigationBar)
             .confirmationDialog("Stoppen met dit rondje?", isPresented: $confirmQuit, titleVisibility: .visible) {
                 Button("Stoppen", role: .destructive) { dismiss() }
                 Button("Doorgaan", role: .cancel) {}
@@ -122,25 +124,45 @@ struct OptionList: View {
     @State private var chosen: String?
 
     var body: some View {
-        VStack(spacing: 10) {
+        let grid = options.count == 4 && options.allSatisfy { $0.label.count <= 20 }
+        let columns = grid ? [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)] : [GridItem(.flexible())]
+        LazyVGrid(columns: columns, spacing: 14) {
             ForEach(options, id: \.label) { option in
-                let state: Color? = outcome == nil ? nil : option.correct ? .success : option.label == chosen ? .danger : nil
-                Button { chosen = option.label; pick(option) } label: {
-                    HStack {
-                        if outcome != nil && option.correct { Image(systemName: "checkmark.circle.fill") }
-                        if outcome != nil && option.label == chosen && !option.correct { Image(systemName: "xmark.circle.fill") }
-                        if persian { Persian(text: option.label, font: .title3, color: state ?? .primary) } else { Text(option.label).font(.body.weight(.medium)).multilineTextAlignment(.leading) }
-                        if !persian { Spacer() }
+                let right = outcome != nil && option.correct
+                let wrong = outcome != nil && option.label == chosen && !option.correct
+                Button { chosen = option.label; Haptics.tap(); pick(option) } label: {
+                    Group {
+                        if persian {
+                            Text(option.label).font(.system(size: grid ? 20 : 18, weight: .semibold)).environment(\.layoutDirection, .rightToLeft).multilineTextAlignment(.center)
+                        } else {
+                            Text(option.label).font(.game(grid ? 19 : 17, .bold)).multilineTextAlignment(grid ? .center : .leading)
+                        }
                     }
-                    .padding(.horizontal, 16).frame(maxWidth: .infinity, minHeight: 56)
-                    .background(state?.opacity(0.14) ?? Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(state ?? Color(.separator), lineWidth: state == nil ? 1 : 2))
-                    .foregroundStyle(state ?? .primary)
-                    .opacity(outcome != nil && state == nil ? 0.45 : 1)
+                    .frame(maxWidth: .infinity, minHeight: grid ? 84 : 58, alignment: grid || persian ? .center : .leading)
+                    .padding(.horizontal, 16)
+                    .foregroundStyle(right ? Color.success : wrong ? Color.danger : Color.primary)
+                    .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(right ? Color.mint : wrong ? Color.danger : .clear, lineWidth: 3))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(PressableTile(fill: right ? Color.mintSoft : wrong ? Color.dangerSoft : .surface, edge: right ? .mintEdge : wrong ? .dangerEdge : .edge))
+                .opacity(outcome != nil && !right && !wrong ? 0.45 : 1)
                 .disabled(outcome != nil)
             }
+        }
+        .environment(\.layoutDirection, persian && grid ? .rightToLeft : .leftToRight)
+    }
+}
+
+/// The mascot asks; the word sits in a speech bubble with a listen button.
+struct PromptBubble<Content: View>: View {
+    var mood: Mood = .think
+    @ViewBuilder var content: () -> Content
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            Mascot(mood: mood, size: 84)
+            content()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(16)
+                .tile(radius: 22)
         }
     }
 }
@@ -151,11 +173,13 @@ struct ChooseCard: View {
     let outcome: Outcome?
     let answer: (Outcome) -> Void
     var body: some View {
-        Text(dutch ? "Hoe zeg je dit in het Nederlands?" : "Wat betekent dit?").font(.headline).foregroundStyle(.secondary)
-        if dutch {
-            Persian(text: card.meaning ?? "", font: .largeTitle.weight(.bold), color: .primary)
-        } else {
-            HStack(spacing: 14) { ListenButton(text: card.nl ?? "", size: 22); Text(card.nl ?? "").font(.largeTitle.weight(.heavy)).minimumScaleFactor(0.5) }
+        Eyebrow(dutch ? "Hoe zeg je dit in het Nederlands?" : "Wat betekent dit?")
+        PromptBubble {
+            if dutch {
+                Persian(text: card.meaning ?? "", font: .system(size: 26, weight: .bold), color: .primary)
+            } else {
+                HStack(spacing: 10) { Text(card.nl ?? "").font(.game(28, .black)).minimumScaleFactor(0.5).lineLimit(2); Spacer(minLength: 0); ListenButton(text: card.nl ?? "", size: 18) }
+            }
         }
         OptionList(options: (dutch ? card.dutchOptions : card.meaningOptions) ?? [], persian: !dutch, outcome: outcome) { option in
             answer(Outcome(grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? .correct : .wrong))
@@ -361,17 +385,21 @@ struct FeedbackPanel: View {
     let outcome: Outcome
     let next: () -> Void
     var body: some View {
-        let tone: Color = outcome.result == .correct ? .success : outcome.result == .close ? .butter : .danger
+        let good = outcome.result == .correct
+        let close = outcome.result == .close
+        let ink: Color = good ? .success : close ? .goldInk : .danger
         let whole = card.mode != nil
         let answerText = whole ? card.example : card.kind == .grammar ? card.answer : card.nl
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 10) {
-                Mascot(mood: outcome.result == .wrong ? .think : .cheer, size: 48)
-                Text(outcome.result == .correct ? "Goed zo!" : outcome.result == .close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.title3.weight(.bold))
-                Spacer()
-                Text("+\(XP.forGrade(outcome.grade)) XP").font(.subheadline.weight(.bold)).padding(.horizontal, 10).padding(.vertical, 4).background(.background, in: Capsule())
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 12) {
+                Mascot(mood: good || close ? .cheer : .think, size: 56)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(good ? "Top!" : close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.game(22, .black)).foregroundStyle(ink)
+                    if outcome.result != .correct || card.kind == .grammar, let answerText { Text(answerText).font(.headline) }
+                }
+                Spacer(minLength: 0)
+                Text("+\(XP.forGrade(outcome.grade)) XP").font(.game(16, .black)).foregroundStyle(Color.goldInk)
             }
-            if outcome.result != .correct || card.kind == .grammar, let answerText { Text(answerText).font(.headline) }
             if card.kind != .grammar, let example = card.example {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 2) { Text(example).font(.subheadline); if let translation = card.translation { Persian(text: translation, font: .footnote) } }
@@ -379,11 +407,16 @@ struct FeedbackPanel: View {
                 }
             }
             if card.kind == .grammar, let text = whole ? card.translation : card.rule { Persian(text: text, font: .footnote) }
-            Button(action: next) { Label("Verder", systemImage: "arrow.right").labelStyle(TrailingIcon()) }.buttonStyle(GameButtonStyle(color: tone == .butter ? .brand : tone))
+            Button(action: next) { HStack { Text("Verder"); Image(systemName: "arrow.right") } }
+                .buttonStyle(GameButtonStyle(color: good ? .mint : close ? .brand : .danger, edge: good ? .mintEdge : close ? .brandEdge : .dangerEdge))
         }
-        .padding()
-        .background(tone.opacity(0.16))
-        .background(.regularMaterial)
+        .padding(20)
+        .background(
+            UnevenRoundedRectangle(topLeadingRadius: 28, topTrailingRadius: 28, style: .continuous)
+                .fill(good ? Color.mintSoft : close ? Color.butterSoft : Color.dangerSoft)
+                .shadow(color: .black.opacity(0.08), radius: 16, y: -4)
+                .ignoresSafeArea(edges: .bottom)
+        )
         .transition(.move(edge: .bottom).combined(with: .opacity))
     }
 }
@@ -405,39 +438,57 @@ struct RoundSummary: View {
         let newStamps = Content.shared.stamps.filter { stats.earned.contains($0.id) && !before.earned.contains($0.id) }
         ScrollView {
             VStack(spacing: 18) {
-                Mascot(mood: results.isEmpty ? .sleep : .cheer, size: 180).padding(.top, 24)
-                Text(results.isEmpty ? "Je bent weer bij." : "Rondje klaar!").font(.largeTitle.weight(.heavy))
                 if !results.isEmpty {
-                    Text(right == results.count ? "Alles goed. Wat knap!" : right * 2 >= results.count ? "Lekker bezig. De moeilijke komen snel terug." : "Goed geoefend. Morgen gaat het al makkelijker.").foregroundStyle(.secondary).multilineTextAlignment(.center)
-                    HStack(spacing: 10) {
-                        tile("XP", "+\(xp)", .butter)
-                        tile("Goed", "\(right)/\(results.count)", .success)
-                        tile("Reeks", "\(stats.streak.count)", .brand)
+                    HStack(alignment: .bottom, spacing: 8) {
+                        ForEach(0..<3, id: \.self) { star in
+                            Image(systemName: "star.fill").font(.system(size: star == 1 ? 64 : 46))
+                                .foregroundStyle(star < starCount(right: right) ? Color.butter : .white.opacity(0.18))
+                                .rotationEffect(.degrees(star == 0 ? -12 : star == 2 ? 12 : 0))
+                        }
                     }
-                    if bestCombo >= 3 { Label("Beste combo: \(bestCombo) goed op rij", systemImage: "bolt.fill").font(.subheadline.weight(.medium)) }
+                    .padding(.top, 30)
+                }
+                HeroMascot(mood: results.isEmpty ? .sleep : .cheer, size: 170).padding(.top, results.isEmpty ? 40 : 0)
+                Text(results.isEmpty ? "Je bent weer bij." : "Rondje klaar!").font(.game(34, .black)).foregroundStyle(.white)
+                if !results.isEmpty {
+                    Text(right == results.count ? "Alles goed. Wat knap!" : right * 2 >= results.count ? "Lekker bezig. De moeilijke komen snel terug." : "Goed geoefend. Morgen gaat het al makkelijker.").foregroundStyle(.white.opacity(0.75)).multilineTextAlignment(.center)
+                    HStack(spacing: 10) {
+                        tile("XP", "+\(xp)", .goldInk, .goldEdge)
+                        tile("Goed", "\(right)/\(results.count)", .success, .mintEdge)
+                        tile("Reeks", "\(stats.streak.count)", .brand, .brandEdge)
+                    }
+                    if bestCombo >= 3 { Label("Beste combo: \(bestCombo) goed op rij", systemImage: "flame.fill").font(.subheadline.weight(.semibold)).foregroundStyle(.white) }
                     if stats.level.number > before.level.number {
-                        HStack { Mascot(mood: .cheer, size: 48); VStack(alignment: .leading) { Text("Nieuw niveau: \(stats.level.name)!").font(.headline); Text(stats.level.next.map { "Volgende: \($0.name)" } ?? "Het hoogste niveau.").font(.footnote).foregroundStyle(.secondary) } }
-                            .padding().frame(maxWidth: .infinity, alignment: .leading).background(Color.butter.opacity(0.2), in: RoundedRectangle(cornerRadius: 16))
+                        HStack(spacing: 12) { LevelRing(number: stats.level.number, progress: stats.level.progress); VStack(alignment: .leading) { Eyebrow("Nieuw niveau", color: .butter); Text(stats.level.name).font(.game(18, .black)).foregroundStyle(.white) } ; Spacer() }
+                            .padding(14).background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
                     }
                     ForEach(newStamps) { stamp in
-                        HStack { Art(name: "stamps/\(stamp.id)", size: 64); VStack(alignment: .leading) { Text("Nieuwe stempel: \(stamp.title)").font(.headline); Text(stamp.description).font(.footnote).foregroundStyle(.secondary) } }
-                            .padding().frame(maxWidth: .infinity, alignment: .leading).background(Color.brand.opacity(0.1), in: RoundedRectangle(cornerRadius: 16))
+                        HStack(spacing: 12) { Art(name: "stamps/\(stamp.id)", size: 58); VStack(alignment: .leading) { Eyebrow("Nieuwe stempel", color: .butter); Text(stamp.title).font(.game(18, .black)).foregroundStyle(.white); Text(stamp.description).font(.footnote).foregroundStyle(.white.opacity(0.7)) }; Spacer() }
+                            .padding(14).background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
                     }
                 }
-                Button("Nog een rondje", action: again).buttonStyle(GameButtonStyle())
-                Button("Klaar", action: done).font(.headline).frame(maxWidth: .infinity, minHeight: 50).background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
+                Button(action: done) { Text("Verder") }.buttonStyle(GameButtonStyle()).padding(.top, 8)
+                Button("Nog een rondje", action: again).font(.headline).foregroundStyle(.white.opacity(0.85)).frame(minHeight: 44)
             }
-            .padding()
+            .padding(20)
         }
+        .background(Color.navy.ignoresSafeArea())
         .onAppear { if !results.isEmpty { Haptics.success() } }
     }
 
-    private func tile(_ label: String, _ value: String, _ color: Color) -> some View {
-        VStack(spacing: 4) {
-            Text(label).font(.caption.weight(.bold)).foregroundStyle(.white)
-            Text(value).font(.title2.weight(.heavy)).frame(maxWidth: .infinity).padding(.vertical, 10).background(.background, in: RoundedRectangle(cornerRadius: 10))
+    private func starCount(right: Int) -> Int {
+        guard !results.isEmpty else { return 0 }
+        let share = Double(right) / Double(results.count)
+        return share >= 0.9 ? 3 : share >= 0.6 ? 2 : 1
+    }
+
+    private func tile(_ label: String, _ value: String, _ ink: Color, _ edge: Color) -> some View {
+        VStack(spacing: 2) {
+            Text(label.uppercased()).font(.caption2.weight(.heavy)).tracking(0.6).foregroundStyle(ink)
+            Text(value).font(.game(24, .black)).foregroundStyle(Color(light: 0x141B2B, dark: 0x141B2B)).monospacedDigit()
         }
-        .padding(4).background(color, in: RoundedRectangle(cornerRadius: 14))
+        .frame(maxWidth: .infinity).padding(.vertical, 12)
+        .tile(radius: 20, fill: .white, edge: edge, depth: 5)
     }
 }
 

@@ -35,9 +35,9 @@ struct RootView: View {
 
     var body: some View {
         TabView(selection: $tab) {
-            OefenenView().tabItem { Label("Oefenen", systemImage: "bolt.fill") }.tag(Tab.oefenen)
-            LerenView().tabItem { Label("Leren", systemImage: "book.fill") }.tag(Tab.leren)
-            SpellenView().tabItem { Label("Spellen", systemImage: "gamecontroller.fill") }.tag(Tab.spellen)
+            OefenenView().tabItem { Label("Vandaag", systemImage: "bolt.fill") }.tag(Tab.oefenen)
+            LerenView().tabItem { Label("Leren", systemImage: "map.fill") }.tag(Tab.leren)
+            SpellenView().tabItem { Label("Arcade", systemImage: "gamecontroller.fill") }.tag(Tab.spellen)
             IkView().tabItem { Label("Ik", systemImage: "person.fill") }.tag(Tab.ik)
         }
         // A round opens over the screen you started it from; closing it brings you back there.

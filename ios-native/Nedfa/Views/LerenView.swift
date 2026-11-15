@@ -1,23 +1,24 @@
 import SwiftUI
 
-/// Leren: Thema’s, Zinsbouw and the Route, switched with a segmented control.
+/// Leren: the path as a game map, all themes as tiles, and the grammar rules.
 struct LerenView: View {
-    enum Part: String, CaseIterable { case themas = "Thema’s", zinsbouw = "Zinsbouw", route = "Route" }
-    @State private var part: Part = .themas
+    enum Part: String, CaseIterable { case pad = "Pad", themas = "Thema’s", zinsbouw = "Zinsbouw" }
+    @State private var part: Part = .pad
 
     var body: some View {
         NavigationStack {
             Group {
                 switch part {
-                case .themas: ThemesList()
+                case .pad: RouteMap()
+                case .themas: ThemesGrid()
                 case .zinsbouw: PatternList()
-                case .route: RouteList()
                 }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
                 Picker("Leren", selection: $part) { ForEach(Part.allCases, id: \.self) { Text($0.rawValue) } }
-                    .pickerStyle(.segmented).padding(.horizontal).padding(.bottom, 8).background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: [])
+                    .pickerStyle(.segmented).padding(.horizontal).padding(.bottom, 8).background(Color.ground, ignoresSafeAreaEdges: [])
             }
+            .gameBackground()
             .navigationTitle("Leren")
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
             .navigationDestination(for: PatternLink.self) { PatternDetailView(cardId: $0.id) }
@@ -29,7 +30,7 @@ struct PatternLink: Hashable { let id: String }
 
 // MARK: Themes
 
-struct ThemesList: View {
+struct ThemesGrid: View {
     @State private var progress = Learner.shared
     @State private var query = ""
 
@@ -37,15 +38,33 @@ struct ThemesList: View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
         let needle = query.trimmingCharacters(in: .whitespaces).lowercased()
         let themes = Content.shared.themes.filter { needle.isEmpty || "\($0.title) \($0.meaning) \($0.intro)".lowercased().contains(needle) }
-        List(themes) { theme in
-            let item = stats.progress(for: theme.id)
-            NavigationLink(value: theme) {
-                HStack {
-                    PictureRow(picture: "themes/\(theme.id)", title: theme.title, detail: (item?.done ?? 0) > 0 ? "\(item!.done) van \(item!.total) geoefend" : "\(Content.shared.words(in: theme.id).count) woorden · \(Content.shared.phrases(in: theme.id).count) zinnen", size: 52)
-                    Spacer()
-                    if (item?.done ?? 0) > 0 { StarsView(count: item?.stars ?? 0) } else { Text("Nieuw").font(.caption.weight(.bold)).padding(.horizontal, 8).padding(.vertical, 3).background(Color.brand.opacity(0.15), in: Capsule()).foregroundStyle(Color.brand) }
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)], spacing: 16) {
+                ForEach(themes) { theme in
+                    let item = stats.progress(for: theme.id)
+                    NavigationLink(value: theme) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Art(name: "themes/\(theme.id)", size: 150, corner: 18).frame(maxWidth: .infinity)
+                            Text(theme.title).font(.game(16, .heavy)).foregroundStyle(Color.primary).lineLimit(1)
+                            HStack {
+                                if (item?.done ?? 0) > 0 {
+                                    StarsView(count: item?.stars ?? 0)
+                                    Spacer()
+                                    Text("\(item!.done)/\(item!.total)").font(.caption.weight(.semibold)).foregroundStyle(.secondary).monospacedDigit()
+                                } else {
+                                    Text("\(Content.shared.words(in: theme.id).count) woorden").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                                    Spacer()
+                                    NewBadge()
+                                }
+                            }
+                        }
+                        .padding(10)
+                    }
+                    .buttonStyle(PressableTile())
                 }
             }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
         }
         .searchable(text: $query, prompt: "Zoek een thema")
     }
@@ -299,75 +318,88 @@ struct PatternDetailView: View {
 
 // MARK: Route
 
-struct RouteView: View {
-    var body: some View { RouteList().navigationTitle("Route") }
-}
-
-struct RouteList: View {
+/// The route as a winding path of stops: done stops have gold rims, the current one glows with the mascot, later ones are locked.
+struct RouteMap: View {
     @State private var progress = Learner.shared
-    @State private var open: Int?
+    @State private var stop: Stats.Stop?
+    private let rowHeight: CGFloat = 150
+    private let offsets: [CGFloat] = [0, -80, -110, -60, 20, 90, 110, 60]
 
     var body: some View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
-        List {
-            Section {
-                HStack(spacing: 14) {
-                    Art(name: "themes/route", size: 72)
-                    VStack(alignment: .leading) {
-                        Text("A2 → B1").font(.title3.weight(.bold))
-                        Text("\(stats.stops.filter(\.complete).count) van \(stats.stops.count) haltes · acht stappen uit je lessen").font(.footnote).foregroundStyle(.secondary)
+        ScrollViewReader { reader in
+            ScrollView {
+                VStack(spacing: 18) {
+                    HStack(spacing: 14) {
+                        Art(name: "themes/route", size: 64)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Eyebrow("A2 → B1", color: .success)
+                            Text("\(stats.stops.filter(\.complete).count) van \(stats.stops.count) haltes").font(.game(20, .black))
+                        }
+                        Spacer()
                     }
+                    .card(padding: 14)
+                    .padding(.horizontal, 20)
+
+                    VStack(spacing: 0) {
+                        ForEach(stats.stops) { item in
+                            node(item, current: item.index == stats.currentStop, locked: item.index > stats.currentStop)
+                                .frame(maxWidth: .infinity)
+                                .offset(x: offsets[item.index % offsets.count])
+                                .frame(height: rowHeight)
+                                .id(item.index)
+                        }
+                    }
+                    .background(alignment: .top) {
+                        GeometryReader { proxy in
+                            let point = { (index: Int) in CGPoint(x: proxy.size.width / 2 + offsets[index % offsets.count], y: CGFloat(index) * rowHeight + rowHeight / 2 - 16) }
+                            ZStack {
+                                path(count: stats.stops.count, point: point).stroke(Color.surface, style: StrokeStyle(lineWidth: 22, lineCap: .round, lineJoin: .round))
+                                path(count: stats.currentStop + 1, point: point).stroke(Color.butter, style: StrokeStyle(lineWidth: 7, lineCap: .round, dash: [2, 14]))
+                            }
+                        }
+                    }
+                    .padding(.bottom, 30)
                 }
+                .padding(.vertical, 12)
             }
-            Section {
-                ForEach(stats.stops) { stop in
-                    let isOpen = (open ?? stats.currentStop) == stop.index
-                    VStack(alignment: .leading, spacing: 12) {
-                        Button { withAnimation(.snappy) { open = isOpen ? -1 : stop.index } } label: {
-                            HStack(spacing: 12) {
-                                marker(stop, current: stop.index == stats.currentStop)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(stop.lesson.title).font(.body.weight(isOpen ? .bold : .semibold))
-                                    Text("\(stop.done) van \(stop.total) geoefend").font(.footnote).foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                Image(systemName: "chevron.down").rotationEffect(.degrees(isOpen ? 180 : 0)).foregroundStyle(.tertiary)
-                            }
-                        }
-                        .foregroundStyle(.primary)
-                        if isOpen {
-                            ProgressView(value: Double(stop.done), total: Double(stop.total)).tint(stop.complete ? .success : .brand)
-                            HStack(spacing: 10) { Art(name: "oefenen/woorden", size: 36); Text("\(stop.total) kaartjes herhalen").font(.subheadline) }
-                            HStack(alignment: .top, spacing: 10) {
-                                Art(name: "themes/zinsbouw", size: 36)
-                                VStack(alignment: .leading, spacing: 6) {
-                                    ForEach(stop.lesson.grammarIds, id: \.self) { id in
-                                        NavigationLink(value: PatternLink(id: id)) { Text(Content.shared.card(id)?.title ?? id).font(.subheadline.weight(.medium)) }
-                                    }
-                                }
-                            }
-                            HStack(alignment: .top, spacing: 10) { Art(name: "themes/spreken", size: 36); Text(stop.lesson.task).font(.subheadline) }
-                            Button { PracticeSession.shared.start(label: "Halte \(stop.index + 1)", limit: 10, cardIds: stop.lesson.cardIds) } label: {
-                                Text(stop.complete ? "Herhaal halte" : "Start halte \(stop.index + 1)")
-                            }
-                            .buttonStyle(GameButtonStyle())
-                        }
-                    }
-                    .padding(.vertical, 4)
-                }
+            .onAppear { if stats.currentStop > 1 { reader.scrollTo(stats.currentStop, anchor: .center) } }
+        }
+        .sheet(item: $stop) { StopSheet(stop: $0).presentationDetents([.medium, .large]) }
+    }
+
+    private func path(count: Int, point: (Int) -> CGPoint) -> Path {
+        Path { path in
+            guard count > 0 else { return }
+            path.move(to: point(0))
+            for index in 1..<max(1, count) {
+                let from = point(index - 1), to = point(index)
+                path.addCurve(to: to, control1: CGPoint(x: from.x, y: from.y + rowHeight * 0.5), control2: CGPoint(x: to.x, y: to.y - rowHeight * 0.5))
             }
         }
     }
 
-    @ViewBuilder private func marker(_ stop: Stats.Stop, current: Bool) -> some View {
-        if current && !stop.complete {
-            Mascot(mood: .wave, size: 44).overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.brand, lineWidth: 3))
-        } else {
-            ZStack {
-                Circle().fill(stop.complete ? Color.success : Color(.secondarySystemBackground))
-                if stop.complete { Image(systemName: "checkmark").font(.headline).foregroundStyle(.white) } else { Text("\(stop.index + 1)").font(.headline).foregroundStyle(.secondary) }
+    private func node(_ item: Stats.Stop, current: Bool, locked: Bool) -> some View {
+        Button { Haptics.tap(); stop = item } label: {
+            VStack(spacing: 6) {
+                ZStack {
+                    if current { Circle().fill(Color.brand.opacity(0.18)).frame(width: 118, height: 118) }
+                    Circle().fill(locked ? Color.track : Color.surface)
+                        .frame(width: current ? 96 : 84, height: current ? 96 : 84)
+                        .background(Circle().fill(locked ? Color.edge : current ? Color.brandEdge : Color.goldEdge).offset(y: 6))
+                        .overlay(Circle().stroke(locked ? .clear : current ? Color.brand : Color.butter, lineWidth: 5))
+                    if locked {
+                        Image(systemName: "lock.fill").font(.title2).foregroundStyle(.secondary)
+                    } else {
+                        Art(name: "themes/\(item.lesson.themeIds.first ?? "route")", size: current ? 84 : 72, corner: current ? 42 : 36)
+                    }
+                }
+                Text(item.lesson.title).font(.game(13, .heavy)).foregroundStyle(locked ? .secondary : .primary).lineLimit(2).multilineTextAlignment(.center).frame(width: 150)
+                if item.complete { StarsView(count: 3) } else if current { Text("Start").font(.caption.weight(.black)).foregroundStyle(Color.brand) }
             }
-            .frame(width: 44, height: 44)
+            .overlay(alignment: .leading) { if current { HeroMascot(mood: .wave, size: 58).offset(x: -78, y: -14) } }
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Halte \(item.index + 1): \(item.lesson.title)\(item.complete ? ", klaar" : locked ? ", nog op slot" : "")")
     }
 }

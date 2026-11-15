@@ -9,100 +9,118 @@ struct IkView: View {
 
     var body: some View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
+        let practised = stats.themes.filter { $0.done > 0 }
         NavigationStack {
-            List {
-                Section {
-                    if let user = cloud.user {
-                        HStack(spacing: 14) {
-                            Text(String(user.name.prefix(1)).uppercased()).font(.title3.bold()).frame(width: 48, height: 48).background(Color.navy.opacity(0.15), in: Circle())
-                            VStack(alignment: .leading) { Text(user.name.isEmpty ? "Mijn account" : user.name).font(.headline); Text(cloud.status.text).font(.footnote).foregroundStyle(.secondary) }
-                        }
-                    } else if cloud.status != .unavailable {
-                        Button { showSignIn = true } label: { PictureRow(picture: "mascot/wave", title: "Inloggen", detail: "Ga verder op je telefoon en de website") }.foregroundStyle(.primary)
-                    }
-                }
-                Section {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 22) {
+                    profile(stats).padding(.horizontal, 20)
                     HStack(spacing: 10) {
-                        tile("\(stats.streak.count)", stats.streak.count == 1 ? "dag op rij" : "dagen op rij", icon: "flame.fill", color: .brand)
-                        tile("\(stats.xp)", "XP", icon: "star.fill", color: .butter)
-                        tile("\(stats.known)", "onthouden", icon: "checkmark.seal.fill", color: .success)
+                        tile("\(stats.streak.count)", stats.streak.count == 1 ? "dag op rij" : "dagen op rij", color: .brand)
+                        tile(stats.xp.formatted(), "XP totaal", color: .goldInk)
+                        tile("\(stats.known)", "onthouden", color: .success)
                     }
-                    .listRowInsets(EdgeInsets()).listRowBackground(Color.clear)
-                }
-                Section {
-                    HStack(spacing: 14) {
-                        Mascot(mood: stats.streak.today ? .cheer : .wave, size: 64)
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Niveau \(stats.level.number) · \(stats.level.name)").font(.headline)
-                            ProgressView(value: stats.level.progress).tint(.butter)
-                            Text(stats.level.next.map { "Nog \(stats.level.toNext) XP tot \($0.name)" } ?? "Je hebt het hoogste niveau. Knap!").font(.footnote).foregroundStyle(.secondary)
-                        }
-                    }
-                    HStack {
-                        ForEach(stats.week) { day in
-                            VStack(spacing: 4) {
-                                ZStack {
-                                    Circle().fill(day.count > 0 ? Color.brand : Color(.tertiarySystemFill))
-                                    if day.count > 0 { Image(systemName: "checkmark").font(.caption.bold()).foregroundStyle(.white) }
+                    .padding(.horizontal, 20)
+                    week(stats).padding(.horizontal, 20)
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionTitle("Stempels") { Text("\(stats.earned.count) van \(Content.shared.stamps.count)").font(.subheadline.weight(.semibold)).foregroundStyle(.secondary) }
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4), spacing: 16) {
+                            ForEach(Content.shared.stamps) { stamp in
+                                let earned = stats.earned.contains(stamp.id)
+                                VStack(spacing: 6) {
+                                    Art(name: "stamps/\(stamp.id)", size: 74, corner: 22)
+                                        .saturation(earned ? 1 : 0).opacity(earned ? 1 : 0.4)
+                                        .tile(radius: 22, depth: earned ? 5 : 2)
+                                    Text(stamp.title).font(.game(12, .heavy)).multilineTextAlignment(.center).lineLimit(2).foregroundStyle(earned ? .primary : .secondary)
                                 }
-                                .frame(width: 30, height: 30)
-                                Text(day.label).font(.caption2).foregroundStyle(.secondary)
+                                .accessibilityElement(children: .combine)
+                                .accessibilityLabel("\(stamp.title), \(earned ? "verdiend" : "nog niet verdiend: \(stamp.description)")")
                             }
-                            .frame(maxWidth: .infinity)
                         }
+                        .padding(.horizontal, 20)
                     }
-                } header: { Text("Jouw reeks en niveau") }
-                Section("Vandaag") {
-                    ForEach(stats.missions) { mission in
-                        HStack(spacing: 12) {
-                            Art(name: mission.picture, size: 44).overlay(alignment: .bottomTrailing) { if mission.done { Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.success).background(Circle().fill(.background)) } }
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text(mission.title).font(.subheadline.weight(.medium)).strikethrough(mission.done)
-                                ProgressView(value: Double(mission.count), total: Double(mission.target)).tint(mission.done ? .success : .brand)
+                    if !practised.isEmpty {
+                        VStack(alignment: .leading, spacing: 12) {
+                            SectionTitle("Jouw thema’s")
+                            VStack(spacing: 0) {
+                                ForEach(Array(practised.enumerated()), id: \.element.theme.id) { index, item in
+                                    NavigationLink(value: item.theme) {
+                                        HStack {
+                                            PictureRow(picture: "themes/\(item.theme.id)", title: item.theme.title, detail: "\(item.done) van \(item.total) · \(item.known) onthouden")
+                                            Spacer()
+                                            StarsView(count: item.stars)
+                                        }
+                                        .foregroundStyle(Color.primary)
+                                        .padding(.vertical, 6)
+                                    }
+                                    if index < practised.count - 1 { Divider() }
+                                }
                             }
-                            Text("\(mission.count)/\(mission.target)").font(.footnote.bold()).monospacedDigit()
+                            .card(padding: 14)
+                            .padding(.horizontal, 20)
                         }
                     }
                 }
-                Section("Stempels · \(stats.earned.count) van \(Content.shared.stamps.count)") {
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 14) {
-                        ForEach(Content.shared.stamps) { stamp in
-                            let earned = stats.earned.contains(stamp.id)
-                            VStack(spacing: 6) {
-                                Art(name: "stamps/\(stamp.id)", size: 84).saturation(earned ? 1 : 0).opacity(earned ? 1 : 0.35)
-                                Text(stamp.title).font(.caption2.weight(.medium)).multilineTextAlignment(.center).foregroundStyle(earned ? .primary : .secondary)
-                            }
-                            .accessibilityElement(children: .combine)
-                            .accessibilityLabel("\(stamp.title), \(earned ? "verdiend" : "nog niet verdiend: \(stamp.description)")")
-                        }
-                    }
-                    .padding(.vertical, 6)
-                }
-                let practised = stats.themes.filter { $0.done > 0 }
-                if !practised.isEmpty {
-                    Section("Jouw thema’s") {
-                        ForEach(practised, id: \.theme.id) { item in
-                            NavigationLink(value: item.theme) {
-                                HStack { PictureRow(picture: "themes/\(item.theme.id)", title: item.theme.title, detail: "\(item.done) van \(item.total) · \(item.known) onthouden"); Spacer(); StarsView(count: item.stars) }
-                            }
-                        }
-                    }
+                .padding(.vertical, 12)
+            }
+            .gameBackground()
+            .navigationTitle("Ik")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink { SettingsView() } label: { Image(systemName: "gearshape.fill") }.accessibilityLabel("Instellingen")
                 }
             }
-            .navigationTitle("Ik")
-            .toolbar { ToolbarItem(placement: .topBarTrailing) { NavigationLink { SettingsView() } label: { Image(systemName: "gearshape") }.accessibilityLabel("Instellingen") } }
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
             .sheet(isPresented: $showSignIn) { SignInSheet() }
         }
     }
 
-    private func tile(_ value: String, _ label: String, icon: String, color: Color) -> some View {
-        VStack(spacing: 2) {
-            Label(value, systemImage: icon).font(.title3.weight(.heavy)).foregroundStyle(color).monospacedDigit()
-            Text(label).font(.caption).foregroundStyle(.secondary)
+    @ViewBuilder private func profile(_ stats: Stats) -> some View {
+        HStack(spacing: 16) {
+            Mascot(mood: stats.streak.today ? .cheer : .wave, size: 84)
+            VStack(alignment: .leading, spacing: 6) {
+                if let user = cloud.user {
+                    Text(user.name.isEmpty ? "Mijn account" : user.name).font(.game(22, .black)).lineLimit(1)
+                } else {
+                    Text("Gast").font(.game(22, .black))
+                }
+                Text("Niveau \(stats.level.number) · \(stats.level.name)").font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
+                ThickProgress(value: stats.level.progress, color: .butter, height: 12)
+                Text(stats.level.next.map { "\(stats.level.toNext) XP tot \($0.name)" } ?? "Het hoogste niveau. Knap!").font(.caption.weight(.bold)).foregroundStyle(Color.goldInk)
+                if cloud.user == nil, cloud.status != .unavailable {
+                    Button("Inloggen om je voortgang te bewaren") { showSignIn = true }.font(.caption.weight(.bold)).foregroundStyle(Color.brand)
+                } else if cloud.user != nil {
+                    Text(cloud.status.text).font(.caption).foregroundStyle(.secondary)
+                }
+            }
         }
-        .frame(maxWidth: .infinity, minHeight: 70)
-        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .card(padding: 18, radius: 28)
+    }
+
+    private func week(_ stats: Stats) -> some View {
+        HStack {
+            ForEach(stats.week) { day in
+                VStack(spacing: 6) {
+                    ZStack {
+                        Circle().fill(day.count > 0 ? Color.brand : Color.track)
+                            .background(Circle().fill(day.count > 0 ? Color.brandEdge : .clear).offset(y: 3))
+                        if day.count > 0 { Image(systemName: "flame.fill").font(.caption.bold()).foregroundStyle(.white) }
+                    }
+                    .frame(width: 34, height: 34)
+                    Text(day.label).font(.caption2.weight(.semibold)).foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity)
+            }
+        }
+        .card(padding: 14, radius: 24)
+    }
+
+    private func tile(_ value: String, _ label: String, color: Color) -> some View {
+        VStack(spacing: 2) {
+            Text(value).font(.game(24, .black)).foregroundStyle(color).monospacedDigit().minimumScaleFactor(0.6).lineLimit(1)
+            Text(label).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, minHeight: 72)
+        .tile(radius: 20)
     }
 }
 

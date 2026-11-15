@@ -64,22 +64,104 @@ struct GameList: View {
     }
 }
 
+/// Arcade: the challenge of the week as a big card, then every game as a 3D tile.
 struct SpellenView: View {
     @State private var theme = "all"
+    @State private var preferences = Preferences.shared
+
     var body: some View {
         NavigationStack {
-            List { GameList(theme: theme) }
-                .navigationTitle("Spellen")
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Menu {
-                            Picker("Thema", selection: $theme) {
-                                Text("Alle thema’s").tag("all")
-                                ForEach(Content.shared.themes) { Text($0.title).tag($0.id) }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 22) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Eyebrow("\(GameID.allCases.count) spellen")
+                        HStack {
+                            Text("Arcade").font(.game(34, .black))
+                            Spacer()
+                            Menu {
+                                Picker("Thema", selection: $theme) {
+                                    Text("Alle thema’s").tag("all")
+                                    ForEach(Content.shared.themes) { Text($0.title).tag($0.id) }
+                                }
+                            } label: {
+                                HStack(spacing: 4) { Text(Content.shared.theme(theme)?.title ?? "Alle thema’s").lineLimit(1); Image(systemName: "chevron.down").font(.caption2.weight(.bold)) }
+                                    .font(.subheadline.weight(.semibold)).foregroundStyle(Color.brand)
                             }
-                        } label: { Label(Content.shared.theme(theme)?.title ?? "Alle thema’s", systemImage: "line.3.horizontal.decrease.circle") }
+                        }
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
+                    FeaturedGame(game: GameID.weekly, record: preferences.records[GameID.weekly.rawValue]) { PracticeSession.shared.play(GameID.weekly, theme: theme) }
+                        .padding(.horizontal, 20)
+                    GameGrid(games: GameID.allCases.filter { $0 != GameID.weekly }, theme: theme)
+                        .padding(.horizontal, 20)
                 }
+                .padding(.bottom, 30)
+            }
+            .gameBackground()
+            .toolbar(.hidden, for: .navigationBar)
+        }
+    }
+}
+
+extension GameID {
+    /// One game is the challenge of the week, so the Arcade looks different each week.
+    static var weekly: GameID {
+        let week = Calendar.current.component(.weekOfYear, from: .now)
+        return allCases[week % allCases.count]
+    }
+}
+
+/// The big orange card for the challenge of the week.
+struct FeaturedGame: View {
+    let game: GameID
+    let record: Int?
+    let play: () -> Void
+    var body: some View {
+        Button(action: play) {
+            HStack(alignment: .top, spacing: 0) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("UITDAGING VAN DE WEEK").font(.caption2.weight(.heavy)).tracking(0.4).lineLimit(1).fixedSize().padding(.horizontal, 10).padding(.vertical, 4).background(.white.opacity(0.22), in: Capsule())
+                    Text(game.title).font(.game(28, .black)).lineLimit(1).minimumScaleFactor(0.6)
+                    Text(game.length).font(.subheadline.weight(.semibold)).opacity(0.9)
+                    Spacer(minLength: 8)
+                    HStack(spacing: 8) { Image(systemName: "play.fill"); Text(record.map { "Speel · record \($0)" } ?? "Speel") }
+                        .font(.game(16, .black)).foregroundStyle(Color.brand)
+                        .padding(.horizontal, 18).frame(height: 44)
+                        .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .shadow(color: .black.opacity(0.12), radius: 0, y: 4)
+                }
+                .foregroundStyle(.white)
+                Spacer(minLength: 0)
+                Art(name: "games/\(game.rawValue)", size: 128, corner: 30).rotationEffect(.degrees(4)).padding(.top, 30)
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity, minHeight: 200, alignment: .leading)
+        }
+        .buttonStyle(PressableTile(fill: .brand, edge: .brandEdge, radius: 30))
+        .shadow(color: Color.brand.opacity(0.3), radius: 16, y: 10)
+    }
+}
+
+/// Games as 3D tiles in two columns.
+struct GameGrid: View {
+    let games: [GameID]
+    var theme = "all"
+    var onPick: (() -> Void)? = nil
+    @State private var preferences = Preferences.shared
+    var body: some View {
+        LazyVGrid(columns: [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)], spacing: 16) {
+            ForEach(games) { game in
+                Button { onPick?(); PracticeSession.shared.play(game, theme: theme) } label: {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Art(name: "games/\(game.rawValue)", size: 150, corner: 16).frame(maxWidth: .infinity)
+                        Text(game.title).font(.game(16, .black)).foregroundStyle(Color.primary).lineLimit(1)
+                        Text(preferences.records[game.rawValue].map { "Record \($0)" } ?? game.length).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                    }
+                    .padding(10)
+                }
+                .buttonStyle(PressableTile())
+            }
         }
     }
 }
@@ -89,7 +171,8 @@ struct ThemeGamesSheet: View {
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStack {
-            List { GameList(theme: theme.id) { dismiss() } }
+            ScrollView { GameGrid(games: GameID.allCases, theme: theme.id) { dismiss() }.padding(20) }
+                .gameBackground()
                 .navigationTitle("Spelen · \(theme.title)")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Klaar") { dismiss() } } }

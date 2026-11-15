@@ -192,6 +192,7 @@ struct GameFlow: View {
     @State private var started = false
     @State private var round = 0
     @State private var result: GameResult?
+    @State private var confirmQuit = false
 
     var body: some View {
         NavigationStack {
@@ -205,9 +206,16 @@ struct GameFlow: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) { Button { dismiss() } label: { Image(systemName: "xmark").font(.headline) }.accessibilityLabel("Sluiten") }
+                ToolbarItem(placement: .topBarLeading) {
+                    // Mid-game, ask first: the score of this round would not count.
+                    Button { if started && result == nil { confirmQuit = true } else { dismiss() } } label: { Image(systemName: "xmark").font(.headline) }.accessibilityLabel("Sluiten")
+                }
             }
         }
+        .confirmationDialog("Stoppen met dit spel?", isPresented: $confirmQuit, titleVisibility: .visible) {
+            Button("Stoppen", role: .destructive) { dismiss() }
+            Button("Doorgaan", role: .cancel) {}
+        } message: { Text("Je score van deze ronde telt dan niet mee voor je record.") }
         .onDisappear { Audio.shared.stop() }
     }
 

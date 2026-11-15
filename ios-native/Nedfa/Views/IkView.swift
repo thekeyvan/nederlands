@@ -134,6 +134,7 @@ struct SettingsView: View {
     @State private var cloud = Cloud.shared
     @State private var showSignIn = false
     @State private var confirmDelete = false
+    @State private var confirmSignOut = false
     @State private var reminderOn = Preferences.shared.reminderHour != nil
     @State private var reminderDenied = false
 
@@ -174,7 +175,7 @@ struct SettingsView: View {
                     }
                     SignInMethodRow(provider: "apple", user: user)
                     SignInMethodRow(provider: "google", user: user)
-                    Button("Uitloggen") { Task { await cloud.signOut() } }
+                    Button("Uitloggen") { confirmSignOut = true }
                 } else if cloud.status != .unavailable {
                     Button("Inloggen met Apple of Google") { showSignIn = true }
                 }
@@ -188,6 +189,12 @@ struct SettingsView: View {
         }
         .navigationTitle("Instellingen")
         .sheet(isPresented: $showSignIn) { SignInSheet() }
+        .confirmationDialog("Uitloggen?", isPresented: $confirmSignOut, titleVisibility: .visible) {
+            Button("Uitloggen", role: .destructive) { Task { await cloud.signOut() } }
+            Button("Annuleren", role: .cancel) {}
+        } message: {
+            Text("Je voortgang blijft opgeslagen in je account. Op deze iPhone oefen je daarna als gast, tot je weer inlogt.")
+        }
         .confirmationDialog(cloud.user == nil ? "Je voortgang wissen?" : "Je account verwijderen?", isPresented: $confirmDelete, titleVisibility: .visible) {
             Button(cloud.user == nil ? "Wis alles" : "Verwijder mijn account", role: .destructive) { Task { _ = await cloud.deleteAccount() } }
             Button("Annuleren", role: .cancel) {}
@@ -231,20 +238,24 @@ struct SignInMethodRow: View {
     let provider: String
     let user: Cloud.User
     @State private var cloud = Cloud.shared
+    @State private var confirmUnlink = false
     @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         let linked = user.has(provider)
         let name = provider == "apple" ? "Apple" : "Google"
         HStack(spacing: 12) {
-            Image(systemName: provider == "apple" ? "apple.logo" : "g.circle.fill").font(.title3).frame(width: 28)
+            Group {
+                if provider == "apple" { Image(systemName: "apple.logo").font(.title3) } else { GoogleLogo(size: 20) }
+            }
+            .frame(width: 28)
             VStack(alignment: .leading, spacing: 1) {
                 Text(name).font(.body.weight(.medium))
                 Text(linked ? "Gekoppeld" : "Koppel \(name) om ook daarmee in te loggen").font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
             if linked {
-                if user.providers.count > 1 { Button("Ontkoppel") { Task { await cloud.unlink(provider) } }.font(.subheadline).foregroundStyle(.secondary).buttonStyle(.borderless) }
+                if user.providers.count > 1 { Button("Ontkoppel") { confirmUnlink = true }.font(.subheadline).foregroundStyle(.secondary).buttonStyle(.borderless) }
                 else { Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.success) }
             } else if provider == "apple" {
                 SignInWithAppleButton(.continue) { cloud.appleRequest($0, link: true) } onCompletion: { result in Task { await cloud.appleCompletion(result) } }
@@ -256,7 +267,19 @@ struct SignInMethodRow: View {
                 Button("Koppelen") { Task { await cloud.signInWithGoogle(link: true) } }.buttonStyle(.bordered).buttonBorderShape(.capsule)
             }
         }
+        .confirmationDialog("\(name) ontkoppelen?", isPresented: $confirmUnlink, titleVisibility: .visible) {
+            Button("Ontkoppel \(name)", role: .destructive) { Task { await cloud.unlink(provider) } }
+            Button("Annuleren", role: .cancel) {}
+        } message: {
+            Text("Je kunt dan niet meer met \(name) inloggen op dit account. Je voortgang blijft bewaard en je kunt \(name) later opnieuw koppelen.")
+        }
     }
+}
+
+/// Google's own multicolour "G", as in their sign-in branding (no circle).
+struct GoogleLogo: View {
+    var size: CGFloat = 20
+    var body: some View { Image("GoogleG").resizable().scaledToFit().frame(width: size, height: size).accessibilityHidden(true) }
 }
 
 struct SignInButtons: View {
@@ -272,7 +295,8 @@ struct SignInButtons: View {
             .frame(height: 52)
             .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             Button { Task { await cloud.signInWithGoogle(); done() } } label: {
-                Label("Ga door met Google", systemImage: "g.circle.fill").font(.headline).frame(maxWidth: .infinity, minHeight: 52)
+                HStack(spacing: 10) { GoogleLogo(size: 20); Text("Ga door met Google") }
+                    .font(.system(size: 19, weight: .medium)).frame(maxWidth: .infinity, minHeight: 52)
             }
             .foregroundStyle(.primary)
             .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))

@@ -14,6 +14,7 @@ import {Avatar} from '@/components/app/account-chip';
 import {Group, GroupLabel, Row, RowIcon, ScreenTitle} from '@/components/app/list';
 import {AppleLogo, GoogleLogo, openSignIn, useCanSignIn} from '@/components/app/sign-in';
 import {AppCard} from '@/components/pwa';
+import {Confirm} from '@/components/confirm';
 import {Page} from '@/components/page';
 import {useAudio} from '@/hooks/use-audio';
 import {syncMessages, useCloud} from '@/hooks/use-cloud';
@@ -118,7 +119,9 @@ export function SettingsScreen() {
             <Row title={cloud.user.email || cloud.user.name || 'Je account'} detail={syncMessages[cloud.status]} titleClassName="font-medium" />
             <SignInMethod provider="apple" linked={cloud.user.providers} />
             <SignInMethod provider="google" linked={cloud.user.providers} />
-            <Row onClick={() => void signOut()} chevron={false} title="Uitloggen" titleClassName="font-medium text-primary" />
+            <Confirm title="Uitloggen?" description="Je voortgang blijft opgeslagen in je account. Op dit apparaat oefen je daarna als gast, tot je weer inlogt." action="Uitloggen" onConfirm={signOut}>
+              {(open) => <Row onClick={open} chevron={false} title="Uitloggen" titleClassName="font-medium text-primary" />}
+            </Confirm>
           </>
         ) : canSignIn && cloud.status !== 'starting' ? (
           <Row onClick={openSignIn} title="Inloggen met Apple of Google" detail="Je voortgang staat nu alleen op dit apparaat" titleClassName="font-medium text-primary" />
@@ -148,7 +151,11 @@ function SignInMethod({provider, linked}: {provider: 'apple' | 'google'; linked:
     <Row leading={icon} title={name} titleClassName="font-medium"
       detail={isLinked ? 'Gekoppeld' : 'Nog niet gekoppeld'}
       trailing={isLinked
-        ? linked.length > 1 && <Button size="sm" variant="ghost" className="text-muted-foreground" onClick={() => void unlinkProvider(provider)}>Ontkoppelen</Button>
+        ? linked.length > 1 && (
+          <Confirm title={`${name} ontkoppelen?`} description={`Je kunt dan niet meer met ${name} inloggen op dit account. Je voortgang blijft bewaard en je kunt ${name} later opnieuw koppelen.`} action="Ontkoppelen" destructive onConfirm={() => unlinkProvider(provider)}>
+            {(open) => <Button size="sm" variant="ghost" className="text-muted-foreground" onClick={open}>Ontkoppelen</Button>}
+          </Confirm>
+        )
         : <Button size="sm" variant="outline" onClick={() => void linkProvider(provider)}>Koppelen</Button>} />
   );
 }

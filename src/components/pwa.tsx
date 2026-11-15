@@ -3,6 +3,7 @@ import {useRegisterSW} from '@/lib/register-sw';
 import {toast} from 'sonner';
 import {Bell, CloudDownload, Download, MonitorSmartphone, Share, Smartphone, Trash2, WifiOff} from 'lucide-react';
 import {Button} from '@/components/ui/button';
+import {Confirm} from '@/components/confirm';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Label} from '@/components/ui/label';
 import {Progress} from '@/components/ui/progress';
@@ -185,7 +186,9 @@ function WebAppCard() {
                 <p className="text-xs text-muted-foreground">Alle audio van {audio.voiceName} (± 37 MB). Wat je al hebt gehoord, staat er al op.</p>
               </div>
               {complete ? (
-                <Button variant="ghost" size="sm" onClick={() => void offline.remove()}><Trash2 />Verwijder</Button>
+                <Confirm title="Offline audio verwijderen?" description={`De audio van ${audio.voiceName} wordt van dit apparaat gewist (± 37 MB). Zonder internet hoor je dan niets meer; je kunt alles later opnieuw downloaden.`} action="Verwijder" destructive onConfirm={() => offline.remove()}>
+                  {(open) => <Button variant="ghost" size="sm" onClick={open}><Trash2 />Verwijder</Button>}
+                </Confirm>
               ) : (
                 <Button variant="outline" size="sm" disabled={offline.busy} onClick={() => void offline.download()}><CloudDownload />{offline.busy ? 'Bezig…' : 'Download'}</Button>
               )}

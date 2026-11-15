@@ -96,6 +96,7 @@ final class Cloud {
     /// `link`: add Apple to the account you are signed in with.
     func appleRequest(_ request: ASAuthorizationAppleIDRequest, link: Bool = false) {
         linking = link
+        Analytics.shared.event(link ? "koppelen" : "inloggen", ["provider": "apple"])
         nonce = UUID().uuidString + UUID().uuidString
         request.requestedScopes = [.fullName, .email]
         request.nonce = SHA256.hash(data: Data(nonce.utf8)).map { String(format: "%02x", $0) }.joined()
@@ -130,6 +131,7 @@ final class Cloud {
     // MARK: Google (in a Safari sheet; nedfa.nl checks Google's answer and sends back a one-time code)
 
     func signInWithGoogle(link: Bool = false) async {
+        Analytics.shared.event(link ? "koppelen" : "inloggen", ["provider": "google"])
         var items = [URLQueryItem(name: "mode", value: "app")]
         if link {
             struct Ticket: Decodable { let ticket: String }

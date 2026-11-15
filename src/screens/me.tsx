@@ -3,6 +3,8 @@ import {ChevronRight, Flame, Laptop, MessageCircleHeart, Moon, Settings, Shield,
 import {Button} from '@/components/ui/button';
 import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog';
 import {Label} from '@/components/ui/label';
+import {Switch} from '@/components/ui/switch';
+import {setStatsEnabled, statsEnabled} from '@/lib/stats';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {ToggleGroup, ToggleGroupItem} from '@/components/ui/toggle-group';
 import {LevelCard, MissionsCard, StampsCard, StreakCard} from '@/components/game/cards';
@@ -142,6 +144,7 @@ export function SettingsScreen() {
       <Group>
         <Row onClick={() => setFeedbackOpen(true)} leading={<RowIcon className="bg-primary/15 text-primary"><MessageCircleHeart /></RowIcon>} title="Feedback geven" detail="Een probleem, een idee of een compliment" titleClassName="font-medium" />
         <Row onClick={() => navigate('bronnen')} leading={<img src={sceneFor('bronnen')} alt="" className="size-10 shrink-0 rounded-lg bg-[#fcfaf6] object-cover" draggable={false} />} title="Websites & boeken" titleClassName="font-medium" />
+        <StatsRow />
         <li><a href="/privacy" className="flex min-h-[52px] items-center gap-3 px-3.5 py-2.5 hover:bg-muted/60"><RowIcon className="bg-info-soft text-info-foreground"><Shield /></RowIcon><span className="flex-1 text-[15px] font-medium">Privacy</span><ChevronRight className="size-4 text-muted-foreground/60" /></a></li>
       </Group>
       <GroupLabel>App</GroupLabel>
@@ -203,6 +206,20 @@ function DeleteData({signedIn}: {signedIn: boolean}) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </li>
+  );
+}
+
+/** Anonymous statistics (src/lib/stats.ts): on by default, one switch to turn them off. */
+function StatsRow() {
+  const [on, setOn] = useState(statsEnabled);
+  return (
+    <li className="flex min-h-[52px] items-center gap-3 px-3.5 py-2.5">
+      <Label htmlFor="stats-switch" className="min-w-0 flex-1 flex-col items-start gap-0.5">
+        <span className="text-[15px] font-medium">Anonieme statistieken</span>
+        <span className="text-xs font-normal text-muted-foreground">Welke schermen gebruikt worden, zonder cookies of naam</span>
+      </Label>
+      <Switch id="stats-switch" checked={on} onCheckedChange={(value) => { setStatsEnabled(value); setOn(value); }} />
     </li>
   );
 }

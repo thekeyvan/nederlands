@@ -46,7 +46,8 @@ The app works without an account ("Eerst proberen zonder account" on the first s
 ## Privacy (App Store nutrition label)
 
 - Collected only when signed in, linked to the user, not used for tracking: Contact info (email, name — from Apple/Google sign-in), User content / Other usage data (review progress and settings) for App Functionality.
-- No analytics, no ads, no tracking.
+- Usage Data → Product Interaction: collected, **not linked** to the user, **not used for tracking**, purpose Analytics (anonymous Umami screen and event counts on our own server; off-switch in Instellingen; see docs/ANALYTICS.md).
+- No ads, no third-party tracking, no App Tracking Transparency prompt needed.
 
 ## Release steps
 

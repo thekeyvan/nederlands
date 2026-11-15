@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Bug, Heart, Lightbulb, Send} from 'lucide-react';
 import {toast} from 'sonner';
+import {trackEvent} from '@/lib/stats';
 import {Button} from '@/components/ui/button';
 import {ResponsiveSheet} from '@/components/responsive-sheet';
 import {cn} from '@/lib/utils';
@@ -27,6 +28,7 @@ export function FeedbackSheet({open, onOpenChange}: {open: boolean; onOpenChange
         body: JSON.stringify({kind, message: message.trim(), screen, platform: 'web', context: {browser: navigator.userAgent.slice(0, 200), width: String(window.innerWidth), locale: navigator.language}}),
       });
       if (!response.ok) throw new Error(String(response.status));
+      trackEvent('feedback', {soort: kind});
       toast('Dank je wel! We lezen alles.');
       setMessage('');
       onOpenChange(false);

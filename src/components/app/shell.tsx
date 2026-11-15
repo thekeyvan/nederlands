@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react';
+import {useEffect, type ReactNode} from 'react';
 import {ChevronLeft, Flame, Laptop, Moon, Star, Sun} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
@@ -8,6 +8,7 @@ import {AccountChip} from '@/components/app/account-chip';
 import {InstallButton} from '@/components/pwa';
 import {parentOf, tabOf, tabs, titleOf, type NavItem} from '@/components/app/nav';
 import {cn} from '@/lib/utils';
+import {trackView} from '@/lib/stats';
 import {goBack, hrefFor, navigate, openedFrom, useRoute, type Panel, type Route} from '@/hooks/use-route';
 import {useTheme, type ThemePreference} from '@/hooks/use-theme';
 import {useGame} from '@/hooks/use-progress';
@@ -126,6 +127,9 @@ function TabBar({panel}: {panel: Panel}) {
 export function AppShell({route, layer, children}: {route: Route; layer: ReactNode | null; children: ReactNode}) {
   const {panel} = route;
   const sub = parentOf(route) !== null;
+  // Anonymous screen views, e.g. /leren/woorden/huisarts (see src/lib/stats.ts).
+  const screenPath = ['/leren', panel, route.theme ?? route.rule ?? route.game].filter(Boolean).join('/');
+  useEffect(() => trackView(screenPath), [screenPath]);
   return (
     <>
       {layer && <main id="main" tabIndex={-1} className="min-h-dvh outline-none" style={{paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)'}}>{layer}</main>}

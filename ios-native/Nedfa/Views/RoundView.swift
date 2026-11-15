@@ -477,7 +477,11 @@ struct RoundSummary: View {
             .padding(20)
         }
         .background(Color.navy.ignoresSafeArea())
-        .onAppear { if !results.isEmpty { Haptics.success() } }
+        .onAppear {
+            guard !results.isEmpty else { return }
+            Haptics.success()
+            Analytics.shared.event("ronde klaar", ["soort": round.drill ? "patroon" : "mix", "kaartjes": results.count, "goed": results.filter(\.correct).count])
+        }
     }
 
     private func starCount(right: Int) -> Int {

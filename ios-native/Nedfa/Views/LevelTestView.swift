@@ -94,7 +94,7 @@ struct LevelTestView: View {
             .card(padding: 14, radius: 22)
             Button { right = [:]; step = .question(level: "A0", index: 0) } label: { HStack { Text("Start de test"); Image(systemName: "arrow.right") } }
                 .buttonStyle(GameButtonStyle())
-            Button("Ik begin bij nul") { finish("A0") }
+            Button("Ik begin bij nul") { finish("A0", skipped: true) }
                 .font(.headline).foregroundStyle(Color.brand).frame(maxWidth: .infinity)
         }
     }
@@ -196,8 +196,9 @@ struct LevelTestView: View {
         }
     }
 
-    private func finish(_ level: String) {
+    private func finish(_ level: String, skipped: Bool = false) {
         Preferences.shared.level = level
+        Analytics.shared.event("niveautest", ["niveau": level, "overgeslagen": skipped])
         Haptics.success()
         step = .result(level)
     }

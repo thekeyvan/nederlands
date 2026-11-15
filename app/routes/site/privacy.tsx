@@ -13,7 +13,7 @@ export default function Privacy() {
       <article className="flex flex-col gap-3 leading-relaxed [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-bold [&_p]:text-muted-foreground">
     <p className="text-xs font-semibold tracking-wider !text-primary uppercase">Je gegevens</p>
     <h1 className="text-4xl font-extrabold tracking-tight">Privacy, in het kort.</h1>
-    <p>Laatst aangepast: 15 november 2026 (account en voortgang nu bij Railway). Dit geldt voor de website en de iPhone-app Nedfa.</p>
+    <p>Laatst aangepast: 15 november 2026 (anonieme statistieken toegevoegd). Dit geldt voor de website en de iPhone-app Nedfa.</p>
     <h2>Zonder account</h2>
     <p>Je oefeningen, bewaarde bronnen, weekplan, dagdoel en spelrecords blijven op je apparaat (in de browser of in de app). We gebruiken lokale opslag om dit te onthouden, net als je gekozen weergave (licht of donker). Je wist dit met <strong>Ik → Instellingen → Wis mijn voortgang</strong>.</p>
     <p>Installeer je de app, dan bewaart je browser de website en de audio die je hebt beluisterd of gedownload, zodat de app ook zonder internet werkt. Dat staat alleen op je eigen apparaat.</p>
@@ -22,8 +22,10 @@ export default function Privacy() {
     <p>Wij bewaren je account en leergegevens in onze eigen database bij Railway: welke kaartjes je hebt geoefend, je antwoorden (moeilijk of makkelijk), de volgende herhaaldatum, bewaarde bronnen, je weekplan en je dagdoel. Zo kun je op een ander apparaat verdergaan. Je reeks, punten (XP), sterren en stempels worden uit die oefeningen berekend en niet apart opgeslagen. De database staat in Nederland (Railway, regio EU West). Je leergegevens zijn gekoppeld aan je eigen account; andere bezoekers kunnen ze niet bekijken.</p>
     <h2>Feedback</h2>
     <p>Stuur je feedback (schud je iPhone, of kies <strong>Instellingen → Feedback geven</strong>), dan bewaren we je bericht met het scherm waar je was, de versie van de app en het soort apparaat. Een schermafbeelding gaat alleen mee als je die aan laat staan. Ben je ingelogd, dan koppelen we het aan je account; verwijder je je account, dan verdwijnt je feedback ook.</p>
+    <h2>Anonieme statistieken</h2>
+    <p>Om te zien welke pagina’s en oefeningen gebruikt worden, tellen we bezoeken met Umami, op onze eigen server bij Railway in Nederland. We tellen welke pagina of welk scherm je opent, en een paar momenten zoals een afgeronde oefenronde, een gedaan spel of de uitslag van de niveautest. Daarbij horen het soort apparaat, de browser, de taal van je apparaat, het land en de website waar je vandaan kwam. Er worden geen cookies gebruikt, je IP-adres wordt niet opgeslagen en de cijfers zijn niet gekoppeld aan je account, je naam of wat je typt. Je kunt het uitzetten bij <strong>Instellingen → Anonieme statistieken</strong>. Staat ‘Do Not Track’ of ‘Global Privacy Control’ aan in je browser, dan tellen we je niet.</p>
     <h2>Waarom en hoe lang?</h2>
-    <p>We gebruiken deze gegevens om je voortgang te bewaren en oefeningen te plannen. We verkopen je leergegevens niet en gebruiken ze niet voor advertenties. De site heeft geen eigen advertentie- of analysetrackers. Je gegevens blijven bewaard totdat je je account verwijdert. Uitloggen wist je online voortgang niet.</p>
+    <p>We gebruiken deze gegevens om je voortgang te bewaren en oefeningen te plannen. We verkopen je leergegevens niet en gebruiken ze niet voor advertenties. Er zijn geen advertenties en geen trackers van andere bedrijven. Je gegevens blijven bewaard totdat je je account verwijdert. Uitloggen wist je online voortgang niet.</p>
     <h2>Luisteren</h2>
     <p>De Nederlandse audio staat op deze website. We sturen geen woorden of zinnen naar een spraakdienst. We nemen je stem niet op. Je gekozen stem en snelheid blijven in deze browser.</p>
     <h2>Andere diensten</h2>

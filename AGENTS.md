@@ -7,6 +7,7 @@ Nedfa teaches Dutch (A2–B1) to Persian speakers. One repository holds everythi
 - `src/`: the practice web app at `/leren` (React 19, renders in the browser) and the shared domain logic in `src/core/`.
 - `ios-native/`: the native SwiftUI iPhone app. `npm run build:native` exports `content.json` from `content/` and generates the Xcode project.
 - `server.mjs`: the production server on Railway, which deploys `main` automatically. `server/` holds accounts (Sign in with Apple and Google, one account for both) and progress sync on Railway Postgres; see [docs/ACCOUNT-SETUP.md](docs/ACCOUNT-SETUP.md).
+- Analytics: anonymous Umami on Railway, collected through `https://nedfa.nl/stats` (`server/stats.mjs`); see [docs/ANALYTICS.md](docs/ANALYTICS.md). Never send anything the learner typed or an account id.
 
 ## Content rules
 

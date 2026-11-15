@@ -128,7 +128,7 @@ private struct FeedbackScreen: ViewModifier {
     // `Self.Content`: the app has its own `Content` type (the lessons).
     func body(content: Self.Content) -> some View {
         content
-            .onAppear { previous = (Feedback.shared.screen, Feedback.shared.details); Feedback.shared.screen = name; Feedback.shared.details = details }
+            .onAppear { previous = (Feedback.shared.screen, Feedback.shared.details); Feedback.shared.screen = name; Feedback.shared.details = details; Analytics.shared.screen(name) }
             .onDisappear { if restores, Feedback.shared.screen == name, let previous { Feedback.shared.screen = previous.0; Feedback.shared.details = previous.1 } }
     }
 }
@@ -228,7 +228,7 @@ struct FeedbackSheet: View {
                                      context: context, platform: "ios", appVersion: Feedback.appVersion, screenshot: image)
         let ok = await Feedback.shared.send(report)
         sending = false
-        if ok { Haptics.success(); withAnimation(.snappy) { sent = true } } else { failed = true }
+        if ok { Haptics.success(); Analytics.shared.event("feedback", ["soort": kind.rawValue]); withAnimation(.snappy) { sent = true } } else { failed = true }
     }
 
     /// A screenshot at most 1000 px tall as JPEG, well under the server's limit.

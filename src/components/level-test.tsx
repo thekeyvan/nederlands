@@ -11,6 +11,7 @@ import {navigate} from '@/hooks/use-route';
 import {themes} from '@/core/learning-data.js';
 import {LEVELS, levelInfo, passMark, placementDone, placementQuestions, placementResult, suggestedThemes} from '@/core/level.js';
 import type {Level} from '@/core/types';
+import {trackEvent} from '@/lib/stats';
 
 /* The niveautest: a short adaptive quiz that sets the learner's level, which then decides the suggested themes. */
 let open = false;
@@ -44,8 +45,9 @@ export function LevelTestSheet() {
     setOpen(value);
     if (!value) setTimeout(() => { setStep({kind: 'intro'}); setScores({}); setPicked(null); setRound((count) => count + 1); }, 300);
   };
-  const finish = (level: Level) => {
+  const finish = (level: Level, skipped = false) => {
     update((current) => ({...current, level}));
+    trackEvent('niveautest', {niveau: level, overgeslagen: skipped});
     setStep({kind: 'result', level});
   };
   const start = () => {
@@ -85,7 +87,7 @@ export function LevelTestSheet() {
               <p className="text-sm">Je krijgt korte vragen, eerst heel makkelijk en daarna moeilijker. Weet je het niet? Kies dan gewoon. De test stopt vanzelf op jouw niveau.</p>
             </div>
             <Button size="xl" game className="w-full" onClick={start}>Start de test<ArrowRight /></Button>
-            <Button size="lg" variant="ghost" className="w-full" onClick={() => finish('A0')}>Ik begin bij nul</Button>
+            <Button size="lg" variant="ghost" className="w-full" onClick={() => finish('A0', true)}>Ik begin bij nul</Button>
           </>
         )}
 

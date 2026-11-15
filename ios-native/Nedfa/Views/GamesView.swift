@@ -281,7 +281,11 @@ struct GameOver: View {
             .padding()
         }
         .onAppear {
-            if previousBest == nil { previousBest = Preferences.shared.record(game: game.rawValue, score: result.score); if result.score > (previousBest ?? 0) { Haptics.success() } }
+            if previousBest == nil {
+                previousBest = Preferences.shared.record(game: game.rawValue, score: result.score)
+                if result.score > (previousBest ?? 0) { Haptics.success() }
+                Analytics.shared.event("spel klaar", ["spel": game.rawValue, "score": result.score])
+            }
         }
     }
 }

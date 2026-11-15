@@ -3,6 +3,7 @@
 import {preferenceSnapshot,switchPreferences,mergePreferences} from './preferences.js';
 import {cloudConfig,loadCloudConfig} from './cloud-config.js';
 import {getProgress,getIdentity,switchUser,mergeCloud,clearGuestAfterSync} from './progress-store.js';
+import {trackEvent} from '../lib/stats';
 
 let user=null,working=false,rerun=false,initializing=false,started=false;
 // status: starting | local-only | unavailable | guest | syncing | saved | retry | load-failed
@@ -29,6 +30,7 @@ async function api(path,{method='GET',body}={}){
 export async function signIn(provider='google',{link=false}={}){
  if(user&&!link)return;
  if(state.status==='local-only'||state.status==='unavailable'){message('Inloggen is nu niet beschikbaar. Je kunt wel oefenen.');return;}
+ trackEvent(link?'koppelen':'inloggen',{provider});
  // Apple's popup must open straight from the tap, so this runs before anything is awaited.
  if(provider==='apple'){await signInWithApple(link);return;}
  if(user)await sync();

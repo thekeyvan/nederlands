@@ -4,6 +4,7 @@ import express from 'express';
 import {createRequestHandler} from '@react-router/express';
 import {accountApi} from './server/api.mjs';
 import {migrate} from './server/db.mjs';
+import {statsProxy} from './server/stats.mjs';
 
 const build = await import('./build/server/index.js');
 // Accounts live in Railway Postgres; without DATABASE_URL the site runs with progress on the device only.
@@ -37,6 +38,7 @@ app.get('/bronnen.html', (_req, res) => res.redirect(301, '/leren#bronnen'));
 app.get(['/nl', '/nl/{*rest}'], (req, res) => res.redirect(301, req.originalUrl.replace(/^\/nl/, '') || '/'));
 app.get('/health', (_req, res) => res.type('text').send('ok'));
 app.use('/api', accountApi());
+app.use('/stats', statsProxy());
 
 // Files with a hash in their name never change; audio and pictures change rarely; the service worker must be fresh.
 app.use('/assets/audio', express.static('build/client/assets/audio', {maxAge: '7d'}));

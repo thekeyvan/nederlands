@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation} from 'react-router';
 import type {Route} from './+types/root';
 import '@fontsource-variable/geist';
@@ -6,6 +6,7 @@ import '@fontsource-variable/vazirmatn';
 import '../src/index.css';
 import {NonceContext} from './nonce';
 import {langOf} from './site/lang';
+import {trackView} from '../src/lib/stats';
 
 // Same light/dark choice as the app (Ik › Instellingen › Weergave), else the device setting; set before the first paint.
 const themeScript = `try{var t=localStorage.getItem('nederlands-theme');document.documentElement.classList.toggle('dark',t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))}catch(e){}`;
@@ -16,6 +17,8 @@ export function Layout({children}: {children: React.ReactNode}) {
   const lang = langOf(pathname);
   // The app restores its own scroll positions (screens and layers live in the hash).
   const app = pathname === '/leren';
+  // Anonymous page views; the app counts its own screens (AppShell).
+  useEffect(() => { if (!app) trackView(pathname); }, [app, pathname]);
   return (
     <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>

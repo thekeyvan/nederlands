@@ -141,6 +141,7 @@ struct SettingsView: View {
     @State private var confirmSignOut = false
     @State private var showLevelTest = false
     @State private var reminderOn = Preferences.shared.reminderHour != nil
+    @State private var statsOn = Analytics.shared.enabled
     @State private var reminderDenied = false
 
     var body: some View {
@@ -202,6 +203,9 @@ struct SettingsView: View {
                     }
                 }
                 NavigationLink { ResourcesView() } label: { PictureRow(picture: "themes/bronnen", title: "Websites & boeken", size: 36) }
+                Toggle(isOn: Binding(get: { statsOn }, set: { statsOn = $0; Analytics.shared.enabled = $0 })) {
+                    Label { VStack(alignment: .leading, spacing: 1) { Text("Anonieme statistieken"); Text("Welke schermen gebruikt worden, zonder naam").font(.caption).foregroundStyle(Color(.secondaryLabel)) } } icon: { Image(systemName: "chart.bar.fill") }
+                }
                 Link(destination: URL(string: "https://nedfa.nl/privacy")!) { Label("Privacy", systemImage: "hand.raised") }
                 Link(destination: URL(string: "https://nedfa.nl")!) { Label("nedfa.nl", systemImage: "globe") }
             }

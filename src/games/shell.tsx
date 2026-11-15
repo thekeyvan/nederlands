@@ -14,6 +14,7 @@ import type {Card} from '@/core/types';
 import {audioUrl} from '@/core/audio-playback.js';
 import {haptic} from '@/lib/native';
 import {QuitButton} from '@/components/quit-button';
+import {trackEvent} from '@/lib/stats';
 import type {GameInfo} from '@/games/registry';
 
 /** Top bar for every game: leave, progress or timer, score. */
@@ -134,6 +135,7 @@ export function GameOver({game, roundId, score, total, misses, onAgain}: {game: 
   const {record} = useGameRecords();
   const {start, close} = usePractice();
   const [result] = useState(() => {
+    if (!recorded.has(roundId)) trackEvent('spel klaar', {spel: game.id, score});
     const saved = recorded.get(roundId) ?? record(game.id, score);
     recorded.set(roundId, saved);
     return saved;

@@ -11,6 +11,7 @@ import {ListenButton} from '@/components/listen-button';
 import {Page} from '@/components/page';
 import {Translation} from '@/components/translation';
 import {cn} from '@/lib/utils';
+import {trackEvent} from '@/lib/stats';
 import {plural} from '@/lib/text';
 import {useAudio} from '@/hooks/use-audio';
 import {useGame} from '@/hooks/use-progress';
@@ -495,6 +496,8 @@ function RoundComplete({session}: {session: Session}) {
   const xp = results.reduce((sum, result) => sum + result.xp, 0);
   const newStamps = stamps.filter((stamp) => game.earned.includes(stamp.id) && !session.before.earned.includes(stamp.id));
   const levelUp = game.level.number > session.before.level;
+  // One anonymous count per finished round: what kind, how long, how many right.
+  useEffect(() => { trackEvent('ronde klaar', {soort: session.options.type ?? (session.options.theme ? 'thema' : 'mix'), kaartjes: results.length, goed: right}); }, [session.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const pairCards = useMemo(() => pairsFrom(session.queue, vocabulary, {count: 5, seed: String(session.id)}), [session.queue, session.id]);
   // Pattern rounds and fixed lists repeat the same cards; other rounds plan fresh ones.
   const again = () => start(session.options.drill ? session.options : {...session.options, queue: undefined});

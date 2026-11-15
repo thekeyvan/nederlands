@@ -16,9 +16,9 @@ cleanupOutdatedCaches();
 // Control open pages as soon as the first version installs; later versions still wait for “Vernieuwen”.
 clientsClaim();
 
-// App pages (/, /leren.html, links with ?thema= or the OAuth ?code=) all use the cached app shell.
-// The privacy page and the old resources redirect are separate documents.
-registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), {denylist: [/\/privacy\.html$/, /\/bronnen\.html$/, /\/assets\//]}));
+// The app (/leren.html, with ?thema= links or the OAuth ?code=) uses the cached app shell, also offline.
+// The public pages (/, /woorden/, /grammatica/ …) always come from the network.
+registerRoute(new NavigationRoute(createHandlerBoundToURL('leren.html'), {allowlist: [/\/leren\.html$/]}));
 
 // Audio players ask for byte ranges, which cannot be cached directly. Fetch the whole clip
 // once, keep it, and answer later range requests from the cache.

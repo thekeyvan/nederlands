@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import {VitePWA} from 'vite-plugin-pwa';
 
-// Relative asset URLs keep /leren.html (the OAuth callback alias) working from the same build.
+// Relative asset URLs let the same build run on the website and inside the iOS app.
 export default defineConfig(({mode}) => ({
   base: './',
   plugins: [
@@ -24,7 +24,7 @@ export default defineConfig(({mode}) => ({
         description: 'Elke dag een beetje Nederlands, als een spel: thema’s, audio, spellen en slim herhalen voor A2–B1.',
         lang: 'nl',
         dir: 'ltr',
-        start_url: './',
+        start_url: './leren.html',
         scope: './',
         display: 'standalone',
         display_override: ['standalone', 'minimal-ui'],
@@ -38,9 +38,9 @@ export default defineConfig(({mode}) => ({
           {src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable'},
         ],
         shortcuts: [
-          {name: 'Oefenen', short_name: 'Oefenen', url: './#oefenen', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
-          {name: 'Spellen', short_name: 'Spellen', url: './#spellen', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
-          {name: 'Thema’s', short_name: 'Thema’s', url: './#woorden', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
+          {name: 'Oefenen', short_name: 'Oefenen', url: './leren.html#oefenen', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
+          {name: 'Spellen', short_name: 'Spellen', url: './leren.html#spellen', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
+          {name: 'Thema’s', short_name: 'Thema’s', url: './leren.html#woorden', icons: [{src: 'icon-192.png', sizes: '192x192'}]},
         ],
       },
       injectManifest: {
@@ -58,11 +58,17 @@ export default defineConfig(({mode}) => ({
     outDir: mode === 'native' ? 'dist-native' : 'dist',
     // Most of the main chunk is lesson content and the translation pack, which every screen needs.
     chunkSizeWarningLimit: 1100,
+    manifest: mode !== 'native',
     rollupOptions: {
       input: {
-        main: path.resolve(import.meta.dirname, 'index.html'),
-        bronnen: path.resolve(import.meta.dirname, 'bronnen.html'),
-        privacy: path.resolve(import.meta.dirname, 'privacy.html'),
+        // The app lives at /leren.html; the public pages (/, /woorden/, /grammatica/ …) are written by
+        // scripts/site/build-site.mjs after the build and share the stylesheet from the `site` entry.
+        main: path.resolve(import.meta.dirname, 'leren.html'),
+        ...(mode === 'native' ? {} : {
+          bronnen: path.resolve(import.meta.dirname, 'bronnen.html'),
+          privacy: path.resolve(import.meta.dirname, 'privacy.html'),
+          site: path.resolve(import.meta.dirname, 'src/site/site.ts'),
+        }),
       },
     },
   },

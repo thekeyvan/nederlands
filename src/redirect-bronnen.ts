@@ -1,2 +1,2 @@
 // The resource collection moved into the app. Keep #week links pointing at the weekly plan.
-location.replace(`./${location.hash === '#week' ? '#week' : '#bronnen'}`);
+location.replace(`./leren.html${location.hash === '#week' ? '#week' : '#bronnen'}`);

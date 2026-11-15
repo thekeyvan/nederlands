@@ -106,5 +106,7 @@ export function hrefFor(panel: Panel, options: {theme?: string; rule?: string; s
   if (options.rule) params.set('regel', options.rule);
   if (options.step) params.set('halte', String(options.step));
   const query = params.toString();
-  return `./${query ? `?${query}` : ''}#${panel}`;
+  // Relative to the app page itself (leren.html on the website, index.html in the iOS app).
+  const page = typeof location === 'undefined' ? '' : location.pathname.split('/').pop() || 'leren.html';
+  return `${page}${query ? `?${query}` : ''}#${panel}`;
 }

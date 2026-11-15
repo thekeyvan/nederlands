@@ -38,7 +38,7 @@ Translate `locales/es.js`, set the language name, Dutch language name, direction
 
 The navigation stays in simple Dutch: Dutch is the language being learned. Meanings, example translations, grammar explanations and secondary learning hints come from the selected pack. Persian is the only complete bundled pack today. Adding a pack changes the learner's translation language, not the target language.
 
-See [the UX and design notes](docs/DESIGN.md) for the interface structure, the game rules and design references. `index.html` is the app entry; the build preserves `/leren.html` as an alias. The resource collection is in the app at `/#bronnen`; old `/bronnen.html` and `#week` links still work.
+See [the UX and design notes](docs/DESIGN.md) for the interface structure, the game rules and design references. `leren.html` is the app entry. The public, Persian pages for search engines (`/`, `/woorden/…`, `/grammatica/…`, `/inburgering/`, sitemap, robots.txt and llms.txt) are generated from the lesson content by `scripts/site/build-site.mjs` after the build; see [docs/SEO.md](docs/SEO.md). The resource collection is in the app at `/leren.html#bronnen`; old `/bronnen.html` and `#week` links still work.
 
 ## Add themes or sentences
 

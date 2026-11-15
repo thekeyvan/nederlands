@@ -17,7 +17,8 @@ if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url) || !key?.startsWith('sb_pu
 run('tsc --noEmit');
 run('vite build --mode native');
 await writeFile('dist-native/deployment-config.json', JSON.stringify(appleWeb ? {url, key, appleWeb} : {url, key}) + '\n');
-await copyFile('dist-native/index.html', 'dist-native/leren.html');
+// Capacitor opens index.html; the app's own links use leren.html, so both exist.
+await copyFile('dist-native/leren.html', 'dist-native/index.html');
 // The resources redirect page is a website-only alias.
 await rm('dist-native/bronnen.html', {force: true});
 run('npx cap sync ios');

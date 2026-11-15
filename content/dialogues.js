@@ -1,4 +1,5 @@
-export const baseDialogues = [
+import {moreThemes} from './themes-more.js';
+const coreDialogues = [
   {
     "id": "dialogue:werk",
     "themeId": "werk",
@@ -540,3 +541,5 @@ export const baseDialogues = [
     ]
   }
 ];
+const moreDialogues = moreThemes.map((theme) => ({id: `dialogue:${theme.id}`, themeId: theme.id, lines: theme.dialogue.map(([speaker, nl], index) => ({speaker, nl, id: `dialogue:${theme.id}:${index + 1}`}))}));
+export const baseDialogues = [...coreDialogues, ...moreDialogues];

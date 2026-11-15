@@ -4,8 +4,8 @@ The iOS app is the same React app, bundled with Capacitor (`npm run build:ios`, 
 
 - **Bundle ID:** com.keyvanmahmoudi.nederlands · **Team:** K&S Apps (95YDC2AP63)
 - **Primary language:** Dutch · **Category:** Education (secondary: Games / Word) · **Price:** free
-- **Privacy policy:** https://nederlands.keyvanmahmoudi.com/privacy.html
-- **Support / marketing URL:** https://nederlands.keyvanmahmoudi.com
+- **Privacy policy:** https://nedfa.nl/privacy.html
+- **Support / marketing URL:** https://nedfa.nl
 
 ## Name and subtitle
 
@@ -41,7 +41,7 @@ nederlands,dutch,inburgering,taal,leren,A2,B1,woorden,grammatica,staatsexamen,NT
 
 ## Review notes
 
-The app works without an account ("Eerst proberen zonder account" on the first screen). Sign in with Apple or Google is optional and only syncs learning progress. Account deletion: Ik → Account verwijderen. Audio is bundled in the app.
+The app works without an account ("Eerst proberen zonder account" on the first screen). Sign in with Apple or Google is optional and only syncs learning progress. Account deletion: Ik tab → gear icon (Instellingen) → Account verwijderen. Audio is bundled in the app.
 
 ## Privacy (App Store nutrition label)
 

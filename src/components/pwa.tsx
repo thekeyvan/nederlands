@@ -182,7 +182,7 @@ function WebAppCard() {
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="text-sm font-medium">Offline luisteren</p>
-                <p className="text-xs text-muted-foreground">Alle audio van {audio.voiceName} (± 25 MB). Wat je al hebt gehoord, staat er al op.</p>
+                <p className="text-xs text-muted-foreground">Alle audio van {audio.voiceName} (± 37 MB). Wat je al hebt gehoord, staat er al op.</p>
               </div>
               {complete ? (
                 <Button variant="ghost" size="sm" onClick={() => void offline.remove()}><Trash2 />Verwijder</Button>

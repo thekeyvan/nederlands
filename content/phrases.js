@@ -1,4 +1,5 @@
-export const basePhrases = [
+import {moreThemes} from './themes-more.js';
+const corePhrases = [
   {
     "id": "phrase:werk:01",
     "themeId": "werk",
@@ -735,3 +736,5 @@ export const basePhrases = [
     "kind": "zin"
   }
 ];
+const morePhrases = moreThemes.flatMap((theme) => theme.phrases.map(([nl, level], index) => ({id: `phrase:${theme.id}:${String(index + 1).padStart(2, '0')}`, themeId: theme.id, nl, level, kind: 'zin'})));
+export const basePhrases = [...corePhrases, ...morePhrases];

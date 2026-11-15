@@ -31,6 +31,12 @@ class NedfaViewController: CAPBridgeViewController {
         let edge = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(swipeBack(_:)))
         edge.edges = .left
         view.addGestureRecognizer(edge)
+        // iOS 26+ fades scrolled content under the status bar with a light blur. The app draws its own
+        // status bar background, and the system effect shows as a grey band in dark mode, so turn it off.
+        if #available(iOS 26.0, *), let scrollView = webView?.scrollView {
+            scrollView.topEdgeEffect.isHidden = true
+            scrollView.bottomEdgeEffect.isHidden = true
+        }
     }
 
     @objc private func swipeBack(_ gesture: UIScreenEdgePanGestureRecognizer) {

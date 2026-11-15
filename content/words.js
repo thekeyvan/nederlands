@@ -1,4 +1,5 @@
-export const baseVocabulary = [
+import {moreThemes, slug} from './themes-more.js';
+const coreVocabulary = [
   {
     "nl": "de balans",
     "kind": "woord",
@@ -5103,3 +5104,5 @@ export const baseVocabulary = [
     "example": "Ik heb naar een film gekeken."
   }
 ];
+const moreVocabulary = moreThemes.flatMap((theme) => theme.words.map(([nl, kind, example, , , forms]) => ({nl, kind, example, id: `${theme.id}:${slug(nl)}`, themeId: theme.id, ...(forms ? {forms} : {})})));
+export const baseVocabulary = [...coreVocabulary, ...moreVocabulary];

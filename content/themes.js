@@ -1,4 +1,5 @@
-export const baseThemes = [
+import {moreThemes} from './themes-more.js';
+const coreThemes = [
   {
     "id": "werk",
     "title": "Werk & privé",
@@ -120,3 +121,4 @@ export const baseThemes = [
     "intro": "Regel een afspraak, een formulier of je adres."
   }
 ];
+export const baseThemes = [...coreThemes, ...moreThemes.map(({id, title, icon, intro}) => ({id, title, icon, intro}))];

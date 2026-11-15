@@ -174,7 +174,7 @@ struct SettingsView: View {
             }
             Section("Meer") {
                 NavigationLink { ResourcesView() } label: { PictureRow(picture: "themes/bronnen", title: "Websites & boeken", size: 36) }
-                Link(destination: URL(string: "https://nedfa.nl/privacy.html")!) { Label("Privacy", systemImage: "hand.raised") }
+                Link(destination: URL(string: "https://nedfa.nl/privacy")!) { Label("Privacy", systemImage: "hand.raised") }
                 Link(destination: URL(string: "https://nedfa.nl")!) { Label("nedfa.nl", systemImage: "globe") }
             }
         }

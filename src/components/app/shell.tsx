@@ -77,7 +77,7 @@ function Sidebar({panel}: {panel: Panel}) {
       <AccountChip />
       <div className="mt-2 flex items-center gap-1 px-1 text-xs text-muted-foreground">
         <ThemeToggle />
-        <a href="./privacy.html" className="rounded px-1.5 py-1 hover:text-foreground">Privacy</a>
+        <a href="/privacy" className="rounded px-1.5 py-1 hover:text-foreground">Privacy</a>
         <a href="https://github.com/thekeyvan/nederlands" target="_blank" rel="noopener noreferrer" className="rounded px-1.5 py-1 hover:text-foreground">Open source ↗</a>
       </div>
     </aside>

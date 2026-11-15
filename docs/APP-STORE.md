@@ -4,7 +4,7 @@ The iOS app is the same React app, bundled with Capacitor (`npm run build:ios`, 
 
 - **Bundle ID:** com.keyvanmahmoudi.nederlands · **Team:** K&S Apps (95YDC2AP63)
 - **Primary language:** Dutch · **Category:** Education (secondary: Games / Word) · **Price:** free
-- **Privacy policy:** https://nedfa.nl/privacy.html
+- **Privacy policy:** https://nedfa.nl/privacy
 - **Support / marketing URL:** https://nedfa.nl
 
 ## Name and subtitle

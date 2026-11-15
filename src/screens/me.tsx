@@ -129,7 +129,7 @@ export function SettingsScreen() {
       <GroupLabel>Meer</GroupLabel>
       <Group>
         <Row onClick={() => navigate('bronnen')} leading={<img src={sceneFor('bronnen')} alt="" className="size-10 shrink-0 rounded-lg bg-[#fcfaf6] object-cover" draggable={false} />} title="Websites & boeken" titleClassName="font-medium" />
-        <li><a href="./privacy.html" className="flex min-h-[52px] items-center gap-3 px-3.5 py-2.5 hover:bg-muted/60"><RowIcon className="bg-info-soft text-info-foreground"><Shield /></RowIcon><span className="flex-1 text-[15px] font-medium">Privacy</span><ChevronRight className="size-4 text-muted-foreground/60" /></a></li>
+        <li><a href="/privacy" className="flex min-h-[52px] items-center gap-3 px-3.5 py-2.5 hover:bg-muted/60"><RowIcon className="bg-info-soft text-info-foreground"><Shield /></RowIcon><span className="flex-1 text-[15px] font-medium">Privacy</span><ChevronRight className="size-4 text-muted-foreground/60" /></a></li>
       </Group>
       <GroupLabel>App</GroupLabel>
       <AppCard />

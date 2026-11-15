@@ -15,7 +15,7 @@ export function Layout({children}: {children: React.ReactNode}) {
   const nonce = useContext(NonceContext);
   const lang = langOf(pathname);
   // The app restores its own scroll positions (screens and layers live in the hash).
-  const app = pathname === '/leren.html';
+  const app = pathname === '/leren';
   return (
     <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
@@ -51,7 +51,7 @@ export function ErrorBoundary({error}: Route.ErrorBoundaryProps) {
       <p lang="fa" dir="rtl" className="text-muted-foreground">{missing ? 'این صفحه پیدا نشد.' : 'مشکلی پیش آمد. لطفاً دوباره امتحان کنید.'}</p>
       <div className="flex flex-wrap justify-center gap-3">
         <a href="/" className="inline-flex h-11 items-center rounded-xl bg-primary px-5 font-bold text-primary-foreground">Naar de homepage</a>
-        <a href="/leren.html" className="inline-flex h-11 items-center rounded-xl border px-5 font-semibold">Oefenen</a>
+        <a href="/leren" className="inline-flex h-11 items-center rounded-xl border px-5 font-semibold">Oefenen</a>
       </div>
     </main>
   );

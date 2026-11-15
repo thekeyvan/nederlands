@@ -105,7 +105,7 @@ function Header({lang, path}: {lang: Lang; path: string}) {
         <nav aria-label={tx(lang, 'منوی اصلی', 'Hoofdmenu')} className="hidden items-center gap-1 md:flex">{nav(false)}</nav>
         <div className="flex items-center gap-2">
           <Link to={at(other, path)} hrefLang={other} lang={other} className="rounded-md border px-2.5 py-1.5 text-sm font-semibold hover:bg-muted" aria-label={other === 'nl' ? 'Nederlands' : 'فارسی'}>{other === 'nl' ? 'NL' : 'فا'}</Link>
-          <a href="/leren.html" className="inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-bold text-primary-foreground shadow-[0_3px_0_var(--primary-edge)] transition active:translate-y-0.5 active:shadow-none">{tx(lang, 'شروع رایگان', 'Gratis beginnen')}</a>
+          <a href="/leren" className="inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-bold text-primary-foreground shadow-[0_3px_0_var(--primary-edge)] transition active:translate-y-0.5 active:shadow-none">{tx(lang, 'شروع رایگان', 'Gratis beginnen')}</a>
         </div>
       </div>
       <nav aria-label={tx(lang, 'منوی اصلی', 'Hoofdmenu')} className="no-scrollbar flex gap-1 overflow-x-auto border-t px-3 py-1.5 md:hidden">{nav(true)}</nav>
@@ -128,15 +128,15 @@ function Footer({lang}: {lang: Lang}) {
             {item(at(lang, '/woorden/'), tx(lang, 'لغات هلندی به فارسی', 'Nederlandse woorden'))}
             {item(at(lang, '/grammatica/'), tx(lang, 'گرامر زبان هلندی', 'Nederlandse grammatica'))}
             {item(at(lang, '/inburgering/'), tx(lang, 'آزمون اینبورخرینگ', 'Inburgeringsexamen'))}
-            {item('/leren.html', tx(lang, 'تمرین در اپ', 'Oefenen in de app'), false)}
+            {item('/leren', tx(lang, 'تمرین در اپ', 'Oefenen in de app'), false)}
           </ul>
         </div>
         <div>
           <p className="text-sm font-bold">{tx(lang, 'اپ نِدفا', 'De app')}</p>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            {item('/leren.html', tx(lang, 'نسخهٔ وب (رایگان)', 'Webversie (gratis)'), false)}
+            {item('/leren', tx(lang, 'نسخهٔ وب (رایگان)', 'Webversie (gratis)'), false)}
             <li>{tx(lang, 'اپ آیفون: به‌زودی در App Store', 'iPhone-app: binnenkort in de App Store')}</li>
-            {item('/privacy.html', <span lang="nl">Privacy</span>)}
+            {item('/privacy', <span lang="nl">Privacy</span>)}
             {item(at(lang === 'fa' ? 'nl' : 'fa', '/'), lang === 'fa' ? <span lang="nl">Nederlands</span> : <span lang="fa">فارسی</span>)}
           </ul>
         </div>

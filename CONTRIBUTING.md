@@ -25,7 +25,7 @@ Small improvements are welcome: clearer A2–B1 wording, corrected translations,
 | `src/components/game/` | Mascot, stamps, stars, goal ring, confetti and game cards |
 | `src/index.css` | Theme tokens for light and dark mode |
 | `src/assets/illustrations/` | Theme scenes, mascot poses, stamps and the route map |
-| `app/` | Website (React Router 8, server rendering), content API at `/api/v1`, and the `/leren.html` app route |
+| `app/` | Website (React Router 8, server rendering), content API at `/api/v1`, and the `/leren` app route |
 | `ios-native/` | Native SwiftUI iPhone app |
 
 ## Add content

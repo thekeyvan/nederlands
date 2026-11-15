@@ -42,7 +42,7 @@ export async function signIn(provider='google'){
   await Browser.open({url:data.url,presentationStyle:'popover'});
   return;
  }
- const {error}=await client.auth.signInWithOAuth({provider,options:{redirectTo:`${location.origin}/leren.html`,...(provider==='google'?{queryParams:{prompt:'select_account'}}:{})}});
+ const {error}=await client.auth.signInWithOAuth({provider,options:{redirectTo:`${location.origin}/leren`,...(provider==='google'?{queryParams:{prompt:'select_account'}}:{})}});
  if(error)message('Inloggen lukt nu niet. Probeer het later opnieuw.');
 }
 

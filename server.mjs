@@ -23,6 +23,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// Clean addresses without .html; old links keep working (the browser keeps the #screen part).
+const query = (req) => (req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '');
+app.get('/leren.html', (req, res) => res.redirect(301, `/leren${query(req)}`));
+app.get('/privacy.html', (req, res) => res.redirect(301, `/privacy${query(req)}`));
+app.get('/bronnen.html', (_req, res) => res.redirect(301, '/leren#bronnen'));
+
 // Dutch moved from /nl/ to the root.
 app.get(['/nl', '/nl/{*rest}'], (req, res) => res.redirect(301, req.originalUrl.replace(/^\/nl/, '') || '/'));
 app.get('/health', (_req, res) => res.type('text').send('ok'));

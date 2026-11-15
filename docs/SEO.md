@@ -7,7 +7,7 @@ Dutch words are marked `lang="nl" dir="ltr"`, Persian fragments on Dutch pages `
 
 The React Router routes in `app/routes/site/` render them on the server, from the same content files as the app
 (`content/*.js` and the Persian pack in `locales/`). Adding a theme or grammar pattern adds its page, sitemap
-entry and llms.txt line automatically. The app itself lives at `/leren.html` and is `noindex`.
+entry and llms.txt line automatically. The app itself lives at `/leren` and is `noindex`.
 
 | URL | Page | Main search terms |
 | --- | --- | --- |

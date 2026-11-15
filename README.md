@@ -38,7 +38,7 @@ Translate `locales/es.js`, set the language name, Dutch language name, direction
 
 The navigation stays in simple Dutch: Dutch is the language being learned. Meanings, example translations, grammar explanations and secondary learning hints come from the selected pack. Persian is the only complete bundled pack today. Adding a pack changes the learner's translation language, not the target language.
 
-See [the UX and design notes](docs/DESIGN.md) for the interface structure, the game rules and design references. The app lives at `/leren.html`. The public pages for search engines (Dutch at `/`, Persian at `/fa/`: `/woorden/…`, `/grammatica/…`, `/inburgering/`, sitemap, robots.txt and llms.txt) are rendered on the server by React Router from the lesson content; see [docs/SEO.md](docs/SEO.md). The same content is served as JSON at `/api/v1`, and [docs/CONTENT.md](docs/CONTENT.md) explains how to add lessons. The resource collection is in the app at `/leren.html#bronnen`; old `/bronnen.html` and `#week` links still work.
+See [the UX and design notes](docs/DESIGN.md) for the interface structure, the game rules and design references. The app lives at `/leren`. The public pages for search engines (Dutch at `/`, Persian at `/fa/`: `/woorden/…`, `/grammatica/…`, `/inburgering/`, sitemap, robots.txt and llms.txt) are rendered on the server by React Router from the lesson content; see [docs/SEO.md](docs/SEO.md). The same content is served as JSON at `/api/v1`, and [docs/CONTENT.md](docs/CONTENT.md) explains how to add lessons. The resource collection is in the app at `/leren#bronnen`; old `/bronnen.html`, `/leren.html` and `/privacy.html` links redirect to the clean addresses.
 
 ## Add themes or sentences
 
@@ -65,7 +65,7 @@ The server answers `/deployment-config.json` with these values, which are public
 
 Scheduling uses SM-2: quality grades 1, 3, 4 and 5; successful intervals of 1 day, 6 days, then the previous interval multiplied by ease and rounded up. Failure resets successful repetitions and schedules tomorrow. Ease is bounded to 1.3–10; intervals to 100 years. Three successive correct recalls count as well remembered, an estimate rather than a language qualification. Due cards come first, followed by at most five new cards, with a 20-card round limit.
 
-Progress is tied to stable content IDs, independent of the translation language. Local caches are separated by account. With optional sync, owner-scoped RLS protects cards, review events and preferences. Offline work retries later; newer review timestamps win. Preference edits are timestamp-based, not collaborative editing. Local review history is capped at 2,000 events; cloud history is retained. Adapt `privacy.html` to your own operator, contact method and infrastructure before publishing your fork.
+Progress is tied to stable content IDs, independent of the translation language. Local caches are separated by account. With optional sync, owner-scoped RLS protects cards, review events and preferences. Offline work retries later; newer review timestamps win. Preference edits are timestamp-based, not collaborative editing. Local review history is capped at 2,000 events; cloud history is retained. Adapt `app/routes/site/privacy.tsx` to your own operator, contact method and infrastructure before publishing your fork.
 
 ## License and sources
 

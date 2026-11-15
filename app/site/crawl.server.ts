@@ -21,7 +21,7 @@ export function sitemap() {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${LANGS.flatMap((lang) => pages().map((item) => entry(lang, item))).join('\n')}
-  <url><loc>${SITE}/privacy.html</loc><lastmod>${date}</lastmod><priority>0.2</priority></url>
+  <url><loc>${SITE}/privacy</loc><lastmod>${date}</lastmod><priority>0.2</priority></url>
 </urlset>
 `;
 }
@@ -42,7 +42,7 @@ Sitemap: ${SITE}/sitemap.xml
 export function llms() {
   return `# Nedfa (نِدفا)
 
-> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from level A2 to B1. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Dutch (${SITE}/, the default) and Persian (${SITE}/fa/). Web app: ${SITE}/leren.html (no account needed). iPhone app: coming to the App Store. Contact: ${EMAIL}.
+> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from level A2 to B1. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Dutch (${SITE}/, the default) and Persian (${SITE}/fa/). Web app: ${SITE}/leren (no account needed). iPhone app: coming to the App Store. Contact: ${EMAIL}.
 
 نِدفا اپ و سایت رایگان آموزش زبان هلندی برای فارسی‌زبانان (ایرانی‌ها و افغان‌ها) از سطح A2 تا B1 است.
 
@@ -53,7 +53,7 @@ Nedfa is een gratis app om Nederlands te leren voor Perzisch sprekenden, van A2 
 - [Dutch vocabulary by theme](${SITE}/woorden/) · [Persian: لغات هلندی به فارسی](${SITE}/fa/woorden/): ${totals.themes} themes with Dutch word, de/het, Persian meaning and example sentence
 - [Dutch grammar](${SITE}/grammatica/) · [Persian: گرامر زبان هلندی](${SITE}/fa/grammatica/): ${totals.patterns} patterns with Persian explanation and examples
 - [Inburgering exam guide](${SITE}/inburgering/) · [Persian: آزمون اینبورخرینگ](${SITE}/fa/inburgering/): exam parts, A2/B1 level and a daily practice plan
-- [The app (practice)](${SITE}/leren.html)
+- [The app (practice)](${SITE}/leren)
 - [Full text of all lessons](${SITE}/llms-full.txt)
 - [Content API (JSON)](${SITE}/api/v1): themes, words, phrases, dialogues and grammar with Persian translations
 
@@ -64,7 +64,7 @@ ${themes.map((theme) => `- [${theme.title} (${theme.fa})](${SITE}${themePath(the
 ${patterns.map((p) => `- [${p.title} (${p.level})](${SITE}${patternPath(p.slug)})`).join('\n')}
 
 ## Optional
-- [Privacy](${SITE}/privacy.html)
+- [Privacy](${SITE}/privacy)
 `;
 }
 
@@ -90,7 +90,7 @@ ${p.examples.map((example) => `- ${example.nl} — ${example.translation}`).join
 `).join('\n');
   return `# Nedfa — all lessons (Dutch for Persian speakers, A2–B1)
 
-Free to read and quote with a link to ${SITE}. Practise with audio and spaced repetition at ${SITE}/leren.html.
+Free to read and quote with a link to ${SITE}. Practise with audio and spaced repetition at ${SITE}/leren.
 
 # Vocabulary
 ${themeText}

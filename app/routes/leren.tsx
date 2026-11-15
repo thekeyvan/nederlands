@@ -15,7 +15,7 @@ export const meta: Route.MetaFunction = () => [
   {title: 'Nedfa — oefenen'},
   {name: 'description', content: 'Elke dag een beetje Nederlands, als een spel. Ontdek thema’s, luister naar voorbeelden en oefen met reeksen, sterren en stempels.'},
   {name: 'robots', content: 'noindex, follow'},
-  {tagName: 'link', rel: 'canonical', href: `${SITE}/leren.html`},
+  {tagName: 'link', rel: 'canonical', href: `${SITE}/leren`},
   {name: 'theme-color', content: '#fcfaf6'},
   {name: 'mobile-web-app-capable', content: 'yes'},
   {name: 'apple-mobile-web-app-capable', content: 'yes'},
@@ -30,7 +30,7 @@ function Loading() {
     <div className="flex min-h-dvh flex-col items-center justify-center gap-4" role="status">
       <img src="/img/logo.png" alt="" width={88} height={88} className="size-22 animate-pulse rounded-3xl" />
       <p className="text-sm font-medium text-muted-foreground">Even laden…</p>
-      <noscript><p className="max-w-xs px-6 text-center text-sm">Zet JavaScript aan om te oefenen. De <a className="underline" href="/privacy.html">privacyinformatie</a> kun je ook zonder bekijken.</p></noscript>
+      <noscript><p className="max-w-xs px-6 text-center text-sm">Zet JavaScript aan om te oefenen. De <a className="underline" href="/privacy">privacyinformatie</a> kun je ook zonder bekijken.</p></noscript>
     </div>
   );
 }

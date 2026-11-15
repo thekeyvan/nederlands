@@ -14,7 +14,7 @@ export const at = (lang: Lang, path: string) => (lang === 'nl' ? path : `/fa${pa
 /** Numbers in Persian digits on Persian pages. */
 export const num = (lang: Lang, value: number) => Number(value).toLocaleString(lang === 'fa' ? 'fa-IR' : 'nl-NL');
 
-export const appLink = (query = '') => `/leren.html${query}`;
+export const appLink = (query = '') => `/leren${query}`;
 export const themePath = (id: string) => `/woorden/${id}/`;
 export const patternPath = (slug: string) => `/grammatica/${slug}/`;
 export const themeImage = (id: string) => `/img/themes/${id}.jpg`;

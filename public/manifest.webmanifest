@@ -5,7 +5,7 @@
   "description": "Elke dag een beetje Nederlands, als een spel: thema’s, audio, spellen en slim herhalen voor A2–B1.",
   "lang": "nl",
   "dir": "ltr",
-  "start_url": "/leren.html",
+  "start_url": "/leren",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -19,8 +19,8 @@
     {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ],
   "shortcuts": [
-    {"name": "Oefenen", "short_name": "Oefenen", "url": "/leren.html#oefenen", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]},
-    {"name": "Spellen", "short_name": "Spellen", "url": "/leren.html#spellen", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]},
-    {"name": "Thema’s", "short_name": "Thema’s", "url": "/leren.html#woorden", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]}
+    {"name": "Oefenen", "short_name": "Oefenen", "url": "/leren#oefenen", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Spellen", "short_name": "Spellen", "url": "/leren#spellen", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Thema’s", "short_name": "Thema’s", "url": "/leren#woorden", "icons": [{"src": "/icon-192.png", "sizes": "192x192"}]}
   ]
 }

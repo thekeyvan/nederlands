@@ -7,7 +7,7 @@ A fresh fork is local-only. It does not connect to the original site's accounts.
 1. Create your own project.
 2. Run `database/schema.sql` once in its SQL editor. It creates review cards, events and preferences, owner-scoped RLS policies and the `SECURITY INVOKER` sync function. It is an initial schema, not an idempotent upgrade migration.
 3. Run `database/verify-rls.sql`. It creates temporary test records inside a transaction, checks ownership and rolls back. Use a clean test project first; do not run scratch SQL in someone else's project.
-4. In Authentication → URL Configuration, set Site URL to your deployed origin and allow `https://YOUR-SITE/leren.html` as an exact redirect.
+4. In Authentication → URL Configuration, set Site URL to your deployed origin and allow `https://YOUR-SITE/leren` as an exact redirect.
 5. Keep anonymous sign-ins and manual linking off. After Google works, disable the email provider if you want Google-only accounts.
 
 ## Google Cloud
@@ -25,7 +25,7 @@ Vercel uses `vercel.json` automatically. Other hosts serve `dist/` and need thei
 
 ## Verify before sharing
 
-Sign in with Google, review a card, confirm it is stored in your database, then return/reload and confirm the progress remains. Verify one signed-in account cannot read or update another account's rows. Check logout switches to a separate guest cache. Inspect `privacy.html`: replace the original operator/contact information and document your own data location, retention and deletion process.
+Sign in with Google, review a card, confirm it is stored in your database, then return/reload and confirm the progress remains. Verify one signed-in account cannot read or update another account's rows. Check logout switches to a separate guest cache. Inspect `app/routes/site/privacy.tsx`: replace the original operator/contact information and document your own data location, retention and deletion process.
 
 Local review history is capped at 2,000 events. The cloud table retains history; the client currently loads the 2,000 latest events and up to 1,000 scheduled cards. Expand/paginate those limits before growing beyond 1,000 distinct cards. The current shipped content has 641 review cards.
 

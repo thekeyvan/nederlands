@@ -4,7 +4,7 @@ Nedfa teaches Dutch (A2–B1) to Persian speakers. One repository holds everythi
 
 - `content/`: all lessons as JSON (Dutch + Persian side by side). **Read [docs/CONTENT.md](docs/CONTENT.md) before adding or changing content.**
 - `app/`: the website, React Router 8 with server rendering (Dutch at `/`, Persian at `/fa/`), plus the content API at `/api/v1`.
-- `src/`: the practice web app at `/leren.html` (React 19, renders in the browser) and the shared domain logic in `src/core/`.
+- `src/`: the practice web app at `/leren` (React 19, renders in the browser) and the shared domain logic in `src/core/`.
 - `ios-native/`: the native SwiftUI iPhone app. `npm run build:native` exports `content.json` from `content/` and generates the Xcode project.
 - `server.mjs`: the production server on Railway, which deploys `main` automatically.
 

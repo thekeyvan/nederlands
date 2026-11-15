@@ -16,9 +16,9 @@ cleanupOutdatedCaches();
 // Control open pages as soon as the first version installs; later versions still wait for “Vernieuwen”.
 clientsClaim();
 
-// The app page (/leren.html, with ?thema= links or the OAuth ?code=) comes from the server when online and
+// The app page (/leren, with ?thema= links or the OAuth ?code=) comes from the server when online and
 // from the last saved copy when offline. The public pages (/, /woorden/, /grammatica/ …) always come from the network.
-registerRoute(new NavigationRoute(new NetworkFirst({cacheName: 'nedfa-app-page', networkTimeoutSeconds: 4, plugins: [new CacheableResponsePlugin({statuses: [200]})]}), {allowlist: [/^\/leren\.html$/]}));
+registerRoute(new NavigationRoute(new NetworkFirst({cacheName: 'nedfa-app-page', networkTimeoutSeconds: 4, plugins: [new CacheableResponsePlugin({statuses: [200]})]}), {allowlist: [/^\/leren$/]}));
 
 // Audio players ask for byte ranges, which cannot be cached directly. Fetch the whole clip
 // once, keep it, and answer later range requests from the cache.

@@ -15,11 +15,10 @@ const sitePages = (lang: 'nl' | 'fa') => {
 };
 
 export default [
-  layout('routes/site/layout.tsx', [...sitePages('nl'), ...sitePages('fa'), route('privacy.html', 'routes/site/privacy.tsx')]),
+  layout('routes/site/layout.tsx', [...sitePages('nl'), ...sitePages('fa'), route('privacy', 'routes/site/privacy.tsx')]),
   // The practice app (noindex). Its own screens use the hash, so old links keep working.
-  route('leren.html', 'routes/leren.tsx'),
-  route('bronnen.html', 'routes/bronnen.tsx'),
-  // Crawlers, AI assistants and the apps.
+  route('leren', 'routes/leren.tsx'),
+    // Crawlers, AI assistants and the apps.
   route('sitemap.xml', 'routes/sitemap.ts'),
   route('robots.txt', 'routes/robots.ts'),
   route('llms.txt', 'routes/llms.ts'),

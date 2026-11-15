@@ -10,7 +10,7 @@ Nedfa counts visits with [Umami](https://umami.is) 3.4.1, self-hosted on Railway
 | Umami database | Railway service `Postgres-xWqn`, separate from the learners' database (`Postgres`) |
 | Collect endpoint | `https://nedfa.nl/stats/api/send` → `server/stats.mjs` forwards it to Umami over the private network |
 | Website id | `0cbc91c6-7ae2-4c9a-9851-d005214361fa` (in `src/lib/stats.ts` and `ios-native/Nedfa/Services/Analytics.swift`) |
-| Dashboard | the `umami` service's own Railway domain (Settings → Networking) |
+| Dashboard | https://umami-production-0b820221.up.railway.app (the `umami` service's Railway domain) |
 
 Umami's variables: `DATABASE_URL=${{Postgres-xWqn.DATABASE_URL}}`, `APP_SECRET` and `TWO_FACTOR_ENCRYPTION_KEY` (random, generated once), `DISABLE_TELEMETRY=1`, `PORT=3000`.
 

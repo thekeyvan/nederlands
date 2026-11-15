@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:verleden",
+  "title": "Perfectum & imperfectum",
+  "level": "A2",
+  "pattern": "Ik heb gewerkt. / Ik werkte.",
+  "example": "Gisteren was ik moe. Ik heb goed geslapen.",
+  "prompt": "Vroeger ___ ik in een dorp. (wonen)",
+  "answer": "woonde",
+  "fa": {
+    "rule": "هر دو می‌توانند گذشته را بیان کنند. Perfectum برای گفتن کارهای انجام‌شده رایج است؛ imperfectum برای وضعیت، عادت و روایت هم استفاده می‌شود.",
+    "note": "گذشتهٔ ساده برای توصیف وضعیت یا عادت گذشته هم کاربرد دارد و ماضی نقلی برای گزارش رویدادها رایج است؛ مرز استفاده مطلق نیست. در فعل‌های منظم، پایان گذشتهٔ ساده و اسم مفعول را با قاعدهٔ همخوان پایانی انتخاب کن.",
+    "translation": "دیروز خسته بودم. خوب خوابیدم."
+  },
+  "examples": [
+    {
+      "nl": "Vroeger speelde ik vaak voetbal.",
+      "gap": "speelde",
+      "fa": "قبلاً زیاد فوتبال بازی می‌کردم.",
+      "hint": "spelen"
+    },
+    {
+      "nl": "Gisteren heb ik een nieuwe fiets gekocht.",
+      "gap": "gekocht",
+      "fa": "دیروز یک دوچرخهٔ نو خریدم.",
+      "hint": "kopen"
+    },
+    {
+      "nl": "Toen ik klein was, woonde ik in Teheran.",
+      "gap": "woonde",
+      "fa": "وقتی کوچک بودم، در تهران زندگی می‌کردم.",
+      "hint": "wonen"
+    }
+  ]
+}

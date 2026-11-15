@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:tijd-manier-plaats",
+  "title": "Wanneer, hoe, waar?",
+  "level": "A2",
+  "pattern": "onderwerp + persoonsvorm + tijd + manier + plaats + tweede werkwoord",
+  "example": "Ik ben gisteren met de trein naar Utrecht gegaan.",
+  "prompt": "Ik ben gisteren met de trein naar Utrecht ___.",
+  "answer": "gegaan",
+  "fa": {
+    "rule": "برای ساختن جمله، زمان، چگونگی و مکان را بعد از فعل صرف‌شده تمرین کن.",
+    "note": "این الگو راهنمای تمرین است، نه یک ترتیب اجباری برای همهٔ اجزای جمله. فاعل و فعل صرف‌شده را اول پیدا کن؛ فعل دوم اغلب آخر می‌آید.",
+    "translation": "دیروز با قطار به اوترخت رفتم."
+  },
+  "examples": [
+    {
+      "nl": "We gaan morgen met de auto naar Rotterdam.",
+      "gap": "morgen",
+      "fa": "فردا با ماشین به روتردام می‌رویم."
+    },
+    {
+      "nl": "Ik werk vandaag graag thuis.",
+      "gap": "thuis",
+      "fa": "امروز ترجیح می‌دهم در خانه کار کنم."
+    },
+    {
+      "nl": "Ze is vorige week met de trein naar Parijs gereisd.",
+      "gap": "gereisd",
+      "fa": "او هفتهٔ پیش با قطار به پاریس سفر کرد."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:hebben-vervoegen",
+  "title": "Heb, hebt, heeft, hebben",
+  "level": "A2",
+  "pattern": "ik heb · jij hebt · u hebt / heeft · hij / zij heeft · wij / jullie / zij hebben",
+  "example": "U hebt een vraag. Heb jij ook een vraag?",
+  "prompt": "___ jij ook een vraag?",
+  "answer": "Heb",
+  "fa": {
+    "rule": "فعل داشتن را با فاعل صرف کن؛ در سؤال با ضمیر تو، حرف پایانی فعل حذف می‌شود.",
+    "note": "هر دو صورت رسمی خطاب درست‌اند. جمع همیشه یک شکل دارد. ضمیر جمع و مفرد سوم‌شخص را از فعل و بافت تشخیص بده.",
+    "translation": "شما سؤالی دارید. تو هم سؤالی داری؟"
+  },
+  "examples": [
+    {
+      "nl": "Hij heeft twee kinderen.",
+      "gap": "heeft",
+      "fa": "او دو بچه دارد."
+    },
+    {
+      "nl": "Hebben jullie al gegeten?",
+      "gap": "Hebben",
+      "fa": "غذا خورده‌اید؟"
+    },
+    {
+      "nl": "Jij hebt gelijk.",
+      "gap": "hebt",
+      "fa": "حق با توست."
+    }
+  ]
+}

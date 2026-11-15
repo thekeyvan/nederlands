@@ -1,0 +1,241 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "huishouden",
+  "title": "Het huishouden",
+  "fa": "کارهای خانه",
+  "icon": "29",
+  "intro": "Wie doet wat in huis?",
+  "words": [
+    {
+      "nl": "het huishouden",
+      "kind": "woord",
+      "fa": "کارهای خانه",
+      "example": "We verdelen het huishouden eerlijk.",
+      "exampleFa": "کارهای خانه را منصفانه تقسیم می‌کنیم."
+    },
+    {
+      "nl": "de was",
+      "kind": "woord",
+      "fa": "لباس‌شویی (رخت)",
+      "example": "Ik doe de was op maandag.",
+      "exampleFa": "دوشنبه‌ها لباس‌ها را می‌شویم."
+    },
+    {
+      "nl": "het wasrek",
+      "kind": "woord",
+      "fa": "بند رخت تاشو",
+      "example": "Ik hang de was op het wasrek.",
+      "exampleFa": "رخت‌ها را روی بند رخت تاشو پهن می‌کنم."
+    },
+    {
+      "nl": "de dweil",
+      "kind": "woord",
+      "fa": "تی",
+      "example": "Pak de dweil, de vloer is nat.",
+      "exampleFa": "تی را بردار، زمین خیس است."
+    },
+    {
+      "nl": "de stofzuiger",
+      "kind": "woord",
+      "fa": "جاروبرقی",
+      "example": "De stofzuiger staat in de kast.",
+      "exampleFa": "جاروبرقی در کمد است."
+    },
+    {
+      "nl": "de afwas",
+      "kind": "woord",
+      "fa": "ظرف‌شویی",
+      "example": "Wie doet vanavond de afwas?",
+      "exampleFa": "امشب چه کسی ظرف‌ها را می‌شوید?"
+    },
+    {
+      "nl": "het afval",
+      "kind": "woord",
+      "fa": "زباله",
+      "example": "We scheiden het afval.",
+      "exampleFa": "زباله‌ها را تفکیک می‌کنیم."
+    },
+    {
+      "nl": "de vuilniszak",
+      "kind": "woord",
+      "fa": "کیسهٔ زباله",
+      "example": "Breng de vuilniszak naar de container.",
+      "exampleFa": "کیسهٔ زباله را به سطل بزرگ ببر."
+    },
+    {
+      "nl": "het strijkijzer",
+      "kind": "woord",
+      "fa": "اتو",
+      "example": "Het strijkijzer is heet.",
+      "exampleFa": "اتو داغ است."
+    },
+    {
+      "nl": "de bezem",
+      "kind": "woord",
+      "fa": "جارو",
+      "example": "Met de bezem veeg ik de keuken.",
+      "exampleFa": "با جارو آشپزخانه را جارو می‌کنم."
+    },
+    {
+      "nl": "het schoonmaakmiddel",
+      "kind": "woord",
+      "fa": "مادهٔ شوینده",
+      "example": "Dit schoonmaakmiddel ruikt lekker.",
+      "exampleFa": "این مادهٔ شوینده بوی خوبی دارد."
+    },
+    {
+      "nl": "de taak",
+      "kind": "woord",
+      "fa": "وظیفه",
+      "example": "Elk kind heeft een eigen taak.",
+      "exampleFa": "هر بچه وظیفهٔ خودش را دارد."
+    },
+    {
+      "nl": "schoonmaken",
+      "kind": "werkwoord",
+      "fa": "تمیز کردن",
+      "example": "Op zaterdag maken we het huis schoon.",
+      "exampleFa": "شنبه‌ها خانه را تمیز می‌کنیم.",
+      "forms": [
+        "maakte schoon",
+        "heb schoongemaakt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "stofzuigen",
+      "kind": "werkwoord",
+      "fa": "جاروبرقی کشیدن",
+      "example": "Ik moet nog even stofzuigen.",
+      "exampleFa": "هنوز باید جاروبرقی بکشم.",
+      "forms": [
+        "stofzuigde",
+        "heb gestofzuigd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "opruimen",
+      "kind": "werkwoord",
+      "fa": "مرتب کردن",
+      "example": "Ruim je kamer even op.",
+      "exampleFa": "اتاقت را مرتب کن.",
+      "forms": [
+        "ruimde op",
+        "heb opgeruimd",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "strijken",
+      "kind": "werkwoord",
+      "fa": "اتو کردن",
+      "example": "Ik strijk mijn overhemden zelf.",
+      "exampleFa": "پیراهن‌هایم را خودم اتو می‌کنم.",
+      "forms": [
+        "streek",
+        "heb gestreken",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "wassen",
+      "kind": "werkwoord",
+      "fa": "شستن",
+      "example": "Deze trui mag je niet heet wassen.",
+      "exampleFa": "این پلیور را نباید با آب داغ بشویی.",
+      "forms": [
+        "waste",
+        "heb gewassen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "ophangen",
+      "kind": "werkwoord",
+      "fa": "آویزان کردن",
+      "example": "Ik hang de was buiten op.",
+      "exampleFa": "رخت‌ها را بیرون پهن می‌کنم.",
+      "forms": [
+        "hing op",
+        "heb opgehangen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "vegen",
+      "kind": "werkwoord",
+      "fa": "جارو کردن",
+      "example": "Na het eten veeg ik de vloer.",
+      "exampleFa": "بعد از غذا زمین را جارو می‌کنم.",
+      "forms": [
+        "veegde",
+        "heb geveegd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de vuilnis buiten zetten",
+      "kind": "uitdrukking",
+      "fa": "زباله را بیرون گذاشتن",
+      "example": "Op dinsdagavond zet ik de vuilnis buiten.",
+      "exampleFa": "سه‌شنبه شب زباله را بیرون می‌گذارم."
+    },
+    {
+      "nl": "de boel",
+      "kind": "uitdrukking",
+      "fa": "به‌هم‌ریختگی",
+      "example": "Wat een boel hier!",
+      "exampleFa": "اینجا چقدر به‌هم‌ریخته است!"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Wil jij de afwas doen? Dan kook ik.",
+      "level": "A2",
+      "fa": "تو ظرف‌ها را می‌شویی؟ آن‌وقت من آشپزی می‌کنم."
+    },
+    {
+      "nl": "Wanneer wordt het afval opgehaald?",
+      "level": "A2",
+      "fa": "زباله کی جمع‌آوری می‌شود؟"
+    },
+    {
+      "nl": "Waar staat de stofzuiger?",
+      "level": "A2",
+      "fa": "جاروبرقی کجاست؟"
+    },
+    {
+      "nl": "Het plastic gaat in de oranje container.",
+      "level": "A2",
+      "fa": "پلاستیک در سطل نارنجی می‌رود."
+    },
+    {
+      "nl": "We hebben een schoonmaakrooster gemaakt.",
+      "level": "B1",
+      "fa": "یک برنامهٔ نظافت درست کرده‌ایم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Huisgenoot",
+      "nl": "Zullen we de taken verdelen?",
+      "fa": "کارها را تقسیم کنیم؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Goed idee. Ik doe de badkamer en de afwas.",
+      "fa": "فکر خوبی است. من حمام و ظرف‌ها را انجام می‌دهم."
+    },
+    {
+      "speaker": "Huisgenoot",
+      "nl": "Dan stofzuig ik en zet ik het afval buiten.",
+      "fa": "پس من جاروبرقی می‌کشم و زباله را بیرون می‌گذارم."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Prima. Volgende week ruilen we.",
+      "fa": "عالی. هفتهٔ بعد جابه‌جا می‌کنیم."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:zou-kunnen",
+  "title": "Zou je ... kunnen ...?",
+  "level": "A2",
+  "pattern": "Zou + je / u + ... + kunnen + infinitief?",
+  "example": "Zou je wat vroeger kunnen komen?",
+  "prompt": "Zou je me ___ helpen?",
+  "answer": "kunnen",
+  "fa": {
+    "rule": "یک قالب مؤدبانه برای درخواست است. zou صرف می‌شود و دو مصدر در آخر می‌آیند.",
+    "note": "برای jullie: Zouden jullie me kunnen helpen?",
+    "translation": "ممکن است لطفاً کمی زودتر بیایی؟"
+  },
+  "examples": [
+    {
+      "nl": "Zou je het raam kunnen dichtdoen?",
+      "gap": "kunnen",
+      "fa": "می‌شود پنجره را ببندی؟"
+    },
+    {
+      "nl": "Zou u langzamer kunnen praten?",
+      "gap": "Zou",
+      "fa": "ممکن است آهسته‌تر صحبت کنید؟"
+    },
+    {
+      "nl": "Zou je me morgen kunnen bellen?",
+      "gap": "bellen",
+      "fa": "می‌توانی فردا به من زنگ بزنی؟"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:liever",
+  "title": "Liever ... dan ...",
+  "level": "A2",
+  "pattern": "liever A dan B / net zo ... als ...",
+  "example": "Ik drink liever thee dan koffie.",
+  "prompt": "Ik drink liever thee ___ koffie.",
+  "answer": "dan",
+  "fa": {
+    "rule": "برای ترجیح دادن، liever ... dan ... داریم. برای برابری، net zo ... als ... است.",
+    "note": "graag = با میل؛ liever = ترجیحاً؛ het liefst = بیشتر از همه.",
+    "translation": "چای را به قهوه ترجیح می‌دهم."
+  },
+  "examples": [
+    {
+      "nl": "Ik fiets liever dan dat ik de bus neem.",
+      "gap": "liever",
+      "fa": "ترجیح می‌دهم دوچرخه سوار شوم تا اتوبوس بگیرم."
+    },
+    {
+      "nl": "Zij woont liever in de stad dan in een dorp.",
+      "gap": "dan",
+      "fa": "او ترجیح می‌دهد در شهر زندگی کند تا در روستا."
+    },
+    {
+      "nl": "Deze jas is net zo duur als die.",
+      "gap": "als",
+      "fa": "این کت به همان اندازهٔ آن یکی گران است."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:voornaamwoord-dingen",
+  "title": "Hij, hem, het, ze",
+  "level": "A2",
+  "pattern": "de boom → hij / hem · het boek → het · de pennen → ze",
+  "example": "Het boek is mooi. Ik lees het. De pennen zijn nieuw. Ik gebruik ze.",
+  "prompt": "Het boek is mooi. Ik lees ___.",
+  "answer": "het",
+  "fa": {
+    "rule": "برای جایگزینی اسم، ضمیر مناسبِ نقش فاعل یا مفعول و مفرد یا جمع بودن را انتخاب کن.",
+    "note": "برای اسم خنثای مفرد، ضمیر خنثی و برای جمع، ضمیر جمع می‌آید. در بسیاری از اسم‌های اشیا با حرف تعریف مشترک، ضمیر مذکر رایج است؛ این یک قانون مطلق برای همهٔ اسم‌ها نیست. برای اشخاص، ضمیر مناسبِ شخص را به‌کار ببر.",
+    "translation": "کتاب زیباست. آن را می‌خوانم. خودکارها نو هستند. از آن‌ها استفاده می‌کنم."
+  },
+  "examples": [
+    {
+      "nl": "De fiets is kapot. Ik repareer hem morgen.",
+      "gap": "hem",
+      "fa": "دوچرخه خراب است. فردا تعمیرش می‌کنم."
+    },
+    {
+      "nl": "Waar is de sleutel? Hij ligt op tafel.",
+      "gap": "Hij",
+      "fa": "کلید کجاست؟ روی میز است."
+    },
+    {
+      "nl": "De appels zijn lekker. Ik eet ze graag.",
+      "gap": "ze",
+      "fa": "سیب‌ها خوشمزه‌اند. با کمال میل می‌خورمشان."
+    }
+  ]
+}

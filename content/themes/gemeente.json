@@ -1,0 +1,148 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "gemeente",
+  "title": "Bij de gemeente",
+  "fa": "در شهرداری",
+  "icon": "20",
+  "intro": "Regel een afspraak, een formulier of je adres.",
+  "words": [
+    {
+      "nl": "de gemeente",
+      "kind": "woord",
+      "fa": "شهرداری؛ واحد اداری محلی",
+      "example": "Ik heb een afspraak bij de gemeente om mijn adres te wijzigen.",
+      "exampleFa": "برای تغییر آدرسم در شهرداری وقت گرفته‌ام."
+    },
+    {
+      "nl": "de balie",
+      "kind": "woord",
+      "fa": "باجه؛ پیشخوان",
+      "example": "Bij welke balie moet ik zijn?",
+      "exampleFa": "باید به کدام باجه مراجعه کنم؟"
+    },
+    {
+      "nl": "het formulier",
+      "kind": "woord",
+      "fa": "فرم",
+      "example": "Kunt u mij helpen dit formulier in te vullen?",
+      "exampleFa": "می‌توانید کمکم کنید این فرم را پر کنم؟"
+    },
+    {
+      "nl": "de aanvraag",
+      "kind": "woord",
+      "fa": "درخواست",
+      "example": "Ik heb een vraag over mijn aanvraag.",
+      "exampleFa": "دربارهٔ درخواستم یک سؤال دارم."
+    },
+    {
+      "nl": "het identiteitsbewijs",
+      "kind": "woord",
+      "fa": "مدرک شناسایی",
+      "example": "Moet ik een identiteitsbewijs meenemen?",
+      "exampleFa": "باید مدرک شناسایی همراه بیاورم؟"
+    },
+    {
+      "nl": "het paspoort",
+      "kind": "woord",
+      "fa": "گذرنامه",
+      "example": "Mijn paspoort verloopt volgende maand.",
+      "exampleFa": "اعتبار گذرنامه‌ام ماه آینده تمام می‌شود."
+    },
+    {
+      "nl": "het uittreksel",
+      "kind": "woord",
+      "fa": "رونوشت رسمی از اطلاعات ثبت‌شده",
+      "example": "Ik wil een uittreksel met mijn adres aanvragen.",
+      "exampleFa": "می‌خواهم یک رونوشت رسمی حاوی آدرسم درخواست کنم."
+    },
+    {
+      "nl": "de inschrijving",
+      "kind": "woord",
+      "fa": "ثبت‌نام؛ ثبت مشخصات",
+      "example": "Krijg ik een bevestiging van mijn inschrijving?",
+      "exampleFa": "تأییدیهٔ ثبت مشخصاتم را دریافت می‌کنم؟"
+    },
+    {
+      "nl": "de verhuizing",
+      "kind": "woord",
+      "fa": "اسباب‌کشی؛ تغییر محل سکونت",
+      "example": "Ik wil mijn verhuizing aan de gemeente doorgeven.",
+      "exampleFa": "می‌خواهم تغییر محل سکونتم را به شهرداری اطلاع بدهم."
+    },
+    {
+      "nl": "het burgerservicenummer",
+      "kind": "woord",
+      "fa": "شمارهٔ شناسایی شهروندی هلند؛ BSN",
+      "example": "Waar moet ik mijn burgerservicenummer op dit formulier invullen?",
+      "exampleFa": "شمارهٔ شناسایی شهروندی‌ام را کجای این فرم باید بنویسم؟"
+    },
+    {
+      "nl": "de openingstijden",
+      "kind": "woord",
+      "fa": "ساعت‌های کاری",
+      "example": "Wat zijn de openingstijden van het gemeentehuis?",
+      "exampleFa": "ساعت‌های کاری ساختمان شهرداری چیست؟"
+    },
+    {
+      "nl": "de bevestiging",
+      "kind": "woord",
+      "fa": "تأییدیه",
+      "example": "Ik heb de bevestiging van mijn afspraak per e-mail ontvangen.",
+      "exampleFa": "تأییدیهٔ وقتم را از طریق ایمیل دریافت کرده‌ام."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik wil me inschrijven op mijn nieuwe adres.",
+      "level": "A2",
+      "fa": "می‌خواهم در آدرس جدیدم ثبت‌نام کنم."
+    },
+    {
+      "nl": "Heb ik hiervoor een afspraak nodig?",
+      "level": "A2",
+      "fa": "برای این کار به وقت قبلی نیاز دارم؟"
+    },
+    {
+      "nl": "Welke documenten moet ik meenemen?",
+      "level": "A2",
+      "fa": "چه مدارکی باید همراه بیاورم؟"
+    },
+    {
+      "nl": "Kan ik dit ook online regelen?",
+      "level": "A2",
+      "fa": "می‌توانم این کار را اینترنتی هم انجام بدهم؟"
+    },
+    {
+      "nl": "Hoe lang duurt de aanvraag?",
+      "level": "A2",
+      "fa": "رسیدگی به درخواست چقدر طول می‌کشد؟"
+    },
+    {
+      "nl": "Kunt u mij helpen met dit formulier?",
+      "level": "A2",
+      "fa": "می‌توانید برای پر کردن این فرم کمکم کنید؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Heb ik hiervoor een afspraak nodig?",
+      "fa": "برای این کار به وقت قبلی نیاز دارم؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Voor deze aanvraag maakt u eerst een afspraak.",
+      "fa": "برای این درخواست ابتدا وقت می‌گیرید."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Welke documenten moet ik meenemen?",
+      "fa": "چه مدارکی باید همراه بیاورم؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Ik stuur u een overzicht van de documenten.",
+      "fa": "فهرستی از مدارک را برایتان می‌فرستم."
+    }
+  ]
+}

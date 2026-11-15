@@ -1,0 +1,228 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "weer",
+  "title": "Het weer & de seizoenen",
+  "fa": "آب‌وهوا و فصل‌ها",
+  "icon": "23",
+  "intro": "Praat over het weer, zoals elke Nederlander.",
+  "words": [
+    {
+      "nl": "het weer",
+      "kind": "woord",
+      "fa": "هوا (آب‌وهوا)",
+      "example": "Wat voor weer wordt het morgen?",
+      "exampleFa": "فردا هوا چطور می‌شود؟"
+    },
+    {
+      "nl": "de weersverwachting",
+      "kind": "woord",
+      "fa": "پیش‌بینی هوا",
+      "example": "Volgens de weersverwachting gaat het regenen.",
+      "exampleFa": "طبق پیش‌بینی هوا، باران می‌بارد."
+    },
+    {
+      "nl": "de regen",
+      "kind": "woord",
+      "fa": "باران",
+      "example": "Ik fiets ook in de regen.",
+      "exampleFa": "زیر باران هم دوچرخه‌سواری می‌کنم."
+    },
+    {
+      "nl": "de bui",
+      "kind": "woord",
+      "fa": "رگبار",
+      "example": "Er komt straks een flinke bui.",
+      "exampleFa": "کمی بعد یک رگبار شدید می‌آید."
+    },
+    {
+      "nl": "de wind",
+      "kind": "woord",
+      "fa": "باد",
+      "example": "Er staat vandaag veel wind.",
+      "exampleFa": "امروز باد زیادی می‌وزد."
+    },
+    {
+      "nl": "de zon",
+      "kind": "woord",
+      "fa": "خورشید",
+      "example": "De zon schijnt de hele dag.",
+      "exampleFa": "تمام روز خورشید می‌تابد."
+    },
+    {
+      "nl": "de wolk",
+      "kind": "woord",
+      "fa": "ابر",
+      "example": "Er is geen wolk aan de lucht.",
+      "exampleFa": "یک ذره ابر در آسمان نیست."
+    },
+    {
+      "nl": "de mist",
+      "kind": "woord",
+      "fa": "مه",
+      "example": "Door de mist rijden de treinen langzamer.",
+      "exampleFa": "به‌خاطر مه قطارها آهسته‌تر حرکت می‌کنند."
+    },
+    {
+      "nl": "de sneeuw",
+      "kind": "woord",
+      "fa": "برف",
+      "example": "De kinderen spelen in de sneeuw.",
+      "exampleFa": "بچه‌ها در برف بازی می‌کنند."
+    },
+    {
+      "nl": "het onweer",
+      "kind": "woord",
+      "fa": "رعدوبرق",
+      "example": "Bij onweer blijf ik binnen.",
+      "exampleFa": "وقتی رعدوبرق است، داخل می‌مانم."
+    },
+    {
+      "nl": "de temperatuur",
+      "kind": "woord",
+      "fa": "دما",
+      "example": "De temperatuur gaat omhoog.",
+      "exampleFa": "دما بالا می‌رود."
+    },
+    {
+      "nl": "het seizoen",
+      "kind": "woord",
+      "fa": "فصل",
+      "example": "De herfst is mijn favoriete seizoen.",
+      "exampleFa": "پاییز فصل محبوب من است."
+    },
+    {
+      "nl": "de lente",
+      "kind": "woord",
+      "fa": "بهار",
+      "example": "In de lente bloeien de tulpen.",
+      "exampleFa": "در بهار لاله‌ها گل می‌دهند."
+    },
+    {
+      "nl": "de zomer",
+      "kind": "woord",
+      "fa": "تابستان",
+      "example": "In de zomer is het lang licht.",
+      "exampleFa": "در تابستان هوا مدت زیادی روشن است."
+    },
+    {
+      "nl": "de herfst",
+      "kind": "woord",
+      "fa": "پاییز",
+      "example": "In de herfst vallen de bladeren.",
+      "exampleFa": "در پاییز برگ‌ها می‌ریزند."
+    },
+    {
+      "nl": "de winter",
+      "kind": "woord",
+      "fa": "زمستان",
+      "example": "In de winter is het vroeg donker.",
+      "exampleFa": "در زمستان زود تاریک می‌شود."
+    },
+    {
+      "nl": "de regenjas",
+      "kind": "woord",
+      "fa": "بارانی",
+      "example": "Trek je regenjas aan.",
+      "exampleFa": "بارانی‌ات را بپوش."
+    },
+    {
+      "nl": "de graad",
+      "kind": "woord",
+      "fa": "درجه",
+      "example": "Het is vandaag twintig graden.",
+      "exampleFa": "امروز بیست درجه است."
+    },
+    {
+      "nl": "regenen",
+      "kind": "werkwoord",
+      "fa": "باران باریدن",
+      "example": "Het regent al de hele ochtend.",
+      "exampleFa": "تمام صبح باران می‌بارد.",
+      "forms": [
+        "regende",
+        "heeft geregend",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "waaien",
+      "kind": "werkwoord",
+      "fa": "وزیدن باد",
+      "example": "Het waait zo hard dat ik bijna van mijn fiets val.",
+      "exampleFa": "باد آن‌قدر شدید می‌وزد که نزدیک است از دوچرخه بیفتم.",
+      "forms": [
+        "waaide",
+        "heeft gewaaid",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "vriezen",
+      "kind": "werkwoord",
+      "fa": "یخ زدن",
+      "example": "Vannacht heeft het gevroren.",
+      "exampleFa": "دیشب یخبندان بود.",
+      "forms": [
+        "vroor",
+        "heeft gevroren",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "lekker weer",
+      "kind": "uitdrukking",
+      "fa": "هوای خوب",
+      "example": "Wat een lekker weer vandaag!",
+      "exampleFa": "امروز چه هوای خوبی است!"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Wat een rotweer, hè?",
+      "level": "A2",
+      "fa": "چه هوای بدی، نه؟"
+    },
+    {
+      "nl": "Het wordt morgen zonnig.",
+      "level": "A2",
+      "fa": "فردا آفتابی می‌شود."
+    },
+    {
+      "nl": "Het is koud, trek een warme jas aan.",
+      "level": "A2",
+      "fa": "هوا سرد است، یک کت گرم بپوش."
+    },
+    {
+      "nl": "Ik hoop dat het droog blijft.",
+      "level": "A2",
+      "fa": "امیدوارم هوا خشک بماند."
+    },
+    {
+      "nl": "Volgens het weerbericht wordt het een warme week.",
+      "level": "B1",
+      "fa": "طبق گزارش هوا، هفتهٔ گرمی می‌شود."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Buurvrouw",
+      "nl": "Goedemorgen! Wat een wind, hè?",
+      "fa": "صبح بخیر! چه بادی، نه؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ja, en straks gaat het ook nog regenen.",
+      "fa": "بله، و کمی بعد باران هم می‌بارد."
+    },
+    {
+      "speaker": "Buurvrouw",
+      "nl": "Volgens mij wordt het in het weekend beter.",
+      "fa": "به نظرم آخر هفته هوا بهتر می‌شود."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Dat hoop ik. Dan gaan we naar het strand.",
+      "fa": "امیدوارم. آن‌وقت به ساحل می‌رویم."
+    }
+  ]
+}

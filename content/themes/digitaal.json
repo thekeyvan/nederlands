@@ -1,0 +1,231 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "digitaal",
+  "title": "Post, telefoon & internet",
+  "fa": "پست، تلفن و اینترنت",
+  "icon": "27",
+  "intro": "Regel je pakket, je abonnement en je DigiD.",
+  "words": [
+    {
+      "nl": "het pakket",
+      "kind": "woord",
+      "fa": "بسته پستی",
+      "example": "Mijn pakket wordt vandaag bezorgd.",
+      "exampleFa": "بستهٔ پستی‌ام امروز تحویل داده می‌شود."
+    },
+    {
+      "nl": "de brief",
+      "kind": "woord",
+      "fa": "نامه",
+      "example": "Ik heb een brief van de gemeente gekregen.",
+      "exampleFa": "یک نامه از شهرداری گرفته‌ام."
+    },
+    {
+      "nl": "de postbode",
+      "kind": "woord",
+      "fa": "نامه‌رسان",
+      "example": "De postbode komt rond twaalf uur.",
+      "exampleFa": "نامه‌رسان حدود ساعت دوازده می‌آید."
+    },
+    {
+      "nl": "het afhaalpunt",
+      "kind": "woord",
+      "fa": "محل تحویل بسته",
+      "example": "Je kunt het pakket ophalen bij het afhaalpunt.",
+      "exampleFa": "می‌توانی بسته را از محل تحویل بگیری."
+    },
+    {
+      "nl": "de postzegel",
+      "kind": "woord",
+      "fa": "تمبر",
+      "example": "Er moet een postzegel op de envelop.",
+      "exampleFa": "باید یک تمبر روی پاکت باشد."
+    },
+    {
+      "nl": "het abonnement",
+      "kind": "woord",
+      "fa": "اشتراک",
+      "example": "Mijn telefoonabonnement loopt in maart af.",
+      "exampleFa": "اشتراک تلفنم در مارس تمام می‌شود."
+    },
+    {
+      "nl": "de wifi",
+      "kind": "woord",
+      "fa": "وای‌فای",
+      "example": "Wat is het wachtwoord van de wifi?",
+      "exampleFa": "رمز وای‌فای چیست؟"
+    },
+    {
+      "nl": "het wachtwoord",
+      "kind": "woord",
+      "fa": "رمز عبور",
+      "example": "Ik ben mijn wachtwoord vergeten.",
+      "exampleFa": "رمز عبورم را فراموش کرده‌ام."
+    },
+    {
+      "nl": "de DigiD",
+      "kind": "woord",
+      "fa": "دیجی‌دی (شناسهٔ دیجیتال)",
+      "example": "Met je DigiD log je in bij de overheid.",
+      "exampleFa": "با دیجی‌دی وارد سایت‌های دولتی می‌شوی."
+    },
+    {
+      "nl": "de app",
+      "kind": "woord",
+      "fa": "اپلیکیشن",
+      "example": "Ik betaal mijn rekeningen met een app.",
+      "exampleFa": "صورت‌حساب‌هایم را با یک اپلیکیشن پرداخت می‌کنم."
+    },
+    {
+      "nl": "de oplader",
+      "kind": "woord",
+      "fa": "شارژر",
+      "example": "Mag ik je oplader even lenen?",
+      "exampleFa": "می‌شود شارژرت را قرض بگیرم؟"
+    },
+    {
+      "nl": "de bijlage",
+      "kind": "woord",
+      "fa": "پیوست",
+      "example": "Ik stuur het formulier als bijlage.",
+      "exampleFa": "فرم را به‌عنوان پیوست می‌فرستم."
+    },
+    {
+      "nl": "de klantenservice",
+      "kind": "woord",
+      "fa": "خدمات مشتریان",
+      "example": "Ik bel de klantenservice over mijn rekening.",
+      "exampleFa": "دربارهٔ صورت‌حسابم با خدمات مشتریان تماس می‌گیرم."
+    },
+    {
+      "nl": "de storing",
+      "kind": "woord",
+      "fa": "اختلال",
+      "example": "Er is een storing in het internet.",
+      "exampleFa": "در اینترنت اختلال هست."
+    },
+    {
+      "nl": "bezorgen",
+      "kind": "werkwoord",
+      "fa": "تحویل دادن",
+      "example": "Ze bezorgen ook op zaterdag.",
+      "exampleFa": "شنبه‌ها هم تحویل می‌دهند.",
+      "forms": [
+        "bezorgde",
+        "heb bezorgd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "versturen",
+      "kind": "werkwoord",
+      "fa": "فرستادن",
+      "example": "Ik verstuur het pakket morgen.",
+      "exampleFa": "بسته را فردا می‌فرستم.",
+      "forms": [
+        "verstuurde",
+        "heb verstuurd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "inloggen",
+      "kind": "werkwoord",
+      "fa": "وارد شدن (لاگین)",
+      "example": "Log in met je DigiD.",
+      "exampleFa": "با دیجی‌دی‌ات وارد شو.",
+      "forms": [
+        "logde in",
+        "heb ingelogd",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "downloaden",
+      "kind": "werkwoord",
+      "fa": "دانلود کردن",
+      "example": "Je kunt het formulier downloaden.",
+      "exampleFa": "می‌توانی فرم را دانلود کنی.",
+      "forms": [
+        "downloadde",
+        "heb gedownload",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de batterij",
+      "kind": "woord",
+      "fa": "باتری",
+      "example": "Mijn batterij is bijna leeg.",
+      "exampleFa": "باتری‌ام تقریباً خالی است."
+    },
+    {
+      "nl": "terugbellen",
+      "kind": "werkwoord",
+      "fa": "دوباره تماس گرفتن",
+      "example": "Kunt u me later terugbellen?",
+      "exampleFa": "می‌توانید بعداً با من تماس بگیرید؟",
+      "forms": [
+        "belde terug",
+        "heb teruggebeld",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "niet thuis",
+      "kind": "uitdrukking",
+      "fa": "خانه نبودن",
+      "example": "Ik was niet thuis toen de postbode kwam.",
+      "exampleFa": "وقتی نامه‌رسان آمد، خانه نبودم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik wil dit pakket versturen.",
+      "level": "A2",
+      "fa": "می‌خواهم این بسته را بفرستم."
+    },
+    {
+      "nl": "Mijn pakket is niet aangekomen.",
+      "level": "A2",
+      "fa": "بسته‌ام نرسیده است."
+    },
+    {
+      "nl": "Wat is het wachtwoord van de wifi?",
+      "level": "A2",
+      "fa": "رمز وای‌فای چیست؟"
+    },
+    {
+      "nl": "Ik heb geen bereik.",
+      "level": "A2",
+      "fa": "آنتن ندارم."
+    },
+    {
+      "nl": "Kunt u mij een bevestiging per mail sturen?",
+      "level": "B1",
+      "fa": "می‌توانید یک تأییدیه با ایمیل برایم بفرستید؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Goedemiddag, ik heb een kaartje gekregen voor een pakket.",
+      "fa": "عصر بخیر، برای یک بسته یک کارت اطلاع گرفته‌ام."
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Mag ik uw legitimatie zien?",
+      "fa": "می‌شود مدرک شناسایی‌تان را ببینم؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Alstublieft. Hier is mijn paspoort.",
+      "fa": "بفرمایید. این پاسپورتم است."
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Dank u. Hier is uw pakket.",
+      "fa": "ممنون. این بسته‌تان است."
+    }
+  ]
+}

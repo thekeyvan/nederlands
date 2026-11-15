@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:verkleinwoord",
+  "title": "Een kopje, een biertje",
+  "level": "A2",
+  "pattern": "de kop → het kopje · het bier → het biertje · de lepel → het lepeltje",
+  "example": "Het lepeltje ligt naast het koffiekopje.",
+  "prompt": "___ lepeltje ligt naast het kopje.",
+  "answer": "Het",
+  "fa": {
+    "rule": "اسم کوچک‌شدهٔ مفرد همیشه حرف تعریف خنثی می‌گیرد.",
+    "note": "اسم کوچک‌شده همیشه فقط اندازه را نمی‌رساند؛ ممکن است خودمانی یا صمیمانه باشد. همهٔ جمع‌ها، حتی جمعِ کوچک‌شده، حرف تعریف مشترک می‌گیرند.",
+    "translation": "قاشق کوچک کنار فنجان قهوه است."
+  },
+  "examples": [
+    {
+      "nl": "Mag ik een kopje thee?",
+      "gap": "kopje",
+      "fa": "می‌شود یک فنجان چای بگیرم؟"
+    },
+    {
+      "nl": "Het meisje speelt met een balletje.",
+      "gap": "balletje",
+      "fa": "دختر با یک توپ کوچک بازی می‌کند."
+    },
+    {
+      "nl": "We drinken een biertje op het terras.",
+      "gap": "biertje",
+      "fa": "در تراس یک آبجو می‌نوشیم."
+    }
+  ]
+}

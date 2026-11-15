@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:samenstelling",
+  "title": "Eén lang woord",
+  "level": "A2",
+  "pattern": "het feest → het afscheidsfeest · de automaat → de koffiezetautomaat · de verzekering → de arbeidsongeschiktheidsverzekering",
+  "example": "De huissleutel ligt op de keukentafel.",
+  "prompt": "het huis + het nummer → het ___",
+  "answer": "huisnummer",
+  "fa": {
+    "rule": "اسم‌های مرکب معمولاً به هم چسبیده نوشته می‌شوند. اسم آخر، معنای اصلی و حرف تعریف را تعیین می‌کند.",
+    "note": "اسم مرکب معمولاً یک کلمه نوشته می‌شود؛ جزء آخر، معنی اصلی و حرف تعریف را تعیین می‌کند. جشن خداحافظی از نوع جشن است و دستگاه قهوه‌ساز از نوع دستگاه. گاهی بین دو جزء یک حرف پیوندی می‌آید.",
+    "translation": "کلید خانه روی میز آشپزخانه است."
+  },
+  "examples": [
+    {
+      "nl": "Mijn fietssleutel ligt in de auto.",
+      "gap": "fietssleutel",
+      "fa": "کلید دوچرخه‌ام در ماشین است."
+    },
+    {
+      "nl": "De bushalte is om de hoek.",
+      "gap": "bushalte",
+      "fa": "ایستگاه اتوبوس سر نبش است."
+    },
+    {
+      "nl": "Ik zoek een tandarts in de buurt.",
+      "gap": "tandarts",
+      "fa": "دنبال یک دندان‌پزشک در این اطراف هستم."
+    }
+  ]
+}

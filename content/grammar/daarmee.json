@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:daarmee",
+  "title": "Daar ... mee",
+  "level": "B1",
+  "pattern": "met het voorstel → daar ... mee",
+  "example": "Daar ben ik het mee eens.",
+  "prompt": "Daar ben ik het ___ eens.",
+  "answer": "mee",
+  "fa": {
+    "rule": "برای اشاره به «با آن»، met + iets می‌تواند به daarmee تبدیل شود. بخش‌ها می‌توانند از هم جدا شوند.",
+    "note": "naar آن → daar ... naartoe؛ over آن → daarover.",
+    "translation": "با آن موافقم."
+  },
+  "examples": [
+    {
+      "nl": "Daar heb ik geen zin in.",
+      "gap": "in",
+      "fa": "حوصله‌اش را ندارم."
+    },
+    {
+      "nl": "Daar kan ik je mee helpen.",
+      "gap": "mee",
+      "fa": "در این مورد می‌توانم کمکت کنم."
+    },
+    {
+      "nl": "Daar denk ik nog over na.",
+      "gap": "over",
+      "fa": "هنوز دربارهٔ آن فکر می‌کنم."
+    }
+  ]
+}

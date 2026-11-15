@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:modalen-verleden",
+  "title": "Kon, mocht, moest, wilde",
+  "level": "A2",
+  "pattern": "Ik kon ... / Wij konden ...",
+  "example": "Ik mocht niet weg, maar ik hoefde niet te werken.",
+  "prompt": "Wij ___ gisteren niet te werken. (hoeven)",
+  "answer": "hoefden",
+  "fa": {
+    "rule": "گذشتهٔ مفرد و جمع را با هم تمرین کن: kon/konden، mocht/mochten، moest/moesten، wilde/wilden، zou/zouden، hoefde/hoefden.",
+    "note": "hoeven برای ساخت گذشته باقاعده است. hoefde از v در hoeven می‌آید؛ نه از f نوشته‌شده در hoef.",
+    "translation": "اجازه نداشتم بروم، ولی لازم نبود کار کنم."
+  },
+  "examples": [
+    {
+      "nl": "Ik kon gisteren niet komen.",
+      "gap": "kon",
+      "fa": "دیروز نتوانستم بیایم.",
+      "hint": "kunnen"
+    },
+    {
+      "nl": "We moesten lang wachten bij de dokter.",
+      "gap": "moesten",
+      "fa": "پیش دکتر مجبور شدیم مدت زیادی صبر کنیم.",
+      "hint": "moeten"
+    },
+    {
+      "nl": "Hij wilde graag mee naar het feest.",
+      "gap": "wilde",
+      "fa": "او خیلی می‌خواست به مهمانی بیاید.",
+      "hint": "willen"
+    }
+  ]
+}

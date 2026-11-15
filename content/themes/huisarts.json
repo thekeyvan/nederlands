@@ -1,0 +1,178 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "huisarts",
+  "title": "Naar de huisarts",
+  "fa": "رفتن به دکتر",
+  "icon": "18",
+  "intro": "Vertel wat je voelt en stel je vragen.",
+  "words": [
+    {
+      "nl": "de afspraak",
+      "kind": "woord",
+      "fa": "وقت ملاقات",
+      "example": "Ik wil graag een afspraak bij de huisarts maken.",
+      "exampleFa": "می‌خواهم از پزشک عمومی وقت بگیرم."
+    },
+    {
+      "nl": "de assistent",
+      "kind": "woord",
+      "fa": "دستیار مطب",
+      "example": "De assistent vraagt waarom ik een afspraak wil maken.",
+      "exampleFa": "دستیار مطب می‌پرسد چرا می‌خواهم وقت بگیرم."
+    },
+    {
+      "nl": "de klacht",
+      "kind": "woord",
+      "fa": "عارضه؛ مشکلی که به خاطرش مراجعه می‌کنی",
+      "example": "Kunt u uw klacht in uw eigen woorden beschrijven?",
+      "exampleFa": "می‌توانید مشکلتان را با کلمات خودتان شرح بدهید؟"
+    },
+    {
+      "nl": "de buikpijn",
+      "kind": "woord",
+      "fa": "شکم‌درد",
+      "example": "Ik heb sinds gisteren last van buikpijn.",
+      "exampleFa": "از دیروز شکم‌درد دارم."
+    },
+    {
+      "nl": "de hoofdpijn",
+      "kind": "woord",
+      "fa": "سردرد",
+      "example": "De hoofdpijn wordt erger als ik beweeg.",
+      "exampleFa": "وقتی حرکت می‌کنم سردردم بیشتر می‌شود."
+    },
+    {
+      "nl": "de koorts",
+      "kind": "woord",
+      "fa": "تب",
+      "example": "Ik heb mijn temperatuur gemeten en ik heb koorts.",
+      "exampleFa": "دمای بدنم را اندازه گرفته‌ام و تب دارم."
+    },
+    {
+      "nl": "de benauwdheid",
+      "kind": "woord",
+      "fa": "احساس تنگی نفس",
+      "example": "Ik wil met de huisarts praten over mijn benauwdheid.",
+      "exampleFa": "می‌خواهم دربارهٔ احساس تنگی نفسم با پزشک عمومی صحبت کنم."
+    },
+    {
+      "nl": "de allergie",
+      "kind": "woord",
+      "fa": "حساسیت",
+      "example": "Deze allergie staat in mijn dossier.",
+      "exampleFa": "این حساسیت در پرونده‌ام ثبت شده است."
+    },
+    {
+      "nl": "het onderzoek",
+      "kind": "woord",
+      "fa": "معاینه؛ بررسی",
+      "example": "Kunt u uitleggen hoe het onderzoek gaat?",
+      "exampleFa": "می‌توانید توضیح بدهید معاینه یا بررسی چطور انجام می‌شود؟"
+    },
+    {
+      "nl": "de verwijzing",
+      "kind": "woord",
+      "fa": "ارجاع‌نامه",
+      "example": "Heb ik een verwijzing nodig voor deze specialist?",
+      "exampleFa": "برای این پزشک متخصص به ارجاع‌نامه نیاز دارم؟"
+    },
+    {
+      "nl": "de uitslag",
+      "kind": "woord",
+      "fa": "نتیجهٔ آزمایش یا بررسی",
+      "example": "Wanneer kan ik bellen voor de uitslag?",
+      "exampleFa": "چه زمانی می‌توانم برای گرفتن نتیجه زنگ بزنم؟"
+    },
+    {
+      "nl": "het recept",
+      "kind": "woord",
+      "fa": "نسخهٔ دارو",
+      "example": "De huisarts stuurt het recept naar mijn apotheek.",
+      "exampleFa": "پزشک عمومی نسخه را به داروخانه‌ام می‌فرستد."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik wil graag een afspraak maken bij de huisarts.",
+      "level": "A2",
+      "fa": "می‌خواهم از پزشک عمومی وقت بگیرم."
+    },
+    {
+      "nl": "Ik heb sinds drie dagen buikpijn.",
+      "level": "A2",
+      "fa": "سه روز است که شکم‌درد دارم."
+    },
+    {
+      "nl": "De pijn zit hier en wordt erger als ik beweeg.",
+      "level": "B1",
+      "fa": "درد اینجاست و وقتی حرکت می‌کنم بیشتر می‌شود."
+    },
+    {
+      "nl": "Ik gebruik deze medicijnen en ik heb deze allergie.",
+      "level": "A2",
+      "fa": "این داروها را مصرف می‌کنم و این حساسیت را دارم."
+    },
+    {
+      "nl": "Wat kan de oorzaak zijn en wat is de volgende stap?",
+      "level": "B1",
+      "fa": "علت چه می‌تواند باشد و قدم بعدی چیست؟"
+    },
+    {
+      "nl": "Bij welke klachten moet ik opnieuw contact opnemen?",
+      "level": "B1",
+      "fa": "در صورت چه علائمی باید دوباره تماس بگیرم؟"
+    },
+    {
+      "nl": "Kunt u dat in eenvoudige woorden uitleggen?",
+      "level": "A2",
+      "fa": "می‌توانید آن را با کلمات ساده توضیح بدهید؟"
+    },
+    {
+      "nl": "Kunt u opschrijven wat we hebben afgesproken?",
+      "level": "B1",
+      "fa": "می‌توانید بنویسید که چه تصمیمی گرفتیم؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Ik heb sinds drie dagen buikpijn.",
+      "fa": "سه روز است که شکم‌درد دارم."
+    },
+    {
+      "speaker": "Huisarts",
+      "nl": "Waar zit de pijn precies?",
+      "fa": "درد دقیقاً کجاست؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Hier, aan de rechterkant. De pijn wordt erger als ik beweeg.",
+      "fa": "اینجا، سمت راست. وقتی حرکت می‌کنم درد بیشتر می‌شود."
+    },
+    {
+      "speaker": "Huisarts",
+      "nl": "Gebruikt u medicijnen?",
+      "fa": "دارویی مصرف می‌کنید؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ja, ik heb een lijstje meegenomen.",
+      "fa": "بله، یک فهرست همراه آورده‌ام."
+    },
+    {
+      "speaker": "Huisarts",
+      "nl": "Dank u. Ik wil u eerst onderzoeken. Heeft u nog vragen?",
+      "fa": "ممنون. می‌خواهم ابتدا شما را معاینه کنم. سؤال دیگری دارید؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Wat is de volgende stap? En wanneer krijg ik de uitslag?",
+      "fa": "قدم بعدی چیست؟ و چه زمانی نتیجه را می‌گیرم؟"
+    },
+    {
+      "speaker": "Huisarts",
+      "nl": "Dat bespreken we na het onderzoek.",
+      "fa": "این را بعد از معاینه با هم بررسی می‌کنیم."
+    }
+  ]
+}

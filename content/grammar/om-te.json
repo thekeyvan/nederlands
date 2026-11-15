@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:om-te",
+  "title": "Om ... te ...",
+  "level": "A2",
+  "pattern": "om + ... + te + infinitief",
+  "example": "Ik leer Nederlands om met mijn collega’s te praten.",
+  "prompt": "Ik oefen ___ beter te spreken.",
+  "answer": "om",
+  "fa": {
+    "rule": "برای بیان هدف از om ... te استفاده کن. فاعل کارِ دوم معمولاً همان فاعل کارِ اول است.",
+    "note": "با فعل جداشدنی: om vroeg op te staan.",
+    "translation": "هلندی یاد می‌گیرم تا با همکارانم صحبت کنم."
+  },
+  "examples": [
+    {
+      "nl": "Ik ga naar de winkel om brood te kopen.",
+      "gap": "om",
+      "fa": "به مغازه می‌روم تا نان بخرم."
+    },
+    {
+      "nl": "Ze fietst naar haar werk om fit te blijven.",
+      "gap": "te",
+      "fa": "با دوچرخه سر کار می‌رود تا سرحال بماند."
+    },
+    {
+      "nl": "We sparen geld om een huis te kopen.",
+      "gap": "kopen",
+      "fa": "پول پس‌انداز می‌کنیم تا خانه بخریم."
+    }
+  ]
+}

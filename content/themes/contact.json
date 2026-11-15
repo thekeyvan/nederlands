@@ -1,0 +1,392 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "contact",
+  "title": "Een praatje maken",
+  "fa": "گفت‌وگوی روزمره",
+  "icon": "12",
+  "intro": "Een paar woorden zijn een goed begin.",
+  "words": [
+    {
+      "nl": "Goedemorgen!",
+      "kind": "uitdrukking",
+      "fa": "صبح بخیر؛ برای سلام کردن",
+      "example": "Goedemorgen! Heb je goed geslapen?",
+      "exampleFa": "صبح‌به‌خیر! خوب خوابیدی؟"
+    },
+    {
+      "nl": "Goedemiddag!",
+      "kind": "uitdrukking",
+      "fa": "ظهر بخیر؛ برای سلام کردن",
+      "example": "Goedemiddag! Kan ik u ergens mee helpen?",
+      "exampleFa": "ظهر‌به‌خیر! می‌توانم در موردی کمکتان کنم؟"
+    },
+    {
+      "nl": "Goedenavond!",
+      "kind": "uitdrukking",
+      "fa": "عصر یا شب بخیر؛ برای سلام کردن",
+      "example": "Goedenavond! Hebben jullie een tafel gereserveerd?",
+      "exampleFa": "عصر‌به‌خیر! میز رزرو کرده‌اید؟"
+    },
+    {
+      "nl": "Fijne dag!",
+      "kind": "uitdrukking",
+      "fa": "روز خوبی داشته باشی!",
+      "example": "Bedankt voor uw hulp. Fijne dag!",
+      "exampleFa": "از کمکتان ممنونم. روز خوبی داشته باشید!"
+    },
+    {
+      "nl": "Fijne avond!",
+      "kind": "uitdrukking",
+      "fa": "عصر یا شب خوبی داشته باشی!",
+      "example": "Ik ga naar huis. Fijne avond allemaal!",
+      "exampleFa": "من به خانه می‌روم. همگی عصر خوبی داشته باشید!"
+    },
+    {
+      "nl": "Welterusten!",
+      "kind": "uitdrukking",
+      "fa": "شب بخیر؛ هنگام رفتن به خواب",
+      "example": "Ik ga naar bed. Welterusten!",
+      "exampleFa": "می‌روم بخوابم. شب‌به‌خیر!"
+    },
+    {
+      "nl": "Tot ziens!",
+      "kind": "uitdrukking",
+      "fa": "به امید دیدار!",
+      "example": "Bedankt voor uw bezoek. Tot ziens!",
+      "exampleFa": "از آمدنتان ممنونیم. خدانگهدار!"
+    },
+    {
+      "nl": "Dank je, jij ook!",
+      "kind": "uitdrukking",
+      "fa": "ممنون، همچنین!",
+      "example": "‘Fijne dag!’ ‘Dank je, jij ook!’",
+      "exampleFa": "«روز خوبی داشته باشی!» «ممنون، تو هم همین‌طور!»"
+    },
+    {
+      "nl": "Mag ik iets vragen?",
+      "kind": "uitdrukking",
+      "fa": "می‌توانم چیزی بپرسم؟",
+      "example": "Mag ik iets vragen? Waar is het station?",
+      "exampleFa": "می‌توانم چیزی بپرسم؟ ایستگاه کجاست؟"
+    },
+    {
+      "nl": "Kunt u mij terugbellen?",
+      "kind": "uitdrukking",
+      "fa": "می‌توانید با من تماس بگیرید؟",
+      "example": "Kunt u mij terugbellen als u meer weet?",
+      "exampleFa": "وقتی اطلاعات بیشتری داشتید، می‌توانید به من زنگ بزنید؟"
+    },
+    {
+      "nl": "Sorry dat ik je stoor.",
+      "kind": "uitdrukking",
+      "fa": "ببخشید که مزاحمت می‌شوم.",
+      "example": "Sorry dat ik je stoor. Heb je even tijd?",
+      "exampleFa": "ببخش که مزاحمت می‌شوم. کمی وقت داری؟"
+    },
+    {
+      "nl": "Hebben jullie me al gemist?",
+      "kind": "uitdrukking",
+      "fa": "تا الان دلتان برایم تنگ شده؟",
+      "example": "Daar ben ik weer! Hebben jullie me al gemist?",
+      "exampleFa": "باز هم آمدم! دلتان برایم تنگ شده بود؟"
+    },
+    {
+      "nl": "Het ziet er bekend uit.",
+      "kind": "uitdrukking",
+      "fa": "آشنا به نظر می‌آید.",
+      "example": "Ik heb deze foto eerder gezien. Het ziet er bekend uit.",
+      "exampleFa": "این عکس را قبلاً دیده‌ام. آشنا به نظر می‌رسد."
+    },
+    {
+      "nl": "Komt het je bekend voor?",
+      "kind": "uitdrukking",
+      "fa": "برای تو آشناست؟",
+      "example": "Ik heb dit liedje al eens gehoord. Komt het je bekend voor?",
+      "exampleFa": "این آهنگ را قبلاً شنیده‌ام. برایت آشناست؟"
+    },
+    {
+      "nl": "Hopelijk binnenkort!",
+      "kind": "uitdrukking",
+      "fa": "امیدوارم به‌زودی!",
+      "example": "Wanneer zien we elkaar weer? Hopelijk binnenkort!",
+      "exampleFa": "کی دوباره همدیگر را می‌بینیم؟ امیدوارم به‌زودی!"
+    },
+    {
+      "nl": "Het hangt ervan af.",
+      "kind": "uitdrukking",
+      "fa": "بستگی دارد.",
+      "example": "Of ik meega? Het hangt ervan af hoe laat we vertrekken.",
+      "exampleFa": "اینکه همراهتان بیایم؟ بستگی دارد چه ساعتی حرکت کنیم."
+    },
+    {
+      "nl": "Geen probleem.",
+      "kind": "uitdrukking",
+      "fa": "مشکلی نیست.",
+      "example": "Je kunt mijn pen lenen. Geen probleem.",
+      "exampleFa": "می‌توانی خودکارم را قرض بگیری. مشکلی نیست."
+    },
+    {
+      "nl": "Dat komt goed.",
+      "kind": "uitdrukking",
+      "fa": "درست می‌شود؛ حل می‌شود.",
+      "example": "Maak je geen zorgen over de planning. Dat komt goed.",
+      "exampleFa": "نگران برنامه‌ریزی نباش. درست می‌شود."
+    },
+    {
+      "nl": "Ik heb twee linkerhanden.",
+      "kind": "uitdrukking",
+      "fa": "در کارهای عملی و فنی دست‌وپاچلفتی‌ام.",
+      "example": "Kun jij de kast in elkaar zetten? Ik heb twee linkerhanden.",
+      "exampleFa": "می‌توانی کمد را سرهم کنی؟ من در کارهای فنی دست‌وپاچلفتی‌ام."
+    },
+    {
+      "nl": "als een blok slapen",
+      "kind": "uitdrukking",
+      "fa": "مثل سنگ خوابیدن؛ خواب بسیار سنگین داشتن",
+      "example": "Na die lange wandeling heb ik als een blok geslapen.",
+      "exampleFa": "بعد از آن پیاده‌روی طولانی، مثل سنگ خوابیدم."
+    },
+    {
+      "nl": "lenen",
+      "kind": "werkwoord",
+      "fa": "قرض گرفتن یا قرض دادن؛ بسته به جمله",
+      "example": "Mag ik je fiets een uurtje lenen?",
+      "exampleFa": "می‌توانم دوچرخه‌ات را یک ساعت قرض بگیرم؟",
+      "forms": [
+        "leende",
+        "heb geleend",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de puntenslijper",
+      "kind": "woord",
+      "fa": "مدادتراش",
+      "example": "Heb je een puntenslijper voor mijn potlood?",
+      "exampleFa": "برای مدادم مدادتراش داری؟"
+    },
+    {
+      "nl": "het potlood",
+      "kind": "woord",
+      "fa": "مداد",
+      "example": "Ik schrijf liever met een potlood dan met een pen.",
+      "exampleFa": "ترجیح می‌دهم با مداد بنویسم تا خودکار."
+    },
+    {
+      "nl": "herhalen",
+      "kind": "werkwoord",
+      "fa": "تکرار کردن",
+      "example": "Kunt u de laatste zin herhalen?",
+      "exampleFa": "می‌توانید جملهٔ آخر را تکرار کنید؟",
+      "forms": [
+        "herhaalde",
+        "heb herhaald",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "uitleggen",
+      "kind": "werkwoord",
+      "fa": "توضیح دادن",
+      "example": "Kun je uitleggen hoe dit werkt?",
+      "exampleFa": "می‌توانی توضیح بدهی این چطور کار می‌کند؟",
+      "forms": [
+        "legde uit",
+        "heb uitgelegd",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "noemen",
+      "kind": "werkwoord",
+      "fa": "نامیدن؛ صدا زدن",
+      "example": "Kun je een voorbeeld noemen?",
+      "exampleFa": "می‌توانی یک مثال بگویی؟",
+      "forms": [
+        "noemde",
+        "heb genoemd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "onthouden",
+      "kind": "werkwoord",
+      "fa": "به خاطر سپردن",
+      "example": "Ik kan nieuwe namen niet altijd goed onthouden.",
+      "exampleFa": "همیشه نمی‌توانم اسم‌های جدید را خوب به خاطر بسپارم.",
+      "forms": [
+        "onthield",
+        "heb onthouden",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "begrijpen",
+      "kind": "werkwoord",
+      "fa": "فهمیدن",
+      "example": "Ik begrijp de vraag, maar ik weet het antwoord niet.",
+      "exampleFa": "سؤال را می‌فهمم، ولی جوابش را نمی‌دانم.",
+      "forms": [
+        "begreep",
+        "heb begrepen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "geloven",
+      "kind": "werkwoord",
+      "fa": "باور داشتن",
+      "example": "Ik geloof dat je gelijk hebt.",
+      "exampleFa": "فکر می‌کنم حق با توست.",
+      "forms": [
+        "geloofde",
+        "heb geloofd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "beloven",
+      "kind": "werkwoord",
+      "fa": "قول دادن",
+      "example": "Ik beloof dat ik je morgen bel.",
+      "exampleFa": "قول می‌دهم فردا به تو زنگ بزنم.",
+      "forms": [
+        "beloofde",
+        "heb beloofd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "het afscheid",
+      "kind": "woord",
+      "fa": "خداحافظی",
+      "example": "Bij het afscheid bedanken we de docent.",
+      "exampleFa": "هنگام خداحافظی از مدرس تشکر می‌کنیم."
+    },
+    {
+      "nl": "het afscheidsfeest",
+      "kind": "woord",
+      "fa": "جشن خداحافظی",
+      "example": "Vrijdag is er een afscheidsfeest voor onze collega.",
+      "exampleFa": "جمعه برای همکارمان جشن خداحافظی داریم."
+    },
+    {
+      "nl": "het etui",
+      "kind": "woord",
+      "fa": "جامدادی",
+      "example": "Mijn pen zit in mijn etui.",
+      "exampleFa": "خودکارم در جامدادی‌ام است."
+    },
+    {
+      "nl": "NT2",
+      "kind": "woord",
+      "fa": "هلندی به‌عنوان زبان دوم",
+      "example": "Ik volg een cursus NT2.",
+      "exampleFa": "در دورهٔ هلندی به‌عنوان زبان دوم شرکت می‌کنم."
+    },
+    {
+      "nl": "het deel",
+      "kind": "woord",
+      "fa": "بخش یا قسمت",
+      "example": "Dit is het eerste deel van de les.",
+      "exampleFa": "این بخش اول درس است."
+    },
+    {
+      "nl": "praten",
+      "kind": "werkwoord",
+      "fa": "صحبت کردن",
+      "example": "We hebben een uur gepraat.",
+      "exampleFa": "یک ساعت صحبت کردیم.",
+      "forms": [
+        "praatte",
+        "heeft gepraat",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "kennen",
+      "kind": "werkwoord",
+      "fa": "شناختن",
+      "example": "Ik ken mijn buren goed.",
+      "exampleFa": "همسایه‌هایم را خوب می‌شناسم.",
+      "forms": [
+        "kende",
+        "heeft gekend",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "vertellen",
+      "kind": "werkwoord",
+      "fa": "تعریف کردن و گفتن",
+      "example": "Zij heeft over haar reis verteld.",
+      "exampleFa": "او دربارهٔ سفرش تعریف کرد.",
+      "forms": [
+        "vertelde",
+        "heeft verteld",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "ontmoeten",
+      "kind": "werkwoord",
+      "fa": "ملاقات کردن",
+      "example": "We hebben elkaar in Nederland ontmoet.",
+      "exampleFa": "در هلند همدیگر را ملاقات کردیم.",
+      "forms": [
+        "ontmoette",
+        "heeft ontmoet",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Hoe was je weekend?",
+      "level": "A2",
+      "fa": "آخر هفته‌ات چطور بود؟"
+    },
+    {
+      "nl": "Ben je hier al lang?",
+      "level": "A2",
+      "fa": "مدت زیادی است که اینجا هستی؟"
+    },
+    {
+      "nl": "Wat leuk om je weer te zien!",
+      "level": "A2",
+      "fa": "چه خوب که دوباره می‌بینمت!"
+    },
+    {
+      "nl": "Zullen we binnenkort koffie drinken?",
+      "level": "A2",
+      "fa": "به‌زودی با هم قهوه بخوریم؟"
+    },
+    {
+      "nl": "Ik moet helaas weer verder. Tot snel!",
+      "level": "A2",
+      "fa": "متأسفانه باید بروم. به‌زودی می‌بینمت!"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Hoe was je weekend?",
+      "fa": "آخر هفته‌ات چطور بود؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Leuk! Ik ben naar het strand geweest. En jij?",
+      "fa": "خوب بود! به ساحل رفتم. تو چطور؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Zullen we binnenkort koffie drinken?",
+      "fa": "به‌زودی با هم قهوه بخوریم؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Ja, leuk. Past donderdag voor jou?",
+      "fa": "بله، چه خوب. پنج‌شنبه برایت مناسب است؟"
+    }
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "natuur",
+  "title": "Een dag naar buiten",
+  "fa": "گردش و طبیعت",
+  "icon": "10",
+  "intro": "Kies een trip en vertel waarom.",
+  "words": [
+    {
+      "nl": "de bestemming",
+      "kind": "woord",
+      "fa": "مقصد",
+      "example": "Onze bestemming is een klein dorp aan zee.",
+      "exampleFa": "مقصد ما روستایی کوچک کنار دریاست."
+    },
+    {
+      "nl": "de tocht",
+      "kind": "woord",
+      "fa": "گردش؛ پیمایش",
+      "example": "De tocht door het bos duurt ongeveer twee uur.",
+      "exampleFa": "گردش در جنگل حدود دو ساعت طول می‌کشد."
+    },
+    {
+      "nl": "het eiland",
+      "kind": "woord",
+      "fa": "جزیره",
+      "example": "We nemen de boot naar het eiland.",
+      "exampleFa": "با قایق به جزیره می‌رویم."
+    },
+    {
+      "nl": "het vasteland",
+      "kind": "woord",
+      "fa": "خشکی اصلی",
+      "example": "Na een week op het eiland gaan we terug naar het vasteland.",
+      "exampleFa": "بعد از یک هفته در جزیره به سرزمین اصلی برمی‌گردیم."
+    },
+    {
+      "nl": "de Waddenzee",
+      "kind": "woord",
+      "fa": "دریای وادن",
+      "example": "We maken een boottocht op de Waddenzee.",
+      "exampleFa": "در دریای وادن به گردش با قایق می‌رویم."
+    },
+    {
+      "nl": "wadlopen",
+      "kind": "werkwoord",
+      "fa": "راه رفتن روی بستر دریای وادن هنگام جزر",
+      "example": "We gaan met een gids wadlopen.",
+      "exampleFa": "همراه یک راهنما روی پهنهٔ گِلی ساحل در زمان جزر پیاده‌روی می‌کنیم.",
+      "forms": [
+        "ging wadlopen (met gaan)",
+        "heb wadgelopen",
+        "bijzonder werkwoord · meestal met gaan"
+      ]
+    },
+    {
+      "nl": "eb en vloed",
+      "kind": "uitdrukking",
+      "fa": "جزر و مد",
+      "example": "De gids legt uit wat eb en vloed zijn.",
+      "exampleFa": "راهنما توضیح می‌دهد که جزر و مد چیست."
+    },
+    {
+      "nl": "de modder",
+      "kind": "woord",
+      "fa": "گل‌ولای",
+      "example": "Na de wandeling zitten mijn schoenen onder de modder.",
+      "exampleFa": "بعد از پیاده‌روی کفش‌هایم کاملاً گِلی شده‌اند."
+    },
+    {
+      "nl": "de gids",
+      "kind": "woord",
+      "fa": "راهنما",
+      "example": "De gids laat ons een bijzondere vogel zien.",
+      "exampleFa": "راهنما یک پرندهٔ خاص به ما نشان می‌دهد."
+    },
+    {
+      "nl": "het natuurgebied",
+      "kind": "woord",
+      "fa": "منطقهٔ طبیعی",
+      "example": "In dit natuurgebied kun je veel vogels zien.",
+      "exampleFa": "در این منطقهٔ طبیعی می‌توانی پرنده‌های زیادی ببینی."
+    },
+    {
+      "nl": "de omgeving",
+      "kind": "woord",
+      "fa": "محیط اطراف",
+      "example": "Ik ken de omgeving hier nog niet zo goed.",
+      "exampleFa": "هنوز اطراف اینجا را چندان خوب نمی‌شناسم."
+    },
+    {
+      "nl": "de zeehond",
+      "kind": "woord",
+      "fa": "فُک",
+      "example": "Vanaf de boot zien we een zeehond in het water.",
+      "exampleFa": "از روی قایق یک فک دریایی در آب می‌بینیم."
+    },
+    {
+      "nl": "de hond",
+      "kind": "woord",
+      "fa": "سگ",
+      "example": "Mijn hond loopt graag mee door het park.",
+      "exampleFa": "سگم دوست دارد در پارک همراه من راه برود."
+    },
+    {
+      "nl": "de dijk",
+      "kind": "woord",
+      "fa": "خاکریز یا سیل‌بند",
+      "example": "We fietsen over de dijk langs het water.",
+      "exampleFa": "روی خاکریز کنار آب دوچرخه‌سواری می‌کنیم."
+    },
+    {
+      "nl": "de dam",
+      "kind": "woord",
+      "fa": "سد؛ مانع در مسیر آب",
+      "example": "Vanaf de dam kijken we uit over het water.",
+      "exampleFa": "از روی سد به پهنهٔ آب نگاه می‌کنیم."
+    },
+    {
+      "nl": "de polder",
+      "kind": "woord",
+      "fa": "زمین محصور با سطح آب کنترل‌شده؛ گاهی خشک‌شده از دریا یا دریاچه",
+      "example": "In de polder zie je weilanden en sloten.",
+      "exampleFa": "در پولدر، مرتع‌ها و نهرهای آب را می‌بینی."
+    },
+    {
+      "nl": "de gracht",
+      "kind": "woord",
+      "fa": "کانال آب شهری",
+      "example": "We lopen langs de gracht naar het centrum.",
+      "exampleFa": "در امتداد کانال به سمت مرکز شهر راه می‌رویم."
+    },
+    {
+      "nl": "geschikt voor",
+      "kind": "uitdrukking",
+      "fa": "مناسب برای",
+      "example": "Is deze wandelroute geschikt voor kinderen?",
+      "exampleFa": "آیا این مسیر پیاده‌روی برای بچه‌ها مناسب است؟"
+    },
+    {
+      "nl": "kiezen voor",
+      "kind": "uitdrukking",
+      "fa": "انتخاب کردن",
+      "example": "We kiezen voor de kortste route.",
+      "exampleFa": "کوتاه‌ترین مسیر را انتخاب می‌کنیم."
+    },
+    {
+      "nl": "begeleiden",
+      "kind": "werkwoord",
+      "fa": "همراهی و راهنمایی کردن",
+      "example": "Een ervaren gids begeleidt de groep.",
+      "exampleFa": "یک راهنمای باتجربه گروه را همراهی می‌کند.",
+      "forms": [
+        "begeleidde",
+        "heb begeleid",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "zich voorbereiden op",
+      "kind": "uitdrukking",
+      "fa": "برای چیزی آماده شدن",
+      "example": "We bereiden ons goed voor op de lange wandeling.",
+      "exampleFa": "برای پیاده‌روی طولانی خوب آماده می‌شویم."
+    },
+    {
+      "nl": "beschermen",
+      "kind": "werkwoord",
+      "fa": "محافظت کردن",
+      "example": "Mijn jas beschermt me tegen de wind.",
+      "exampleFa": "کاپشنم من را از باد محافظت می‌کند.",
+      "forms": [
+        "beschermde",
+        "heb beschermd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "bijzonder",
+      "kind": "woord",
+      "fa": "خاص؛ ویژه",
+      "example": "Het was bijzonder om daar de zon te zien opkomen.",
+      "exampleFa": "دیدن طلوع آفتاب در آنجا تجربهٔ خاصی بود."
+    },
+    {
+      "nl": "verschillend",
+      "kind": "woord",
+      "fa": "متفاوت",
+      "example": "Deze twee routes zijn heel verschillend.",
+      "exampleFa": "این دو مسیر بسیار متفاوت‌اند."
+    },
+    {
+      "nl": "iets nieuws proberen",
+      "kind": "uitdrukking",
+      "fa": "چیز جدیدی امتحان کردن",
+      "example": "Op vakantie wil ik graag iets nieuws proberen.",
+      "exampleFa": "دوست دارم در تعطیلات چیز جدیدی امتحان کنم."
+    },
+    {
+      "nl": "Het lijkt me ...",
+      "kind": "uitdrukking",
+      "fa": "به نظرم ... می‌آید",
+      "example": "Het lijkt me spannend.",
+      "exampleFa": "به نظرم هیجان‌انگیز می‌آید."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Hoe lang is deze wandelroute?",
+      "level": "A2",
+      "fa": "این مسیر پیاده‌روی چقدر طول دارد؟"
+    },
+    {
+      "nl": "We nemen eten en water mee.",
+      "level": "A2",
+      "fa": "غذا و آب همراه می‌بریم."
+    },
+    {
+      "nl": "Zullen we hier even uitrusten?",
+      "level": "A2",
+      "fa": "اینجا کمی استراحت کنیم؟"
+    },
+    {
+      "nl": "Volgens de voorspelling gaat het vanmiddag regenen.",
+      "level": "A2",
+      "fa": "طبق پیش‌بینی، امروز بعدازظهر باران می‌بارد."
+    },
+    {
+      "nl": "Mogen honden hier loslopen?",
+      "level": "A2",
+      "fa": "سگ‌ها اجازه دارند اینجا بدون قلاده راه بروند؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Hoe lang is deze wandelroute?",
+      "fa": "این مسیر پیاده‌روی چقدر طول دارد؟"
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "De korte route is ongeveer vijf kilometer.",
+      "fa": "مسیر کوتاه حدود پنج کیلومتر است."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Zullen we hier even uitrusten?",
+      "fa": "اینجا کمی استراحت کنیم؟"
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "Ja, daar staat een bankje.",
+      "fa": "بله، آنجا یک نیمکت هست."
+    }
+  ]
+}

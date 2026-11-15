@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:zou-mogen",
+  "title": "Zou ik iets mogen vragen?",
+  "level": "A2",
+  "pattern": "mag ik ...? → zou ik ... mogen? · kun je ...? → zou je ... kunnen?",
+  "example": "Zou ik even iets mogen vragen?",
+  "prompt": "Zou ik even iets ___ vragen?",
+  "answer": "mogen",
+  "fa": {
+    "rule": "درخواست را با ساختار شرطی و فعل وجهی مؤدبانه‌تر کن.",
+    "note": "برای درخواست اجازه، توانستن و خواستن، فعل وجهی مناسب را آخر جمله با مصدر بیاور. واژهٔ کوتاه‌کنندهٔ درخواست می‌تواند لحن را نرم‌تر کند، اما اجباری نیست.",
+    "translation": "می‌توانم یک سؤال کوتاه بپرسم؟"
+  },
+  "examples": [
+    {
+      "nl": "Zou ik uw telefoon mogen gebruiken?",
+      "gap": "mogen",
+      "fa": "ممکن است از تلفن شما استفاده کنم؟"
+    },
+    {
+      "nl": "Zou ik morgen vrij mogen nemen?",
+      "gap": "Zou",
+      "fa": "ممکن است فردا مرخصی بگیرم؟"
+    },
+    {
+      "nl": "Zou ik hier even mogen zitten?",
+      "gap": "zitten",
+      "fa": "ممکن است کمی اینجا بنشینم؟"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:dubbel",
+  "title": "Ik heb moeten werken",
+  "level": "B1",
+  "pattern": "hebben + ... + modaal infinitief + infinitief",
+  "example": "Ik heb gisteren moeten werken.",
+  "prompt": "Ik heb niet ___ komen. (kunnen)",
+  "answer": "kunnen",
+  "fa": {
+    "rule": "وقتی فعل مدال همراه فعل اصلی در Perfectum می‌آید، فعل مدال به صورت مصدر می‌ماند.",
+    "note": "Ik heb niet hoeven wachten هم درست است. در این ساخت، te بعد از hoeven می‌تواند حذف شود.",
+    "translation": "دیروز مجبور شدم کار کنم."
+  },
+  "examples": [
+    {
+      "nl": "Ik heb lang moeten wachten.",
+      "gap": "moeten",
+      "fa": "مجبور شدم مدت زیادی صبر کنم.",
+      "hint": "moeten"
+    },
+    {
+      "nl": "We hebben niet kunnen slapen.",
+      "gap": "kunnen",
+      "fa": "نتوانستیم بخوابیم.",
+      "hint": "kunnen"
+    },
+    {
+      "nl": "Ze heeft niet willen komen.",
+      "gap": "willen",
+      "fa": "او نخواست بیاید.",
+      "hint": "willen"
+    }
+  ]
+}

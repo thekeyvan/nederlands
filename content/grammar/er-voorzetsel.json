@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:er-voorzetsel",
+  "title": "Naar haar, ernaar, ervan",
+  "level": "B1",
+  "pattern": "persoon: naar haar · ding: ernaar · van iets → ervan",
+  "example": "Ik kijk naar haar. Ik kijk naar de boom. Ik kijk ernaar.",
+  "prompt": "Ik droom van een reis. Ik droom ___.",
+  "answer": "ervan",
+  "fa": {
+    "rule": "بعد از حرف اضافه، برای شخص ضمیر شخصی می‌آید؛ برای چیز یا موضوع اغلب ترکیبِ ضمیر قیدی و حرف اضافه به‌کار می‌رود.",
+    "note": "در جملهٔ ساده، ترکیب به‌هم نوشته می‌شود و در جملهٔ طولانی ممکن است جدا شود. حرف اضافه را همراه فعل یاد بگیر؛ نگاه کردن با یک حرف اضافه و رؤیاپردازی با حرف اضافهٔ دیگری می‌آیند.",
+    "translation": "به او نگاه می‌کنم. به درخت نگاه می‌کنم. به آن نگاه می‌کنم."
+  },
+  "examples": [
+    {
+      "nl": "Het is een goed plan. Ik denk erover na.",
+      "gap": "erover",
+      "fa": "نقشهٔ خوبی است. درباره‌اش فکر می‌کنم."
+    },
+    {
+      "nl": "Ik heb een vraag over de huur. Kun je ernaar kijken?",
+      "gap": "ernaar",
+      "fa": "سؤالی دربارهٔ اجاره دارم. می‌توانی به آن نگاه کنی؟"
+    },
+    {
+      "nl": "Ik heb een nieuwe baan. Ik ben er blij mee.",
+      "gap": "mee",
+      "fa": "شغل تازه‌ای دارم. از آن راضی‌ام."
+    }
+  ]
+}

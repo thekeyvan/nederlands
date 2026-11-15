@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:vraag",
+  "title": "Heb jij ...?",
+  "level": "A2",
+  "pattern": "Jij hebt ... → Heb jij ...?",
+  "example": "Heb jij mijn bericht gekregen?",
+  "prompt": "___ jij mijn bericht gekregen?",
+  "answer": "Heb",
+  "fa": {
+    "rule": "در پرسش، فعل کمکی پیش از فاعل می‌آید. اگر jij/je فاعل بعد از فعل باشد، t اضافه‌شده حذف می‌شود.",
+    "note": "این قانون را به u تعمیم نده: Heeft u mijn bericht gekregen?",
+    "translation": "پیامم را دریافت کردی؟"
+  },
+  "examples": [
+    {
+      "nl": "Woon jij al lang in Nederland?",
+      "gap": "Woon",
+      "fa": "خیلی وقت است در هلند زندگی می‌کنی؟"
+    },
+    {
+      "nl": "Hebben jullie een kamer vrij?",
+      "gap": "Hebben",
+      "fa": "اتاق خالی دارید؟"
+    },
+    {
+      "nl": "Werkt zij ook bij de gemeente?",
+      "gap": "Werkt",
+      "fa": "او هم در شهرداری کار می‌کند؟"
+    }
+  ]
+}

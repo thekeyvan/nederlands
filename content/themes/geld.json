@@ -1,0 +1,296 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "geld",
+  "title": "Geld & praktische zaken",
+  "fa": "پول و کارهای روزمره",
+  "icon": "16",
+  "intro": "Oefen woorden voor gewone situaties.",
+  "words": [
+    {
+      "nl": "de betaalpas",
+      "kind": "woord",
+      "fa": "کارت بانکی",
+      "example": "Mag ik met mijn betaalpas betalen?",
+      "exampleFa": "می‌توانم با کارت بانکی‌ام پرداخت کنم؟"
+    },
+    {
+      "nl": "de betaalautomaat",
+      "kind": "woord",
+      "fa": "دستگاه پرداخت؛ بسته به متن، دستگاه بانکی",
+      "example": "De betaalautomaat bij de kassa werkt niet.",
+      "exampleFa": "دستگاه پرداخت کنار صندوق کار نمی‌کند."
+    },
+    {
+      "nl": "het bedrag",
+      "kind": "woord",
+      "fa": "مبلغ",
+      "example": "Welk bedrag moet ik overmaken?",
+      "exampleFa": "چه مبلغی باید واریز کنم؟"
+    },
+    {
+      "nl": "de kosten",
+      "kind": "woord",
+      "fa": "هزینه‌ها",
+      "example": "Wat zijn de totale kosten van de cursus?",
+      "exampleFa": "کل هزینه‌های دوره چقدر است؟"
+    },
+    {
+      "nl": "de belasting",
+      "kind": "woord",
+      "fa": "مالیات",
+      "example": "Ik heb een vraag over de belasting op mijn loon.",
+      "exampleFa": "دربارهٔ مالیات حقوقم یک سؤال دارم."
+    },
+    {
+      "nl": "geld opnemen",
+      "kind": "uitdrukking",
+      "fa": "پول نقد برداشت کردن",
+      "example": "Ik wil wat geld opnemen bij een geldautomaat.",
+      "exampleFa": "می‌خواهم از یک خودپرداز مقداری پول نقد بگیرم."
+    },
+    {
+      "nl": "pinnen",
+      "kind": "werkwoord",
+      "fa": "با کارت پرداخت کردن یا از خودپرداز پول گرفتن",
+      "example": "Kan ik hier pinnen of moet ik contant betalen?",
+      "exampleFa": "می‌توانم اینجا با کارت پرداخت کنم یا باید نقدی بدهم؟",
+      "forms": [
+        "pinde",
+        "heb gepind",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "betalen",
+      "kind": "werkwoord",
+      "fa": "پرداخت کردن",
+      "example": "Ik betaal de rekening vandaag.",
+      "exampleFa": "امروز صورت‌حساب را پرداخت می‌کنم.",
+      "forms": [
+        "betaalde",
+        "heb betaald",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "storten",
+      "kind": "werkwoord",
+      "fa": "واریز کردن",
+      "example": "Ik wil dit contante geld op mijn rekening storten.",
+      "exampleFa": "می‌خواهم این پول نقد را به حسابم واریز کنم.",
+      "forms": [
+        "stortte",
+        "heb gestort",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "declareren",
+      "kind": "werkwoord",
+      "fa": "ثبت هزینه برای درخواست بازپرداخت",
+      "example": "Hoe kan ik mijn reiskosten declareren?",
+      "exampleFa": "چطور می‌توانم هزینهٔ رفت‌وآمدم را برای بازپرداخت ثبت کنم؟",
+      "forms": [
+        "declareerde",
+        "heb gedeclareerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "vergoeden",
+      "kind": "werkwoord",
+      "fa": "جبران یا بازپرداخت هزینه",
+      "example": "Mijn werkgever vergoedt de kosten van de cursus.",
+      "exampleFa": "کارفرمایم هزینهٔ دوره را بازپرداخت می‌کند.",
+      "forms": [
+        "vergoedde",
+        "heb vergoed",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "blokkeren",
+      "kind": "werkwoord",
+      "fa": "مسدود کردن",
+      "example": "Ik heb mijn pas verloren en wil hem laten blokkeren.",
+      "exampleFa": "کارتم را گم کرده‌ام و می‌خواهم مسدودش کنم.",
+      "forms": [
+        "blokkeerde",
+        "heb geblokkeerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de begroting",
+      "kind": "woord",
+      "fa": "بودجه؛ برآورد هزینه‌ها",
+      "example": "We maken een begroting voor het project.",
+      "exampleFa": "برای پروژه بودجه و برآورد هزینه تهیه می‌کنیم."
+    },
+    {
+      "nl": "nakijken",
+      "kind": "werkwoord",
+      "fa": "بررسی و کنترل کردن",
+      "example": "Kun je de rekening nog even nakijken?",
+      "exampleFa": "می‌توانی صورت‌حساب را یک بار دیگر بررسی کنی؟",
+      "forms": [
+        "keek na",
+        "heb nagekeken",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "doornemen",
+      "kind": "werkwoord",
+      "fa": "مرور و بررسی کردن",
+      "example": "Zullen we het formulier samen doornemen?",
+      "exampleFa": "فرم را با هم مرور کنیم؟",
+      "forms": [
+        "nam door",
+        "heb doorgenomen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "een handtekening zetten",
+      "kind": "uitdrukking",
+      "fa": "امضا کردن",
+      "example": "Wilt u onderaan het formulier een handtekening zetten?",
+      "exampleFa": "لطفاً می‌توانید پایین فرم را امضا کنید؟"
+    },
+    {
+      "nl": "het bestand",
+      "kind": "woord",
+      "fa": "فایل",
+      "example": "Ik stuur het bestand als bijlage mee.",
+      "exampleFa": "فایل را به‌صورت پیوست می‌فرستم."
+    },
+    {
+      "nl": "opslaan",
+      "kind": "werkwoord",
+      "fa": "ذخیره کردن",
+      "example": "Vergeet niet om het bestand op te slaan.",
+      "exampleFa": "فراموش نکن فایل را ذخیره کنی.",
+      "forms": [
+        "sloeg op",
+        "heb opgeslagen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "afmaken",
+      "kind": "werkwoord",
+      "fa": "تمام کردن",
+      "example": "Ik wil deze opdracht vandaag afmaken.",
+      "exampleFa": "می‌خواهم امروز این تکلیف را تمام کنم.",
+      "forms": [
+        "maakte af",
+        "heb afgemaakt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "oplossen",
+      "kind": "werkwoord",
+      "fa": "حل کردن",
+      "example": "Kunnen we dit probleem samen oplossen?",
+      "exampleFa": "می‌توانیم این مشکل را با هم حل کنیم؟",
+      "forms": [
+        "loste op",
+        "heb opgelost",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "een risico nemen",
+      "kind": "uitdrukking",
+      "fa": "ریسک کردن",
+      "example": "Ik wil geen risico nemen met mijn gegevens.",
+      "exampleFa": "نمی‌خواهم دربارهٔ اطلاعاتم ریسک کنم."
+    },
+    {
+      "nl": "de mogelijkheid",
+      "kind": "woord",
+      "fa": "امکان؛ فرصت",
+      "example": "Is er een mogelijkheid om in twee delen te betalen?",
+      "exampleFa": "آیا امکان پرداخت در دو قسط وجود دارد؟"
+    },
+    {
+      "nl": "de mogelijkheid hebben om ... te ...",
+      "kind": "uitdrukking",
+      "fa": "امکان انجام کاری را داشتن",
+      "example": "Ik heb de mogelijkheid om een dag per week thuis te werken.",
+      "exampleFa": "این امکان را دارم که هفته‌ای یک روز از خانه کار کنم."
+    },
+    {
+      "nl": "gebruikmaken van",
+      "kind": "uitdrukking",
+      "fa": "از چیزی استفاده کردن",
+      "example": "Je kunt gebruikmaken van de computer in de bibliotheek.",
+      "exampleFa": "می‌توانی از کامپیوتر کتابخانه استفاده کنی."
+    },
+    {
+      "nl": "de expertise",
+      "kind": "woord",
+      "fa": "تخصص",
+      "example": "Voor dit probleem hebben we jouw expertise nodig.",
+      "exampleFa": "برای این مشکل به تخصص تو نیاز داریم."
+    },
+    {
+      "nl": "de arbeidsongeschiktheidsverzekering",
+      "kind": "woord",
+      "fa": "بیمهٔ ازکارافتادگی",
+      "example": "Een arbeidsongeschiktheidsverzekering kan inkomen beschermen.",
+      "exampleFa": "بیمهٔ ازکارافتادگی می‌تواند از درآمد محافظت کند."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Kan ik hier met mijn pas betalen?",
+      "level": "A2",
+      "fa": "می‌توانم اینجا با کارت پرداخت کنم؟"
+    },
+    {
+      "nl": "Volgens mij klopt dit bedrag niet.",
+      "level": "A2",
+      "fa": "به نظرم این مبلغ درست نیست."
+    },
+    {
+      "nl": "Kunt u mij een bon geven?",
+      "level": "A2",
+      "fa": "می‌توانید به من رسید بدهید؟"
+    },
+    {
+      "nl": "Wanneer wordt het geld teruggestort?",
+      "level": "A2",
+      "fa": "پول چه زمانی برگردانده می‌شود؟"
+    },
+    {
+      "nl": "Ik wil mijn pas laten blokkeren.",
+      "level": "A2",
+      "fa": "می‌خواهم کارتم را مسدود کنم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Kan ik hier met mijn pas betalen?",
+      "fa": "می‌توانم اینجا با کارت پرداخت کنم؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Ja, je kunt hier pinnen.",
+      "fa": "بله، می‌توانی اینجا با کارت پرداخت کنی."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Kunt u mij een bon geven?",
+      "fa": "می‌توانید به من رسید بدهید؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Natuurlijk. Wil je de bon op papier?",
+      "fa": "حتماً. رسید کاغذی می‌خواهی؟"
+    }
+  ]
+}

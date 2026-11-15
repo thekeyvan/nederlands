@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:veranderen",
+  "title": "Is veranderd / heeft veranderd",
+  "level": "B1",
+  "pattern": "iets is veranderd / iemand heeft iets veranderd",
+  "example": "De planning is veranderd. Ik heb de planning veranderd.",
+  "prompt": "Ik ___ mijn plannen veranderd.",
+  "answer": "heb",
+  "fa": {
+    "rule": "وقتی خودِ چیزی تغییر می‌کند، zijn می‌آید. وقتی کسی چیز دیگری را تغییر می‌دهد، hebben می‌آید.",
+    "note": "veranderen در گذشته باقاعده است: veranderde → veranderd.",
+    "translation": "برنامه تغییر کرده است. من برنامه را تغییر داده‌ام."
+  },
+  "examples": [
+    {
+      "nl": "Het weer is snel veranderd.",
+      "gap": "is",
+      "fa": "هوا سریع عوض شده است."
+    },
+    {
+      "nl": "Ze heeft haar wachtwoord veranderd.",
+      "gap": "heeft",
+      "fa": "او رمزش را عوض کرده است."
+    },
+    {
+      "nl": "Er is veel veranderd in de stad.",
+      "gap": "veranderd",
+      "fa": "در شهر خیلی چیزها عوض شده است."
+    }
+  ]
+}

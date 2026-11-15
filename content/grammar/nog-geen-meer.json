@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:nog-geen-meer",
+  "title": "Nog een of geen meer?",
+  "level": "A2",
+  "pattern": "nog een keuken uitzoeken → geen keuken meer uit te zoeken",
+  "example": "Ik hoef geen keuken meer uit te zoeken.",
+  "prompt": "Ik hoef geen keuken meer uit ___ zoeken.",
+  "answer": "te",
+  "fa": {
+    "rule": "برای گفتن اینکه دیگر نیازی نیست کاری انجام بدهی، منفی‌سازی اسم را با «دیگر» و ساختار نداشتن الزام ترکیب کن.",
+    "note": "اگر هنوز کاری باقی است، در سؤال از «هنوز» استفاده می‌کنی. در پاسخِ منفی، «دیگر» معنای پایان یافتن نیاز را می‌رساند؛ نشانهٔ مصدر داخل فعل جداشدنی می‌آید.",
+    "translation": "دیگر لازم نیست آشپزخانه انتخاب کنم."
+  },
+  "examples": [
+    {
+      "nl": "Ik heb geen brood meer.",
+      "gap": "meer",
+      "fa": "دیگر نان ندارم."
+    },
+    {
+      "nl": "Wil je nog een kopje koffie?",
+      "gap": "nog",
+      "fa": "باز هم یک فنجان قهوه می‌خواهی؟"
+    },
+    {
+      "nl": "We hoeven geen formulier meer in te vullen.",
+      "gap": "te",
+      "fa": "دیگر لازم نیست فرمی پر کنیم."
+    }
+  ]
+}

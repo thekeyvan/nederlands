@@ -1,0 +1,223 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "boodschappen",
+  "title": "In de supermarkt",
+  "fa": "در سوپرمارکت",
+  "icon": "21",
+  "intro": "Wat heb je nodig en waar vind je het?",
+  "words": [
+    {
+      "nl": "de boodschappen",
+      "kind": "woord",
+      "fa": "خرید روزانه",
+      "example": "Ik doe op zaterdag de boodschappen.",
+      "exampleFa": "شنبه‌ها خرید خانه را انجام می‌دهم."
+    },
+    {
+      "nl": "het boodschappenlijstje",
+      "kind": "woord",
+      "fa": "فهرست خرید",
+      "example": "Ik heb een boodschappenlijstje gemaakt.",
+      "exampleFa": "یک فهرست خرید درست کرده‌ام."
+    },
+    {
+      "nl": "het winkelwagentje",
+      "kind": "woord",
+      "fa": "چرخ خرید",
+      "example": "Voor een winkelwagentje heb je soms een munt nodig.",
+      "exampleFa": "برای چرخ خرید گاهی یک سکه لازم داری."
+    },
+    {
+      "nl": "het mandje",
+      "kind": "woord",
+      "fa": "سبد دستی",
+      "example": "Ik neem een mandje, want ik koop niet veel.",
+      "exampleFa": "یک سبد برمی‌دارم، چون زیاد خرید نمی‌کنم."
+    },
+    {
+      "nl": "het schap",
+      "kind": "woord",
+      "fa": "قفسه",
+      "example": "De rijst staat op het onderste schap.",
+      "exampleFa": "برنج در قفسهٔ پایینی است."
+    },
+    {
+      "nl": "de aanbieding",
+      "kind": "woord",
+      "fa": "تخفیف ویژه",
+      "example": "Deze kaas is deze week in de aanbieding.",
+      "exampleFa": "این پنیر این هفته تخفیف دارد."
+    },
+    {
+      "nl": "de bonuskaart",
+      "kind": "woord",
+      "fa": "کارت تخفیف فروشگاه",
+      "example": "Met de bonuskaart krijg je korting.",
+      "exampleFa": "با کارت تخفیف فروشگاه، تخفیف می‌گیری."
+    },
+    {
+      "nl": "de houdbaarheidsdatum",
+      "kind": "woord",
+      "fa": "تاریخ انقضا",
+      "example": "Kijk even naar de houdbaarheidsdatum op de melk.",
+      "exampleFa": "یک نگاه به تاریخ انقضای شیر بینداز."
+    },
+    {
+      "nl": "de zelfscankassa",
+      "kind": "woord",
+      "fa": "صندوق خودپرداز",
+      "example": "Bij de zelfscankassa reken je zelf af.",
+      "exampleFa": "در صندوق خودپرداز خودت حساب می‌کنی."
+    },
+    {
+      "nl": "het bonnetje",
+      "kind": "woord",
+      "fa": "رسید خرید",
+      "example": "Wil je het bonnetje?",
+      "exampleFa": "رسید را می‌خواهی؟"
+    },
+    {
+      "nl": "het statiegeld",
+      "kind": "woord",
+      "fa": "ودیعهٔ بطری",
+      "example": "Op deze fles zit vijftien cent statiegeld.",
+      "exampleFa": "روی این بطری پانزده سنت ودیعه است."
+    },
+    {
+      "nl": "de groente",
+      "kind": "woord",
+      "fa": "سبزیجات",
+      "example": "Ik eet elke dag groente.",
+      "exampleFa": "هر روز سبزیجات می‌خورم."
+    },
+    {
+      "nl": "het fruit",
+      "kind": "woord",
+      "fa": "میوه",
+      "example": "Het fruit ligt bij de ingang.",
+      "exampleFa": "میوه‌ها نزدیک ورودی هستند."
+    },
+    {
+      "nl": "het vlees",
+      "kind": "woord",
+      "fa": "گوشت",
+      "example": "Ik koop vlees bij de slager.",
+      "exampleFa": "گوشت را از قصابی می‌خرم."
+    },
+    {
+      "nl": "de zuivel",
+      "kind": "woord",
+      "fa": "لبنیات",
+      "example": "Melk en yoghurt staan bij de zuivel.",
+      "exampleFa": "شیر و ماست در بخش لبنیات هستند."
+    },
+    {
+      "nl": "het brood",
+      "kind": "woord",
+      "fa": "نان",
+      "example": "Het brood is vandaag vers gebakken.",
+      "exampleFa": "نان امروز تازه پخته شده است."
+    },
+    {
+      "nl": "de kilo",
+      "kind": "woord",
+      "fa": "کیلو",
+      "example": "Een kilo appels kost twee euro.",
+      "exampleFa": "یک کیلو سیب دو یورو است."
+    },
+    {
+      "nl": "het pak",
+      "kind": "woord",
+      "fa": "بسته / پاکت",
+      "example": "Ik neem een pak melk mee.",
+      "exampleFa": "یک پاکت شیر با خودم می‌برم."
+    },
+    {
+      "nl": "afrekenen",
+      "kind": "werkwoord",
+      "fa": "حساب کردن / پرداختن",
+      "example": "Je kunt hier pinnen of contant afrekenen.",
+      "exampleFa": "اینجا می‌توانی با کارت یا نقد حساب کنی.",
+      "forms": [
+        "rekende af",
+        "heb afgerekend",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "wegen",
+      "kind": "werkwoord",
+      "fa": "وزن کردن",
+      "example": "Bij sommige winkels moet je het fruit zelf wegen.",
+      "exampleFa": "در بعضی فروشگاه‌ها باید میوه را خودت وزن کنی.",
+      "forms": [
+        "woog",
+        "heb gewogen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "de pinpas",
+      "kind": "woord",
+      "fa": "کارت بانکی",
+      "example": "Ik betaal met mijn pinpas.",
+      "exampleFa": "با کارت بانکی‌ام پرداخت می‌کنم."
+    },
+    {
+      "nl": "de kassière",
+      "kind": "woord",
+      "fa": "صندوق‌دار",
+      "example": "De kassière vraagt of ik een tasje wil.",
+      "exampleFa": "صندوق‌دار می‌پرسد که آیا کیسه می‌خواهم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Waar kan ik de rijst vinden?",
+      "level": "A2",
+      "fa": "برنج را کجا می‌توانم پیدا کنم؟"
+    },
+    {
+      "nl": "Heeft u ook een kleinere verpakking?",
+      "level": "A2",
+      "fa": "بستهٔ کوچک‌تری هم دارید؟"
+    },
+    {
+      "nl": "Ik wil graag een tasje erbij.",
+      "level": "A2",
+      "fa": "یک کیسه هم می‌خواهم."
+    },
+    {
+      "nl": "Mag ik even langs?",
+      "level": "A2",
+      "fa": "ببخشید، می‌شود رد شوم؟"
+    },
+    {
+      "nl": "Deze aanbieding geldt tot zondag.",
+      "level": "B1",
+      "fa": "این تخفیف تا یکشنبه معتبر است."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Pardon, waar staan de eieren?",
+      "fa": "ببخشید، تخم‌مرغ‌ها کجا هستند؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "In gang vier, naast de zuivel.",
+      "fa": "در راهروی چهار، کنار لبنیات."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Dank u. Zijn ze nog in de aanbieding?",
+      "fa": "ممنون. هنوز تخفیف دارند؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Ja, met de bonuskaart betaalt u minder.",
+      "fa": "بله، با کارت تخفیف کمتر پرداخت می‌کنید."
+    }
+  ]
+}

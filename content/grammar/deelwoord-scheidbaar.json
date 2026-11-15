@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:deelwoord-scheidbaar",
+  "title": "Ingestapt, opgericht",
+  "level": "A2",
+  "pattern": "instappen → ingestapt · oprichten → opgericht · oplossen → opgelost",
+  "example": "Ik ben ingestapt en de trein is vertrokken.",
+  "prompt": "Ik ben ___. (instappen)",
+  "answer": "ingestapt",
+  "fa": {
+    "rule": "در فعل جداشدنی، بخش اضافهٔ اسم مفعول بین پیشوند و ریشه قرار می‌گیرد.",
+    "note": "تأسیس کردن و حل کردن هم همین الگو را دارند. فعل حرکت کردن از مبدأ در این مثال جداشدنی نیست و اسم مفعولش بی‌قاعده است.",
+    "translation": "سوار شدم و قطار حرکت کرد."
+  },
+  "examples": [
+    {
+      "nl": "Ik heb het probleem opgelost.",
+      "gap": "opgelost",
+      "fa": "مشکل را حل کرده‌ام.",
+      "hint": "oplossen"
+    },
+    {
+      "nl": "Ze is vanochtend vroeg opgestaan.",
+      "gap": "opgestaan",
+      "fa": "او امروز صبح زود بیدار شد.",
+      "hint": "opstaan"
+    },
+    {
+      "nl": "Heb je de collega al opgebeld?",
+      "gap": "opgebeld",
+      "fa": "به همکار زنگ زده‌ای؟",
+      "hint": "opbellen"
+    }
+  ]
+}

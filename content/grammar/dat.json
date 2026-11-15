@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:dat",
+  "title": "Ik denk dat ...",
+  "level": "A2",
+  "pattern": "Ik denk dat + onderwerp + ... + werkwoord",
+  "example": "Ik denk dat hij morgen moet werken.",
+  "prompt": "Ik denk dat hij morgen ___ werken.",
+  "answer": "moet",
+  "fa": {
+    "rule": "بعد از dat، فعل یا گروه فعل‌ها به انتهای بخش وابسته می‌رود.",
+    "note": "Volgens mij جملهٔ وابسته نمی‌سازد: Volgens mij moet hij morgen werken.",
+    "translation": "فکر می‌کنم فردا باید کار کند."
+  },
+  "examples": [
+    {
+      "nl": "Ik denk dat het morgen gaat regenen.",
+      "gap": "gaat",
+      "fa": "فکر می‌کنم فردا باران می‌بارد."
+    },
+    {
+      "nl": "Ze zegt dat ze vandaag thuis werkt.",
+      "gap": "werkt",
+      "fa": "می‌گوید امروز در خانه کار می‌کند."
+    },
+    {
+      "nl": "Ik hoop dat je snel beter wordt.",
+      "gap": "wordt",
+      "fa": "امیدوارم زود خوب شوی."
+    }
+  ]
+}

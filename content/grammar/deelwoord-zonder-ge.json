@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:deelwoord-zonder-ge",
+  "title": "Verteld, betaald, ontmoet",
+  "level": "A2",
+  "pattern": "onbeklemtoond be-, ge-, her-, ver-, er-, ont- → geen extra ge-: betaald, gebeurd, herkend, verteld, erkend, ontmoet",
+  "example": "Ik heb betaald en mijn docent ontmoet.",
+  "prompt": "Ik heb mijn docent ___. (ontmoeten)",
+  "answer": "ontmoet",
+  "fa": {
+    "rule": "بعضی پیشوندهای بی‌تکیه باعث می‌شوند اسم مفعول پیشوند اضافه نگیرد.",
+    "note": "این قاعده برای پیشوند بی‌تکیه است، نه هر فعلی که با همان چند حرف شروع شود. شکل مثال‌های شرح دادن، پرداخت کردن، ملاقات کردن، رخ دادن، شناختن دوباره و تصدیق کردن را کنار هم تمرین کن.",
+    "translation": "پول پرداخت کردم و مدرسم را ملاقات کردم."
+  },
+  "examples": [
+    {
+      "nl": "Wat is er gebeurd?",
+      "gap": "gebeurd",
+      "fa": "چه اتفاقی افتاده؟",
+      "hint": "gebeuren"
+    },
+    {
+      "nl": "Ik heb het hem al verteld.",
+      "gap": "verteld",
+      "fa": "قبلاً به او گفته‌ام.",
+      "hint": "vertellen"
+    },
+    {
+      "nl": "Heb je de rekening betaald?",
+      "gap": "betaald",
+      "fa": "صورت‌حساب را پرداخت کرده‌ای؟",
+      "hint": "betalen"
+    }
+  ]
+}

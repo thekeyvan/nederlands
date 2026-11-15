@@ -1,0 +1,318 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "tijd",
+  "title": "Tijd & kleine woorden",
+  "fa": "زمان و واژه‌های کوچک",
+  "icon": "14",
+  "intro": "Kleine woorden veranderen de betekenis.",
+  "words": [
+    {
+      "nl": "nog",
+      "kind": "woord",
+      "fa": "هنوز؛ باز هم، بسته به جمله",
+      "example": "Ik heb nog een vraag over de oefening.",
+      "exampleFa": "هنوز یک سؤال دربارهٔ تمرین دارم."
+    },
+    {
+      "nl": "nog niet",
+      "kind": "uitdrukking",
+      "fa": "هنوز نه",
+      "example": "Ik ben nog niet klaar met mijn huiswerk.",
+      "exampleFa": "هنوز تکالیفم را تمام نکرده‌ام."
+    },
+    {
+      "nl": "niet meer",
+      "kind": "uitdrukking",
+      "fa": "دیگر نه",
+      "example": "Ik woon niet meer op mijn oude adres.",
+      "exampleFa": "دیگر در آدرس قبلی‌ام زندگی نمی‌کنم."
+    },
+    {
+      "nl": "nog een keer",
+      "kind": "uitdrukking",
+      "fa": "یک بار دیگر",
+      "example": "Kun je dat nog een keer zeggen?",
+      "exampleFa": "می‌توانی آن را یک بار دیگر بگویی؟"
+    },
+    {
+      "nl": "nog maar",
+      "kind": "uitdrukking",
+      "fa": "هنوز فقط؛ فقط ... باقی مانده",
+      "example": "We hebben nog maar tien minuten.",
+      "exampleFa": "فقط ده دقیقه برایمان باقی مانده است."
+    },
+    {
+      "nl": "al",
+      "kind": "woord",
+      "fa": "قبلاً؛ تا الان؛ گاهی «همه» پیش از گروه اسمی",
+      "example": "Heb je al gegeten?",
+      "exampleFa": "غذایت را خورده‌ای؟"
+    },
+    {
+      "nl": "pas",
+      "kind": "woord",
+      "fa": "تازه؛ نه زودتر از؛ بسته به جمله",
+      "example": "De winkel gaat pas om tien uur open.",
+      "exampleFa": "فروشگاه تازه ساعت ده باز می‌شود."
+    },
+    {
+      "nl": "straks",
+      "kind": "woord",
+      "fa": "کمی بعد؛ در آیندهٔ نزدیک",
+      "example": "Ik bel je straks als ik thuis ben.",
+      "exampleFa": "کمی بعد، وقتی خانه باشم، به تو زنگ می‌زنم."
+    },
+    {
+      "nl": "binnenkort",
+      "kind": "woord",
+      "fa": "به‌زودی",
+      "example": "Binnenkort begin ik met een nieuwe cursus.",
+      "exampleFa": "به‌زودی یک دورهٔ جدید را شروع می‌کنم."
+    },
+    {
+      "nl": "snel",
+      "kind": "woord",
+      "fa": "سریع؛ در بعضی جمله‌ها به‌زودی",
+      "example": "Kun je snel even komen?",
+      "exampleFa": "می‌توانی سریع برای لحظه‌ای بیایی؟"
+    },
+    {
+      "nl": "minstens",
+      "kind": "woord",
+      "fa": "حداقل",
+      "example": "Voor deze opdracht heb ik minstens een uur nodig.",
+      "exampleFa": "برای این تکلیف حداقل به یک ساعت وقت نیاز دارم."
+    },
+    {
+      "nl": "maximaal",
+      "kind": "woord",
+      "fa": "حداکثر",
+      "example": "Er mogen maximaal tien mensen in deze ruimte.",
+      "exampleFa": "حداکثر ده نفر می‌توانند در این اتاق باشند."
+    },
+    {
+      "nl": "ongeveer",
+      "kind": "woord",
+      "fa": "تقریباً",
+      "example": "De wandeling duurt ongeveer een halfuur.",
+      "exampleFa": "پیاده‌روی حدود نیم ساعت طول می‌کشد."
+    },
+    {
+      "nl": "over een uur",
+      "kind": "uitdrukking",
+      "fa": "یک ساعت دیگر",
+      "example": "Over een uur begint de vergadering.",
+      "exampleFa": "یک ساعت دیگر جلسه شروع می‌شود."
+    },
+    {
+      "nl": "een uur geleden",
+      "kind": "uitdrukking",
+      "fa": "یک ساعت پیش",
+      "example": "Ik heb hem een uur geleden gebeld.",
+      "exampleFa": "یک ساعت پیش به او زنگ زدم."
+    },
+    {
+      "nl": "tot nu toe",
+      "kind": "uitdrukking",
+      "fa": "تا الان؛ تاکنون",
+      "example": "Tot nu toe gaat alles volgens plan.",
+      "exampleFa": "تا الان همه‌چیز طبق برنامه پیش رفته است."
+    },
+    {
+      "nl": "sinds",
+      "kind": "woord",
+      "fa": "از زمانی در گذشته تا اکنون",
+      "example": "Ik leer sinds september Nederlands.",
+      "exampleFa": "از سپتامبر دارم هلندی یاد می‌گیرم."
+    },
+    {
+      "nl": "vanaf",
+      "kind": "woord",
+      "fa": "از یک نقطهٔ شروع به بعد",
+      "example": "Vanaf volgende week werk ik op een andere afdeling.",
+      "exampleFa": "از هفتهٔ آینده در بخش دیگری کار می‌کنم."
+    },
+    {
+      "nl": "tijdens",
+      "kind": "woord",
+      "fa": "در طول؛ هنگام",
+      "example": "Tijdens de pauze drinken we samen koffie.",
+      "exampleFa": "در زمان استراحت با هم قهوه می‌خوریم."
+    },
+    {
+      "nl": "daarna",
+      "kind": "woord",
+      "fa": "بعد از آن",
+      "example": "Eerst doe ik boodschappen, daarna ga ik koken.",
+      "exampleFa": "اول خرید می‌کنم، بعد آشپزی می‌کنم."
+    },
+    {
+      "nl": "daarom",
+      "kind": "woord",
+      "fa": "به همین دلیل",
+      "example": "Ik ben moe, daarom ga ik vroeg naar bed.",
+      "exampleFa": "خسته‌ام، برای همین زود به رختخواب می‌روم."
+    },
+    {
+      "nl": "toch",
+      "kind": "woord",
+      "fa": "بااین‌حال؛ یا برای تأکید و انتظار تأیید",
+      "example": "Je komt morgen toch ook?",
+      "exampleFa": "تو هم فردا می‌آیی، مگر نه؟"
+    },
+    {
+      "nl": "maar",
+      "kind": "woord",
+      "fa": "اما؛ فقط؛ یا نرم‌کنندهٔ پیشنهاد",
+      "example": "Ik wil graag komen, maar ik moet werken.",
+      "exampleFa": "دوست دارم بیایم، ولی باید کار کنم."
+    },
+    {
+      "nl": "even",
+      "kind": "woord",
+      "fa": "کوتاه؛ یک لحظه؛ گاهی برای نرم‌کردن درخواست",
+      "example": "Kun je me even helpen met deze doos?",
+      "exampleFa": "می‌توانی برای لحظه‌ای در جابه‌جایی این جعبه کمکم کنی؟"
+    },
+    {
+      "nl": "eindelijk",
+      "kind": "woord",
+      "fa": "بالاخره",
+      "example": "Na een lange reis zijn we eindelijk thuis.",
+      "exampleFa": "بعد از سفری طولانی بالاخره در خانه هستیم."
+    },
+    {
+      "nl": "in ieder geval",
+      "kind": "uitdrukking",
+      "fa": "در هر صورت",
+      "example": "Ik weet nog niet hoe laat ik kom, maar in ieder geval vóór acht uur.",
+      "exampleFa": "هنوز نمی‌دانم چه ساعتی می‌آیم، ولی در هر صورت قبل از ساعت هشت."
+    },
+    {
+      "nl": "namelijk",
+      "kind": "woord",
+      "fa": "زیرا؛ در واقع، برای توضیح دلیل",
+      "example": "Ik ga vroeg weg. Ik heb namelijk een afspraak.",
+      "exampleFa": "زود می‌روم. دلیلش این است که قرار دارم."
+    },
+    {
+      "nl": "eigenlijk",
+      "kind": "woord",
+      "fa": "در واقع؛ راستی",
+      "example": "Ik wilde eigenlijk thuisblijven, maar ik ga toch mee.",
+      "exampleFa": "در واقع می‌خواستم خانه بمانم، ولی با این حال همراهتان می‌آیم."
+    },
+    {
+      "nl": "de hoeveelste",
+      "kind": "uitdrukking",
+      "fa": "چندم ماه",
+      "example": "De hoeveelste is het vandaag?",
+      "exampleFa": "امروز چندم ماه است؟"
+    },
+    {
+      "nl": "de tweede",
+      "kind": "woord",
+      "fa": "دوم",
+      "example": "Dit is de tweede keer dat ik hier kom.",
+      "exampleFa": "این دومین بار است که به اینجا می‌آیم."
+    },
+    {
+      "nl": "de derde",
+      "kind": "woord",
+      "fa": "سوم",
+      "example": "Ons appartement ligt op de derde verdieping.",
+      "exampleFa": "آپارتمان ما در طبقهٔ سوم قرار دارد."
+    },
+    {
+      "nl": "de achtste",
+      "kind": "woord",
+      "fa": "هشتم",
+      "example": "Ik ben op de achtste van deze maand jarig.",
+      "exampleFa": "تولدم هشتم این ماه است."
+    },
+    {
+      "nl": "de dertiende",
+      "kind": "woord",
+      "fa": "سیزدهم",
+      "example": "De afspraak is op de dertiende van de maand.",
+      "exampleFa": "قرار سیزدهم ماه است."
+    },
+    {
+      "nl": "anderhalf",
+      "kind": "woord",
+      "fa": "یک و نیم",
+      "example": "De les duurt anderhalf uur.",
+      "exampleFa": "کلاس یک ساعت و نیم طول می‌کشد."
+    },
+    {
+      "nl": "tweeënhalf",
+      "kind": "woord",
+      "fa": "دو و نیم",
+      "example": "De reis duurt tweeënhalf uur.",
+      "exampleFa": "سفر دو ساعت و نیم طول می‌کشد."
+    },
+    {
+      "nl": "tegenwoordig",
+      "kind": "woord",
+      "fa": "این روزها و امروزه",
+      "example": "Tegenwoordig werk ik vaker thuis.",
+      "exampleFa": "این روزها بیشتر در خانه کار می‌کنم."
+    },
+    {
+      "nl": "op dit moment",
+      "kind": "woord",
+      "fa": "در حال حاضر",
+      "example": "Op dit moment volg ik een cursus.",
+      "exampleFa": "در حال حاضر در یک دوره شرکت می‌کنم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik ben er over tien minuten.",
+      "level": "A2",
+      "fa": "ده دقیقهٔ دیگر آنجا هستم."
+    },
+    {
+      "nl": "Ik woon hier pas sinds september.",
+      "level": "A2",
+      "fa": "تازه از سپتامبر اینجا زندگی می‌کنم."
+    },
+    {
+      "nl": "Ben je al klaar of heb je nog tijd nodig?",
+      "level": "A2",
+      "fa": "آماده‌ای یا هنوز به زمان نیاز داری؟"
+    },
+    {
+      "nl": "We hebben elkaar al een tijdje niet gezien.",
+      "level": "A2",
+      "fa": "مدتی است که همدیگر را ندیده‌ایم."
+    },
+    {
+      "nl": "Kunnen we het naar volgende week verplaatsen?",
+      "level": "A2",
+      "fa": "می‌توانیم آن را به هفتهٔ بعد منتقل کنیم؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Ik ben er over tien minuten.",
+      "fa": "ده دقیقهٔ دیگر آنجا هستم."
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "Prima, ik wacht bij de ingang.",
+      "fa": "خوب است، کنار ورودی منتظر می‌مانم."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Kunnen we het naar volgende week verplaatsen?",
+      "fa": "می‌توانیم آن را به هفتهٔ بعد منتقل کنیم؟"
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "Ja, dinsdag kan ik.",
+      "fa": "بله، سه‌شنبه می‌توانم."
+    }
+  ]
+}

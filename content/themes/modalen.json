@@ -1,0 +1,335 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "modalen",
+  "title": "Wat kan, mag en moet?",
+  "fa": "توانستن، اجازه و الزام",
+  "icon": "17",
+  "intro": "Eén ander werkwoord, een andere betekenis.",
+  "words": [
+    {
+      "nl": "kunnen",
+      "kind": "werkwoord",
+      "fa": "توانستن؛ امکان داشتن",
+      "example": "Ik kan morgen komen.",
+      "exampleFa": "می‌توانم فردا بیایم.",
+      "forms": [
+        "kon / konden",
+        "heb kunnen komen (met een tweede werkwoord)",
+        "onregelmatig · ik kan"
+      ]
+    },
+    {
+      "nl": "mogen",
+      "kind": "werkwoord",
+      "fa": "اجازه داشتن",
+      "example": "Mag ik hier zitten?",
+      "exampleFa": "اجازه دارم اینجا بنشینم؟",
+      "forms": [
+        "mocht / mochten",
+        "heb mogen komen (met een tweede werkwoord)",
+        "onregelmatig · ik mag"
+      ]
+    },
+    {
+      "nl": "moeten",
+      "kind": "werkwoord",
+      "fa": "باید؛ مجبور بودن",
+      "example": "Ik moet morgen werken.",
+      "exampleFa": "فردا باید کار کنم.",
+      "forms": [
+        "moest / moesten",
+        "heb moeten werken (met een tweede werkwoord)",
+        "onregelmatig · ik moet"
+      ]
+    },
+    {
+      "nl": "willen",
+      "kind": "werkwoord",
+      "fa": "خواستن",
+      "example": "Ik wil graag Nederlands leren.",
+      "exampleFa": "دوست دارم هلندی یاد بگیرم.",
+      "forms": [
+        "wilde / wilden",
+        "heb willen komen (met een tweede werkwoord)",
+        "onregelmatig · ik wil"
+      ]
+    },
+    {
+      "nl": "zullen",
+      "kind": "werkwoord",
+      "fa": "برای پیشنهاد، قول، آینده یا احتمال؛ معنی به جمله بستگی دارد",
+      "example": "Zal ik je helpen?",
+      "exampleFa": "می‌خواهی کمکت کنم؟",
+      "forms": [
+        "zou / zouden",
+        "Geen gewone perfectumvorm om hier te oefenen.",
+        "onregelmatig · ik zal"
+      ]
+    },
+    {
+      "nl": "hoeven",
+      "kind": "werkwoord",
+      "fa": "لازم بودن؛ معمولاً همراه نفی یا محدودیت",
+      "example": "Ik hoef niet te werken.",
+      "exampleFa": "لازم نیست کار کنم.",
+      "forms": [
+        "hoefde / hoefden",
+        "heb niet hoeven wachten",
+        "regelmatig · ik hoef"
+      ]
+    },
+    {
+      "nl": "zijn",
+      "kind": "werkwoord",
+      "fa": "بودن",
+      "example": "Ik ben vandaag op kantoor.",
+      "exampleFa": "امروز در دفتر کار هستم.",
+      "forms": [
+        "was / waren",
+        "ben geweest",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "hebben",
+      "kind": "werkwoord",
+      "fa": "داشتن",
+      "example": "Heb je morgen tijd voor een gesprek?",
+      "exampleFa": "فردا برای یک گفت‌وگو وقت داری؟",
+      "forms": [
+        "had / hadden",
+        "heb gehad",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "gaan",
+      "kind": "werkwoord",
+      "fa": "رفتن",
+      "example": "We gaan zaterdag naar het strand.",
+      "exampleFa": "شنبه به ساحل می‌رویم.",
+      "forms": [
+        "ging",
+        "ben gegaan",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "komen",
+      "kind": "werkwoord",
+      "fa": "آمدن",
+      "example": "Kom je vanavond bij ons eten?",
+      "exampleFa": "امشب برای شام پیش ما می‌آیی؟",
+      "forms": [
+        "kwam",
+        "ben gekomen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "krijgen",
+      "kind": "werkwoord",
+      "fa": "گرفتن؛ دریافت کردن",
+      "example": "Ik krijg morgen de uitslag van mijn examen.",
+      "exampleFa": "فردا نتیجهٔ امتحانم را می‌گیرم.",
+      "forms": [
+        "kreeg",
+        "heb gekregen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "vinden",
+      "kind": "werkwoord",
+      "fa": "پیدا کردن؛ نظر داشتن",
+      "example": "Ik kan mijn sleutels niet vinden.",
+      "exampleFa": "نمی‌توانم کلیدهایم را پیدا کنم.",
+      "forms": [
+        "vond",
+        "heb gevonden",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "nemen",
+      "kind": "werkwoord",
+      "fa": "گرفتن؛ برداشتن",
+      "example": "Ik neem vandaag de bus naar mijn werk.",
+      "exampleFa": "امروز با اتوبوس به محل کارم می‌روم.",
+      "forms": [
+        "nam",
+        "heb genomen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "weten",
+      "kind": "werkwoord",
+      "fa": "دانستن",
+      "example": "Weet jij hoe laat de winkel sluit?",
+      "exampleFa": "می‌دانی فروشگاه چه ساعتی بسته می‌شود؟",
+      "forms": [
+        "wist",
+        "heb geweten",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "zeggen",
+      "kind": "werkwoord",
+      "fa": "گفتن",
+      "example": "Kun je zeggen wat je bedoelt?",
+      "exampleFa": "می‌توانی بگویی منظورت چیست؟",
+      "forms": [
+        "zei",
+        "heb gezegd",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "klimmen",
+      "kind": "werkwoord",
+      "fa": "بالا رفتن؛ صعود کردن",
+      "example": "De kat klimt in de boom.",
+      "exampleFa": "گربه از درخت بالا می‌رود.",
+      "forms": [
+        "klom",
+        "ben naar boven geklommen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "schrikken",
+      "kind": "werkwoord",
+      "fa": "ناگهان ترسیدن یا جا خوردن",
+      "example": "Ik schrik als de deur plotseling hard dichtgaat.",
+      "exampleFa": "وقتی در ناگهان با صدای بلند بسته می‌شود، جا می‌خورم.",
+      "forms": [
+        "schrok",
+        "ben geschrokken",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "beginnen",
+      "kind": "werkwoord",
+      "fa": "شروع کردن",
+      "example": "We beginnen de les met een korte oefening.",
+      "exampleFa": "درس را با یک تمرین کوتاه شروع می‌کنیم.",
+      "forms": [
+        "begon",
+        "ben begonnen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "verliezen",
+      "kind": "werkwoord",
+      "fa": "از دست دادن؛ باختن",
+      "example": "Ik ben bang dat ik mijn kaartje verlies.",
+      "exampleFa": "می‌ترسم بلیتم را گم کنم.",
+      "forms": [
+        "verloor",
+        "heb verloren",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "sluiten",
+      "kind": "werkwoord",
+      "fa": "بستن",
+      "example": "Kun je het raam sluiten? Het is koud.",
+      "exampleFa": "می‌توانی پنجره را ببندی؟ سرد است.",
+      "forms": [
+        "sloot",
+        "heb gesloten",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "volgen",
+      "kind": "werkwoord",
+      "fa": "دنبال کردن؛ پیروی کردن",
+      "example": "Ik volg dit jaar een cursus Nederlands.",
+      "exampleFa": "امسال در یک دورهٔ زبان هلندی شرکت می‌کنم.",
+      "forms": [
+        "volgde",
+        "heb gevolgd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "zoeken",
+      "kind": "werkwoord",
+      "fa": "جست‌وجو کردن",
+      "example": "Ik zoek een rustig café om te werken.",
+      "exampleFa": "دنبال کافه‌ای آرام برای کار کردن هستم.",
+      "forms": [
+        "zocht",
+        "heb gezocht",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "werken",
+      "kind": "werkwoord",
+      "fa": "کار کردن",
+      "example": "Ik heb gisteren gewerkt.",
+      "exampleFa": "دیروز کار کردم.",
+      "forms": [
+        "werkte",
+        "heeft gewerkt",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Kun je mij even helpen?",
+      "level": "A2",
+      "fa": "می‌توانی کمی کمکم کنی؟"
+    },
+    {
+      "nl": "Mag ik hier mijn fiets neerzetten?",
+      "level": "A2",
+      "fa": "اجازه دارم دوچرخه‌ام را اینجا بگذارم؟"
+    },
+    {
+      "nl": "Ik moet vandaag eerder weg.",
+      "level": "A2",
+      "fa": "امروز باید زودتر بروم."
+    },
+    {
+      "nl": "Je hoeft niet op mij te wachten.",
+      "level": "A2",
+      "fa": "لازم نیست منتظرم بمانی."
+    },
+    {
+      "nl": "Zal ik de deur voor je openhouden?",
+      "level": "A2",
+      "fa": "می‌خواهی در را برایت باز نگه دارم؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Kun je mij even helpen?",
+      "fa": "می‌توانی کمی کمکم کنی؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Natuurlijk. Waarmee kan ik je helpen?",
+      "fa": "حتماً. در چه موردی می‌توانم کمکت کنم؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Mag ik hier mijn fiets neerzetten?",
+      "fa": "اجازه دارم دوچرخه‌ام را اینجا بگذارم؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Ja, daar staat een fietsenrek.",
+      "fa": "بله، آنجا جای پارک دوچرخه هست."
+    }
+  ]
+}

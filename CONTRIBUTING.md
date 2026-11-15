@@ -6,12 +6,11 @@ Small improvements are welcome: clearer A2–B1 wording, corrected translations,
 
 | File | Contents |
 | --- | --- |
-| `content/themes.js` | Permanent theme IDs, Dutch titles and introductions |
-| `content/words.js` | Words, expressions, examples and Dutch verb forms |
-| `content/phrases.js` | Practical sentence cards, level and theme ID |
-| `content/dialogues.js` | Role-play lines, speaker labels and stable line IDs |
-| `content/grammar.js` | Dutch patterns, examples and gap-fill questions |
-| `locales/<code>.js` | Translations keyed by the same IDs |
+| `content/themes/<id>.json` | One theme: words (with examples and verb forms), handy phrases and a dialogue, Dutch and Persian side by side |
+| `content/grammar/<id>.json` | One grammar rule: pattern, Persian explanation and example sentences |
+| `content/index.js` | The course: which theme and grammar files exist, their order and the theme groups |
+| `content/ids.js` | How permanent ids are made from the content |
+| `locales/<code>.js` | Interface translations; lesson translations come from the content files |
 | `src/core/data.js` | The Dutch resource library and exercises |
 | `src/core/srs.js` | Pure SM-2 review scheduler |
 | `src/core/learning-model.js` | Pure session, activity and theme helpers |
@@ -26,25 +25,12 @@ Small improvements are welcome: clearer A2–B1 wording, corrected translations,
 | `src/components/game/` | Mascot, stamps, stars, goal ring, confetti and game cards |
 | `src/index.css` | Theme tokens for light and dark mode |
 | `src/assets/illustrations/` | Theme scenes, mascot poses, stamps and the route map |
-| `index.html` | App entry, also built at `/leren.html` |
-| `bronnen.html` | Redirect for old links to the resource collection |
+| `app/` | Website (React Router 8, server rendering), content API at `/api/v1`, and the `/leren.html` app route |
+| `ios-native/` | Native SwiftUI iPhone app |
 
-## Add a theme
+## Add content
 
-1. Give it a permanent ID in `content/themes.js` and a short Dutch title/intro.
-2. Add words with explicit stable IDs, a theme ID, `nl` text and `kind`: `woord`, `werkwoord` or `uitdrukking`. Verbs include three `forms`: past, perfect and a short Dutch description. Every word and expression includes a natural Dutch usage example, with its translation in every registered language pack.
-3. Add at least five practical sentences to `content/phrases.js`, each with a stable ID, `themeId`, `nl`, `kind: 'zin'` and A2/B1 level.
-4. Add a coherent dialogue with at least four lines. Give every line a permanent ID and a Dutch speaker label. Write natural questions and answers, not disconnected vocabulary examples.
-5. Add the theme name, meanings, grammar explanations and dialogue translations to every registered language pack.
-6. Optionally add an illustration at `src/assets/illustrations/themes/<theme-id>.jpg` (square, about 520px). Themes without one show a coloured icon tile.
-
-A phrase looks like:
-
-```js
-{id:'phrase:your-theme:01', themeId:'your-theme', nl:'Kan ik een afspraak maken?', level:'A2', kind:'zin'}
-```
-
-Translate it under `cards['phrase:your-theme:01'].meaning`. IDs are used in local and cloud progress; correcting the sentence must not change its ID. A genuinely different learning objective gets a new ID. Existing card IDs must remain available or get an explicit migration; the baseline fixture protects the original 500.
+See [docs/CONTENT.md](docs/CONTENT.md): adding a word, phrase, theme or grammar rule is one JSON edit, checked with `npm run content:check`. IDs are used in local and cloud progress; correcting a sentence must not change its ID.
 
 ## Validate
 

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:voorbereiden",
+  "title": "Ik bereid me voor op ...",
+  "level": "A2",
+  "pattern": "ik bereid me voor op de les · ik heb me op de les voorbereid",
+  "example": "Ik bereid me op de les voor.",
+  "prompt": "Ik bereid ___ op de les voor.",
+  "answer": "me",
+  "fa": {
+    "rule": "آماده شدن برای چیزی، هم ضمیر بازتابی دارد و هم فعل جداشدنی و حرف اضافهٔ ثابت.",
+    "note": "ضمیر بازتابی بعد از فعل صرف‌شده می‌آید. حرف اضافه جزئی از عبارتِ «برای درس» است و پیشوند جداشدنی در پایان می‌آید؛ در ماضی نقلی این پیشوند به اسم مفعول وصل می‌شود.",
+    "translation": "خودم را برای درس آماده می‌کنم."
+  },
+  "examples": [
+    {
+      "nl": "Hij bereidt zich voor op het examen.",
+      "gap": "zich",
+      "fa": "او برای امتحان آماده می‌شود."
+    },
+    {
+      "nl": "We bereiden ons voor op de verhuizing.",
+      "gap": "ons",
+      "fa": "برای اسباب‌کشی آماده می‌شویم."
+    },
+    {
+      "nl": "Ik heb me goed voorbereid.",
+      "gap": "voorbereid",
+      "fa": "خودم را خوب آماده کرده‌ام."
+    }
+  ]
+}

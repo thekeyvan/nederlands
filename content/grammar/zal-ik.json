@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:zal-ik",
+  "title": "Zal ik ...?",
+  "level": "A2",
+  "pattern": "Zal ik + ... + infinitief?",
+  "example": "Zal ik je helpen?",
+  "prompt": "___ ik een paraplu meenemen?",
+  "answer": "Zal",
+  "fa": {
+    "rule": "برای پیشنهاد انجام کاری توسط خودت، از Zal ik استفاده کن.",
+    "note": "Zullen we برای کار مشترک است؛ Zou je برای درخواست مؤدبانه از دیگری.",
+    "translation": "می‌خواهی کمکت کنم؟"
+  },
+  "examples": [
+    {
+      "nl": "Zal ik het raam opendoen?",
+      "gap": "Zal",
+      "fa": "پنجره را باز کنم؟"
+    },
+    {
+      "nl": "Zal ik koffie voor je halen?",
+      "gap": "halen",
+      "fa": "برایت قهوه بیاورم؟"
+    },
+    {
+      "nl": "Zal ik je morgen bellen?",
+      "gap": "bellen",
+      "fa": "فردا به تو زنگ بزنم؟"
+    }
+  ]
+}

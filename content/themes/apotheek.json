@@ -1,0 +1,148 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "apotheek",
+  "title": "Bij de apotheek",
+  "fa": "در داروخانه",
+  "icon": "19",
+  "intro": "Vraag hoe je je medicijnen gebruikt.",
+  "words": [
+    {
+      "nl": "de apotheek",
+      "kind": "woord",
+      "fa": "داروخانه",
+      "example": "Ik haal mijn medicijnen bij de apotheek om de hoek.",
+      "exampleFa": "داروهایم را از داروخانهٔ سر کوچه می‌گیرم."
+    },
+    {
+      "nl": "de apotheker",
+      "kind": "woord",
+      "fa": "داروساز",
+      "example": "De apotheker legt uit hoe ik het medicijn moet gebruiken.",
+      "exampleFa": "داروساز توضیح می‌دهد که دارو را چطور باید مصرف کنم."
+    },
+    {
+      "nl": "het medicijn",
+      "kind": "woord",
+      "fa": "دارو",
+      "example": "Ik gebruik dit medicijn voor het eerst.",
+      "exampleFa": "برای اولین بار از این دارو استفاده می‌کنم."
+    },
+    {
+      "nl": "de bijwerking",
+      "kind": "woord",
+      "fa": "عارضهٔ جانبی",
+      "example": "Kan vermoeidheid een bijwerking van dit medicijn zijn?",
+      "exampleFa": "آیا خستگی می‌تواند از عوارض جانبی این دارو باشد؟"
+    },
+    {
+      "nl": "de dosis",
+      "kind": "woord",
+      "fa": "مقدار دارو در یک نوبت",
+      "example": "Ik weet niet zeker wat mijn dosis is. Kunt u dat nakijken?",
+      "exampleFa": "مطمئن نیستم مقدار داروی من چقدر است. می‌توانید بررسی کنید؟"
+    },
+    {
+      "nl": "de bijsluiter",
+      "kind": "woord",
+      "fa": "برگهٔ راهنمای دارو",
+      "example": "Ik begrijp een woord in de bijsluiter niet.",
+      "exampleFa": "یک واژه در برگهٔ راهنمای دارو را نمی‌فهمم."
+    },
+    {
+      "nl": "de verpakking",
+      "kind": "woord",
+      "fa": "بسته‌بندی",
+      "example": "De naam van het medicijn staat op de verpakking.",
+      "exampleFa": "نام دارو روی بسته‌بندی نوشته شده است."
+    },
+    {
+      "nl": "de tablet",
+      "kind": "woord",
+      "fa": "قرص",
+      "example": "Is deze tablet hetzelfde als de vorige?",
+      "exampleFa": "آیا این قرص همان قرص قبلی است؟"
+    },
+    {
+      "nl": "de zalf",
+      "kind": "woord",
+      "fa": "پماد",
+      "example": "Kunt u laten zien hoe ik deze zalf moet gebruiken?",
+      "exampleFa": "می‌توانید نشان بدهید این پماد را چطور باید استفاده کنم؟"
+    },
+    {
+      "nl": "de herhaling",
+      "kind": "woord",
+      "fa": "تکرار؛ در اینجا تمدید دارو",
+      "example": "Ik kom voor een herhaling van mijn medicijnen.",
+      "exampleFa": "برای تمدید و دریافت دوبارهٔ داروهایم آمده‌ام."
+    },
+    {
+      "nl": "de voorraad",
+      "kind": "woord",
+      "fa": "موجودی",
+      "example": "Heeft u dit medicijn op voorraad?",
+      "exampleFa": "آیا این دارو را موجود دارید؟"
+    },
+    {
+      "nl": "op recept",
+      "kind": "uitdrukking",
+      "fa": "با نسخه",
+      "example": "Is dit medicijn alleen op recept verkrijgbaar?",
+      "exampleFa": "آیا این دارو فقط با نسخه قابل‌دریافت است؟"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik kom mijn medicijnen ophalen.",
+      "level": "A2",
+      "fa": "آمده‌ام داروهایم را تحویل بگیرم."
+    },
+    {
+      "nl": "Hoe moet ik dit medicijn gebruiken?",
+      "level": "A2",
+      "fa": "این دارو را چگونه باید مصرف کنم؟"
+    },
+    {
+      "nl": "Hoe vaak en hoe lang moet ik het gebruiken?",
+      "level": "A2",
+      "fa": "چند بار و برای چه مدت باید مصرفش کنم؟"
+    },
+    {
+      "nl": "Kan dit samen met mijn andere medicijnen?",
+      "level": "A2",
+      "fa": "می‌توان این را همراه داروهای دیگرم مصرف کرد؟"
+    },
+    {
+      "nl": "Welke bijwerkingen kan ik krijgen?",
+      "level": "A2",
+      "fa": "ممکن است چه عوارض جانبی‌ای داشته باشم؟"
+    },
+    {
+      "nl": "Wat moet ik doen als ik een dosis vergeet?",
+      "level": "A2",
+      "fa": "اگر یک نوبت دارو را فراموش کنم چه کار باید بکنم؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Ik kom mijn medicijnen ophalen.",
+      "fa": "آمده‌ام داروهایم را تحویل بگیرم."
+    },
+    {
+      "speaker": "Apotheker",
+      "nl": "Heeft u het al eerder gebruikt?",
+      "fa": "قبلاً آن را مصرف کرده‌اید؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Hoe moet ik dit medicijn gebruiken?",
+      "fa": "این دارو را چگونه باید مصرف کنم؟"
+    },
+    {
+      "speaker": "Apotheker",
+      "nl": "Ik leg het uit en schrijf het voor u op.",
+      "fa": "توضیح می‌دهم و برایتان می‌نویسم."
+    }
+  ]
+}

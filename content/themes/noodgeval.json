@@ -1,0 +1,231 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "noodgeval",
+  "title": "Hulp & noodgevallen",
+  "fa": "کمک و موارد اضطراری",
+  "icon": "30",
+  "intro": "Wat zeg je als je snel hulp nodig hebt?",
+  "words": [
+    {
+      "nl": "het noodnummer",
+      "kind": "woord",
+      "fa": "شمارهٔ اضطراری",
+      "example": "Het noodnummer in Nederland is 112.",
+      "exampleFa": "شمارهٔ اضطراری در هلند ۱۱۲ است."
+    },
+    {
+      "nl": "de ambulance",
+      "kind": "woord",
+      "fa": "آمبولانس",
+      "example": "Bel een ambulance!",
+      "exampleFa": "آمبولانس خبر کن!"
+    },
+    {
+      "nl": "de politie",
+      "kind": "woord",
+      "fa": "پلیس",
+      "example": "De politie komt eraan.",
+      "exampleFa": "پلیس دارد می‌آید."
+    },
+    {
+      "nl": "de brandweer",
+      "kind": "woord",
+      "fa": "آتش‌نشانی",
+      "example": "De brandweer was er binnen vijf minuten.",
+      "exampleFa": "آتش‌نشانی ظرف پنج دقیقه رسید."
+    },
+    {
+      "nl": "de brand",
+      "kind": "woord",
+      "fa": "آتش‌سوزی",
+      "example": "Er is brand in de keuken.",
+      "exampleFa": "در آشپزخانه آتش‌سوزی شده است."
+    },
+    {
+      "nl": "het ongeluk",
+      "kind": "woord",
+      "fa": "تصادف / حادثه",
+      "example": "Er is een ongeluk gebeurd op de weg.",
+      "exampleFa": "در جاده یک تصادف شده است."
+    },
+    {
+      "nl": "de spoedeisende hulp",
+      "kind": "woord",
+      "fa": "اورژانس بیمارستان",
+      "example": "Ze brachten hem naar de spoedeisende hulp.",
+      "exampleFa": "او را به اورژانس بیمارستان بردند."
+    },
+    {
+      "nl": "de huisartsenpost",
+      "kind": "woord",
+      "fa": "پزشک کشیک",
+      "example": "In het weekend bel je de huisartsenpost.",
+      "exampleFa": "آخر هفته با پزشک کشیک تماس می‌گیری."
+    },
+    {
+      "nl": "de rookmelder",
+      "kind": "woord",
+      "fa": "دتکتور دود",
+      "example": "Test je rookmelder elke maand.",
+      "exampleFa": "دتکتور دود را هر ماه آزمایش کن."
+    },
+    {
+      "nl": "de inbraak",
+      "kind": "woord",
+      "fa": "دزدی (ورود به خانه)",
+      "example": "Er was een inbraak bij de buren.",
+      "exampleFa": "به خانهٔ همسایه‌ها دزد زده بود."
+    },
+    {
+      "nl": "de aangifte",
+      "kind": "woord",
+      "fa": "گزارش رسمی به پلیس",
+      "example": "Ik wil aangifte doen van diefstal.",
+      "exampleFa": "می‌خواهم دزدی را به پلیس گزارش بدهم."
+    },
+    {
+      "nl": "de getuige",
+      "kind": "woord",
+      "fa": "شاهد",
+      "example": "Was er een getuige?",
+      "exampleFa": "شاهدی بود؟"
+    },
+    {
+      "nl": "de EHBO",
+      "kind": "woord",
+      "fa": "کمک‌های اولیه",
+      "example": "Mijn collega heeft een EHBO-diploma.",
+      "exampleFa": "همکارم مدرک کمک‌های اولیه دارد."
+    },
+    {
+      "nl": "het adres",
+      "kind": "woord",
+      "fa": "آدرس",
+      "example": "Wat is het adres van het ongeluk?",
+      "exampleFa": "آدرس محل تصادف کجاست؟"
+    },
+    {
+      "nl": "bellen",
+      "kind": "werkwoord",
+      "fa": "زنگ زدن",
+      "example": "Bel meteen 112.",
+      "exampleFa": "فوراً به ۱۱۲ زنگ بزن.",
+      "forms": [
+        "belde",
+        "heb gebeld",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "helpen",
+      "kind": "werkwoord",
+      "fa": "کمک کردن",
+      "example": "Kunt u mij helpen?",
+      "exampleFa": "می‌توانید به من کمک کنید؟",
+      "forms": [
+        "hielp",
+        "heb geholpen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "bloeden",
+      "kind": "werkwoord",
+      "fa": "خونریزی کردن",
+      "example": "Zijn hand bloedt.",
+      "exampleFa": "دستش خونریزی می‌کند.",
+      "forms": [
+        "bloedde",
+        "heb gebloed",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "vallen",
+      "kind": "werkwoord",
+      "fa": "افتادن",
+      "example": "Mijn moeder is van de trap gevallen.",
+      "exampleFa": "مادرم از پله افتاده است.",
+      "forms": [
+        "viel",
+        "ben gevallen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "stelen",
+      "kind": "werkwoord",
+      "fa": "دزدیدن",
+      "example": "Iemand heeft mijn tas gestolen.",
+      "exampleFa": "کسی کیفم را دزدیده است.",
+      "forms": [
+        "stal",
+        "heb gestolen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "bewusteloos",
+      "kind": "uitdrukking",
+      "fa": "بیهوش",
+      "example": "De man is bewusteloos.",
+      "exampleFa": "آن مرد بیهوش است."
+    },
+    {
+      "nl": "het is dringend",
+      "kind": "uitdrukking",
+      "fa": "فوری است",
+      "example": "Het is dringend, kom snel!",
+      "exampleFa": "فوری است، زود بیا!"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Help! Bel 112!",
+      "level": "A2",
+      "fa": "کمک! به ۱۱۲ زنگ بزن!"
+    },
+    {
+      "nl": "Er is iemand gewond.",
+      "level": "A2",
+      "fa": "کسی زخمی شده است."
+    },
+    {
+      "nl": "Ik ben mijn portemonnee kwijt.",
+      "level": "A2",
+      "fa": "کیف پولم را گم کرده‌ام."
+    },
+    {
+      "nl": "Ik wil een inbraak melden.",
+      "level": "A2",
+      "fa": "می‌خواهم یک دزدی را گزارش بدهم."
+    },
+    {
+      "nl": "Blijf rustig, de ambulance is onderweg.",
+      "level": "B1",
+      "fa": "آرام باش، آمبولانس در راه است."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Centralist",
+      "nl": "112, wat is uw noodgeval?",
+      "fa": "۱۱۲، مورد اضطراری شما چیست؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Er is een ongeluk met een fietser gebeurd.",
+      "fa": "یک تصادف با یک دوچرخه‌سوار اتفاق افتاده است."
+    },
+    {
+      "speaker": "Centralist",
+      "nl": "Wat is het adres? Is de fietser aanspreekbaar?",
+      "fa": "آدرس کجاست؟ دوچرخه‌سوار هوشیار است؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Stationsstraat 12. Ja, maar hij bloedt aan zijn hoofd.",
+      "fa": "خیابان ایستگاه شمارهٔ ۱۲. بله، اما سرش خونریزی دارد."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:hypothese",
+  "title": "Als ik president was ...",
+  "level": "B1",
+  "pattern": "Als ik president was, zou ik ... + infinitief",
+  "example": "Als ik president was, zou ik de wereld een betere plek maken.",
+  "prompt": "Als ik president was, ___ ik de wereld een betere plek maken.",
+  "answer": "zou",
+  "fa": {
+    "rule": "برای فرض غیرواقعی در زمان حال، گذشتهٔ ساده در شرط و ساختار شرطی در نتیجه رایج است.",
+    "note": "می‌توان در شرط هم ساختار شرطی به‌کار برد یا در نتیجه گذشتهٔ ساده آورد. اینجا گذشته بودن شکل فعل الزاماً به معنای زمان گذشته نیست. پس از جملهٔ شرطی، فعل اصلی پیش از فاعل می‌آید.",
+    "translation": "اگر رئیس‌جمهور بودم، دنیا را جای بهتری می‌کردم."
+  },
+  "examples": [
+    {
+      "nl": "Als ik rijk was, zou ik een groot huis kopen.",
+      "gap": "zou",
+      "fa": "اگر ثروتمند بودم، خانه‌ای بزرگ می‌خریدم."
+    },
+    {
+      "nl": "Als ik meer tijd had, zou ik vaker sporten.",
+      "gap": "had",
+      "fa": "اگر وقت بیشتری داشتم، بیشتر ورزش می‌کردم."
+    },
+    {
+      "nl": "Als het niet regende, zouden we buiten eten.",
+      "gap": "zouden",
+      "fa": "اگر باران نمی‌بارید، بیرون غذا می‌خوردیم."
+    }
+  ]
+}

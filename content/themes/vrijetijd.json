@@ -1,0 +1,503 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "vrijetijd",
+  "title": "Vrije tijd & sport",
+  "fa": "اوقات فراغت و ورزش",
+  "icon": "07",
+  "intro": "Wat doe je graag in je vrije tijd?",
+  "words": [
+    {
+      "nl": "de vrijetijdsbesteding",
+      "kind": "woord",
+      "fa": "نحوهٔ گذراندن وقت آزاد",
+      "example": "Sport is een belangrijk deel van mijn vrijetijdsbesteding.",
+      "exampleFa": "ورزش بخش مهمی از نحوهٔ گذراندن وقت آزادم است."
+    },
+    {
+      "nl": "de hobby",
+      "kind": "woord",
+      "fa": "سرگرمی؛ علاقهٔ شخصی",
+      "example": "Mijn grootste hobby is koken.",
+      "exampleFa": "بزرگ‌ترین سرگرمی‌ام آشپزی است."
+    },
+    {
+      "nl": "sporten",
+      "kind": "werkwoord",
+      "fa": "ورزش کردن",
+      "example": "Ik sport twee keer per week.",
+      "exampleFa": "هفته‌ای دو بار ورزش می‌کنم.",
+      "forms": [
+        "sportte",
+        "heb gesport",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "bewegen",
+      "kind": "werkwoord",
+      "fa": "تحرک داشتن؛ حرکت کردن",
+      "example": "Tijdens mijn werkpauze probeer ik wat te bewegen.",
+      "exampleFa": "در زمان استراحت کار سعی می‌کنم کمی تحرک داشته باشم.",
+      "forms": [
+        "bewoog",
+        "heb bewogen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "voetballen",
+      "kind": "werkwoord",
+      "fa": "فوتبال بازی کردن",
+      "example": "De kinderen voetballen op het plein.",
+      "exampleFa": "بچه‌ها در میدان فوتبال بازی می‌کنند.",
+      "forms": [
+        "voetbalde",
+        "heb gevoetbald",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "zwemmen",
+      "kind": "werkwoord",
+      "fa": "شنا کردن",
+      "example": "In de zomer zwem ik graag in zee.",
+      "exampleFa": "تابستان‌ها دوست دارم در دریا شنا کنم.",
+      "forms": [
+        "zwom",
+        "heb gezwommen / ben naar de overkant gezwommen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "wandelen",
+      "kind": "werkwoord",
+      "fa": "پیاده‌روی کردن",
+      "example": "We wandelen elke avond een halfuur.",
+      "exampleFa": "هر شب نیم ساعت پیاده‌روی می‌کنیم.",
+      "forms": [
+        "wandelde",
+        "heb gewandeld / ben naar huis gewandeld",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "fietsen",
+      "kind": "werkwoord",
+      "fa": "دوچرخه‌سواری کردن",
+      "example": "Ik fiets meestal naar mijn werk.",
+      "exampleFa": "معمولاً با دوچرخه به محل کارم می‌روم.",
+      "forms": [
+        "fietste",
+        "heb gefietst / ben naar huis gefietst",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de wedstrijd",
+      "kind": "woord",
+      "fa": "مسابقه",
+      "example": "Hoe laat begint de wedstrijd?",
+      "exampleFa": "مسابقه چه ساعتی شروع می‌شود؟"
+    },
+    {
+      "nl": "het veld",
+      "kind": "woord",
+      "fa": "زمین ورزش",
+      "example": "De spelers komen het veld op.",
+      "exampleFa": "بازیکن‌ها وارد زمین می‌شوند."
+    },
+    {
+      "nl": "de bal",
+      "kind": "woord",
+      "fa": "توپ",
+      "example": "Kun je de bal naar mij gooien?",
+      "exampleFa": "می‌توانی توپ را به طرف من بیندازی؟"
+    },
+    {
+      "nl": "de club",
+      "kind": "woord",
+      "fa": "باشگاه",
+      "example": "Ik ben lid van een lokale sportclub.",
+      "exampleFa": "عضو یک باشگاه ورزشی محلی هستم."
+    },
+    {
+      "nl": "de conditie",
+      "kind": "woord",
+      "fa": "آمادگی جسمانی",
+      "example": "Mijn conditie is beter sinds ik vaker fiets.",
+      "exampleFa": "از وقتی بیشتر دوچرخه‌سواری می‌کنم، آمادگی جسمانی‌ام بهتر شده است."
+    },
+    {
+      "nl": "het talent",
+      "kind": "woord",
+      "fa": "استعداد",
+      "example": "Zij heeft veel talent voor muziek.",
+      "exampleFa": "او استعداد زیادی در موسیقی دارد."
+    },
+    {
+      "nl": "talent hebben voor",
+      "kind": "uitdrukking",
+      "fa": "در چیزی استعداد داشتن",
+      "example": "Mijn broer heeft talent voor tekenen.",
+      "exampleFa": "برادرم در نقاشی استعداد دارد."
+    },
+    {
+      "nl": "in teamverband",
+      "kind": "uitdrukking",
+      "fa": "به صورت تیمی",
+      "example": "Ik werk liever in teamverband dan alleen.",
+      "exampleFa": "ترجیح می‌دهم به‌صورت تیمی کار کنم تا تنها."
+    },
+    {
+      "nl": "lid worden van",
+      "kind": "uitdrukking",
+      "fa": "عضو چیزی شدن",
+      "example": "Hoe kan ik lid worden van deze vereniging?",
+      "exampleFa": "چطور می‌توانم عضو این انجمن شوم؟"
+    },
+    {
+      "nl": "je tijd indelen",
+      "kind": "uitdrukking",
+      "fa": "وقت خود را تقسیم‌بندی کردن",
+      "example": "Als je thuiswerkt, moet je je tijd goed indelen.",
+      "exampleFa": "وقتی از خانه کار می‌کنی، باید وقتت را خوب تقسیم‌بندی کنی."
+    },
+    {
+      "nl": "contact onderhouden met",
+      "kind": "uitdrukking",
+      "fa": "با کسی در ارتباط ماندن",
+      "example": "Ik onderhoud contact met oude vrienden via de telefoon.",
+      "exampleFa": "با دوستان قدیمی از طریق تلفن در ارتباط می‌مانم."
+    },
+    {
+      "nl": "houden van",
+      "kind": "uitdrukking",
+      "fa": "دوست داشتن",
+      "example": "Ik houd van muziek.",
+      "exampleFa": "موسیقی دوست دارم."
+    },
+    {
+      "nl": "gemiddeld",
+      "kind": "woord",
+      "fa": "به طور میانگین",
+      "example": "Ik sport gemiddeld drie uur per week.",
+      "exampleFa": "به‌طور میانگین هفته‌ای سه ساعت ورزش می‌کنم."
+    },
+    {
+      "nl": "regelmatig",
+      "kind": "woord",
+      "fa": "مرتب؛ به طور منظم",
+      "example": "We spreken regelmatig af om samen te koken.",
+      "exampleFa": "مرتب قرار می‌گذاریم که با هم آشپزی کنیم."
+    },
+    {
+      "nl": "meestal",
+      "kind": "woord",
+      "fa": "معمولاً",
+      "example": "Op zondag slaap ik meestal wat langer.",
+      "exampleFa": "یکشنبه‌ها معمولاً کمی بیشتر می‌خوابم."
+    },
+    {
+      "nl": "af en toe",
+      "kind": "uitdrukking",
+      "fa": "گاهی اوقات",
+      "example": "Af en toe ga ik naar het theater.",
+      "exampleFa": "گاهی اوقات به تئاتر می‌روم."
+    },
+    {
+      "nl": "liever",
+      "kind": "woord",
+      "fa": "ترجیحاً؛ بیشتر مایل بودن",
+      "example": "Ik wandel liever dan dat ik hardloop.",
+      "exampleFa": "پیاده‌روی را به دویدن ترجیح می‌دهم."
+    },
+    {
+      "nl": "het liefst",
+      "kind": "uitdrukking",
+      "fa": "بیشتر از همه ترجیح دادن",
+      "example": "In mijn vakantie ga ik het liefst naar de bergen.",
+      "exampleFa": "در تعطیلات بیشتر از همه دوست دارم به کوهستان بروم."
+    },
+    {
+      "nl": "de vrijmibo",
+      "kind": "uitdrukking",
+      "fa": "دورهمی عصر جمعه با همکاران؛ کوتاه‌شدهٔ vrijdagmiddagborrel",
+      "example": "Vrijmibo is een afkorting van vrijdagmiddagborrel.",
+      "exampleFa": "این واژه مخفف دورهمی نوشیدنیِ عصر جمعه است."
+    },
+    {
+      "nl": "de kroegentocht",
+      "kind": "uitdrukking",
+      "fa": "گشت‌وگذار بین چند بار یا کافه",
+      "example": "Tijdens de kroegentocht bezoeken we verschillende cafés.",
+      "exampleFa": "در گشت کافه‌گردی به چند کافه یا بار مختلف می‌رویم."
+    },
+    {
+      "nl": "het muziekinstrument",
+      "kind": "woord",
+      "fa": "ساز موسیقی",
+      "example": "Welk muziekinstrument bespeel je?",
+      "exampleFa": "چه ساز موسیقی می‌نوازی؟"
+    },
+    {
+      "nl": "voetbal kijken",
+      "kind": "uitdrukking",
+      "fa": "تماشای فوتبال",
+      "example": "Op zondag kijk ik graag voetbal.",
+      "exampleFa": "یکشنبه‌ها دوست دارم فوتبال تماشا کنم."
+    },
+    {
+      "nl": "bakken",
+      "kind": "werkwoord",
+      "fa": "پختن در فر یا سرخ کردن",
+      "example": "Ik heb koekjes gebakken.",
+      "exampleFa": "شیرینی پخته‌ام.",
+      "forms": [
+        "bakte",
+        "heeft gebakken",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "gamen",
+      "kind": "werkwoord",
+      "fa": "بازی ویدئویی کردن",
+      "example": "We hebben samen gegamed.",
+      "exampleFa": "با هم بازی ویدئویی کردیم.",
+      "forms": [
+        "gamede",
+        "heeft gegamed",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "winkelen",
+      "kind": "werkwoord",
+      "fa": "خرید رفتن",
+      "example": "We hebben zaterdag gewinkeld.",
+      "exampleFa": "شنبه به خرید رفتیم.",
+      "forms": [
+        "winkelde",
+        "heeft gewinkeld",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "lezen",
+      "kind": "werkwoord",
+      "fa": "خواندن",
+      "example": "Ik heb een boek gelezen.",
+      "exampleFa": "یک کتاب خوانده‌ام.",
+      "forms": [
+        "las",
+        "heeft gelezen",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "knutselen",
+      "kind": "werkwoord",
+      "fa": "کاردستی درست کردن",
+      "example": "De kinderen hebben samen geknutseld.",
+      "exampleFa": "بچه‌ها با هم کاردستی درست کردند.",
+      "forms": [
+        "knutselde",
+        "heeft geknutseld",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "handwerken",
+      "kind": "werkwoord",
+      "fa": "کار دستی با نخ و پارچه کردن",
+      "example": "Mijn oma houdt van handwerken.",
+      "exampleFa": "مادربزرگم کار دستی با نخ و پارچه را دوست دارد.",
+      "forms": [
+        "handwerkte",
+        "heeft gehandwerkt",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "breien",
+      "kind": "werkwoord",
+      "fa": "با میل بافتن",
+      "example": "Zij heeft een sjaal gebreid.",
+      "exampleFa": "او یک شال بافته است.",
+      "forms": [
+        "breide",
+        "heeft gebreid",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "haken",
+      "kind": "werkwoord",
+      "fa": "قلاب‌بافی کردن",
+      "example": "Ik heb een muts gehaakt.",
+      "exampleFa": "یک کلاه قلاب‌بافی کرده‌ام.",
+      "forms": [
+        "haakte",
+        "heeft gehaakt",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "puzzelen",
+      "kind": "werkwoord",
+      "fa": "پازل یا معما حل کردن",
+      "example": "We hebben samen gepuzzeld.",
+      "exampleFa": "با هم پازل حل کردیم.",
+      "forms": [
+        "puzzelde",
+        "heeft gepuzzeld",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "bespelen",
+      "kind": "werkwoord",
+      "fa": "نواختن ساز",
+      "example": "Hij bespeelt verschillende instrumenten.",
+      "exampleFa": "او سازهای مختلفی می‌نوازد.",
+      "forms": [
+        "bespeelde",
+        "heeft bespeeld",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "tuinieren",
+      "kind": "werkwoord",
+      "fa": "باغبانی کردن",
+      "example": "Ik heb zondag in de tuin getuinierd.",
+      "exampleFa": "یکشنبه در باغچه باغبانی کردم.",
+      "forms": [
+        "tuinierde",
+        "heeft getuinierd",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "hardlopen",
+      "kind": "werkwoord",
+      "fa": "دویدن ورزشی",
+      "example": "Ik heb een halfuur hardgelopen.",
+      "exampleFa": "نیم ساعت دویدم.",
+      "forms": [
+        "liep hard",
+        "heeft hardgelopen",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "wielrennen",
+      "kind": "werkwoord",
+      "fa": "دوچرخه‌سواری مسابقه‌ای",
+      "example": "Hij heeft gisteren gewielrend.",
+      "exampleFa": "او دیروز دوچرخه‌سواری ورزشی کرد.",
+      "forms": [
+        "wielrende",
+        "heeft gewielrend",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "schaatsen",
+      "kind": "werkwoord",
+      "fa": "اسکیت روی یخ",
+      "example": "We hebben op de ijsbaan geschaatst.",
+      "exampleFa": "در پیست روی یخ اسکیت کردیم.",
+      "forms": [
+        "schaatste",
+        "heeft geschaatst",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "schaken",
+      "kind": "werkwoord",
+      "fa": "شطرنج بازی کردن",
+      "example": "Ik heb met mijn buurman geschaakt.",
+      "exampleFa": "با همسایه‌ام شطرنج بازی کردم.",
+      "forms": [
+        "schaakte",
+        "heeft geschaakt",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "dammen",
+      "kind": "werkwoord",
+      "fa": "دام یا چکرز بازی کردن",
+      "example": "We hebben een potje gedamd.",
+      "exampleFa": "یک دست دام بازی کردیم.",
+      "forms": [
+        "damde",
+        "heeft gedamd",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "roeien",
+      "kind": "werkwoord",
+      "fa": "پارو زدن",
+      "example": "Zij heeft op de rivier geroeid.",
+      "exampleFa": "او در رودخانه پارو زد.",
+      "forms": [
+        "roeide",
+        "heeft geroeid",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Wat doe je graag in je vrije tijd?",
+      "level": "A2",
+      "fa": "در وقت آزادت چه کاری دوست داری انجام بدهی؟"
+    },
+    {
+      "nl": "Zullen we zaterdag samen gaan wandelen?",
+      "level": "A2",
+      "fa": "شنبه با هم پیاده‌روی برویم؟"
+    },
+    {
+      "nl": "Ik wil graag een proefles volgen.",
+      "level": "A2",
+      "fa": "دوست دارم در یک جلسهٔ آزمایشی شرکت کنم."
+    },
+    {
+      "nl": "Hoe vaak train je per week?",
+      "level": "A2",
+      "fa": "هفته‌ای چند بار تمرین می‌کنی؟"
+    },
+    {
+      "nl": "Ik kan vandaag helaas niet meedoen.",
+      "level": "A2",
+      "fa": "متأسفانه امروز نمی‌توانم شرکت کنم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Zullen we zaterdag samen gaan wandelen?",
+      "fa": "شنبه با هم پیاده‌روی برویم؟"
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "Ja, leuk! Waar spreken we af?",
+      "fa": "بله، چه خوب! کجا قرار بگذاریم؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ik kan vandaag helaas niet meedoen.",
+      "fa": "متأسفانه امروز نمی‌توانم شرکت کنم."
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "Dan gaan we een andere keer.",
+      "fa": "پس یک بار دیگر می‌رویم."
+    }
+  ]
+}

@@ -1,0 +1,352 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "loopbaan",
+  "title": "Baan & bedrijf",
+  "fa": "شغل و شرکت",
+  "icon": "03",
+  "intro": "Vertel over je werk en je ervaring.",
+  "words": [
+    {
+      "nl": "de werkervaring",
+      "kind": "woord",
+      "fa": "سابقه و تجربهٔ کاری",
+      "example": "Voor deze baan heb je twee jaar werkervaring nodig.",
+      "exampleFa": "برای این شغل به دو سال سابقهٔ کاری نیاز داری."
+    },
+    {
+      "nl": "de verantwoordelijkheid",
+      "kind": "woord",
+      "fa": "مسئولیت",
+      "example": "De verantwoordelijkheid voor de planning ligt bij mij.",
+      "exampleFa": "مسئولیت برنامه‌ریزی با من است."
+    },
+    {
+      "nl": "de afdeling",
+      "kind": "woord",
+      "fa": "بخش؛ دپارتمان",
+      "example": "Op welke afdeling werk je?",
+      "exampleFa": "در کدام بخش کار می‌کنی؟"
+    },
+    {
+      "nl": "de directie",
+      "kind": "woord",
+      "fa": "مدیریت؛ هیئت اجرایی شرکت",
+      "example": "De directie bespreekt de toekomst van het bedrijf.",
+      "exampleFa": "مدیریت دربارهٔ آیندهٔ شرکت گفت‌وگو می‌کند."
+    },
+    {
+      "nl": "Personeelszaken",
+      "kind": "woord",
+      "fa": "بخش منابع انسانی",
+      "example": "Met vragen over je contract kun je naar Personeelszaken.",
+      "exampleFa": "برای سؤال دربارهٔ قراردادت می‌توانی به بخش منابع انسانی مراجعه کنی."
+    },
+    {
+      "nl": "het personeel",
+      "kind": "woord",
+      "fa": "کارکنان",
+      "example": "Al het personeel is uitgenodigd voor de bijeenkomst.",
+      "exampleFa": "همهٔ کارکنان به گردهمایی دعوت شده‌اند."
+    },
+    {
+      "nl": "de vestiging",
+      "kind": "woord",
+      "fa": "شعبه",
+      "example": "Ons bedrijf opent een nieuwe vestiging in Utrecht.",
+      "exampleFa": "شرکت ما شعبهٔ جدیدی در اوترخت باز می‌کند."
+    },
+    {
+      "nl": "de reorganisatie",
+      "kind": "woord",
+      "fa": "بازسازمان‌دهی؛ تغییر ساختار شرکت",
+      "example": "Door de reorganisatie verandert de indeling van de teams.",
+      "exampleFa": "به دلیل تغییر ساختار شرکت، تقسیم‌بندی تیم‌ها عوض می‌شود."
+    },
+    {
+      "nl": "het contract",
+      "kind": "woord",
+      "fa": "قرارداد",
+      "example": "Mijn contract loopt tot het einde van het jaar.",
+      "exampleFa": "قراردادم تا پایان سال اعتبار دارد."
+    },
+    {
+      "nl": "de overeenkomst",
+      "kind": "woord",
+      "fa": "توافق‌نامه؛ قرارداد",
+      "example": "Lees de overeenkomst voordat je tekent.",
+      "exampleFa": "قبل از امضا توافق‌نامه را بخوان."
+    },
+    {
+      "nl": "het salaris",
+      "kind": "woord",
+      "fa": "حقوق",
+      "example": "Wanneer wordt mijn salaris betaald?",
+      "exampleFa": "حقوقم چه زمانی پرداخت می‌شود؟"
+    },
+    {
+      "nl": "de winst",
+      "kind": "woord",
+      "fa": "سود",
+      "example": "Het bedrijf maakt dit jaar meer winst.",
+      "exampleFa": "شرکت امسال سود بیشتری می‌کند."
+    },
+    {
+      "nl": "de arbeidskosten",
+      "kind": "woord",
+      "fa": "هزینه‌های نیروی کار",
+      "example": "De arbeidskosten zijn hoger dan vorig jaar.",
+      "exampleFa": "هزینه‌های نیروی کار از سال قبل بیشتر شده است."
+    },
+    {
+      "nl": "de reiskostenvergoeding",
+      "kind": "woord",
+      "fa": "بازپرداخت هزینهٔ رفت‌وآمد",
+      "example": "Krijg ik voor deze baan een reiskostenvergoeding?",
+      "exampleFa": "برای این شغل هزینهٔ رفت‌وآمد به من بازپرداخت می‌شود؟"
+    },
+    {
+      "nl": "van baan veranderen",
+      "kind": "uitdrukking",
+      "fa": "شغل عوض کردن",
+      "example": "Ik denk erover om van baan te veranderen.",
+      "exampleFa": "دارم به عوض کردن شغلم فکر می‌کنم."
+    },
+    {
+      "nl": "aannemen",
+      "kind": "werkwoord",
+      "fa": "استخدام کردن؛ پذیرفتن",
+      "example": "Het bedrijf neemt drie nieuwe medewerkers aan.",
+      "exampleFa": "شرکت سه کارمند جدید استخدام می‌کند.",
+      "forms": [
+        "nam aan",
+        "heb aangenomen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "ontslaan",
+      "kind": "werkwoord",
+      "fa": "اخراج کردن",
+      "example": "Het bedrijf heeft enkele medewerkers ontslagen.",
+      "exampleFa": "شرکت چند نفر از کارکنان را اخراج کرده است.",
+      "forms": [
+        "ontsloeg",
+        "heb ontslagen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "uitvoeren",
+      "kind": "werkwoord",
+      "fa": "اجرا کردن",
+      "example": "We voeren het plan volgende maand uit.",
+      "exampleFa": "ماه آینده برنامه را اجرا می‌کنیم.",
+      "forms": [
+        "voerde uit",
+        "heb uitgevoerd",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "verwerken",
+      "kind": "werkwoord",
+      "fa": "پردازش کردن",
+      "example": "Ik verwerk de bestellingen in het systeem.",
+      "exampleFa": "سفارش‌ها را در سیستم پردازش می‌کنم.",
+      "forms": [
+        "verwerkte",
+        "heb verwerkt",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "bereiken",
+      "kind": "werkwoord",
+      "fa": "رسیدن به هدف؛ تماس برقرار کردن",
+      "example": "Ik heb mijn doel bereikt.",
+      "exampleFa": "به هدفم رسیدم.",
+      "forms": [
+        "bereikte",
+        "heb bereikt",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "een oplossing vinden",
+      "kind": "uitdrukking",
+      "fa": "راه‌حل پیدا کردن",
+      "example": "We moeten samen een oplossing vinden.",
+      "exampleFa": "باید با هم راه‌حلی پیدا کنیم."
+    },
+    {
+      "nl": "in een probleem duiken",
+      "kind": "uitdrukking",
+      "fa": "یک مشکل را عمیق بررسی کردن",
+      "example": "Ik duik eerst in het probleem voordat ik een oplossing voorstel.",
+      "exampleFa": "قبل از پیشنهاد راه‌حل، ابتدا مشکل را عمیق بررسی می‌کنم."
+    },
+    {
+      "nl": "een overeenkomst sluiten",
+      "kind": "uitdrukking",
+      "fa": "قرارداد بستن",
+      "example": "We hebben een overeenkomst met een nieuwe klant gesloten.",
+      "exampleFa": "با یک مشتری جدید قرارداد بسته‌ایم."
+    },
+    {
+      "nl": "promotie krijgen",
+      "kind": "uitdrukking",
+      "fa": "ترفیع گرفتن",
+      "example": "Zij heeft promotie gekregen en leidt nu een team.",
+      "exampleFa": "او ترفیع گرفته و حالا یک تیم را مدیریت می‌کند."
+    },
+    {
+      "nl": "de achterstand wegwerken",
+      "kind": "uitdrukking",
+      "fa": "کارهای عقب‌افتاده را جبران کردن",
+      "example": "Ik werk vandaag de achterstand in mijn e-mail weg.",
+      "exampleFa": "امروز ایمیل‌های عقب‌افتاده‌ام را رسیدگی می‌کنم."
+    },
+    {
+      "nl": "het ergste hebben gehad",
+      "kind": "uitdrukking",
+      "fa": "سخت‌ترین بخش را پشت سر گذاشتن",
+      "example": "De verhuizing was zwaar, maar we hebben het ergste gehad.",
+      "exampleFa": "اسباب‌کشی سخت بود، ولی سخت‌ترین بخش را پشت سر گذاشته‌ایم."
+    },
+    {
+      "nl": "veranderen",
+      "kind": "werkwoord",
+      "fa": "تغییر کردن یا تغییر دادن",
+      "example": "Mijn werk is veranderd. Ik heb mijn planning veranderd.",
+      "exampleFa": "کارم تغییر کرده. برنامه‌ام را تغییر داده‌ام.",
+      "forms": [
+        "veranderde",
+        "ben veranderd / heb iets veranderd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "stijgen",
+      "kind": "werkwoord",
+      "fa": "افزایش یافتن",
+      "example": "De prijzen stijgen sneller dan mijn salaris.",
+      "exampleFa": "قیمت‌ها سریع‌تر از حقوق من افزایش پیدا می‌کنند.",
+      "forms": [
+        "steeg",
+        "ben gestegen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "dalen",
+      "kind": "werkwoord",
+      "fa": "کاهش یافتن",
+      "example": "Het aantal klachten is deze maand gedaald.",
+      "exampleFa": "تعداد شکایت‌ها این ماه کاهش یافته است.",
+      "forms": [
+        "daalde",
+        "ben gedaald",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "mislukken",
+      "kind": "werkwoord",
+      "fa": "ناموفق شدن؛ شکست خوردن",
+      "example": "Ons eerste plan is mislukt, dus we proberen iets anders.",
+      "exampleFa": "اولین برنامه‌مان موفق نشد، پس روش دیگری را امتحان می‌کنیم.",
+      "forms": [
+        "mislukte",
+        "is mislukt (het plan)",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "het ondernemerschap",
+      "kind": "woord",
+      "fa": "کارآفرینی",
+      "example": "Ondernemerschap vraagt veel voorbereiding.",
+      "exampleFa": "کارآفرینی به آمادگی زیادی نیاز دارد."
+    },
+    {
+      "nl": "de ontwikkeling",
+      "kind": "woord",
+      "fa": "رشد و توسعه",
+      "example": "Ik vind mijn persoonlijke ontwikkeling belangrijk.",
+      "exampleFa": "رشد فردی‌ام برایم مهم است."
+    },
+    {
+      "nl": "ondernemen",
+      "kind": "werkwoord",
+      "fa": "اقدام کردن یا کارآفرینی کردن",
+      "example": "Wat wil je dit weekend ondernemen?",
+      "exampleFa": "این آخر هفته می‌خواهی چه کاری انجام بدهی؟",
+      "forms": [
+        "ondernam",
+        "heeft ondernomen",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "oprichten",
+      "kind": "werkwoord",
+      "fa": "تأسیس کردن",
+      "example": "Zij heeft een bedrijf opgericht.",
+      "exampleFa": "او یک شرکت تأسیس کرده است.",
+      "forms": [
+        "richtte op",
+        "heeft opgericht",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik werk sinds twee jaar bij dit bedrijf.",
+      "level": "A2",
+      "fa": "دو سال است که در این شرکت کار می‌کنم."
+    },
+    {
+      "nl": "Ik ben verantwoordelijk voor de planning.",
+      "level": "A2",
+      "fa": "من مسئول برنامه‌ریزی هستم."
+    },
+    {
+      "nl": "Welke ervaring heb je nodig voor deze baan?",
+      "level": "A2",
+      "fa": "برای این شغل به چه تجربه‌ای نیاز داری؟"
+    },
+    {
+      "nl": "Ik wil graag meer verantwoordelijkheid.",
+      "level": "A2",
+      "fa": "دوست دارم مسئولیت بیشتری داشته باشم."
+    },
+    {
+      "nl": "Wanneer hoor ik of ik ben aangenomen?",
+      "level": "A2",
+      "fa": "چه زمانی می‌فهمم که استخدام شده‌ام یا نه؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Wanneer hoor ik of ik ben aangenomen?",
+      "fa": "چه زمانی می‌فهمم که استخدام شده‌ام یا نه؟"
+    },
+    {
+      "speaker": "Werkgever",
+      "nl": "Je krijgt vrijdag van ons bericht.",
+      "fa": "جمعه از ما خبر می‌گیری."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Welke ervaring heb je nodig voor deze baan?",
+      "fa": "برای این شغل به چه تجربه‌ای نیاز داری؟"
+    },
+    {
+      "speaker": "Werkgever",
+      "nl": "Voor deze baan is ervaring met klanten belangrijk.",
+      "fa": "برای این شغل، تجربهٔ کار با مشتری مهم است."
+    }
+  ]
+}

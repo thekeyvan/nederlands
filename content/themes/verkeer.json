@@ -1,0 +1,226 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "verkeer",
+  "title": "Fiets & verkeer",
+  "fa": "دوچرخه و رفت‌وآمد",
+  "icon": "25",
+  "intro": "Veilig op de fiets en op straat.",
+  "words": [
+    {
+      "nl": "het fietspad",
+      "kind": "woord",
+      "fa": "مسیر دوچرخه",
+      "example": "Op het fietspad mogen geen auto’s rijden.",
+      "exampleFa": "در مسیر دوچرخه، ماشین‌ها حق رفت‌وآمد ندارند."
+    },
+    {
+      "nl": "het stoplicht",
+      "kind": "woord",
+      "fa": "چراغ راهنمایی",
+      "example": "Het stoplicht staat op rood.",
+      "exampleFa": "چراغ راهنمایی قرمز است."
+    },
+    {
+      "nl": "het kruispunt",
+      "kind": "woord",
+      "fa": "چهارراه",
+      "example": "Sla bij het kruispunt linksaf.",
+      "exampleFa": "سر چهارراه به چپ بپیچ."
+    },
+    {
+      "nl": "de rotonde",
+      "kind": "woord",
+      "fa": "میدان",
+      "example": "Neem op de rotonde de tweede afslag.",
+      "exampleFa": "در میدان، خروجی دوم را بگیر."
+    },
+    {
+      "nl": "de voorrang",
+      "kind": "woord",
+      "fa": "حق تقدم",
+      "example": "Fietsers van rechts hebben voorrang.",
+      "exampleFa": "دوچرخه‌سوارانی که از راست می‌آیند حق تقدم دارند."
+    },
+    {
+      "nl": "het zebrapad",
+      "kind": "woord",
+      "fa": "خط عابر پیاده",
+      "example": "Steek over bij het zebrapad.",
+      "exampleFa": "از خط عابر پیاده رد شو."
+    },
+    {
+      "nl": "het fietslicht",
+      "kind": "woord",
+      "fa": "چراغ دوچرخه",
+      "example": "In het donker moet je fietslicht aan.",
+      "exampleFa": "در تاریکی چراغ دوچرخه‌ات باید روشن باشد."
+    },
+    {
+      "nl": "het slot",
+      "kind": "woord",
+      "fa": "قفل",
+      "example": "Zet je fiets altijd op slot.",
+      "exampleFa": "همیشه دوچرخه‌ات را قفل کن."
+    },
+    {
+      "nl": "de lekke band",
+      "kind": "woord",
+      "fa": "لاستیک پنچر",
+      "example": "Ik heb een lekke band.",
+      "exampleFa": "لاستیکم پنچر شده است."
+    },
+    {
+      "nl": "de fietsenstalling",
+      "kind": "woord",
+      "fa": "پارکینگ دوچرخه",
+      "example": "Bij het station is een grote fietsenstalling.",
+      "exampleFa": "کنار ایستگاه یک پارکینگ دوچرخهٔ بزرگ هست."
+    },
+    {
+      "nl": "de snelweg",
+      "kind": "woord",
+      "fa": "بزرگراه",
+      "example": "Op de snelweg staat een file.",
+      "exampleFa": "در بزرگراه ترافیک است."
+    },
+    {
+      "nl": "de file",
+      "kind": "woord",
+      "fa": "ترافیک (صف ماشین‌ها)",
+      "example": "Ik stond een uur in de file.",
+      "exampleFa": "یک ساعت در ترافیک ماندم."
+    },
+    {
+      "nl": "de parkeerplaats",
+      "kind": "woord",
+      "fa": "جای پارک",
+      "example": "Ik zoek een parkeerplaats in het centrum.",
+      "exampleFa": "در مرکز شهر دنبال جای پارک می‌گردم."
+    },
+    {
+      "nl": "het rijbewijs",
+      "kind": "woord",
+      "fa": "گواهینامه",
+      "example": "Ze haalt volgend jaar haar rijbewijs.",
+      "exampleFa": "او سال آینده گواهینامه‌اش را می‌گیرد."
+    },
+    {
+      "nl": "de boete",
+      "kind": "woord",
+      "fa": "جریمه",
+      "example": "Door rood rijden kost een hoge boete.",
+      "exampleFa": "رد شدن از چراغ قرمز جریمهٔ سنگینی دارد."
+    },
+    {
+      "nl": "de helm",
+      "kind": "woord",
+      "fa": "کلاه ایمنی",
+      "example": "Op een scooter draag je een helm.",
+      "exampleFa": "روی اسکوتر کلاه ایمنی می‌گذاری."
+    },
+    {
+      "nl": "oversteken",
+      "kind": "werkwoord",
+      "fa": "از خیابان رد شدن",
+      "example": "Kijk goed voordat je oversteekt.",
+      "exampleFa": "قبل از رد شدن از خیابان خوب نگاه کن.",
+      "forms": [
+        "stak over",
+        "ben overgestoken",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "afslaan",
+      "kind": "werkwoord",
+      "fa": "پیچیدن",
+      "example": "Je moet hier rechts afslaan.",
+      "exampleFa": "اینجا باید به راست بپیچی.",
+      "forms": [
+        "sloeg af",
+        "ben afgeslagen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "remmen",
+      "kind": "werkwoord",
+      "fa": "ترمز کردن",
+      "example": "Hij moest hard remmen.",
+      "exampleFa": "او مجبور شد محکم ترمز کند.",
+      "forms": [
+        "remde",
+        "heb geremd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "parkeren",
+      "kind": "werkwoord",
+      "fa": "پارک کردن",
+      "example": "Hier mag je niet parkeren.",
+      "exampleFa": "اینجا نمی‌توانی پارک کنی.",
+      "forms": [
+        "parkeerde",
+        "heb geparkeerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "je hand uitsteken",
+      "kind": "uitdrukking",
+      "fa": "دست را دراز کردن (برای علامت)",
+      "example": "Steek je hand uit als je afslaat.",
+      "exampleFa": "وقتی می‌پیچی، دستت را دراز کن."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Mag ik hier mijn fiets neerzetten?",
+      "level": "A2",
+      "fa": "می‌توانم دوچرخه‌ام را اینجا بگذارم؟"
+    },
+    {
+      "nl": "Waar is de dichtstbijzijnde fietsenmaker?",
+      "level": "A2",
+      "fa": "نزدیک‌ترین تعمیرگاه دوچرخه کجاست؟"
+    },
+    {
+      "nl": "Let op, fietser van rechts!",
+      "level": "A2",
+      "fa": "مراقب باش، دوچرخه‌سوار از سمت راست!"
+    },
+    {
+      "nl": "Mijn fiets is gestolen.",
+      "level": "A2",
+      "fa": "دوچرخه‌ام دزدیده شده است."
+    },
+    {
+      "nl": "Door de file kom ik een halfuur later.",
+      "level": "B1",
+      "fa": "به‌خاطر ترافیک نیم ساعت دیرتر می‌رسم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Pardon, hoe kom ik bij het station?",
+      "fa": "ببخشید، چطور به ایستگاه بروم؟"
+    },
+    {
+      "speaker": "Voorbijganger",
+      "nl": "Rechtdoor tot het stoplicht en dan links.",
+      "fa": "مستقیم تا چراغ راهنمایی و بعد سمت چپ."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Is er daar een fietsenstalling?",
+      "fa": "آنجا پارکینگ دوچرخه هست؟"
+    },
+    {
+      "speaker": "Voorbijganger",
+      "nl": "Ja, onder het station. De eerste dag is gratis.",
+      "fa": "بله، زیر ایستگاه. روز اول رایگان است."
+    }
+  ]
+}

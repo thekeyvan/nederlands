@@ -1,0 +1,231 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "kleding",
+  "title": "Kleding & winkelen",
+  "fa": "لباس و خرید",
+  "icon": "24",
+  "intro": "Pas iets aan en vraag naar je maat.",
+  "words": [
+    {
+      "nl": "de kleding",
+      "kind": "woord",
+      "fa": "لباس",
+      "example": "Ik koop mijn kleding meestal online.",
+      "exampleFa": "لباس‌هایم را معمولاً اینترنتی می‌خرم."
+    },
+    {
+      "nl": "de maat",
+      "kind": "woord",
+      "fa": "سایز",
+      "example": "Welke maat heeft u?",
+      "exampleFa": "سایز شما چند است؟"
+    },
+    {
+      "nl": "de paskamer",
+      "kind": "woord",
+      "fa": "اتاق پرو",
+      "example": "De paskamers zijn achter in de winkel.",
+      "exampleFa": "اتاق‌های پرو ته فروشگاه هستند."
+    },
+    {
+      "nl": "de broek",
+      "kind": "woord",
+      "fa": "شلوار",
+      "example": "Deze broek is te lang.",
+      "exampleFa": "این شلوار خیلی بلند است."
+    },
+    {
+      "nl": "het overhemd",
+      "kind": "woord",
+      "fa": "پیراهن مردانه",
+      "example": "Hij draagt een wit overhemd naar zijn werk.",
+      "exampleFa": "او با یک پیراهن سفید سر کار می‌رود."
+    },
+    {
+      "nl": "de trui",
+      "kind": "woord",
+      "fa": "پلیور",
+      "example": "In de winter draag ik een dikke trui.",
+      "exampleFa": "در زمستان یک پلیور ضخیم می‌پوشم."
+    },
+    {
+      "nl": "de jas",
+      "kind": "woord",
+      "fa": "کت / کاپشن",
+      "example": "Mijn jas hangt aan de kapstok.",
+      "exampleFa": "کتم روی جالباسی آویزان است."
+    },
+    {
+      "nl": "de rok",
+      "kind": "woord",
+      "fa": "دامن",
+      "example": "Ze heeft een nieuwe rok gekocht.",
+      "exampleFa": "او یک دامن نو خریده است."
+    },
+    {
+      "nl": "de jurk",
+      "kind": "woord",
+      "fa": "پیراهن زنانه",
+      "example": "Voor het feest draag ik een jurk.",
+      "exampleFa": "برای مهمانی یک پیراهن زنانه می‌پوشم."
+    },
+    {
+      "nl": "de schoenen",
+      "kind": "woord",
+      "fa": "کفش‌ها",
+      "example": "Deze schoenen lopen heel lekker.",
+      "exampleFa": "راه رفتن با این کفش‌ها خیلی راحت است."
+    },
+    {
+      "nl": "de sokken",
+      "kind": "woord",
+      "fa": "جوراب‌ها",
+      "example": "Ik heb nieuwe sokken nodig.",
+      "exampleFa": "جوراب نو لازم دارم."
+    },
+    {
+      "nl": "de korting",
+      "kind": "woord",
+      "fa": "تخفیف",
+      "example": "Op alle jassen zit dertig procent korting.",
+      "exampleFa": "روی همهٔ کت‌ها سی درصد تخفیف است."
+    },
+    {
+      "nl": "de uitverkoop",
+      "kind": "woord",
+      "fa": "حراج",
+      "example": "In januari is er uitverkoop.",
+      "exampleFa": "در ژانویه حراج است."
+    },
+    {
+      "nl": "de kassabon",
+      "kind": "woord",
+      "fa": "رسید صندوق",
+      "example": "Bewaar de kassabon als je iets wilt ruilen.",
+      "exampleFa": "اگر می‌خواهی چیزی را عوض کنی، رسید را نگه دار."
+    },
+    {
+      "nl": "passen",
+      "kind": "werkwoord",
+      "fa": "پرو کردن",
+      "example": "Mag ik deze broek even passen?",
+      "exampleFa": "می‌شود این شلوار را پرو کنم؟",
+      "forms": [
+        "paste",
+        "heb gepast",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "ruilen",
+      "kind": "werkwoord",
+      "fa": "تعویض کردن",
+      "example": "Ik wil deze trui ruilen voor een andere maat.",
+      "exampleFa": "می‌خواهم این پلیور را با سایز دیگری عوض کنم.",
+      "forms": [
+        "ruilde",
+        "heb geruild",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "terugbrengen",
+      "kind": "werkwoord",
+      "fa": "پس آوردن",
+      "example": "Je kunt het binnen dertig dagen terugbrengen.",
+      "exampleFa": "می‌توانی ظرف سی روز آن را پس بیاوری.",
+      "forms": [
+        "bracht terug",
+        "heb teruggebracht",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "dragen",
+      "kind": "werkwoord",
+      "fa": "پوشیدن",
+      "example": "Wat draag je naar de bruiloft?",
+      "exampleFa": "برای عروسی چه می‌پوشی؟",
+      "forms": [
+        "droeg",
+        "heb gedragen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "aantrekken",
+      "kind": "werkwoord",
+      "fa": "پوشیدن (به تن کردن)",
+      "example": "Trek je jas aan, het is koud.",
+      "exampleFa": "کتت را بپوش، هوا سرد است.",
+      "forms": [
+        "trok aan",
+        "heb aangetrokken",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "het staat je goed",
+      "kind": "uitdrukking",
+      "fa": "به تو می‌آید",
+      "example": "Die kleur staat je goed.",
+      "exampleFa": "آن رنگ به تو می‌آید."
+    },
+    {
+      "nl": "te klein",
+      "kind": "uitdrukking",
+      "fa": "خیلی کوچک",
+      "example": "De schoenen zijn een beetje te klein.",
+      "exampleFa": "کفش‌ها کمی کوچک هستند."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Heeft u deze ook in een grotere maat?",
+      "level": "A2",
+      "fa": "این را در سایز بزرگ‌تر هم دارید؟"
+    },
+    {
+      "nl": "Waar zijn de paskamers?",
+      "level": "A2",
+      "fa": "اتاق‌های پرو کجا هستند؟"
+    },
+    {
+      "nl": "Ik kijk alleen even rond.",
+      "level": "A2",
+      "fa": "فقط دارم نگاه می‌کنم."
+    },
+    {
+      "nl": "Kan ik dit ruilen als het niet past?",
+      "level": "A2",
+      "fa": "اگر اندازه نبود، می‌توانم عوضش کنم؟"
+    },
+    {
+      "nl": "Zit hier nog korting op?",
+      "level": "A2",
+      "fa": "این هنوز تخفیف دارد؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Verkoper",
+      "nl": "Kan ik u helpen?",
+      "fa": "می‌توانم کمکتان کنم؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ja, heeft u deze broek in maat 32?",
+      "fa": "بله، این شلوار را در سایز ۳۲ دارید؟"
+    },
+    {
+      "speaker": "Verkoper",
+      "nl": "Even kijken. Ja, alstublieft. De paskamer is daar.",
+      "fa": "یک لحظه. بله، بفرمایید. اتاق پرو آنجاست."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Dank u. Kan ik hem ruilen als hij niet past?",
+      "fa": "ممنون. اگر اندازه نبود می‌توانم عوضش کنم؟"
+    }
+  ]
+}

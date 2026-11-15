@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:verleden-t-d",
+  "title": "Werkte, woonde, praatte",
+  "level": "A2",
+  "pattern": "SoFT KeTCHuP: t, k, f, s, ch, p (+ sj) → -te(n); anders -de(n) · werken → werkte · wonen → woonde · praten → praatte",
+  "example": "Vroeger werkte ik hier en woonde ik in Utrecht.",
+  "prompt": "Vroeger ___ ik hier. (praten)",
+  "answer": "praatte",
+  "fa": {
+    "rule": "در گذشتهٔ سادهٔ فعل منظم، پسوند بر اساس همخوانِ پیش از پایان مصدر انتخاب می‌شود.",
+    "note": "اگر همخوان پیش از پایان مصدر از گروه بی‌واک یادآور کلاس باشد، پسوند با «ت» می‌آید؛ در غیر این صورت با «د». املای ریشه هم باید اصلاح شود. این قاعده برای فعل‌های بی‌قاعده کافی نیست.",
+    "translation": "قبلاً اینجا کار می‌کردم و در اوترخت زندگی می‌کردم."
+  },
+  "examples": [
+    {
+      "nl": "Gisteren fietste ik naar mijn werk.",
+      "gap": "fietste",
+      "fa": "دیروز با دوچرخه سر کار رفتم.",
+      "hint": "fietsen"
+    },
+    {
+      "nl": "We speelden vroeger vaak buiten.",
+      "gap": "speelden",
+      "fa": "قبلاً زیاد بیرون بازی می‌کردیم.",
+      "hint": "spelen"
+    },
+    {
+      "nl": "Hij maakte een foto van de molen.",
+      "gap": "maakte",
+      "fa": "او از آسیاب بادی عکس گرفت.",
+      "hint": "maken"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:scheidbaar",
+  "title": "Op te lossen",
+  "level": "A2",
+  "pattern": "los ... op → moet oplossen → hoef niet op te lossen",
+  "example": "Ik hoef het probleem niet op te lossen.",
+  "prompt": "Ik hoef niet over ___ stappen.",
+  "answer": "te",
+  "fa": {
+    "rule": "وقتی فعل جداشدنی به شکل اصلی صرف می‌شود، پیشوند جدا می‌شود. با moeten مصدر یک‌تکه است؛ با te، te میان دو بخش می‌آید.",
+    "note": "پیشوند فعل جداشدنی در جملهٔ ساده جدا و در پایان می‌آید. با فعل وجهی، مصدر کامل آخر می‌رود؛ با نشانهٔ مصدر، آن نشانه بین پیشوند و بخش اصلی قرار می‌گیرد.",
+    "translation": "لازم نیست مشکل را حل کنم."
+  },
+  "examples": [
+    {
+      "nl": "Ik hoef niet vroeg op te staan.",
+      "gap": "te",
+      "fa": "لازم نیست زود بیدار شوم."
+    },
+    {
+      "nl": "De trein vertrekt om negen uur en ik stap in Utrecht over.",
+      "gap": "over",
+      "fa": "قطار ساعت نه حرکت می‌کند و من در اوترخت قطار عوض می‌کنم."
+    },
+    {
+      "nl": "Ik moet de formulieren nog invullen.",
+      "gap": "invullen",
+      "fa": "هنوز باید فرم‌ها را پر کنم."
+    }
+  ]
+}

@@ -38,7 +38,7 @@ Translate `locales/es.js`, set the language name, Dutch language name, direction
 
 The navigation stays in simple Dutch: Dutch is the language being learned. Meanings, example translations, grammar explanations and secondary learning hints come from the selected pack. Persian is the only complete bundled pack today. Adding a pack changes the learner's translation language, not the target language.
 
-See [the UX and design notes](docs/DESIGN.md) for the interface structure, the game rules and design references. `leren.html` is the app entry. The public, Persian pages for search engines (`/`, `/woorden/…`, `/grammatica/…`, `/inburgering/`, sitemap, robots.txt and llms.txt) are generated from the lesson content by `scripts/site/build-site.mjs` after the build; see [docs/SEO.md](docs/SEO.md). The resource collection is in the app at `/leren.html#bronnen`; old `/bronnen.html` and `#week` links still work.
+See [the UX and design notes](docs/DESIGN.md) for the interface structure, the game rules and design references. The app lives at `/leren.html`. The public pages for search engines (Dutch at `/`, Persian at `/fa/`: `/woorden/…`, `/grammatica/…`, `/inburgering/`, sitemap, robots.txt and llms.txt) are rendered on the server by React Router from the lesson content; see [docs/SEO.md](docs/SEO.md). The same content is served as JSON at `/api/v1`, and [docs/CONTENT.md](docs/CONTENT.md) explains how to add lessons. The resource collection is in the app at `/leren.html#bronnen`; old `/bronnen.html` and `#week` links still work.
 
 ## Add themes or sentences
 
@@ -57,9 +57,9 @@ PUBLIC_SUPABASE_URL=https://YOUR-PROJECT.supabase.co
 PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_YOUR-PUBLIC-KEY
 ```
 
-`npm run build` generates `dist/deployment-config.json`, which is public by design. Never put a service-role key, database password or Google client secret there. `.env` files are ignored, and the build does not load them automatically. Export values in your shell, or configure them in your host's environment settings. [Full account setup](docs/ACCOUNT-SETUP.md).
+The server answers `/deployment-config.json` with these values, which are public by design. Never put a service-role key, database password or Google client secret there. `.env` files are ignored, and the build does not load them automatically. Export values in your shell, or configure them in your host's environment settings. [Full account setup](docs/ACCOUNT-SETUP.md).
 
-Vercel reads the included build and output settings. With another host, serve `dist/` and configure equivalent security headers. The supplied CSP allows connections to Supabase project domains; narrow it to your own backend if preferred. Preview deployments have account sync off unless you explicitly configure their environment too.
+`npm run build` then `npm start` runs the production server (`server.mjs`), which sets the security headers; the live site runs it on Railway. The supplied CSP allows connections to Supabase project domains; narrow it to your own backend if preferred. Preview deployments have account sync off unless you explicitly configure their environment too.
 
 ## Progress and privacy
 

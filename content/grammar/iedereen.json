@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:iedereen",
+  "title": "Iedereen is ...",
+  "level": "A2",
+  "pattern": "iedereen heeft / iedereen is",
+  "example": "Iedereen is gebleven.",
+  "prompt": "Iedereen ___ gekomen.",
+  "answer": "is",
+  "fa": {
+    "rule": "iedereen از نظر معنایی همه است، ولی از نظر دستوری مفرد است.",
+    "note": "با اسم جمع: Alle medewerkers zijn gebleven.",
+    "translation": "همه مانده‌اند."
+  },
+  "examples": [
+    {
+      "nl": "Iedereen heeft een eigen kamer.",
+      "gap": "heeft",
+      "fa": "هر کس اتاق خودش را دارد."
+    },
+    {
+      "nl": "Iedereen was op tijd.",
+      "gap": "was",
+      "fa": "همه سر وقت بودند."
+    },
+    {
+      "nl": "Iedereen mag meedoen.",
+      "gap": "mag",
+      "fa": "همه می‌توانند شرکت کنند."
+    }
+  ]
+}

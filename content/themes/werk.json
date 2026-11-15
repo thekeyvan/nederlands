@@ -1,0 +1,266 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "werk",
+  "title": "Werk & privé",
+  "fa": "کار و زندگی",
+  "icon": "01",
+  "intro": "Wat vind jij belangrijk in je werk?",
+  "words": [
+    {
+      "nl": "de balans",
+      "kind": "woord",
+      "fa": "تعادل",
+      "example": "Ik zoek een goede balans tussen werk en vrije tijd.",
+      "exampleFa": "دنبال تعادل خوبی بین کار و وقت آزاد هستم."
+    },
+    {
+      "nl": "de ontspanning",
+      "kind": "woord",
+      "fa": "استراحت و تفریح",
+      "example": "Na een drukke dag heb ik ontspanning nodig.",
+      "exampleFa": "بعد از یک روز شلوغ به استراحت و تفریح نیاز دارم."
+    },
+    {
+      "nl": "de vrije tijd",
+      "kind": "woord",
+      "fa": "وقت آزاد",
+      "example": "In mijn vrije tijd speel ik piano.",
+      "exampleFa": "در وقت آزادم پیانو می‌زنم."
+    },
+    {
+      "nl": "de arbeidsvoorwaarden",
+      "kind": "woord",
+      "fa": "شرایط کاری و استخدامی",
+      "example": "We bespreken het salaris en de andere arbeidsvoorwaarden.",
+      "exampleFa": "دربارهٔ حقوق و شرایط کاری دیگر صحبت می‌کنیم."
+    },
+    {
+      "nl": "flexibele werktijden",
+      "kind": "woord",
+      "fa": "ساعت‌های کاری انعطاف‌پذیر",
+      "example": "Met flexibele werktijden kan ik later beginnen.",
+      "exampleFa": "با ساعت‌های کاری انعطاف‌پذیر می‌توانم دیرتر شروع کنم."
+    },
+    {
+      "nl": "thuiswerken",
+      "kind": "werkwoord",
+      "fa": "از خانه کار کردن",
+      "example": "Op woensdag werk ik thuis.",
+      "exampleFa": "چهارشنبه‌ها از خانه کار می‌کنم.",
+      "forms": [
+        "werkte thuis",
+        "heb thuisgewerkt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "hybride werken",
+      "kind": "uitdrukking",
+      "fa": "کار ترکیبی؛ بخشی در خانه و بخشی در محل کار",
+      "example": "Bij ons betekent hybride werken: deels thuis en deels op kantoor.",
+      "exampleFa": "برای ما کار ترکیبی یعنی بخشی در خانه و بخشی در دفتر کار کردن."
+    },
+    {
+      "nl": "overwerken",
+      "kind": "werkwoord",
+      "fa": "اضافه‌کاری کردن",
+      "example": "Ik moet vandaag overwerken om het project af te maken.",
+      "exampleFa": "امروز باید اضافه‌کاری کنم تا پروژه را تمام کنم.",
+      "forms": [
+        "werkte over",
+        "heb overgewerkt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "de werkgever",
+      "kind": "woord",
+      "fa": "کارفرما",
+      "example": "Mijn werkgever betaalt mijn reiskosten.",
+      "exampleFa": "کارفرمایم هزینهٔ رفت‌وآمدم را می‌پردازد."
+    },
+    {
+      "nl": "de werknemer",
+      "kind": "woord",
+      "fa": "کارمند؛ نیروی استخدام‌شده",
+      "example": "Iedere werknemer krijgt een eigen laptop.",
+      "exampleFa": "هر کارمند یک لپ‌تاپ مخصوص خودش می‌گیرد."
+    },
+    {
+      "nl": "de medewerker",
+      "kind": "woord",
+      "fa": "عضو کارکنان",
+      "example": "Een medewerker helpt me met mijn vraag.",
+      "exampleFa": "یکی از کارکنان برای پیدا کردن پاسخ سؤالم کمکم می‌کند."
+    },
+    {
+      "nl": "de werkomgeving",
+      "kind": "woord",
+      "fa": "محیط کار",
+      "example": "Een rustige werkomgeving helpt me om me te concentreren.",
+      "exampleFa": "محیط کاری آرام کمکم می‌کند تمرکز کنم."
+    },
+    {
+      "nl": "waarde hechten aan",
+      "kind": "uitdrukking",
+      "fa": "برای چیزی ارزش و اهمیت قائل بودن",
+      "example": "Ik hecht veel waarde aan mijn vrije tijd.",
+      "exampleFa": "برای وقت آزادم اهمیت زیادی قائلم."
+    },
+    {
+      "nl": "tijd besteden aan",
+      "kind": "uitdrukking",
+      "fa": "وقت صرف چیزی کردن",
+      "example": "Ik besteed veel tijd aan mijn werk.",
+      "exampleFa": "وقت زیادی صرف کارم می‌کنم."
+    },
+    {
+      "nl": "behouden",
+      "kind": "werkwoord",
+      "fa": "حفظ کردن؛ نگه داشتن",
+      "example": "Ik wil mijn huidige werktijden behouden.",
+      "exampleFa": "می‌خواهم ساعت‌های کاری فعلی‌ام را حفظ کنم.",
+      "forms": [
+        "behield",
+        "heb behouden",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "afstemmen op",
+      "kind": "uitdrukking",
+      "fa": "با چیزی هماهنگ کردن",
+      "example": "Ik stem mijn werktijden af op mijn gezin.",
+      "exampleFa": "ساعت‌های کاری‌ام را با خانواده‌ام هماهنگ می‌کنم."
+    },
+    {
+      "nl": "zorgen voor",
+      "kind": "uitdrukking",
+      "fa": "مراقبت کردن از؛ فراهم کردنِ",
+      "example": "Het bedrijf zorgt voor goede werkplekken.",
+      "exampleFa": "شرکت محل‌های کار مناسبی فراهم می‌کند."
+    },
+    {
+      "nl": "tevreden zijn met",
+      "kind": "uitdrukking",
+      "fa": "از چیزی راضی بودن",
+      "example": "Ben je tevreden met je nieuwe baan?",
+      "exampleFa": "از شغل جدیدت راضی هستی؟"
+    },
+    {
+      "nl": "presteren",
+      "kind": "werkwoord",
+      "fa": "عملکرد داشتن؛ نتیجه گرفتن",
+      "example": "Als ik goed slaap, presteer ik beter op mijn werk.",
+      "exampleFa": "وقتی خوب می‌خوابم، در کارم عملکرد بهتری دارم.",
+      "forms": [
+        "presteerde",
+        "heb gepresteerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "productief",
+      "kind": "woord",
+      "fa": "پربازده",
+      "example": "In de ochtend ben ik het meest productief.",
+      "exampleFa": "صبح‌ها بیشترین بازدهی را دارم."
+    },
+    {
+      "nl": "op afstand",
+      "kind": "uitdrukking",
+      "fa": "از راه دور",
+      "example": "We werken op afstand samen aan hetzelfde project.",
+      "exampleFa": "از راه دور روی همان پروژه با هم کار می‌کنیم."
+    },
+    {
+      "nl": "op maat",
+      "kind": "uitdrukking",
+      "fa": "متناسب با نیاز",
+      "example": "Dit bedrijf maakt meubels op maat.",
+      "exampleFa": "این شرکت مبلمان متناسب با اندازه و نیاز مشتری می‌سازد."
+    },
+    {
+      "nl": "aanbieden",
+      "kind": "werkwoord",
+      "fa": "ارائه دادن",
+      "example": "Het bedrijf biedt een cursus Nederlands aan.",
+      "exampleFa": "شرکت یک دورهٔ زبان هلندی ارائه می‌دهد.",
+      "forms": [
+        "bood aan",
+        "heb aangeboden",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "carrière maken",
+      "kind": "uitdrukking",
+      "fa": "پیشرفت شغلی داشتن",
+      "example": "Zij wil carrière maken in de techniek.",
+      "exampleFa": "او می‌خواهد در حوزهٔ فنی پیشرفت شغلی کند."
+    },
+    {
+      "nl": "de koffiezetautomaat",
+      "kind": "woord",
+      "fa": "دستگاه قهوه‌ساز",
+      "example": "De koffiezetautomaat staat in de kantine.",
+      "exampleFa": "دستگاه قهوه‌ساز در غذاخوری است."
+    },
+    {
+      "nl": "de tijdsbesteding",
+      "kind": "woord",
+      "fa": "نحوهٔ صرف وقت",
+      "example": "Ik wil mijn tijdsbesteding beter plannen.",
+      "exampleFa": "می‌خواهم نحوهٔ صرف وقتم را بهتر برنامه‌ریزی کنم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik werk twee dagen per week thuis.",
+      "level": "A2",
+      "fa": "هفته‌ای دو روز از خانه کار می‌کنم."
+    },
+    {
+      "nl": "Hoe laat begint jouw werkdag?",
+      "level": "A2",
+      "fa": "روز کاری تو چه ساعتی شروع می‌شود؟"
+    },
+    {
+      "nl": "Ik wil werk en privé beter combineren.",
+      "level": "A2",
+      "fa": "می‌خواهم کار و زندگی شخصی را بهتر با هم هماهنگ کنم."
+    },
+    {
+      "nl": "Kan ik morgen wat eerder weg?",
+      "level": "A2",
+      "fa": "می‌توانم فردا کمی زودتر بروم؟"
+    },
+    {
+      "nl": "Na het werk wil ik graag ontspannen.",
+      "level": "A2",
+      "fa": "بعد از کار دوست دارم استراحت کنم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Hoe laat begint jouw werkdag?",
+      "fa": "روز کاری تو چه ساعتی شروع می‌شود؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Ik begin meestal om negen uur.",
+      "fa": "معمولاً ساعت نه شروع می‌کنم."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Kan ik morgen wat eerder weg?",
+      "fa": "می‌توانم فردا کمی زودتر بروم؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Dat kan. Zet het even in je agenda.",
+      "fa": "می‌شود. آن را در تقویمت ثبت کن."
+    }
+  ]
+}

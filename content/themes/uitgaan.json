@@ -1,0 +1,343 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "uitgaan",
+  "title": "Eten & uitgaan",
+  "fa": "غذا خوردن و بیرون رفتن",
+  "icon": "11",
+  "intro": "Vraag iets in een café of restaurant.",
+  "words": [
+    {
+      "nl": "uit eten gaan",
+      "kind": "uitdrukking",
+      "fa": "برای غذا خوردن بیرون رفتن",
+      "example": "Zullen we vrijdag samen uit eten gaan?",
+      "exampleFa": "جمعه برای غذا خوردن با هم بیرون برویم؟"
+    },
+    {
+      "nl": "het avondeten",
+      "kind": "woord",
+      "fa": "شام",
+      "example": "Wat eten we vanavond als avondeten?",
+      "exampleFa": "امشب برای شام چه می‌خوریم؟"
+    },
+    {
+      "nl": "de menukaart",
+      "kind": "woord",
+      "fa": "منو؛ فهرست غذا",
+      "example": "Mogen we de menukaart even zien?",
+      "exampleFa": "می‌توانیم منو را ببینیم؟"
+    },
+    {
+      "nl": "de rekening",
+      "kind": "woord",
+      "fa": "صورت‌حساب؛ در زمینهٔ بانکی: حساب",
+      "example": "We vragen de rekening na het dessert.",
+      "exampleFa": "بعد از دسر صورت‌حساب را می‌خواهیم."
+    },
+    {
+      "nl": "de kassa",
+      "kind": "woord",
+      "fa": "صندوق؛ باجهٔ پرداخت",
+      "example": "U kunt bij de kassa betalen.",
+      "exampleFa": "می‌توانید کنار صندوق پرداخت کنید."
+    },
+    {
+      "nl": "het kaartje",
+      "kind": "woord",
+      "fa": "بلیت؛ کارت کوچک",
+      "example": "Ik heb een kaartje voor het concert gekocht.",
+      "exampleFa": "برای کنسرت بلیت خریده‌ام."
+    },
+    {
+      "nl": "reserveren",
+      "kind": "werkwoord",
+      "fa": "رزرو کردن",
+      "example": "Ik wil graag een tafel voor vier personen reserveren.",
+      "exampleFa": "می‌خواهم یک میز برای چهار نفر رزرو کنم.",
+      "forms": [
+        "reserveerde",
+        "heb gereserveerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "serveren",
+      "kind": "werkwoord",
+      "fa": "سرو کردن",
+      "example": "Dit restaurant serveert ook vegetarische gerechten.",
+      "exampleFa": "این رستوران غذاهای گیاهی هم سرو می‌کند.",
+      "forms": [
+        "serveerde",
+        "heb geserveerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "open",
+      "kind": "woord",
+      "fa": "باز",
+      "example": "Is de keuken nog open?",
+      "exampleFa": "آشپزخانه هنوز باز است؟"
+    },
+    {
+      "nl": "dicht",
+      "kind": "woord",
+      "fa": "بسته",
+      "example": "De winkel is vandaag dicht.",
+      "exampleFa": "فروشگاه امروز بسته است."
+    },
+    {
+      "nl": "gesloten",
+      "kind": "woord",
+      "fa": "بسته؛ تعطیل",
+      "example": "Het museum is op maandag gesloten.",
+      "exampleFa": "موزه دوشنبه‌ها تعطیل است."
+    },
+    {
+      "nl": "vrij",
+      "kind": "woord",
+      "fa": "خالی؛ آزاد",
+      "example": "Er is nog een tafel vrij bij het raam.",
+      "exampleFa": "هنوز یک میز کنار پنجره خالی است."
+    },
+    {
+      "nl": "bezet",
+      "kind": "woord",
+      "fa": "اشغال",
+      "example": "Deze stoel is bezet; mijn vriendin zit hier.",
+      "exampleFa": "این صندلی اشغال است؛ دوستم اینجا می‌نشیند."
+    },
+    {
+      "nl": "vol",
+      "kind": "woord",
+      "fa": "پر",
+      "example": "Het restaurant is vol, dus we moeten wachten.",
+      "exampleFa": "رستوران پر است، پس باید منتظر بمانیم."
+    },
+    {
+      "nl": "leeg",
+      "kind": "woord",
+      "fa": "خالی از محتوا",
+      "example": "Mijn glas is leeg. Mag ik nog wat water?",
+      "exampleFa": "لیوانم خالی است. می‌توانم کمی آب دیگر داشته باشم؟"
+    },
+    {
+      "nl": "volgeboekt",
+      "kind": "woord",
+      "fa": "ظرفیت کاملاً رزروشده",
+      "example": "Het hotel is voor dit weekend helemaal volgeboekt.",
+      "exampleFa": "همهٔ اتاق‌های هتل برای این آخر هفته رزرو شده‌اند."
+    },
+    {
+      "nl": "uitverkocht",
+      "kind": "woord",
+      "fa": "تمام موجودی یا بلیت‌ها فروخته شده",
+      "example": "De kaartjes voor het concert zijn uitverkocht.",
+      "exampleFa": "بلیت‌های کنسرت تمام شده‌اند."
+    },
+    {
+      "nl": "op zijn",
+      "kind": "uitdrukking",
+      "fa": "موجودی تمام شدن",
+      "example": "De koffie is op.",
+      "exampleFa": "قهوه تمام شده است."
+    },
+    {
+      "nl": "afgelopen zijn",
+      "kind": "uitdrukking",
+      "fa": "یک رویداد به پایان رسیده بودن",
+      "example": "De film is afgelopen.",
+      "exampleFa": "فیلم تمام شده است."
+    },
+    {
+      "nl": "klaar zijn met",
+      "kind": "uitdrukking",
+      "fa": "کار چیزی را تمام کرده بودن",
+      "example": "Ben je klaar met eten of wil je nog iets?",
+      "exampleFa": "غذایت تمام شده یا هنوز چیز دیگری می‌خواهی؟"
+    },
+    {
+      "nl": "iets af hebben",
+      "kind": "uitdrukking",
+      "fa": "کاری را تمام کرده بودن",
+      "example": "Ik heb mijn werk nog niet af.",
+      "exampleFa": "هنوز کارم را تمام نکرده‌ام."
+    },
+    {
+      "nl": "Tot hoe laat ...?",
+      "kind": "uitdrukking",
+      "fa": "تا ساعت چند ...؟",
+      "example": "Tot hoe laat kan ik hier eten?",
+      "exampleFa": "اینجا تا ساعت چند می‌توانم غذا بخورم؟"
+    },
+    {
+      "nl": "Is deze plaats vrij?",
+      "kind": "uitdrukking",
+      "fa": "این جا خالی است؟",
+      "example": "Is deze plaats vrij? Dan ga ik graag hier zitten.",
+      "exampleFa": "این جا خالی است؟ اگر بله، دوست دارم اینجا بنشینم."
+    },
+    {
+      "nl": "Mag ik de rekening?",
+      "kind": "uitdrukking",
+      "fa": "می‌شود صورت‌حساب را بدهید؟",
+      "example": "Mag ik de rekening? We willen graag betalen.",
+      "exampleFa": "می‌توانم صورت‌حساب را داشته باشم؟ می‌خواهیم پرداخت کنیم."
+    },
+    {
+      "nl": "Gaat u maar zitten.",
+      "kind": "uitdrukking",
+      "fa": "بفرمایید بنشینید.",
+      "example": "Gaat u maar zitten. Ik kom zo bij u.",
+      "exampleFa": "بفرمایید بنشینید. تا لحظاتی دیگر خدمتتان می‌رسم."
+    },
+    {
+      "nl": "Dan neem ik ze allebei.",
+      "kind": "uitdrukking",
+      "fa": "پس هر دوتایش را برمی‌دارم.",
+      "example": "De twee gebakjes zien er lekker uit. Dan neem ik ze allebei.",
+      "exampleFa": "هر دو شیرینی خوشمزه به نظر می‌رسند. پس هر دو را می‌گیرم."
+    },
+    {
+      "nl": "het koffiekopje",
+      "kind": "woord",
+      "fa": "فنجان قهوهٔ کوچک",
+      "example": "Wil je dit koffiekopje afwassen?",
+      "exampleFa": "این فنجان قهوه را می‌شویی؟"
+    },
+    {
+      "nl": "de kop",
+      "kind": "woord",
+      "fa": "فنجان یا سر",
+      "example": "Ik drink een kop koffie.",
+      "exampleFa": "یک فنجان قهوه می‌نوشم."
+    },
+    {
+      "nl": "het biertje",
+      "kind": "woord",
+      "fa": "یک آبجو، با لحن خودمانی",
+      "example": "Zullen we een biertje drinken?",
+      "exampleFa": "با هم یک آبجو بنوشیم؟"
+    },
+    {
+      "nl": "het lepeltje",
+      "kind": "woord",
+      "fa": "قاشق کوچک",
+      "example": "Er ligt een lepeltje naast je kopje.",
+      "exampleFa": "کنار فنجانت یک قاشق کوچک است."
+    },
+    {
+      "nl": "het attractiepark",
+      "kind": "woord",
+      "fa": "شهربازی",
+      "example": "We gaan zaterdag naar een attractiepark.",
+      "exampleFa": "شنبه به یک شهربازی می‌رویم."
+    },
+    {
+      "nl": "de dierentuin",
+      "kind": "woord",
+      "fa": "باغ‌وحش",
+      "example": "In de dierentuin zien we veel dieren.",
+      "exampleFa": "در باغ‌وحش حیوانات زیادی می‌بینیم."
+    },
+    {
+      "nl": "een dagje strand",
+      "kind": "uitdrukking",
+      "fa": "یک روز تفریح در ساحل",
+      "example": "Met mooi weer is een dagje strand fijn.",
+      "exampleFa": "در هوای خوب، یک روز تفریح در ساحل لذت‌بخش است."
+    },
+    {
+      "nl": "een terrasje pakken",
+      "kind": "uitdrukking",
+      "fa": "نشستن در فضای بیرونی کافه",
+      "example": "Zullen we na het werk een terrasje pakken?",
+      "exampleFa": "بعد از کار در فضای بیرونی یک کافه بنشینیم؟"
+    },
+    {
+      "nl": "lunchen",
+      "kind": "werkwoord",
+      "fa": "ناهار خوردن",
+      "example": "We hebben samen geluncht.",
+      "exampleFa": "با هم ناهار خوردیم.",
+      "forms": [
+        "lunchte",
+        "heeft geluncht",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "barbecueën",
+      "kind": "werkwoord",
+      "fa": "باربیکیو کردن",
+      "example": "We hebben in de tuin gebarbecued.",
+      "exampleFa": "در باغ باربیکیو کردیم.",
+      "forms": [
+        "barbecuede",
+        "heeft gebarbecued",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "borrelen",
+      "kind": "werkwoord",
+      "fa": "دور هم نوشیدنی خوردن",
+      "example": "We hebben na het werk geborreld.",
+      "exampleFa": "بعد از کار دور هم نوشیدنی خوردیم.",
+      "forms": [
+        "borrelde",
+        "heeft geborreld",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik wil graag een tafel voor twee personen reserveren.",
+      "level": "A2",
+      "fa": "می‌خواهم یک میز برای دو نفر رزرو کنم."
+    },
+    {
+      "nl": "Heeft u ook iets zonder vlees?",
+      "level": "A2",
+      "fa": "غذای بدون گوشت هم دارید؟"
+    },
+    {
+      "nl": "Ik ben allergisch voor noten.",
+      "level": "A2",
+      "fa": "من به مغزها مثل گردو و فندق حساسیت دارم."
+    },
+    {
+      "nl": "Mogen we de rekening, alstublieft?",
+      "level": "A2",
+      "fa": "می‌توانیم صورت‌حساب را داشته باشیم، لطفاً؟"
+    },
+    {
+      "nl": "Kunnen we apart betalen?",
+      "level": "A2",
+      "fa": "می‌توانیم جداگانه پرداخت کنیم؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Ik wil graag een tafel voor twee personen reserveren.",
+      "fa": "می‌خواهم یک میز برای دو نفر رزرو کنم."
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Natuurlijk. Voor welke dag?",
+      "fa": "حتماً. برای چه روزی؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Kunnen we apart betalen?",
+      "fa": "می‌توانیم جداگانه پرداخت کنیم؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Ja hoor. Ik maak twee rekeningen.",
+      "fa": "بله حتماً. دو صورت‌حساب درست می‌کنم."
+    }
+  ]
+}

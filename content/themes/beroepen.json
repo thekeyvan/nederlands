@@ -1,0 +1,248 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "beroepen",
+  "title": "Wie werkt waar?",
+  "fa": "شغل‌ها و محل کار",
+  "icon": "04",
+  "intro": "Leer een beroep samen met de werkplek.",
+  "words": [
+    {
+      "nl": "de huisarts",
+      "kind": "woord",
+      "fa": "پزشک عمومی یا پزشک خانواده",
+      "example": "De huisarts werkt in een huisartsenpraktijk.",
+      "exampleFa": "پزشک عمومی در مطب کار می‌کند."
+    },
+    {
+      "nl": "de specialist",
+      "kind": "woord",
+      "fa": "پزشک متخصص",
+      "example": "De specialist werkt in het ziekenhuis.",
+      "exampleFa": "پزشک متخصص در بیمارستان کار می‌کند."
+    },
+    {
+      "nl": "de advocaat",
+      "kind": "woord",
+      "fa": "وکیل",
+      "example": "Zij werkt op een advocatenkantoor.",
+      "exampleFa": "او در دفتر وکالت کار می‌کند."
+    },
+    {
+      "nl": "de rechter",
+      "kind": "woord",
+      "fa": "قاضی",
+      "example": "De rechter werkt bij de rechtbank.",
+      "exampleFa": "قاضی در دادگاه کار می‌کند."
+    },
+    {
+      "nl": "de vertaler",
+      "kind": "woord",
+      "fa": "مترجم",
+      "example": "Hij werkt bij een vertaalbureau.",
+      "exampleFa": "او در یک دارالترجمه کار می‌کند."
+    },
+    {
+      "nl": "de ambtenaar",
+      "kind": "woord",
+      "fa": "کارمند دولت",
+      "example": "Zij werkt bij de overheid.",
+      "exampleFa": "او در یک نهاد دولتی کار می‌کند."
+    },
+    {
+      "nl": "de journalist",
+      "kind": "woord",
+      "fa": "روزنامه‌نگار",
+      "example": "Hij werkt bij een krant.",
+      "exampleFa": "او در یک روزنامه کار می‌کند."
+    },
+    {
+      "nl": "de automonteur",
+      "kind": "woord",
+      "fa": "مکانیک خودرو",
+      "example": "De automonteur werkt in een garage.",
+      "exampleFa": "مکانیک خودرو در تعمیرگاه کار می‌کند."
+    },
+    {
+      "nl": "de hoogleraar",
+      "kind": "woord",
+      "fa": "استاد دانشگاه در رتبهٔ پروفسور",
+      "example": "Zij werkt aan de universiteit.",
+      "exampleFa": "او در دانشگاه کار می‌کند."
+    },
+    {
+      "nl": "de onderwijzer",
+      "kind": "woord",
+      "fa": "معلم دبستان",
+      "example": "Hij werkt op school.",
+      "exampleFa": "او در مدرسه کار می‌کند."
+    },
+    {
+      "nl": "de arbeider",
+      "kind": "woord",
+      "fa": "کارگر",
+      "example": "De arbeider werkt in een fabriek.",
+      "exampleFa": "کارگر در یک کارخانه کار می‌کند."
+    },
+    {
+      "nl": "de conservator",
+      "kind": "woord",
+      "fa": "مسئول مجموعه و آثار موزه",
+      "example": "De conservator zorgt voor de collectie van het museum.",
+      "exampleFa": "مسئول مجموعه از آثار موزه نگهداری می‌کند."
+    },
+    {
+      "nl": "de ambassadeur",
+      "kind": "woord",
+      "fa": "سفیر",
+      "example": "De ambassadeur vertegenwoordigt zijn land in het buitenland.",
+      "exampleFa": "سفیر در خارج از کشور نمایندهٔ کشور خود است."
+    },
+    {
+      "nl": "de consultant",
+      "kind": "woord",
+      "fa": "مشاور",
+      "example": "De consultant geeft ons advies over het project.",
+      "exampleFa": "مشاور دربارهٔ پروژه به ما مشورت می‌دهد."
+    },
+    {
+      "nl": "de secretaresse",
+      "kind": "woord",
+      "fa": "منشی",
+      "example": "De secretaresse plant de afspraken van de directeur.",
+      "exampleFa": "منشی قرارهای مدیر را برنامه‌ریزی می‌کند."
+    },
+    {
+      "nl": "de telefoniste",
+      "kind": "woord",
+      "fa": "اپراتور تلفن",
+      "example": "De telefoniste verbindt mij door met de juiste afdeling.",
+      "exampleFa": "تلفنچی من را به بخش مربوط وصل می‌کند."
+    },
+    {
+      "nl": "de vrachtwagenchauffeur",
+      "kind": "woord",
+      "fa": "رانندهٔ کامیون",
+      "example": "De vrachtwagenchauffeur brengt de goederen naar de winkel.",
+      "exampleFa": "رانندهٔ کامیون کالاها را به فروشگاه می‌رساند."
+    },
+    {
+      "nl": "de binnenhuisarchitect",
+      "kind": "woord",
+      "fa": "طراح داخلی",
+      "example": "De binnenhuisarchitect helpt ons met de inrichting.",
+      "exampleFa": "طراح داخلی برای چیدمان و طراحی فضای خانه کمکمان می‌کند."
+    },
+    {
+      "nl": "de ober",
+      "kind": "woord",
+      "fa": "گارسون",
+      "example": "De ober brengt onze drankjes.",
+      "exampleFa": "پیشخدمت نوشیدنی‌هایمان را می‌آورد."
+    },
+    {
+      "nl": "de registeraccountant",
+      "kind": "woord",
+      "fa": "حسابدار رسمی",
+      "example": "De registeraccountant controleert de jaarrekening van het bedrijf.",
+      "exampleFa": "حسابدار رسمی صورت‌های مالی سالانهٔ شرکت را بررسی می‌کند."
+    },
+    {
+      "nl": "de kapitein",
+      "kind": "woord",
+      "fa": "ناخدای کشتی",
+      "example": "De kapitein is verantwoordelijk voor het schip.",
+      "exampleFa": "ناخدا مسئول کشتی است."
+    },
+    {
+      "nl": "de piloot",
+      "kind": "woord",
+      "fa": "خلبان",
+      "example": "De piloot vertelt hoe lang de vlucht duurt.",
+      "exampleFa": "خلبان می‌گوید پرواز چقدر طول می‌کشد."
+    },
+    {
+      "nl": "de kinderverzorgster",
+      "kind": "woord",
+      "fa": "مراقب کودک",
+      "example": "De kinderverzorgster leest de kinderen een verhaal voor.",
+      "exampleFa": "مربی کودکان برای بچه‌ها داستان می‌خواند."
+    },
+    {
+      "nl": "de voorzitter",
+      "kind": "woord",
+      "fa": "رئیس جلسه یا هیئت",
+      "example": "De voorzitter opent de vergadering.",
+      "exampleFa": "رئیس جلسه، جلسه را شروع می‌کند."
+    },
+    {
+      "nl": "het hoofdkantoor",
+      "kind": "woord",
+      "fa": "دفتر مرکزی",
+      "example": "Het hoofdkantoor van ons bedrijf staat in Rotterdam.",
+      "exampleFa": "دفتر مرکزی شرکت ما در روتردام است."
+    },
+    {
+      "nl": "het kinderdagverblijf",
+      "kind": "woord",
+      "fa": "مهدکودک",
+      "example": "Ons kind gaat drie dagen per week naar het kinderdagverblijf.",
+      "exampleFa": "فرزندمان هفته‌ای سه روز به مهدکودک می‌رود."
+    },
+    {
+      "nl": "werken als",
+      "kind": "uitdrukking",
+      "fa": "به‌عنوانِ ... کار کردن",
+      "example": "Ik werk als programmeur.",
+      "exampleFa": "به‌عنوان برنامه‌نویس کار می‌کنم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Wat doe je voor werk?",
+      "level": "A2",
+      "fa": "کارت چیست؟"
+    },
+    {
+      "nl": "Ik werk als monteur in een garage.",
+      "level": "A2",
+      "fa": "به عنوان مکانیک در یک تعمیرگاه کار می‌کنم."
+    },
+    {
+      "nl": "Werk je voor jezelf of in loondienst?",
+      "level": "A2",
+      "fa": "برای خودت کار می‌کنی یا کارمند هستی؟"
+    },
+    {
+      "nl": "Wat vind je leuk aan je beroep?",
+      "level": "A2",
+      "fa": "چه چیزی را در شغلت دوست داری؟"
+    },
+    {
+      "nl": "Moet je voor dit werk een opleiding volgen?",
+      "level": "A2",
+      "fa": "برای این کار باید دورهٔ آموزشی بگذرانی؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Wat doe je voor werk?",
+      "fa": "کارت چیست؟"
+    },
+    {
+      "speaker": "Buur",
+      "nl": "Ik ben leraar op een basisschool.",
+      "fa": "من معلم یک دبستان هستم."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Wat vind je leuk aan je beroep?",
+      "fa": "چه چیزی را در شغلت دوست داری؟"
+    },
+    {
+      "speaker": "Buur",
+      "nl": "Ik vind het leuk om kinderen iets nieuws te leren.",
+      "fa": "دوست دارم چیزهای تازه به بچه‌ها یاد بدهم."
+    }
+  ]
+}

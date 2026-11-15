@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:die-dat",
+  "title": "De collega die ...",
+  "level": "B1",
+  "pattern": "de collega die ... / het boek dat ...",
+  "example": "De collega die hier werkt, spreekt Nederlands.",
+  "prompt": "Het boek ___ ik lees, is leuk.",
+  "answer": "dat",
+  "fa": {
+    "rule": "برای توضیح یک اسم، جملهٔ موصولی می‌آید. برای de و جمع: die. برای het مفرد: dat.",
+    "note": "فعل در انتهای بخش موصولی می‌آید: het boek dat ik heb gelezen.",
+    "translation": "همکاری که اینجا کار می‌کند، هلندی صحبت می‌کند."
+  },
+  "examples": [
+    {
+      "nl": "De trein die nu vertrekt, gaat naar Utrecht.",
+      "gap": "die",
+      "fa": "قطاری که الان حرکت می‌کند، به اوترخت می‌رود."
+    },
+    {
+      "nl": "Het huis dat we huren, is groot.",
+      "gap": "dat",
+      "fa": "خانه‌ای که اجاره می‌کنیم، بزرگ است."
+    },
+    {
+      "nl": "De man die daar staat, is mijn buurman.",
+      "gap": "die",
+      "fa": "مردی که آنجا ایستاده، همسایهٔ من است."
+    }
+  ]
+}

@@ -1,0 +1,432 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "cultuur",
+  "title": "Muziek, film & kunst",
+  "fa": "موسیقی، فیلم و هنر",
+  "icon": "08",
+  "intro": "Vertel over een film of een concert.",
+  "words": [
+    {
+      "nl": "het orkest",
+      "kind": "woord",
+      "fa": "ارکستر",
+      "example": "Het orkest speelt vanavond in de grote zaal.",
+      "exampleFa": "ارکستر امشب در سالن بزرگ اجرا دارد."
+    },
+    {
+      "nl": "de band",
+      "kind": "woord",
+      "fa": "گروه موسیقی",
+      "example": "Deze band maakt vooral rustige muziek.",
+      "exampleFa": "این گروه بیشتر موسیقی آرام می‌سازد."
+    },
+    {
+      "nl": "de zanger",
+      "kind": "woord",
+      "fa": "خواننده",
+      "example": "De zanger schrijft zijn eigen liedjes.",
+      "exampleFa": "خواننده ترانه‌های خودش را می‌نویسد."
+    },
+    {
+      "nl": "het koor",
+      "kind": "woord",
+      "fa": "گروه کُر؛ هم‌خوانی",
+      "example": "Mijn buurvrouw zingt in een koor.",
+      "exampleFa": "همسایه‌ام در یک گروه کُر آواز می‌خواند."
+    },
+    {
+      "nl": "de pianist",
+      "kind": "woord",
+      "fa": "نوازندهٔ پیانو",
+      "example": "De pianist speelt een stuk van een Nederlandse componist.",
+      "exampleFa": "نوازندهٔ پیانو قطعه‌ای از یک آهنگ‌ساز هلندی می‌نوازد."
+    },
+    {
+      "nl": "de violist",
+      "kind": "woord",
+      "fa": "نوازندهٔ ویولن",
+      "example": "De violist stemt zijn viool voor het concert.",
+      "exampleFa": "نوازندهٔ ویولن قبل از کنسرت سازش را کوک می‌کند."
+    },
+    {
+      "nl": "de regisseur",
+      "kind": "woord",
+      "fa": "کارگردان",
+      "example": "De regisseur vertelt de acteurs wat ze moeten doen.",
+      "exampleFa": "کارگردان به بازیگرها می‌گوید چه کار کنند."
+    },
+    {
+      "nl": "de acteur",
+      "kind": "woord",
+      "fa": "بازیگر",
+      "example": "Die acteur speelt ook in mijn favoriete serie.",
+      "exampleFa": "آن بازیگر در سریال موردعلاقه‌ام هم بازی می‌کند."
+    },
+    {
+      "nl": "de actrice",
+      "kind": "woord",
+      "fa": "بازیگر زن",
+      "example": "De actrice krijgt een prijs voor haar rol.",
+      "exampleFa": "بازیگر زن برای نقشش جایزه می‌گیرد."
+    },
+    {
+      "nl": "de schrijver",
+      "kind": "woord",
+      "fa": "نویسنده",
+      "example": "De schrijver vertelt over zijn nieuwe boek.",
+      "exampleFa": "نویسنده دربارهٔ کتاب جدیدش صحبت می‌کند."
+    },
+    {
+      "nl": "de schilder",
+      "kind": "woord",
+      "fa": "نقاش",
+      "example": "De schilder gebruikt veel blauw in zijn werk.",
+      "exampleFa": "نقاش در آثارش از رنگ آبی زیاد استفاده می‌کند."
+    },
+    {
+      "nl": "het schilderij",
+      "kind": "woord",
+      "fa": "تابلو نقاشی",
+      "example": "Dat schilderij hangt boven de bank.",
+      "exampleFa": "آن تابلو بالای مبل آویزان است."
+    },
+    {
+      "nl": "de voorstelling",
+      "kind": "woord",
+      "fa": "نمایش؛ اجرا",
+      "example": "De voorstelling duurt anderhalf uur.",
+      "exampleFa": "اجرا یک ساعت و نیم طول می‌کشد."
+    },
+    {
+      "nl": "het podium",
+      "kind": "woord",
+      "fa": "صحنه",
+      "example": "De muzikanten lopen het podium op.",
+      "exampleFa": "نوازنده‌ها روی صحنه می‌روند."
+    },
+    {
+      "nl": "het publiek",
+      "kind": "woord",
+      "fa": "تماشاگران؛ مخاطبان",
+      "example": "Het publiek luistert aandachtig naar de muziek.",
+      "exampleFa": "تماشاگران با دقت به موسیقی گوش می‌دهند."
+    },
+    {
+      "nl": "het applaus",
+      "kind": "woord",
+      "fa": "تشویق؛ دست زدن",
+      "example": "Na het laatste nummer klinkt er een luid applaus.",
+      "exampleFa": "بعد از آخرین قطعه، صدای تشویق بلندی بلند می‌شود."
+    },
+    {
+      "nl": "de ondertiteling",
+      "kind": "woord",
+      "fa": "زیرنویس",
+      "example": "Dankzij de ondertiteling begrijp ik de film beter.",
+      "exampleFa": "به کمک زیرنویس فیلم را بهتر می‌فهمم."
+    },
+    {
+      "nl": "de recensie",
+      "kind": "woord",
+      "fa": "نقد و بررسی",
+      "example": "Ik lees eerst een recensie voordat ik een boek koop.",
+      "exampleFa": "قبل از خرید کتاب ابتدا یک نقد می‌خوانم."
+    },
+    {
+      "nl": "de kunstcollectie",
+      "kind": "woord",
+      "fa": "مجموعهٔ آثار هنری",
+      "example": "Het museum laat een deel van zijn kunstcollectie zien.",
+      "exampleFa": "موزه بخشی از مجموعهٔ آثار هنری‌اش را نمایش می‌دهد."
+    },
+    {
+      "nl": "de tentoonstelling",
+      "kind": "woord",
+      "fa": "نمایشگاه",
+      "example": "De tentoonstelling is tot eind maart te bezoeken.",
+      "exampleFa": "تا پایان مارس می‌توان از نمایشگاه بازدید کرد."
+    },
+    {
+      "nl": "de publieksprijs",
+      "kind": "woord",
+      "fa": "جایزهٔ انتخاب مردم",
+      "example": "Het publiek stemt op de winnaar van de publieksprijs.",
+      "exampleFa": "تماشاگران برای انتخاب برندهٔ جایزهٔ مردمی رأی می‌دهند."
+    },
+    {
+      "nl": "het oeuvre",
+      "kind": "woord",
+      "fa": "مجموعهٔ آثار یک هنرمند یا نویسنده",
+      "example": "Deze tentoonstelling geeft een overzicht van haar oeuvre.",
+      "exampleFa": "این نمایشگاه مروری بر مجموعهٔ آثار او ارائه می‌دهد."
+    },
+    {
+      "nl": "zingen",
+      "kind": "werkwoord",
+      "fa": "آواز خواندن",
+      "example": "We zingen samen een Nederlands liedje.",
+      "exampleFa": "با هم یک ترانهٔ هلندی می‌خوانیم.",
+      "forms": [
+        "zong",
+        "heb gezongen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "dansen",
+      "kind": "werkwoord",
+      "fa": "رقصیدن",
+      "example": "Mijn vrienden dansen graag op feestjes.",
+      "exampleFa": "دوستانم دوست دارند در مهمانی‌ها برقصند.",
+      "forms": [
+        "danste",
+        "heb gedanst",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "acteren",
+      "kind": "werkwoord",
+      "fa": "بازیگری کردن",
+      "example": "Zij wil leren acteren en volgt een theatercursus.",
+      "exampleFa": "او می‌خواهد بازیگری یاد بگیرد و در یک دورهٔ تئاتر شرکت می‌کند.",
+      "forms": [
+        "acteerde",
+        "heb geacteerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "piano spelen",
+      "kind": "uitdrukking",
+      "fa": "پیانو زدن",
+      "example": "Ik speel elke avond een kwartier piano.",
+      "exampleFa": "هر شب یک ربع پیانو می‌زنم."
+    },
+    {
+      "nl": "naar iets kijken",
+      "kind": "uitdrukking",
+      "fa": "چیزی را تماشا کردن",
+      "example": "We kijken vanavond naar een documentaire.",
+      "exampleFa": "امشب یک مستند تماشا می‌کنیم."
+    },
+    {
+      "nl": "om iets lachen",
+      "kind": "uitdrukking",
+      "fa": "به چیزی خندیدن",
+      "example": "Iedereen moest om zijn grap lachen.",
+      "exampleFa": "همه از شوخی او خنده‌شان گرفت."
+    },
+    {
+      "nl": "op gang komen",
+      "kind": "uitdrukking",
+      "fa": "کم‌کم شروع شدن؛ راه افتادن",
+      "example": "Het gesprek komt na een paar vragen op gang.",
+      "exampleFa": "گفت‌وگو بعد از چند سؤال کم‌کم راه می‌افتد."
+    },
+    {
+      "nl": "voorbijgaan",
+      "kind": "werkwoord",
+      "fa": "گذشتن؛ عبور کردن",
+      "example": "De tijd gaat snel voorbij als ik muziek maak.",
+      "exampleFa": "وقتی موسیقی کار می‌کنم، زمان زود می‌گذرد.",
+      "forms": [
+        "ging voorbij",
+        "ben voorbijgegaan",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "spannend",
+      "kind": "woord",
+      "fa": "هیجان‌انگیز؛ پرتعلیق",
+      "example": "Ik vind deze film spannend en wil weten hoe hij eindigt.",
+      "exampleFa": "این فیلم برایم هیجان‌انگیز است و می‌خواهم بدانم چطور تمام می‌شود."
+    },
+    {
+      "nl": "saai",
+      "kind": "woord",
+      "fa": "کسل‌کننده",
+      "example": "Ik vond de film saai en ben eerder weggegaan.",
+      "exampleFa": "فیلم برایم کسل‌کننده بود و زودتر رفتم."
+    },
+    {
+      "nl": "grappig",
+      "kind": "woord",
+      "fa": "بامزه؛ خنده‌دار",
+      "example": "Dat verhaal is zo grappig dat ik steeds moet lachen.",
+      "exampleFa": "آن داستان آن‌قدر بامزه است که مدام خنده‌ام می‌گیرد."
+    },
+    {
+      "nl": "serieus",
+      "kind": "woord",
+      "fa": "جدی",
+      "example": "Dit is een serieuze vraag, geen grap.",
+      "exampleFa": "این یک سؤال جدی است، نه شوخی."
+    },
+    {
+      "nl": "te hard",
+      "kind": "uitdrukking",
+      "fa": "بیش از حد بلند؛ دربارهٔ صدا",
+      "example": "De muziek staat te hard; kunnen we nog praten?",
+      "exampleFa": "صدای موسیقی بیش از حد بلند است؛ هنوز می‌توانیم صحبت کنیم؟"
+    },
+    {
+      "nl": "Jammer dat ...",
+      "kind": "uitdrukking",
+      "fa": "حیف که ...",
+      "example": "Jammer dat je niet mee kunt naar het concert.",
+      "exampleFa": "حیف که نمی‌توانی همراه ما به کنسرت بیایی."
+    },
+    {
+      "nl": "de bioscoop",
+      "kind": "woord",
+      "fa": "سینما",
+      "example": "We gaan vanavond naar de bioscoop.",
+      "exampleFa": "امشب به سینما می‌رویم."
+    },
+    {
+      "nl": "het theater",
+      "kind": "woord",
+      "fa": "تئاتر",
+      "example": "Het theater is vlak bij het station.",
+      "exampleFa": "تئاتر نزدیک ایستگاه است."
+    },
+    {
+      "nl": "de schouwburg",
+      "kind": "woord",
+      "fa": "سالن تئاتر و نمایش",
+      "example": "In de schouwburg speelt een nieuw toneelstuk.",
+      "exampleFa": "در سالن تئاتر یک نمایش تازه اجرا می‌شود."
+    },
+    {
+      "nl": "de opera",
+      "kind": "woord",
+      "fa": "اپرا",
+      "example": "We luisteren naar een opera.",
+      "exampleFa": "به یک اپرا گوش می‌دهیم."
+    },
+    {
+      "nl": "het ballet",
+      "kind": "woord",
+      "fa": "باله",
+      "example": "Zij houdt van klassiek ballet.",
+      "exampleFa": "او بالهٔ کلاسیک را دوست دارد."
+    },
+    {
+      "nl": "het toneel",
+      "kind": "woord",
+      "fa": "تئاتر یا صحنهٔ نمایش",
+      "example": "Op school speelde ik toneel.",
+      "exampleFa": "در مدرسه تئاتر بازی می‌کردم."
+    },
+    {
+      "nl": "het cabaret",
+      "kind": "woord",
+      "fa": "نمایش طنز و انتقادی",
+      "example": "Nederlands cabaret is soms moeilijk te begrijpen.",
+      "exampleFa": "فهم نمایش طنز هلندی گاهی دشوار است."
+    },
+    {
+      "nl": "de cabaretier",
+      "kind": "woord",
+      "fa": "هنرمند نمایش طنز",
+      "example": "De cabaretier maakt grappen over het nieuws.",
+      "exampleFa": "هنرمند دربارهٔ خبرها شوخی می‌کند."
+    },
+    {
+      "nl": "het concert",
+      "kind": "woord",
+      "fa": "کنسرت",
+      "example": "Het concert begint om acht uur.",
+      "exampleFa": "کنسرت ساعت هشت شروع می‌شود."
+    },
+    {
+      "nl": "de bibliotheek",
+      "kind": "woord",
+      "fa": "کتابخانه",
+      "example": "Ik leen een boek bij de bibliotheek.",
+      "exampleFa": "از کتابخانه کتاب قرض می‌گیرم."
+    },
+    {
+      "nl": "het museum",
+      "kind": "woord",
+      "fa": "موزه",
+      "example": "Het museum heeft een nieuwe tentoonstelling.",
+      "exampleFa": "موزه نمایشگاه تازه‌ای دارد."
+    },
+    {
+      "nl": "lachen",
+      "kind": "werkwoord",
+      "fa": "خندیدن",
+      "example": "We hebben veel gelachen.",
+      "exampleFa": "خیلی خندیدیم.",
+      "forms": [
+        "lachte",
+        "heeft gelachen",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "kijken",
+      "kind": "werkwoord",
+      "fa": "نگاه کردن",
+      "example": "Ik heb naar een film gekeken.",
+      "exampleFa": "یک فیلم تماشا کردم.",
+      "forms": [
+        "keek",
+        "heeft gekeken",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Waar gaat deze film over?",
+      "level": "A2",
+      "fa": "این فیلم دربارهٔ چیست؟"
+    },
+    {
+      "nl": "Zijn er nog kaartjes voor vanavond?",
+      "level": "A2",
+      "fa": "هنوز برای امشب بلیت هست؟"
+    },
+    {
+      "nl": "Ik kijk liever met Nederlandse ondertiteling.",
+      "level": "A2",
+      "fa": "ترجیح می‌دهم با زیرنویس هلندی تماشا کنم."
+    },
+    {
+      "nl": "Wat vond je van de voorstelling?",
+      "level": "A2",
+      "fa": "نظرت دربارهٔ اجرا چه بود؟"
+    },
+    {
+      "nl": "Zullen we na het concert iets drinken?",
+      "level": "A2",
+      "fa": "بعد از کنسرت چیزی بنوشیم؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Zijn er nog kaartjes voor vanavond?",
+      "fa": "هنوز برای امشب بلیت هست؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Ja, er zijn nog twee plaatsen naast elkaar.",
+      "fa": "بله، هنوز دو صندلی کنار هم هست."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Hoe laat begint de voorstelling?",
+      "fa": "اجرا چه ساعتی شروع می‌شود؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Om acht uur. De zaal gaat een halfuur eerder open.",
+      "fa": "ساعت هشت. سالن نیم ساعت زودتر باز می‌شود."
+    }
+  ]
+}

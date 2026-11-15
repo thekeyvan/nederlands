@@ -1,0 +1,34 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:perfectum",
+  "title": "Ik heb gewerkt",
+  "level": "A2",
+  "pattern": "onderwerp + heb / ben + ... + voltooid deelwoord",
+  "example": "Ik heb gisteren gewerkt.",
+  "prompt": "Ik heb gisteren ___. (werken)",
+  "answer": "gewerkt",
+  "fa": {
+    "rule": "Perfectum با hebben یا zijn صرف‌شده و شکل سوم فعل ساخته می‌شود. در مکالمه برای گذشته زیاد کاربرد دارد.",
+    "note": "فعل کمکی صرف‌شده نزدیک ابتدای جمله و اسم مفعول معمولاً آخر جمله است. برای ساختن شکل گذشته، ابتدا منظم یا بی‌قاعده بودن فعل را بررسی کن؛ همهٔ فعل‌ها با یک الگو ساخته نمی‌شوند.",
+    "translation": "دیروز کار کردم."
+  },
+  "examples": [
+    {
+      "nl": "We hebben gisteren pizza gegeten.",
+      "gap": "gegeten",
+      "fa": "دیروز پیتزا خوردیم.",
+      "hint": "eten"
+    },
+    {
+      "nl": "Ze heeft de hele dag gewerkt.",
+      "gap": "heeft",
+      "fa": "او تمام روز کار کرده است."
+    },
+    {
+      "nl": "Ik heb mijn moeder gebeld.",
+      "gap": "gebeld",
+      "fa": "به مادرم زنگ زده‌ام.",
+      "hint": "bellen"
+    }
+  ]
+}

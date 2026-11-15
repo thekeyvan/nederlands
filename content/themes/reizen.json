@@ -1,0 +1,359 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "reizen",
+  "title": "Onderweg",
+  "fa": "رفت‌وآمد و سفر",
+  "icon": "09",
+  "intro": "Hoe ga je naar je bestemming?",
+  "words": [
+    {
+      "nl": "het OV",
+      "kind": "woord",
+      "fa": "حمل‌ونقل عمومی",
+      "example": "OV betekent openbaar vervoer: de trein, bus, tram en metro.",
+      "exampleFa": "حمل‌ونقل عمومی شامل قطار، اتوبوس، تراموا و مترو است."
+    },
+    {
+      "nl": "de OV-chipkaart",
+      "kind": "woord",
+      "fa": "کارت حمل‌ونقل عمومی",
+      "example": "Ik ben mijn OV-chipkaart thuis vergeten.",
+      "exampleFa": "کارت حمل‌ونقل عمومی‌ام را در خانه جا گذاشته‌ام."
+    },
+    {
+      "nl": "het spoor",
+      "kind": "woord",
+      "fa": "سکو یا خط قطار",
+      "example": "De trein naar Rotterdam vertrekt van spoor vier.",
+      "exampleFa": "قطار روتردام از سکوی چهار حرکت می‌کند."
+    },
+    {
+      "nl": "de passagier",
+      "kind": "woord",
+      "fa": "مسافر",
+      "example": "Elke passagier moet een geldig kaartje hebben.",
+      "exampleFa": "هر مسافر باید بلیت معتبر داشته باشد."
+    },
+    {
+      "nl": "het vluchtnummer",
+      "kind": "woord",
+      "fa": "شمارهٔ پرواز",
+      "example": "Wat is het vluchtnummer van je vlucht?",
+      "exampleFa": "شمارهٔ پروازت چیست؟"
+    },
+    {
+      "nl": "de bagage",
+      "kind": "woord",
+      "fa": "بار و چمدان‌ها",
+      "example": "Waar kan ik mijn bagage ophalen?",
+      "exampleFa": "کجا می‌توانم بارم را تحویل بگیرم؟"
+    },
+    {
+      "nl": "de kofferbak",
+      "kind": "woord",
+      "fa": "صندوق‌عقب ماشین",
+      "example": "De koffers passen niet allemaal in de kofferbak.",
+      "exampleFa": "همهٔ چمدان‌ها در صندوق‌عقب جا نمی‌شوند."
+    },
+    {
+      "nl": "de paraplu",
+      "kind": "woord",
+      "fa": "چتر",
+      "example": "Neem een paraplu mee, want het gaat regenen.",
+      "exampleFa": "چتر همراهت ببر، چون قرار است باران ببارد."
+    },
+    {
+      "nl": "vertrekken",
+      "kind": "werkwoord",
+      "fa": "راه افتادن؛ حرکت کردن",
+      "example": "De trein is vertrokken.",
+      "exampleFa": "قطار حرکت کرده است.",
+      "forms": [
+        "vertrok",
+        "ben vertrokken",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "aankomen",
+      "kind": "werkwoord",
+      "fa": "رسیدن",
+      "example": "We komen om halfzes in Utrecht aan.",
+      "exampleFa": "ساعت پنج و نیم به اوترخت می‌رسیم.",
+      "forms": [
+        "kwam aan",
+        "ben aangekomen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "instappen",
+      "kind": "werkwoord",
+      "fa": "سوار شدن",
+      "example": "Laat de andere reizigers eerst uitstappen voordat je instapt.",
+      "exampleFa": "قبل از سوار شدن بگذار مسافرهای دیگر اول پیاده شوند.",
+      "forms": [
+        "stapte in",
+        "ben ingestapt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "uitstappen",
+      "kind": "werkwoord",
+      "fa": "پیاده شدن",
+      "example": "Bij de volgende halte moet ik uitstappen.",
+      "exampleFa": "باید در ایستگاه بعدی پیاده شوم.",
+      "forms": [
+        "stapte uit",
+        "ben uitgestapt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "overstappen",
+      "kind": "werkwoord",
+      "fa": "خط یا وسیلهٔ نقلیه عوض کردن",
+      "example": "Ik stap over in Utrecht.",
+      "exampleFa": "در اوترخت خط عوض می‌کنم.",
+      "forms": [
+        "stapte over",
+        "ben overgestapt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "ophalen",
+      "kind": "werkwoord",
+      "fa": "دنبال کسی رفتن؛ تحویل گرفتن",
+      "example": "Kun je mij van het station ophalen?",
+      "exampleFa": "می‌توانی دنبالم به ایستگاه بیایی؟",
+      "forms": [
+        "haalde op",
+        "heb opgehaald",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "meenemen",
+      "kind": "werkwoord",
+      "fa": "همراه بردن",
+      "example": "Ik neem een paraplu mee.",
+      "exampleFa": "یک چتر با خودم می‌برم.",
+      "forms": [
+        "nam mee",
+        "heb meegenomen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "meegaan",
+      "kind": "werkwoord",
+      "fa": "همراه رفتن",
+      "example": "Ga je morgen mee naar Den Haag?",
+      "exampleFa": "فردا همراه ما به لاهه می‌آیی؟",
+      "forms": [
+        "ging mee",
+        "ben meegegaan",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "meelopen",
+      "kind": "werkwoord",
+      "fa": "همراه کسی راه رفتن",
+      "example": "Ik loop even met je mee naar de uitgang.",
+      "exampleFa": "تا خروجی کمی همراهت می‌آیم.",
+      "forms": [
+        "liep mee",
+        "ben meegelopen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "opladen",
+      "kind": "werkwoord",
+      "fa": "شارژ کردن",
+      "example": "Ik moet mijn telefoon opladen voordat we vertrekken.",
+      "exampleFa": "باید قبل از حرکت گوشی‌ام را شارژ کنم.",
+      "forms": [
+        "laadde op",
+        "heb opgeladen",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "inpakken",
+      "kind": "werkwoord",
+      "fa": "بسته‌بندی کردن؛ بستن چمدان",
+      "example": "Ik pak mijn koffer de avond voor de reis in.",
+      "exampleFa": "شب قبل از سفر چمدانم را می‌بندم.",
+      "forms": [
+        "pakte in",
+        "heb ingepakt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "uitpakken",
+      "kind": "werkwoord",
+      "fa": "باز کردن بار و چمدان",
+      "example": "Na de reis pak ik meteen mijn koffer uit.",
+      "exampleFa": "بعد از سفر فوراً چمدانم را باز و خالی می‌کنم.",
+      "forms": [
+        "pakte uit",
+        "heb uitgepakt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "wegrijden",
+      "kind": "werkwoord",
+      "fa": "با وسیلهٔ نقلیه راه افتادن",
+      "example": "De bus rijdt weg voordat ik bij de halte ben.",
+      "exampleFa": "قبل از اینکه به ایستگاه برسم، اتوبوس راه می‌افتد.",
+      "forms": [
+        "reed weg",
+        "ben weggereden",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "doorrijden",
+      "kind": "werkwoord",
+      "fa": "به مسیر ادامه دادن",
+      "example": "De bus rijdt door naar het centrum.",
+      "exampleFa": "اتوبوس به مسیرش به سمت مرکز شهر ادامه می‌دهد.",
+      "forms": [
+        "reed door",
+        "ben doorgereden",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "tanken",
+      "kind": "werkwoord",
+      "fa": "بنزین یا سوخت زدن",
+      "example": "We moeten onderweg nog tanken.",
+      "exampleFa": "هنوز باید در مسیر بنزین بزنیم.",
+      "forms": [
+        "tankte",
+        "heb getankt",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "in de file staan",
+      "kind": "uitdrukking",
+      "fa": "در ترافیک ماندن",
+      "example": "Ik sta in de file en kom wat later.",
+      "exampleFa": "در ترافیک مانده‌ام و کمی دیرتر می‌رسم."
+    },
+    {
+      "nl": "de trein halen",
+      "kind": "uitdrukking",
+      "fa": "به قطار رسیدن؛ از قطار جا نماندن",
+      "example": "Als we nu vertrekken, halen we de trein nog.",
+      "exampleFa": "اگر الان راه بیفتیم، هنوز به قطار می‌رسیم."
+    },
+    {
+      "nl": "de grens",
+      "kind": "woord",
+      "fa": "مرز",
+      "example": "We rijden de grens tussen Nederland en België over.",
+      "exampleFa": "از مرز بین هلند و بلژیک عبور می‌کنیم."
+    },
+    {
+      "nl": "de helling",
+      "kind": "woord",
+      "fa": "شیب",
+      "example": "Op deze steile helling moet ik van mijn fiets afstappen.",
+      "exampleFa": "در این شیب تند باید از دوچرخه‌ام پیاده شوم."
+    },
+    {
+      "nl": "uitrusten",
+      "kind": "werkwoord",
+      "fa": "استراحت کردن",
+      "example": "Na de lange reis wil ik eerst even uitrusten.",
+      "exampleFa": "بعد از سفر طولانی می‌خواهم اول کمی استراحت کنم.",
+      "forms": [
+        "rustte uit",
+        "heb uitgerust",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "vliegen",
+      "kind": "werkwoord",
+      "fa": "پرواز کردن",
+      "example": "We zijn naar Parijs gevlogen.",
+      "exampleFa": "به پاریس پرواز کردیم.",
+      "forms": [
+        "vloog",
+        "heeft / is gevlogen",
+        "Verleden tijd en perfectum"
+      ]
+    },
+    {
+      "nl": "wachten op",
+      "kind": "werkwoord",
+      "fa": "منتظر چیزی یا کسی بودن",
+      "example": "Ik heb tien minuten op de trein gewacht.",
+      "exampleFa": "ده دقیقه منتظر قطار ماندم.",
+      "forms": [
+        "wachtte op",
+        "heeft gewacht op",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Van welk spoor vertrekt de trein naar Utrecht?",
+      "level": "A2",
+      "fa": "قطار اوترخت از کدام سکو حرکت می‌کند؟"
+    },
+    {
+      "nl": "Moet ik onderweg overstappen?",
+      "level": "A2",
+      "fa": "باید در مسیر خط عوض کنم؟"
+    },
+    {
+      "nl": "Ik heb de trein gemist.",
+      "level": "A2",
+      "fa": "از قطار جا ماندم."
+    },
+    {
+      "nl": "Kunt u zeggen waar ik moet uitstappen?",
+      "level": "A2",
+      "fa": "می‌توانید بگویید کجا باید پیاده شوم؟"
+    },
+    {
+      "nl": "Hoe lang duurt de vertraging?",
+      "level": "A2",
+      "fa": "تأخیر چقدر طول می‌کشد؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Van welk spoor vertrekt de trein naar Utrecht?",
+      "fa": "قطار اوترخت از کدام سکو حرکت می‌کند؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "De trein vertrekt van spoor vijf.",
+      "fa": "قطار از سکوی پنج حرکت می‌کند."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Moet ik onderweg overstappen?",
+      "fa": "باید در مسیر خط عوض کنم؟"
+    },
+    {
+      "speaker": "Medewerker",
+      "nl": "Ja, je stapt in Amersfoort over.",
+      "fa": "بله، در آمرسفورت خط عوض می‌کنی."
+    }
+  ]
+}

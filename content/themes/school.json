@@ -1,0 +1,221 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "school",
+  "title": "School & kinderen",
+  "fa": "مدرسه و بچه‌ها",
+  "icon": "22",
+  "intro": "Praat met de juf en met andere ouders.",
+  "words": [
+    {
+      "nl": "de basisschool",
+      "kind": "woord",
+      "fa": "دبستان",
+      "example": "Mijn dochter zit in groep vier van de basisschool.",
+      "exampleFa": "دخترم کلاس چهارم دبستان است."
+    },
+    {
+      "nl": "de kinderopvang",
+      "kind": "woord",
+      "fa": "مهدکودک",
+      "example": "Op dinsdag gaat mijn zoon naar de kinderopvang.",
+      "exampleFa": "سه‌شنبه‌ها پسرم به مهدکودک می‌رود."
+    },
+    {
+      "nl": "de juf",
+      "kind": "woord",
+      "fa": "خانم معلم",
+      "example": "De juf heeft een briefje meegegeven.",
+      "exampleFa": "خانم معلم یک یادداشت همراه بچه فرستاده است."
+    },
+    {
+      "nl": "de meester",
+      "kind": "woord",
+      "fa": "آقای معلم",
+      "example": "De meester leest elke ochtend een verhaal voor.",
+      "exampleFa": "آقای معلم هر صبح یک داستان می‌خواند."
+    },
+    {
+      "nl": "de groep",
+      "kind": "woord",
+      "fa": "کلاس (پایه)",
+      "example": "In welke groep zit je zoon?",
+      "exampleFa": "پسرت در کدام کلاس است؟"
+    },
+    {
+      "nl": "het schoolplein",
+      "kind": "woord",
+      "fa": "حیاط مدرسه",
+      "example": "De kinderen spelen op het schoolplein.",
+      "exampleFa": "بچه‌ها در حیاط مدرسه بازی می‌کنند."
+    },
+    {
+      "nl": "de ouderavond",
+      "kind": "woord",
+      "fa": "جلسهٔ اولیا",
+      "example": "Donderdag is er een ouderavond.",
+      "exampleFa": "پنجشنبه جلسهٔ اولیا است."
+    },
+    {
+      "nl": "het rapport",
+      "kind": "woord",
+      "fa": "کارنامه",
+      "example": "Hij heeft een goed rapport gekregen.",
+      "exampleFa": "او کارنامهٔ خوبی گرفته است."
+    },
+    {
+      "nl": "het huiswerk",
+      "kind": "woord",
+      "fa": "تکلیف",
+      "example": "Ik help mijn kinderen met hun huiswerk.",
+      "exampleFa": "به بچه‌هایم در تکالیفشان کمک می‌کنم."
+    },
+    {
+      "nl": "de schoolvakantie",
+      "kind": "woord",
+      "fa": "تعطیلات مدرسه",
+      "example": "In de schoolvakantie gaan we naar mijn ouders.",
+      "exampleFa": "در تعطیلات مدرسه پیش پدر و مادرم می‌رویم."
+    },
+    {
+      "nl": "de gymles",
+      "kind": "woord",
+      "fa": "کلاس ورزش",
+      "example": "Vergeet je gymschoenen niet voor de gymles.",
+      "exampleFa": "کفش ورزشی‌ات را برای کلاس ورزش فراموش نکن."
+    },
+    {
+      "nl": "het tienuurtje",
+      "kind": "woord",
+      "fa": "میان‌وعدهٔ صبح",
+      "example": "Ik geef een appel mee als tienuurtje.",
+      "exampleFa": "یک سیب به‌عنوان میان‌وعدهٔ صبح همراهش می‌کنم."
+    },
+    {
+      "nl": "de leerplicht",
+      "kind": "woord",
+      "fa": "آموزش اجباری",
+      "example": "In Nederland geldt leerplicht vanaf vijf jaar.",
+      "exampleFa": "در هلند آموزش از پنج‌سالگی اجباری است."
+    },
+    {
+      "nl": "de oppas",
+      "kind": "woord",
+      "fa": "پرستار بچه",
+      "example": "Vanavond komt er een oppas.",
+      "exampleFa": "امشب یک پرستار بچه می‌آید."
+    },
+    {
+      "nl": "het speelgoed",
+      "kind": "woord",
+      "fa": "اسباب‌بازی",
+      "example": "Ruim je speelgoed even op.",
+      "exampleFa": "اسباب‌بازی‌هایت را جمع کن."
+    },
+    {
+      "nl": "de klasgenoot",
+      "kind": "woord",
+      "fa": "هم‌کلاسی",
+      "example": "Hij speelt vaak met een klasgenoot.",
+      "exampleFa": "او اغلب با یک هم‌کلاسی بازی می‌کند."
+    },
+    {
+      "nl": "het schoolreisje",
+      "kind": "woord",
+      "fa": "اردوی مدرسه",
+      "example": "In juni gaat de klas op schoolreisje.",
+      "exampleFa": "در ژوئن کلاس به اردوی مدرسه می‌رود."
+    },
+    {
+      "nl": "brengen",
+      "kind": "werkwoord",
+      "fa": "رساندن",
+      "example": "Mijn man brengt ze morgen naar school.",
+      "exampleFa": "شوهرم فردا آن‌ها را به مدرسه می‌رساند.",
+      "forms": [
+        "bracht",
+        "heb gebracht",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "ziekmelden",
+      "kind": "werkwoord",
+      "fa": "غیبت بیماری اعلام کردن",
+      "example": "Ik moet mijn dochter vandaag ziekmelden.",
+      "exampleFa": "امروز باید غیبت بیماری دخترم را اطلاع بدهم.",
+      "forms": [
+        "meldde ziek",
+        "heb ziekgemeld",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "opvoeden",
+      "kind": "werkwoord",
+      "fa": "تربیت کردن",
+      "example": "Wij voeden onze kinderen tweetalig op.",
+      "exampleFa": "ما بچه‌هایمان را دوزبانه تربیت می‌کنیم.",
+      "forms": [
+        "voedde op",
+        "heb opgevoed",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "naar school gaan",
+      "kind": "uitdrukking",
+      "fa": "به مدرسه رفتن",
+      "example": "Ze gaat met de fiets naar school.",
+      "exampleFa": "او با دوچرخه به مدرسه می‌رود."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Mijn zoon is vandaag ziek.",
+      "level": "A2",
+      "fa": "پسرم امروز مریض است."
+    },
+    {
+      "nl": "Hoe gaat het met haar in de klas?",
+      "level": "A2",
+      "fa": "حالش در کلاس چطور است؟"
+    },
+    {
+      "nl": "Hoe laat gaat de school uit?",
+      "level": "A2",
+      "fa": "مدرسه چه ساعتی تعطیل می‌شود؟"
+    },
+    {
+      "nl": "Kan ik een afspraak maken met de juf?",
+      "level": "A2",
+      "fa": "می‌توانم با خانم معلم وقت بگیرم؟"
+    },
+    {
+      "nl": "Wie haalt de kinderen vandaag op?",
+      "level": "A2",
+      "fa": "امروز چه کسی دنبال بچه‌ها می‌رود؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Goedemorgen juf, Sara is vandaag ziek.",
+      "fa": "صبح بخیر خانم معلم، سارا امروز مریض است."
+    },
+    {
+      "speaker": "Juf",
+      "nl": "Wat vervelend. Wat heeft ze?",
+      "fa": "چه بد. چه‌اش شده؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ze heeft koorts. Morgen is ze waarschijnlijk weer beter.",
+      "fa": "تب دارد. احتمالاً فردا دوباره خوب می‌شود."
+    },
+    {
+      "speaker": "Juf",
+      "nl": "Beterschap! Ik geef haar huiswerk mee aan haar broer.",
+      "fa": "امیدوارم زود خوب شود! تکالیفش را به برادرش می‌دهم."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:wederkerend",
+  "title": "Ik voel me ...",
+  "level": "A2",
+  "pattern": "ik voel me · jij voelt je · u voelt u / zich · hij / zij voelt zich · wij voelen ons · jullie voelen je · zij voelen zich",
+  "example": "Ik voel me goed. Zij voelt zich moe.",
+  "prompt": "Wij voelen ___ goed.",
+  "answer": "ons",
+  "fa": {
+    "rule": "در فعل انعکاسی، ضمیر همراه فاعل تغییر می‌کند: me، je، zich، ons، je، zich.",
+    "note": "ضمیر بازتابی برای من، تو، او، ما، شما و آن‌ها به‌ترتیب شکل مناسب خودش را دارد. در شکل رسمی خطاب، هر دو ضمیر رسمی و بازتابی سوم‌شخص ممکن است. با فعل کمکی نیز ضمیر کنار بخش میانی جمله می‌ماند؛ اسم مفعول آخر می‌آید.",
+    "translation": "حالم خوب است. او احساس خستگی می‌کند."
+  },
+  "examples": [
+    {
+      "nl": "Hij voelt zich niet lekker.",
+      "gap": "zich",
+      "fa": "حالش خوب نیست."
+    },
+    {
+      "nl": "Wij voelen ons hier thuis.",
+      "gap": "ons",
+      "fa": "اینجا احساس می‌کنیم در خانهٔ خودمانیم."
+    },
+    {
+      "nl": "Ik verveel me op zondag.",
+      "gap": "me",
+      "fa": "یکشنبه‌ها حوصله‌ام سر می‌رود."
+    }
+  ]
+}

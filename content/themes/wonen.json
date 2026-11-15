@@ -1,0 +1,629 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "wonen",
+  "title": "Thuis & in de buurt",
+  "fa": "خانه و محله",
+  "icon": "05",
+  "intro": "Beschrijf je huis en je buurt.",
+  "words": [
+    {
+      "nl": "de woning",
+      "kind": "woord",
+      "fa": "خانه؛ محل سکونت",
+      "example": "We zoeken een woning met twee slaapkamers.",
+      "exampleFa": "دنبال خانه‌ای با دو اتاق‌خواب هستیم."
+    },
+    {
+      "nl": "het appartement",
+      "kind": "woord",
+      "fa": "آپارتمان",
+      "example": "Mijn appartement ligt boven een winkel.",
+      "exampleFa": "آپارتمانم بالای یک مغازه قرار دارد."
+    },
+    {
+      "nl": "het rijtjeshuis",
+      "kind": "woord",
+      "fa": "خانهٔ ردیفی؛ متصل به خانه‌های کناری",
+      "example": "We wonen in een rijtjeshuis met een kleine tuin.",
+      "exampleFa": "در یک خانهٔ ردیفی با باغچه‌ای کوچک زندگی می‌کنیم."
+    },
+    {
+      "nl": "de twee-onder-een-kapwoning",
+      "kind": "woord",
+      "fa": "یکی از دو خانهٔ چسبیده با یک سقف مشترک",
+      "example": "Deze twee-onder-een-kapwoning deelt één muur met de buren.",
+      "exampleFa": "این خانهٔ دوقلو یک دیوار مشترک با خانهٔ همسایه دارد."
+    },
+    {
+      "nl": "een vrijstaand huis",
+      "kind": "uitdrukking",
+      "fa": "خانهٔ مستقل بدون دیوار مشترک",
+      "example": "Een vrijstaand huis heeft geen gemeenschappelijke muur met de buren.",
+      "exampleFa": "خانهٔ مستقل دیوار مشترکی با همسایه‌ها ندارد."
+    },
+    {
+      "nl": "de wijk",
+      "kind": "woord",
+      "fa": "محله؛ ناحیهٔ شهری",
+      "example": "In onze wijk komt een nieuwe school.",
+      "exampleFa": "در محلهٔ ما مدرسهٔ جدیدی ساخته می‌شود."
+    },
+    {
+      "nl": "de buurt",
+      "kind": "woord",
+      "fa": "محله؛ اطراف محل زندگی",
+      "example": "Er is een supermarkt bij mij in de buurt.",
+      "exampleFa": "نزدیک خانه‌ام یک سوپرمارکت هست."
+    },
+    {
+      "nl": "de woonkamer",
+      "kind": "woord",
+      "fa": "اتاق نشیمن",
+      "example": "We drinken koffie in de woonkamer.",
+      "exampleFa": "در اتاق نشیمن قهوه می‌خوریم."
+    },
+    {
+      "nl": "de slaapkamer",
+      "kind": "woord",
+      "fa": "اتاق‌خواب",
+      "example": "Mijn slaapkamer is aan de achterkant van het huis.",
+      "exampleFa": "اتاق‌خوابم در قسمت پشتی خانه است."
+    },
+    {
+      "nl": "de badkamer",
+      "kind": "woord",
+      "fa": "حمام",
+      "example": "De badkamer heeft een douche en een bad.",
+      "exampleFa": "حمام هم دوش دارد و هم وان."
+    },
+    {
+      "nl": "de bijkeuken",
+      "kind": "woord",
+      "fa": "اتاق خدماتی یا آشپزخانهٔ کمکی",
+      "example": "De wasmachine staat in de bijkeuken.",
+      "exampleFa": "ماشین لباس‌شویی در فضای خدماتی کنار آشپزخانه است."
+    },
+    {
+      "nl": "de berging",
+      "kind": "woord",
+      "fa": "انباری",
+      "example": "Ik zet mijn fiets in de berging.",
+      "exampleFa": "دوچرخه‌ام را در انباری می‌گذارم."
+    },
+    {
+      "nl": "de achtertuin",
+      "kind": "woord",
+      "fa": "حیاط پشتی",
+      "example": "In de zomer eten we in de achtertuin.",
+      "exampleFa": "تابستان‌ها در حیاط پشتی غذا می‌خوریم."
+    },
+    {
+      "nl": "de verwarming",
+      "kind": "woord",
+      "fa": "سیستم گرمایش",
+      "example": "Kun je de verwarming iets hoger zetten?",
+      "exampleFa": "می‌توانی گرمایش را کمی بیشتر کنی؟"
+    },
+    {
+      "nl": "de cv-ketel",
+      "kind": "woord",
+      "fa": "دیگ یا پکیج گرمایش مرکزی",
+      "example": "De cv-ketel maakt een vreemd geluid.",
+      "exampleFa": "دیگ سیستم گرمایش مرکزی صدای عجیبی می‌دهد."
+    },
+    {
+      "nl": "de gordijnen",
+      "kind": "woord",
+      "fa": "پرده‌ها",
+      "example": "Ik doe de gordijnen dicht voordat ik ga slapen.",
+      "exampleFa": "قبل از خواب پرده‌ها را می‌بندم."
+    },
+    {
+      "nl": "de meubels",
+      "kind": "woord",
+      "fa": "مبلمان و وسایل خانه",
+      "example": "De meubels passen goed bij de kleur van de muren.",
+      "exampleFa": "مبلمان با رنگ دیوارها خوب هماهنگ است."
+    },
+    {
+      "nl": "de huissleutel",
+      "kind": "woord",
+      "fa": "کلید خانه",
+      "example": "Ik ben mijn huissleutel vergeten.",
+      "exampleFa": "کلید خانه‌ام را فراموش کرده‌ام."
+    },
+    {
+      "nl": "de keukentafel",
+      "kind": "woord",
+      "fa": "میز آشپزخانه",
+      "example": "De kinderen tekenen aan de keukentafel.",
+      "exampleFa": "بچه‌ها پشت میز آشپزخانه نقاشی می‌کشند."
+    },
+    {
+      "nl": "de boekenkast",
+      "kind": "woord",
+      "fa": "قفسهٔ کتاب",
+      "example": "De boekenkast staat naast de bank.",
+      "exampleFa": "کتابخانه کنار مبل قرار دارد."
+    },
+    {
+      "nl": "de bureaustoel",
+      "kind": "woord",
+      "fa": "صندلی اداری",
+      "example": "Ik zoek een comfortabele bureaustoel voor mijn werkplek.",
+      "exampleFa": "دنبال یک صندلی اداری راحت برای محل کارم هستم."
+    },
+    {
+      "nl": "het huisnummer",
+      "kind": "woord",
+      "fa": "شمارهٔ پلاک خانه",
+      "example": "Wat is je huisnummer?",
+      "exampleFa": "شمارهٔ خانه‌ات چند است؟"
+    },
+    {
+      "nl": "gemeubileerd",
+      "kind": "woord",
+      "fa": "مبله",
+      "example": "Ik huur een gemeubileerd appartement.",
+      "exampleFa": "یک آپارتمان مبله اجاره می‌کنم."
+    },
+    {
+      "nl": "riant",
+      "kind": "woord",
+      "fa": "بزرگ، جادار و راحت",
+      "example": "Het huis heeft een riante woonkamer.",
+      "exampleFa": "خانه اتاق نشیمن بسیار بزرگ و جاداری دارد."
+    },
+    {
+      "nl": "goed onderhouden",
+      "kind": "uitdrukking",
+      "fa": "به‌خوبی نگهداری‌شده",
+      "example": "Het gebouw is oud, maar goed onderhouden.",
+      "exampleFa": "ساختمان قدیمی است، ولی خوب از آن نگهداری شده است."
+    },
+    {
+      "nl": "verhuizen",
+      "kind": "werkwoord",
+      "fa": "اسباب‌کشی کردن",
+      "example": "Ik ben vorige maand verhuisd.",
+      "exampleFa": "ماه پیش اسباب‌کشی کردم.",
+      "forms": [
+        "verhuisde",
+        "ben verhuisd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "het verhuisbericht",
+      "kind": "woord",
+      "fa": "پیام اطلاع‌رسانی تغییر آدرس",
+      "example": "Ik stuur mijn vrienden een verhuisbericht met mijn nieuwe adres.",
+      "exampleFa": "برای دوستانم اطلاعیهٔ اسباب‌کشی با آدرس جدیدم می‌فرستم."
+    },
+    {
+      "nl": "het straatfeest",
+      "kind": "woord",
+      "fa": "جشن خیابانی",
+      "example": "Op het straatfeest leren we de buren beter kennen.",
+      "exampleFa": "در جشن محله، همسایه‌ها را بهتر می‌شناسیم."
+    },
+    {
+      "nl": "het gezin",
+      "kind": "woord",
+      "fa": "خانوادهٔ نزدیک؛ واحد خانوادگی",
+      "example": "Ons gezin bestaat uit twee ouders en een kind.",
+      "exampleFa": "خانوادهٔ ما از دو والد و یک فرزند تشکیل شده است."
+    },
+    {
+      "nl": "de familie",
+      "kind": "woord",
+      "fa": "خانواده و فامیل",
+      "example": "Mijn familie woont in verschillende landen.",
+      "exampleFa": "اعضای خانواده و فامیلم در کشورهای مختلف زندگی می‌کنند."
+    },
+    {
+      "nl": "de villa",
+      "kind": "woord",
+      "fa": "ویلا",
+      "example": "Ze wonen in een grote villa.",
+      "exampleFa": "آن‌ها در یک ویلای بزرگ زندگی می‌کنند."
+    },
+    {
+      "nl": "de tussenwoning",
+      "kind": "woord",
+      "fa": "خانهٔ ردیفی میانی",
+      "example": "Onze tussenwoning staat tussen twee andere huizen.",
+      "exampleFa": "خانهٔ ردیفی ما بین دو خانهٔ دیگر قرار دارد."
+    },
+    {
+      "nl": "de eindwoning",
+      "kind": "woord",
+      "fa": "خانهٔ انتهای ردیف",
+      "example": "De eindwoning staat aan het einde van de rij.",
+      "exampleFa": "آن خانه در انتهای ردیف قرار دارد."
+    },
+    {
+      "nl": "de hoekwoning",
+      "kind": "woord",
+      "fa": "خانهٔ نبش ردیف",
+      "example": "De hoekwoning heeft een tuin aan de zijkant.",
+      "exampleFa": "خانهٔ نبش در کنار خود یک باغچه دارد."
+    },
+    {
+      "nl": "de woonboot",
+      "kind": "woord",
+      "fa": "خانهٔ قایقی",
+      "example": "Er ligt een woonboot in de gracht.",
+      "exampleFa": "یک خانهٔ قایقی در کانال قرار دارد."
+    },
+    {
+      "nl": "de wolkenkrabber",
+      "kind": "woord",
+      "fa": "آسمان‌خراش",
+      "example": "Die wolkenkrabber heeft vijftig verdiepingen.",
+      "exampleFa": "آن آسمان‌خراش پنجاه طبقه دارد."
+    },
+    {
+      "nl": "de flat",
+      "kind": "woord",
+      "fa": "آپارتمان یا ساختمان آپارتمانی",
+      "example": "Mijn flat is op de derde verdieping.",
+      "exampleFa": "آپارتمان من در طبقهٔ سوم است."
+    },
+    {
+      "nl": "de bungalow",
+      "kind": "woord",
+      "fa": "خانهٔ یک‌طبقه",
+      "example": "De bungalow heeft geen trap.",
+      "exampleFa": "آن خانهٔ یک‌طبقه راه‌پله ندارد."
+    },
+    {
+      "nl": "de studio",
+      "kind": "woord",
+      "fa": "آپارتمان یک‌فضایی",
+      "example": "In deze studio slaap en woon je in dezelfde ruimte.",
+      "exampleFa": "در این آپارتمان، محل خواب و زندگی در یک فضاست."
+    },
+    {
+      "nl": "het kasteel",
+      "kind": "woord",
+      "fa": "قلعه",
+      "example": "We bezoeken een oud kasteel.",
+      "exampleFa": "از یک قلعهٔ قدیمی بازدید می‌کنیم."
+    },
+    {
+      "nl": "het paleis",
+      "kind": "woord",
+      "fa": "کاخ",
+      "example": "Het paleis staat in het centrum.",
+      "exampleFa": "کاخ در مرکز شهر قرار دارد."
+    },
+    {
+      "nl": "de zolder",
+      "kind": "woord",
+      "fa": "زیرشیروانی",
+      "example": "Op zolder bewaren we oude spullen.",
+      "exampleFa": "وسایل قدیمی را در زیرشیروانی نگه می‌داریم."
+    },
+    {
+      "nl": "de werkkamer",
+      "kind": "woord",
+      "fa": "اتاق کار",
+      "example": "Mijn bureau staat in de werkkamer.",
+      "exampleFa": "میز کارم در اتاق کار است."
+    },
+    {
+      "nl": "de logeerkamer",
+      "kind": "woord",
+      "fa": "اتاق مهمان",
+      "example": "Je kunt in de logeerkamer slapen.",
+      "exampleFa": "می‌توانی در اتاق مهمان بخوابی."
+    },
+    {
+      "nl": "de overloop",
+      "kind": "woord",
+      "fa": "پاگرد و فضای بین اتاق‌ها در طبقه",
+      "example": "De slaapkamers komen uit op de overloop.",
+      "exampleFa": "در اتاق‌خواب‌ها به پاگرد باز می‌شود."
+    },
+    {
+      "nl": "het toilet",
+      "kind": "woord",
+      "fa": "توالت",
+      "example": "Het toilet is naast de badkamer.",
+      "exampleFa": "توالت کنار حمام است."
+    },
+    {
+      "nl": "de wc",
+      "kind": "woord",
+      "fa": "توالت",
+      "example": "De wc is beneden.",
+      "exampleFa": "توالت در طبقهٔ پایین است."
+    },
+    {
+      "nl": "de keuken",
+      "kind": "woord",
+      "fa": "آشپزخانه",
+      "example": "We koken samen in de keuken.",
+      "exampleFa": "با هم در آشپزخانه آشپزی می‌کنیم."
+    },
+    {
+      "nl": "de gang",
+      "kind": "woord",
+      "fa": "راهرو",
+      "example": "Mijn schoenen staan in de gang.",
+      "exampleFa": "کفش‌هایم در راهرو هستند."
+    },
+    {
+      "nl": "de hal",
+      "kind": "woord",
+      "fa": "ورودی خانه",
+      "example": "Hang je jas in de hal.",
+      "exampleFa": "کتت را در ورودی خانه آویزان کن."
+    },
+    {
+      "nl": "de kelder",
+      "kind": "woord",
+      "fa": "زیرزمین",
+      "example": "De kelder is onder het huis.",
+      "exampleFa": "زیرزمین زیر خانه است."
+    },
+    {
+      "nl": "de schuur",
+      "kind": "woord",
+      "fa": "انباری حیاط",
+      "example": "Mijn fiets staat in de schuur.",
+      "exampleFa": "دوچرخه‌ام در انباری حیاط است."
+    },
+    {
+      "nl": "de garage",
+      "kind": "woord",
+      "fa": "گاراژ",
+      "example": "De auto staat in de garage.",
+      "exampleFa": "ماشین در گاراژ است."
+    },
+    {
+      "nl": "de spullen",
+      "kind": "woord",
+      "fa": "وسایل",
+      "example": "Waar kan ik mijn spullen neerzetten?",
+      "exampleFa": "وسایلم را کجا بگذارم؟"
+    },
+    {
+      "nl": "de rommel",
+      "kind": "woord",
+      "fa": "به‌هم‌ریختگی و خرت‌وپرت",
+      "example": "Er ligt veel rommel op zolder.",
+      "exampleFa": "در زیرشیروانی خرت‌وپرت زیادی ریخته است."
+    },
+    {
+      "nl": "het bed",
+      "kind": "woord",
+      "fa": "تخت",
+      "example": "Het bed staat naast het raam.",
+      "exampleFa": "تخت کنار پنجره است."
+    },
+    {
+      "nl": "het nachtkastje",
+      "kind": "woord",
+      "fa": "میز کنار تخت",
+      "example": "Mijn boek ligt op het nachtkastje.",
+      "exampleFa": "کتابم روی میز کنار تخت است."
+    },
+    {
+      "nl": "de kledingkast",
+      "kind": "woord",
+      "fa": "کمد لباس",
+      "example": "Mijn jas hangt in de kledingkast.",
+      "exampleFa": "کتم در کمد لباس آویزان است."
+    },
+    {
+      "nl": "de douche",
+      "kind": "woord",
+      "fa": "دوش",
+      "example": "De douche is in de badkamer.",
+      "exampleFa": "دوش در حمام است."
+    },
+    {
+      "nl": "het bad",
+      "kind": "woord",
+      "fa": "وان حمام",
+      "example": "De badkamer heeft ook een bad.",
+      "exampleFa": "حمام یک وان هم دارد."
+    },
+    {
+      "nl": "de spiegel",
+      "kind": "woord",
+      "fa": "آینه",
+      "example": "De spiegel hangt boven de wastafel.",
+      "exampleFa": "آینه بالای روشویی نصب شده است."
+    },
+    {
+      "nl": "de wastafel",
+      "kind": "woord",
+      "fa": "روشویی",
+      "example": "Ik was mijn handen bij de wastafel.",
+      "exampleFa": "دست‌هایم را در روشویی می‌شویم."
+    },
+    {
+      "nl": "het bureau",
+      "kind": "woord",
+      "fa": "میز کار",
+      "example": "Ik werk aan mijn bureau.",
+      "exampleFa": "پشت میز کارم کار می‌کنم."
+    },
+    {
+      "nl": "het fornuis",
+      "kind": "woord",
+      "fa": "اجاق گاز یا برقی",
+      "example": "De pan staat op het fornuis.",
+      "exampleFa": "قابلمه روی اجاق است."
+    },
+    {
+      "nl": "de vaatwasser",
+      "kind": "woord",
+      "fa": "ماشین ظرف‌شویی",
+      "example": "Ik zet de borden in de vaatwasser.",
+      "exampleFa": "بشقاب‌ها را در ماشین ظرف‌شویی می‌گذارم."
+    },
+    {
+      "nl": "het aanrecht",
+      "kind": "woord",
+      "fa": "پیشخوان آشپزخانه",
+      "example": "De kopjes staan op het aanrecht.",
+      "exampleFa": "فنجان‌ها روی پیشخوان آشپزخانه هستند."
+    },
+    {
+      "nl": "het aanrechtkastje",
+      "kind": "woord",
+      "fa": "کابینت آشپزخانه",
+      "example": "De pannen staan in het aanrechtkastje.",
+      "exampleFa": "قابلمه‌ها در کابینت آشپزخانه هستند."
+    },
+    {
+      "nl": "de afzuigkap",
+      "kind": "woord",
+      "fa": "هود",
+      "example": "Zet de afzuigkap aan tijdens het koken.",
+      "exampleFa": "هنگام آشپزی هود را روشن کن."
+    },
+    {
+      "nl": "de gootsteen",
+      "kind": "woord",
+      "fa": "سینک ظرف‌شویی",
+      "example": "Het water loopt in de gootsteen.",
+      "exampleFa": "آب در سینک جاری می‌شود."
+    },
+    {
+      "nl": "de koelkast",
+      "kind": "woord",
+      "fa": "یخچال",
+      "example": "De melk staat in de koelkast.",
+      "exampleFa": "شیر در یخچال است."
+    },
+    {
+      "nl": "de vriezer",
+      "kind": "woord",
+      "fa": "فریزر",
+      "example": "Het brood ligt in de vriezer.",
+      "exampleFa": "نان در فریزر است."
+    },
+    {
+      "nl": "de wasmachine",
+      "kind": "woord",
+      "fa": "ماشین لباس‌شویی",
+      "example": "De wasmachine staat in de bijkeuken.",
+      "exampleFa": "ماشین لباس‌شویی در اتاق خدمات کنار آشپزخانه است."
+    },
+    {
+      "nl": "de droger",
+      "kind": "woord",
+      "fa": "خشک‌کن لباس",
+      "example": "De handdoeken zitten in de droger.",
+      "exampleFa": "حوله‌ها در خشک‌کن هستند."
+    },
+    {
+      "nl": "de kapstok",
+      "kind": "woord",
+      "fa": "رخت‌آویز",
+      "example": "Mijn jas hangt aan de kapstok.",
+      "exampleFa": "کتم به رخت‌آویز آویزان است."
+    },
+    {
+      "nl": "de bank",
+      "kind": "woord",
+      "fa": "مبل",
+      "example": "We zitten samen op de bank.",
+      "exampleFa": "با هم روی مبل نشسته‌ایم."
+    },
+    {
+      "nl": "de eettafel",
+      "kind": "woord",
+      "fa": "میز غذاخوری",
+      "example": "We eten aan de eettafel.",
+      "exampleFa": "پشت میز غذاخوری غذا می‌خوریم."
+    },
+    {
+      "nl": "de salontafel",
+      "kind": "woord",
+      "fa": "میز جلوی مبل",
+      "example": "Mijn kopje staat op de salontafel.",
+      "exampleFa": "فنجانم روی میز جلوی مبل است."
+    },
+    {
+      "nl": "de luie stoel",
+      "kind": "woord",
+      "fa": "صندلی راحتی",
+      "example": "Opa leest in zijn luie stoel.",
+      "exampleFa": "پدربزرگ روی صندلی راحتی‌اش مطالعه می‌کند."
+    },
+    {
+      "nl": "het kleed",
+      "kind": "woord",
+      "fa": "فرش یا قالیچه",
+      "example": "Er ligt een kleed onder de tafel.",
+      "exampleFa": "زیر میز یک قالیچه است."
+    },
+    {
+      "nl": "wonen",
+      "kind": "werkwoord",
+      "fa": "زندگی کردن و ساکن بودن",
+      "example": "Ik heb drie jaar in Utrecht gewoond.",
+      "exampleFa": "سه سال در اوترخت زندگی کرده‌ام.",
+      "forms": [
+        "woonde",
+        "heeft gewoond",
+        "Verleden tijd en perfectum"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik woon in een appartement op de derde verdieping.",
+      "level": "A2",
+      "fa": "در یک آپارتمان در طبقهٔ سوم زندگی می‌کنم."
+    },
+    {
+      "nl": "Er lekt water onder de gootsteen.",
+      "level": "A2",
+      "fa": "از زیر سینک آب نشت می‌کند."
+    },
+    {
+      "nl": "Zou je de muziek wat zachter kunnen zetten?",
+      "level": "A2",
+      "fa": "می‌توانی صدای موسیقی را کمی پایین بیاوری؟"
+    },
+    {
+      "nl": "Wanneer wordt het afval opgehaald?",
+      "level": "A2",
+      "fa": "زباله‌ها چه زمانی جمع‌آوری می‌شوند؟"
+    },
+    {
+      "nl": "Kun je mijn pakketje aannemen?",
+      "level": "A2",
+      "fa": "می‌توانی بسته‌ام را تحویل بگیری؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Zou je de muziek wat zachter kunnen zetten?",
+      "fa": "می‌توانی صدای موسیقی را کمی پایین بیاوری؟"
+    },
+    {
+      "speaker": "Buur",
+      "nl": "Ja hoor. Ik doe het meteen.",
+      "fa": "حتماً. همین الان انجامش می‌دهم."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Kun je mijn pakketje aannemen?",
+      "fa": "می‌توانی بسته‌ام را تحویل بگیری؟"
+    },
+    {
+      "speaker": "Buur",
+      "nl": "Natuurlijk. Ik ben vanmiddag thuis.",
+      "fa": "حتماً. امروز بعدازظهر خانه هستم."
+    }
+  ]
+}

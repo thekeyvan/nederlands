@@ -1,0 +1,226 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "inburgering",
+  "title": "Taal leren & inburgering",
+  "fa": "زبان‌آموزی و هم‌پذیری",
+  "icon": "32",
+  "intro": "Over je les, je examen en je plannen.",
+  "words": [
+    {
+      "nl": "de inburgering",
+      "kind": "woord",
+      "fa": "هم‌پذیری (اینبورخرینگ)",
+      "example": "Ik ben bezig met mijn inburgering.",
+      "exampleFa": "مشغول دورهٔ هم‌پذیری‌ام هستم."
+    },
+    {
+      "nl": "het examen",
+      "kind": "woord",
+      "fa": "امتحان",
+      "example": "Volgende maand doe ik examen.",
+      "exampleFa": "ماه آینده امتحان می‌دهم."
+    },
+    {
+      "nl": "de taalschool",
+      "kind": "woord",
+      "fa": "آموزشگاه زبان",
+      "example": "Ik zit twee keer per week op de taalschool.",
+      "exampleFa": "هفته‌ای دو بار به آموزشگاه زبان می‌روم."
+    },
+    {
+      "nl": "de docent",
+      "kind": "woord",
+      "fa": "مدرس",
+      "example": "Onze docent legt alles rustig uit.",
+      "exampleFa": "مدرس‌مان همه‌چیز را با حوصله توضیح می‌دهد."
+    },
+    {
+      "nl": "de uitspraak",
+      "kind": "woord",
+      "fa": "تلفظ",
+      "example": "Mijn uitspraak wordt steeds beter.",
+      "exampleFa": "تلفظم مدام بهتر می‌شود."
+    },
+    {
+      "nl": "de grammatica",
+      "kind": "woord",
+      "fa": "دستور زبان",
+      "example": "De grammatica vind ik moeilijk.",
+      "exampleFa": "دستور زبان را سخت می‌دانم."
+    },
+    {
+      "nl": "de woordenschat",
+      "kind": "woord",
+      "fa": "دایرهٔ واژگان",
+      "example": "Elke dag oefenen helpt je woordenschat.",
+      "exampleFa": "تمرین روزانه به دایرهٔ واژگانت کمک می‌کند."
+    },
+    {
+      "nl": "het niveau",
+      "kind": "woord",
+      "fa": "سطح",
+      "example": "Ik spreek Nederlands op A2-niveau.",
+      "exampleFa": "هلندی را در سطح A2 صحبت می‌کنم."
+    },
+    {
+      "nl": "de vooruitgang",
+      "kind": "woord",
+      "fa": "پیشرفت",
+      "example": "Ik zie echt vooruitgang.",
+      "exampleFa": "واقعاً پیشرفت می‌بینم."
+    },
+    {
+      "nl": "het taalmaatje",
+      "kind": "woord",
+      "fa": "هم‌صحبت زبانی",
+      "example": "Mijn taalmaatje oefent elke week met me.",
+      "exampleFa": "هم‌صحبت زبانی‌ام هر هفته با من تمرین می‌کند."
+    },
+    {
+      "nl": "de lening",
+      "kind": "woord",
+      "fa": "وام",
+      "example": "Voor de cursus heb ik een lening van DUO.",
+      "exampleFa": "برای دوره از DUO وام گرفته‌ام."
+    },
+    {
+      "nl": "de deadline",
+      "kind": "woord",
+      "fa": "مهلت",
+      "example": "De deadline voor mijn inburgering is in 2028.",
+      "exampleFa": "مهلت هم‌پذیری‌ام سال ۲۰۲۸ است."
+    },
+    {
+      "nl": "de vrijwilliger",
+      "kind": "woord",
+      "fa": "داوطلب",
+      "example": "Ik werk als vrijwilliger in de bibliotheek.",
+      "exampleFa": "به‌عنوان داوطلب در کتابخانه کار می‌کنم."
+    },
+    {
+      "nl": "het woordenboek",
+      "kind": "woord",
+      "fa": "فرهنگ لغت",
+      "example": "Ik zoek het op in het woordenboek.",
+      "exampleFa": "آن را در فرهنگ لغت پیدا می‌کنم."
+    },
+    {
+      "nl": "oefenen",
+      "kind": "werkwoord",
+      "fa": "تمرین کردن",
+      "example": "Ik oefen elke dag een kwartier.",
+      "exampleFa": "هر روز یک ربع تمرین می‌کنم.",
+      "forms": [
+        "oefende",
+        "heb geoefend",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "het certificaat",
+      "kind": "woord",
+      "fa": "گواهی",
+      "example": "Na het examen krijg je een certificaat.",
+      "exampleFa": "بعد از امتحان یک گواهی می‌گیری."
+    },
+    {
+      "nl": "zakken",
+      "kind": "werkwoord",
+      "fa": "رد شدن (در امتحان)",
+      "example": "Hij is helaas gezakt voor spreken.",
+      "exampleFa": "متأسفانه در بخش صحبت کردن رد شد.",
+      "forms": [
+        "zakte",
+        "ben gezakt",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "spellen",
+      "kind": "werkwoord",
+      "fa": "هجی کردن",
+      "example": "Kunt u uw achternaam spellen?",
+      "exampleFa": "می‌توانید نام خانوادگی‌تان را هجی کنید؟",
+      "forms": [
+        "spelde",
+        "heb gespeld",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "vertalen",
+      "kind": "werkwoord",
+      "fa": "ترجمه کردن",
+      "example": "Kun je dit voor me vertalen?",
+      "exampleFa": "می‌توانی این را برایم ترجمه کنی؟",
+      "forms": [
+        "vertaalde",
+        "heb vertaald",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "zich inschrijven",
+      "kind": "uitdrukking",
+      "fa": "ثبت‌نام کردن",
+      "example": "Ik heb me ingeschreven voor het examen.",
+      "exampleFa": "برای امتحان ثبت‌نام کرده‌ام."
+    },
+    {
+      "nl": "wat betekent",
+      "kind": "uitdrukking",
+      "fa": "یعنی چه",
+      "example": "Wat betekent dit woord?",
+      "exampleFa": "این کلمه یعنی چه؟"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Kunt u wat langzamer praten?",
+      "level": "A2",
+      "fa": "می‌توانید کمی آهسته‌تر صحبت کنید؟"
+    },
+    {
+      "nl": "Hoe spreek je dit woord uit?",
+      "level": "A2",
+      "fa": "این کلمه را چطور تلفظ می‌کنند؟"
+    },
+    {
+      "nl": "Ik begrijp het niet helemaal.",
+      "level": "A2",
+      "fa": "کاملاً متوجه نمی‌شوم."
+    },
+    {
+      "nl": "Wanneer is het examen?",
+      "level": "A2",
+      "fa": "امتحان کی است؟"
+    },
+    {
+      "nl": "Ik oefen elke dag een beetje met een app.",
+      "level": "A2",
+      "fa": "هر روز کمی با یک اپلیکیشن تمرین می‌کنم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Docent",
+      "nl": "Hoe ging het examen?",
+      "fa": "امتحان چطور بود؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Lezen ging goed, maar spreken vond ik moeilijk.",
+      "fa": "خواندن خوب بود، اما صحبت کردن را سخت دیدم."
+    },
+    {
+      "speaker": "Docent",
+      "nl": "Je hebt veel geoefend. Ik denk dat je slaagt.",
+      "fa": "خیلی تمرین کرده‌ای. فکر می‌کنم قبول می‌شوی."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Dank u. Ik hoor het over vijf weken.",
+      "fa": "ممنون. پنج هفتهٔ دیگر نتیجه را می‌فهمم."
+    }
+  ]
+}

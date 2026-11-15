@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:geen",
+  "title": "Geen of niet?",
+  "level": "A2",
+  "pattern": "geen kaartje / het kaartje niet",
+  "example": "Ik hoef geen kaartje te kopen.",
+  "prompt": "Ik hoef ___ visum te hebben.",
+  "answer": "geen",
+  "fa": {
+    "rule": "برای نفی اسم نامعین، معمولاً geen داریم. برای نفی فعل یا چیزی مشخص، معمولاً niet می‌آید.",
+    "note": "een kaartje → geen kaartje. اما: Ik hoef het kaartje niet te kopen.",
+    "translation": "لازم نیست بلیتی بخرم."
+  },
+  "examples": [
+    {
+      "nl": "Ik heb geen tijd vandaag.",
+      "gap": "geen",
+      "fa": "امروز وقت ندارم."
+    },
+    {
+      "nl": "Ik begrijp de vraag niet.",
+      "gap": "niet",
+      "fa": "سؤال را نمی‌فهمم."
+    },
+    {
+      "nl": "Wij hebben geen auto.",
+      "gap": "geen",
+      "fa": "ما ماشین نداریم."
+    }
+  ]
+}

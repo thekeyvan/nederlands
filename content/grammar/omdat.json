@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:omdat",
+  "title": "Omdat of want?",
+  "level": "A2",
+  "pattern": "want + onderwerp + persoonsvorm · omdat + onderwerp + ... + werkwoord(en) · MEOWD: maar, en, of, want, dus",
+  "example": "Ik blijf thuis omdat ik moe ben.",
+  "prompt": "Ik blijf thuis omdat ik moe ___.",
+  "answer": "ben",
+  "fa": {
+    "rule": "هر دو دلیل می‌دهند. با omdat فعل آخر بخش می‌آید؛ بعد از want ترتیب جمله عادی است.",
+    "note": "حرف ربط دلیل در جملهٔ وابسته، فعل‌ها را به پایان می‌برد؛ حرف ربط دلیل در جملهٔ هم‌پایه ترتیب عادی را حفظ می‌کند. پنج حرف ربط هم‌پایهٔ رایج: اما، و، یا، زیرا، پس؛ شکل معادل «پس» می‌تواند با وارونگی هم بیاید.",
+    "translation": "در خانه می‌مانم چون خسته‌ام."
+  },
+  "examples": [
+    {
+      "nl": "Ik kom later omdat de trein vertraging heeft.",
+      "gap": "heeft",
+      "fa": "دیرتر می‌آیم چون قطار تأخیر دارد."
+    },
+    {
+      "nl": "Ik neem een taxi, want het regent.",
+      "gap": "want",
+      "fa": "تاکسی می‌گیرم، چون باران می‌بارد."
+    },
+    {
+      "nl": "We eten thuis omdat het restaurant dicht is.",
+      "gap": "is",
+      "fa": "در خانه غذا می‌خوریم چون رستوران بسته است."
+    }
+  ]
+}

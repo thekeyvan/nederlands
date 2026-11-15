@@ -1,0 +1,33 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:plusquamperfectum",
+  "title": "Ik had gewerkt",
+  "level": "B1",
+  "pattern": "had / was + ... + voltooid deelwoord",
+  "example": "Ik had al gegeten toen hij kwam.",
+  "prompt": "Ik ___ al gegeten toen hij kwam.",
+  "answer": "had",
+  "fa": {
+    "rule": "برای کاری که پیش از یک زمان دیگر در گذشته انجام شده، فعل کمکی به گذشته می‌رود.",
+    "note": "Perfectum: Ik heb gegeten. گذشتهٔ پیش از گذشته: Ik had gegeten.",
+    "translation": "وقتی آمد، قبلاً غذا خورده بودم."
+  },
+  "examples": [
+    {
+      "nl": "De film was al begonnen toen we aankwamen.",
+      "gap": "was",
+      "fa": "وقتی رسیدیم فیلم شروع شده بود."
+    },
+    {
+      "nl": "Ik had de deur al dichtgedaan.",
+      "gap": "had",
+      "fa": "در را بسته بودم."
+    },
+    {
+      "nl": "Ze had het nog nooit gezien.",
+      "gap": "gezien",
+      "fa": "او هرگز آن را ندیده بود.",
+      "hint": "zien"
+    }
+  ]
+}

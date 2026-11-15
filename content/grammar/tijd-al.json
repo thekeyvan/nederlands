@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:tijd-al",
+  "title": "Al, nog niet, pas",
+  "level": "A2",
+  "pattern": "al klaar / nog niet klaar / pas morgen",
+  "example": "Ik hoef pas morgen te werken.",
+  "prompt": "Ik ben ___ niet klaar.",
+  "answer": "nog",
+  "fa": {
+    "rule": "al یعنی کاری قبلاً انجام شده؛ nog niet یعنی هنوز نه. pas می‌تواند «تازه» یا «نه زودتر از» باشد.",
+    "note": "در al onze vrienden، al یعنی همهٔ دوستان ما. معنی را از کل عبارت بفهم.",
+    "translation": "تازه از فردا لازم است کار کنم."
+  },
+  "examples": [
+    {
+      "nl": "Ik ben al klaar met mijn werk.",
+      "gap": "al",
+      "fa": "کارم را تمام کرده‌ام."
+    },
+    {
+      "nl": "De winkel gaat pas om tien uur open.",
+      "gap": "pas",
+      "fa": "مغازه تازه ساعت ده باز می‌شود."
+    },
+    {
+      "nl": "Hij heeft nog niet gegeten.",
+      "gap": "nog",
+      "fa": "او هنوز غذا نخورده است."
+    }
+  ]
+}

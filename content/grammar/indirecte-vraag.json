@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:indirecte-vraag",
+  "title": "Weet je of ...?",
+  "level": "B1",
+  "pattern": "ja/nee-vraag → of · open vraag → wie / wat / waar + onderwerp + ... + werkwoord",
+  "example": "Ik weet niet of het morgen regent. Weet je waar we vanavond eten?",
+  "prompt": "Ik weet niet ___ het morgen regent.",
+  "answer": "of",
+  "fa": {
+    "rule": "سؤال غیرمستقیم را با حرف ربط پرسش بله یا خیر، یا واژهٔ پرسشی مناسب بساز.",
+    "note": "در سؤال غیرمستقیم ترتیب سؤال مستقیم را تکرار نکن؛ فعل‌های جملهٔ وابسته به پایان می‌روند. واژهٔ معادل «یا» در اینجا وابسته‌ساز است، ولی وقتی دو گزینه را پیوند می‌دهد هم‌پایه‌ساز است.",
+    "translation": "نمی‌دانم فردا باران می‌بارد یا نه. می‌دانی امشب کجا غذا می‌خوریم؟"
+  },
+  "examples": [
+    {
+      "nl": "Weet jij of de winkel open is?",
+      "gap": "of",
+      "fa": "می‌دانی مغازه باز است یا نه؟"
+    },
+    {
+      "nl": "Ik vraag me af waar hij woont.",
+      "gap": "waar",
+      "fa": "نمی‌دانم او کجا زندگی می‌کند."
+    },
+    {
+      "nl": "Kun je zeggen hoe laat de trein vertrekt?",
+      "gap": "vertrekt",
+      "fa": "می‌توانی بگویی قطار چه ساعتی حرکت می‌کند؟"
+    }
+  ]
+}

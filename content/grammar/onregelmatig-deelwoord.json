@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:onregelmatig-deelwoord",
+  "title": "Gekeken, gelachen, gevlogen",
+  "level": "A2",
+  "pattern": "kijken → keek → gekeken · lachen → lachte → gelachen · vliegen → vloog → gevlogen",
+  "example": "Ik heb een film gekeken en veel gelachen.",
+  "prompt": "We hebben veel ___. (lachen)",
+  "answer": "gelachen",
+  "fa": {
+    "rule": "شکل‌های بی‌قاعده را همراه با مصدر و مثال یاد بگیر.",
+    "note": "بعضی فعل‌ها در گذشتهٔ ساده منظم‌اند ولی اسم مفعولشان بی‌قاعده است؛ خندیدن یک نمونه است. ناهار خوردن در این قاعده منظم است.",
+    "translation": "فیلم تماشا کردم و خیلی خندیدم."
+  },
+  "examples": [
+    {
+      "nl": "We zijn naar Spanje gevlogen.",
+      "gap": "gevlogen",
+      "fa": "با هواپیما به اسپانیا رفته‌ایم.",
+      "hint": "vliegen"
+    },
+    {
+      "nl": "Ik heb een mooi boek gelezen.",
+      "gap": "gelezen",
+      "fa": "یک کتاب خوب خوانده‌ام.",
+      "hint": "lezen"
+    },
+    {
+      "nl": "Hij heeft de hele middag geslapen.",
+      "gap": "geslapen",
+      "fa": "او تمام بعدازظهر خوابیده است.",
+      "hint": "slapen"
+    }
+  ]
+}

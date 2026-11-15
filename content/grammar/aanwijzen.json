@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:aanwijzen",
+  "title": "Deze, die, dit, dat",
+  "level": "A2",
+  "pattern": "de-woord: deze / die · het-woord: dit / dat · meervoud: deze / die",
+  "example": "Deze stoel staat hier en dat bed staat daar.",
+  "prompt": "___ bed staat daar. (ver weg)",
+  "answer": "Dat",
+  "fa": {
+    "rule": "ضمیر اشاره را بر اساس حرف تعریف، مفرد یا جمع بودن و فاصله انتخاب کن.",
+    "note": "برای اسم‌های با حرف تعریف مشترک و همهٔ جمع‌ها، یک جفت ضمیر داریم؛ برای اسم خنثای مفرد جفت دیگر. نزدیک و دور بودن می‌تواند به فاصله در گفت‌وگو هم اشاره کند.",
+    "translation": "این صندلی اینجاست و آن تخت آنجاست."
+  },
+  "examples": [
+    {
+      "nl": "Deze tas is van mij.",
+      "gap": "Deze",
+      "fa": "این کیف مال من است."
+    },
+    {
+      "nl": "Dit huis is te klein.",
+      "gap": "Dit",
+      "fa": "این خانه خیلی کوچک است."
+    },
+    {
+      "nl": "Die schoenen zijn nieuw.",
+      "gap": "Die",
+      "fa": "آن کفش‌ها نو هستند."
+    }
+  ]
+}

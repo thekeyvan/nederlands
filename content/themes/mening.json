@@ -1,0 +1,248 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "mening",
+  "title": "Je mening geven",
+  "fa": "نظر دادن و مقایسه",
+  "icon": "13",
+  "intro": "Zeg wat je vindt. Geef een reden.",
+  "words": [
+    {
+      "nl": "Volgens mij ...",
+      "kind": "uitdrukking",
+      "fa": "به نظر من ...",
+      "example": "Volgens mij is dit een goed idee.",
+      "exampleFa": "به نظرم این ایدهٔ خوبی است."
+    },
+    {
+      "nl": "Ik denk dat ...",
+      "kind": "uitdrukking",
+      "fa": "فکر می‌کنم که ...",
+      "example": "Ik denk dat we beter met de trein kunnen gaan.",
+      "exampleFa": "فکر می‌کنم بهتر است با قطار برویم."
+    },
+    {
+      "nl": "Ik vind dat ...",
+      "kind": "uitdrukking",
+      "fa": "نظر من این است که ...",
+      "example": "Ik vind dat iedereen zijn mening mag geven.",
+      "exampleFa": "به نظر من همه حق دارند نظرشان را بگویند."
+    },
+    {
+      "nl": "Ik ben het ermee eens.",
+      "kind": "uitdrukking",
+      "fa": "با آن موافقم.",
+      "example": "Je zegt dat we eerder moeten beginnen. Ik ben het ermee eens.",
+      "exampleFa": "می‌گویی باید زودتر شروع کنیم. با این نظر موافقم."
+    },
+    {
+      "nl": "Ik ben het daar niet mee eens.",
+      "kind": "uitdrukking",
+      "fa": "با آن موافق نیستم.",
+      "example": "Je vindt dit plan te duur, maar ik ben het daar niet mee eens.",
+      "exampleFa": "این برنامه را خیلی گران می‌دانی، ولی من با این نظر موافق نیستم."
+    },
+    {
+      "nl": "gedeeltelijk eens",
+      "kind": "uitdrukking",
+      "fa": "تا حدی موافق",
+      "example": "Ik ben het gedeeltelijk met je eens, maar ik heb nog een vraag.",
+      "exampleFa": "تا حدی با تو موافقم، ولی هنوز یک سؤال دارم."
+    },
+    {
+      "nl": "aan de ene kant ... aan de andere kant ...",
+      "kind": "uitdrukking",
+      "fa": "از یک طرف ... از طرف دیگر ...",
+      "example": "Aan de ene kant is de trein duur, aan de andere kant is hij comfortabel.",
+      "exampleFa": "از یک طرف قطار گران است، از طرف دیگر راحت است."
+    },
+    {
+      "nl": "ten eerste ... ten tweede ...",
+      "kind": "uitdrukking",
+      "fa": "اول اینکه ... دوم اینکه ...",
+      "example": "Ten eerste is het dichtbij en ten tweede is het betaalbaar.",
+      "exampleFa": "اول اینکه نزدیک است و دوم اینکه قیمتش قابل‌پرداخت است."
+    },
+    {
+      "nl": "het voordeel",
+      "kind": "woord",
+      "fa": "مزیت",
+      "example": "Een voordeel van thuiswerken is dat ik niet hoef te reizen.",
+      "exampleFa": "یک مزیت کار از خانه این است که لازم نیست رفت‌وآمد کنم."
+    },
+    {
+      "nl": "het nadeel",
+      "kind": "woord",
+      "fa": "عیب؛ نقطهٔ منفی",
+      "example": "Het nadeel is dat we elkaar minder vaak zien.",
+      "exampleFa": "نقطه‌ضعفش این است که کمتر همدیگر را می‌بینیم."
+    },
+    {
+      "nl": "de stelling",
+      "kind": "woord",
+      "fa": "گزاره‌ای برای بحث؛ ادعا",
+      "example": "De stelling is: iedereen zou vaker met de fiets moeten gaan.",
+      "exampleFa": "گزارهٔ موردبحث این است: همه باید بیشتر با دوچرخه رفت‌وآمد کنند."
+    },
+    {
+      "nl": "de reden",
+      "kind": "woord",
+      "fa": "دلیل",
+      "example": "Wat is de reden dat je voor deze opleiding kiest?",
+      "exampleFa": "دلیل انتخاب این دورهٔ تحصیلی چیست؟"
+    },
+    {
+      "nl": "het doel",
+      "kind": "woord",
+      "fa": "هدف",
+      "example": "Het doel van de cursus is om makkelijker gesprekken te voeren.",
+      "exampleFa": "هدف دوره این است که راحت‌تر گفت‌وگو کنیم."
+    },
+    {
+      "nl": "net als",
+      "kind": "uitdrukking",
+      "fa": "درست مثل",
+      "example": "Net als jij werk ik graag in een klein team.",
+      "exampleFa": "درست مثل تو، دوست دارم در یک تیم کوچک کار کنم."
+    },
+    {
+      "nl": "net zo ... als",
+      "kind": "uitdrukking",
+      "fa": "به همان اندازهٔ ...",
+      "example": "Deze kamer is net zo groot als de andere.",
+      "exampleFa": "این اتاق درست به اندازهٔ اتاق دیگر بزرگ است."
+    },
+    {
+      "nl": "vergelijkbaar met",
+      "kind": "uitdrukking",
+      "fa": "مشابهِ؛ قابل‌مقایسه با",
+      "example": "Deze situatie is vergelijkbaar met die van vorig jaar.",
+      "exampleFa": "این وضعیت با وضعیت سال قبل قابل‌مقایسه است."
+    },
+    {
+      "nl": "precies hetzelfde",
+      "kind": "uitdrukking",
+      "fa": "دقیقاً همان چیز؛ کاملاً یکسان",
+      "example": "We hebben precies hetzelfde probleem.",
+      "exampleFa": "ما دقیقاً همان مشکل را داریم."
+    },
+    {
+      "nl": "zoiets",
+      "kind": "woord",
+      "fa": "یک چنین چیزی",
+      "example": "Ik zoek een kleine tafel, zoiets als die bij het raam.",
+      "exampleFa": "دنبال یک میز کوچک هستم، چیزی شبیه آن میز کنار پنجره."
+    },
+    {
+      "nl": "anders dan",
+      "kind": "uitdrukking",
+      "fa": "متفاوت با",
+      "example": "Deze film is anders dan ik had verwacht.",
+      "exampleFa": "این فیلم با چیزی که انتظار داشتم متفاوت است."
+    },
+    {
+      "nl": "beter dan",
+      "kind": "uitdrukking",
+      "fa": "بهتر از",
+      "example": "Ik spreek nu beter Nederlands dan vorig jaar.",
+      "exampleFa": "حالا نسبت به سال قبل بهتر هلندی صحبت می‌کنم."
+    },
+    {
+      "nl": "lager dan",
+      "kind": "uitdrukking",
+      "fa": "پایین‌تر از",
+      "example": "De huur is hier lager dan in het centrum.",
+      "exampleFa": "اجاره اینجا از مرکز شهر کمتر است."
+    },
+    {
+      "nl": "veel te ...",
+      "kind": "uitdrukking",
+      "fa": "خیلی بیش از حد ...",
+      "example": "Deze jas is veel te groot voor mij.",
+      "exampleFa": "این کت برایم خیلی بیش از حد بزرگ است."
+    },
+    {
+      "nl": "Je kunt beter ...",
+      "kind": "uitdrukking",
+      "fa": "بهتر است ...؛ برای توصیه",
+      "example": "Je kunt beter eerst bellen voordat je langsgaat.",
+      "exampleFa": "بهتر است قبل از مراجعه ابتدا زنگ بزنی."
+    },
+    {
+      "nl": "in plaats van",
+      "kind": "uitdrukking",
+      "fa": "به جایِ",
+      "example": "Ik neem thee in plaats van koffie.",
+      "exampleFa": "به‌جای قهوه چای می‌گیرم."
+    },
+    {
+      "nl": "zowel ... als ...",
+      "kind": "uitdrukking",
+      "fa": "هم ... و هم ...",
+      "example": "Zowel mijn broer als mijn zus spreekt Nederlands.",
+      "exampleFa": "هم برادرم و هم خواهرم هلندی صحبت می‌کنند."
+    },
+    {
+      "nl": "niet alleen ... maar ook ...",
+      "kind": "uitdrukking",
+      "fa": "نه‌تنها ... بلکه همچنین ...",
+      "example": "Deze cursus is niet alleen nuttig, maar ook leuk.",
+      "exampleFa": "این دوره نه‌تنها مفید، بلکه لذت‌بخش هم هست."
+    },
+    {
+      "nl": "Dat klinkt logisch.",
+      "kind": "uitdrukking",
+      "fa": "منطقی به نظر می‌رسد.",
+      "example": "Dat klinkt logisch, maar ik heb nog een vraag.",
+      "exampleFa": "منطقی به نظر می‌رسد، ولی هنوز یک سؤال دارم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Volgens mij is dit een goed idee.",
+      "level": "B1",
+      "fa": "به نظر من این ایدهٔ خوبی است."
+    },
+    {
+      "nl": "Ik ben het niet helemaal met je eens.",
+      "level": "B1",
+      "fa": "کاملاً با تو موافق نیستم."
+    },
+    {
+      "nl": "Kun je uitleggen waarom je dat vindt?",
+      "level": "B1",
+      "fa": "می‌توانی توضیح بدهی چرا این نظر را داری؟"
+    },
+    {
+      "nl": "Aan de ene kant is het handig, maar aan de andere kant is het duur.",
+      "level": "B1",
+      "fa": "از یک طرف کاربردی است، ولی از طرف دیگر گران است."
+    },
+    {
+      "nl": "Ik zou liever voor de andere optie kiezen.",
+      "level": "B1",
+      "fa": "ترجیح می‌دهم گزینهٔ دیگر را انتخاب کنم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Volgens mij is dit een goed idee.",
+      "fa": "به نظر من این ایدهٔ خوبی است."
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Wat vind je er goed aan?",
+      "fa": "چه چیزش را خوب می‌دانی؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Kun je uitleggen waarom je dat vindt?",
+      "fa": "می‌توانی توضیح بدهی چرا این نظر را داری؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Natuurlijk. Ik denk dat het te veel tijd kost.",
+      "fa": "حتماً. فکر می‌کنم وقت زیادی می‌گیرد."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:anderhalf",
+  "title": "Anderhalf of anderhalve?",
+  "level": "A2",
+  "pattern": "1,5 → anderhalf uur / anderhalve dag · 2,5 → tweeënhalf uur / tweeënhalve dag",
+  "example": "De les duurt anderhalf uur en de reis tweeënhalf uur.",
+  "prompt": "De les duurt ___ uur. (1,5)",
+  "answer": "anderhalf",
+  "fa": {
+    "rule": "برای یک و نیم، شکل واژه با جنس دستوری اسم بعدی هماهنگ می‌شود.",
+    "note": "با اسم خنثای مفرد شکل بدون پایان اضافه و با اسم غیرخنثای مفرد شکل دارای پایان اضافه می‌آید. در مثال‌های یک و نیم و دو و نیم، اسم بعدی مفرد می‌ماند. شکل واژه را همراه با اسم یاد بگیر.",
+    "translation": "درس یک ساعت و نیم و سفر دو ساعت و نیم طول می‌کشد."
+  },
+  "examples": [
+    {
+      "nl": "Ik heb anderhalve week vakantie.",
+      "gap": "anderhalve",
+      "fa": "یک هفته و نیم تعطیلی دارم.",
+      "hint": "1,5"
+    },
+    {
+      "nl": "De film duurt tweeënhalf uur.",
+      "gap": "tweeënhalf",
+      "fa": "فیلم دو ساعت و نیم طول می‌کشد.",
+      "hint": "2,5"
+    },
+    {
+      "nl": "We wachten al anderhalf uur.",
+      "gap": "anderhalf",
+      "fa": "یک ساعت و نیم است که منتظریم.",
+      "hint": "1,5"
+    }
+  ]
+}

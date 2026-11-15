@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:zou-willen",
+  "title": "Zou u ... willen ...?",
+  "level": "A2",
+  "pattern": "Zou + je / u + ... + willen + infinitief?",
+  "example": "Zou u de deur willen openhouden?",
+  "prompt": "Zou u dit verslag ___ doornemen?",
+  "answer": "willen",
+  "fa": {
+    "rule": "برای درخواست محترمانهٔ انجام کاری از این قالب استفاده کن.",
+    "note": "openhouden یعنی باز نگه داشتن؛ opendoen یعنی باز کردن.",
+    "translation": "ممکن است لطفاً در را باز نگه دارید؟"
+  },
+  "examples": [
+    {
+      "nl": "Zou u even willen wachten?",
+      "gap": "willen",
+      "fa": "ممکن است کمی صبر کنید؟"
+    },
+    {
+      "nl": "Zou je dit formulier willen tekenen?",
+      "gap": "tekenen",
+      "fa": "ممکن است این فرم را امضا کنی؟"
+    },
+    {
+      "nl": "Zou u uw naam willen spellen?",
+      "gap": "Zou",
+      "fa": "ممکن است نامتان را هجی کنید؟"
+    }
+  ]
+}

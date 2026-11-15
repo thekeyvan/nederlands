@@ -1,0 +1,216 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "familie",
+  "title": "Familie & relaties",
+  "fa": "خانواده و روابط",
+  "icon": "31",
+  "intro": "Vertel over je familie en je vrienden.",
+  "words": [
+    {
+      "nl": "de ouders",
+      "kind": "woord",
+      "fa": "پدر و مادر",
+      "example": "Mijn ouders wonen nog in Iran.",
+      "exampleFa": "پدر و مادرم هنوز در ایران زندگی می‌کنند."
+    },
+    {
+      "nl": "de broer",
+      "kind": "woord",
+      "fa": "برادر",
+      "example": "Mijn broer is twee jaar ouder dan ik.",
+      "exampleFa": "برادرم دو سال از من بزرگ‌تر است."
+    },
+    {
+      "nl": "de zus",
+      "kind": "woord",
+      "fa": "خواهر",
+      "example": "Mijn zus studeert in Amsterdam.",
+      "exampleFa": "خواهرم در آمستردام درس می‌خواند."
+    },
+    {
+      "nl": "de partner",
+      "kind": "woord",
+      "fa": "همسر / شریک زندگی",
+      "example": "Mijn partner werkt in het ziekenhuis.",
+      "exampleFa": "همسرم در بیمارستان کار می‌کند."
+    },
+    {
+      "nl": "de man",
+      "kind": "woord",
+      "fa": "شوهر / مرد",
+      "example": "Haar man komt uit Marokko.",
+      "exampleFa": "شوهرش اهل مراکش است."
+    },
+    {
+      "nl": "de vrouw",
+      "kind": "woord",
+      "fa": "همسر (زن) / زن",
+      "example": "Zijn vrouw spreekt goed Nederlands.",
+      "exampleFa": "همسرش خوب هلندی صحبت می‌کند."
+    },
+    {
+      "nl": "de opa",
+      "kind": "woord",
+      "fa": "پدربزرگ",
+      "example": "Opa vertelt graag verhalen.",
+      "exampleFa": "پدربزرگ دوست دارد داستان تعریف کند."
+    },
+    {
+      "nl": "de oma",
+      "kind": "woord",
+      "fa": "مادربزرگ",
+      "example": "Oma bakt elke zondag een taart.",
+      "exampleFa": "مادربزرگ هر یکشنبه کیک می‌پزد."
+    },
+    {
+      "nl": "de oom",
+      "kind": "woord",
+      "fa": "عمو / دایی",
+      "example": "Mijn oom heeft een restaurant.",
+      "exampleFa": "عمویم یک رستوران دارد."
+    },
+    {
+      "nl": "de tante",
+      "kind": "woord",
+      "fa": "عمه / خاله",
+      "example": "Mijn tante komt op bezoek.",
+      "exampleFa": "خاله‌ام به دیدن ما می‌آید."
+    },
+    {
+      "nl": "de neef",
+      "kind": "woord",
+      "fa": "پسرعمو / خواهرزاده",
+      "example": "Mijn neef is net zo oud als ik.",
+      "exampleFa": "پسرعمویم هم‌سن من است."
+    },
+    {
+      "nl": "de nicht",
+      "kind": "woord",
+      "fa": "دخترعمو / خواهرزاده",
+      "example": "Mijn nicht gaat trouwen.",
+      "exampleFa": "دخترعمویم دارد ازدواج می‌کند."
+    },
+    {
+      "nl": "de schoonmoeder",
+      "kind": "woord",
+      "fa": "مادرشوهر / مادرزن",
+      "example": "Mijn schoonmoeder past op de kinderen.",
+      "exampleFa": "مادرشوهرم از بچه‌ها نگهداری می‌کند."
+    },
+    {
+      "nl": "de vriendschap",
+      "kind": "woord",
+      "fa": "دوستی",
+      "example": "Onze vriendschap is heel belangrijk voor me.",
+      "exampleFa": "دوستی‌مان برایم خیلی مهم است."
+    },
+    {
+      "nl": "de schoonvader",
+      "kind": "woord",
+      "fa": "پدرشوهر / پدرزن",
+      "example": "Mijn schoonvader helpt ons met verhuizen.",
+      "exampleFa": "پدرشوهرم در اسباب‌کشی به ما کمک می‌کند."
+    },
+    {
+      "nl": "de bruid",
+      "kind": "woord",
+      "fa": "عروس",
+      "example": "De bruid draagt een witte jurk.",
+      "exampleFa": "عروس یک لباس سفید پوشیده است."
+    },
+    {
+      "nl": "verliefd worden",
+      "kind": "uitdrukking",
+      "fa": "عاشق شدن",
+      "example": "Ze werden op de universiteit verliefd.",
+      "exampleFa": "آن‌ها در دانشگاه عاشق هم شدند."
+    },
+    {
+      "nl": "scheiden",
+      "kind": "werkwoord",
+      "fa": "جدا شدن (طلاق)",
+      "example": "Haar ouders zijn gescheiden.",
+      "exampleFa": "پدر و مادرش از هم جدا شده‌اند.",
+      "forms": [
+        "scheidde",
+        "zijn gescheiden",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "opgroeien",
+      "kind": "werkwoord",
+      "fa": "بزرگ شدن",
+      "example": "Ik ben in een klein dorp opgegroeid.",
+      "exampleFa": "در یک روستای کوچک بزرگ شده‌ام.",
+      "forms": [
+        "groeide op",
+        "ben opgegroeid",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "lijken op",
+      "kind": "uitdrukking",
+      "fa": "شبیه بودن به",
+      "example": "Je lijkt op je moeder.",
+      "exampleFa": "شبیه مادرت هستی."
+    },
+    {
+      "nl": "getrouwd zijn",
+      "kind": "uitdrukking",
+      "fa": "متأهل بودن",
+      "example": "Ze zijn al dertig jaar getrouwd.",
+      "exampleFa": "سی سال است که ازدواج کرده‌اند."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Heb je broers of zussen?",
+      "level": "A2",
+      "fa": "خواهر یا برادر داری؟"
+    },
+    {
+      "nl": "Mijn familie woont ver weg.",
+      "level": "A2",
+      "fa": "خانواده‌ام دور زندگی می‌کنند."
+    },
+    {
+      "nl": "Ik bel elke week met mijn moeder.",
+      "level": "A2",
+      "fa": "هر هفته با مادرم تلفنی صحبت می‌کنم."
+    },
+    {
+      "nl": "We zijn al tien jaar samen.",
+      "level": "A2",
+      "fa": "ده سال است که با هم هستیم."
+    },
+    {
+      "nl": "Ik mis mijn familie soms erg.",
+      "level": "A2",
+      "fa": "گاهی خیلی دلم برای خانواده‌ام تنگ می‌شود."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Collega",
+      "nl": "Heb jij familie in Nederland?",
+      "fa": "تو در هلند خانواده داری؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Alleen mijn zus. Mijn ouders wonen in Iran.",
+      "fa": "فقط خواهرم. پدر و مادرم در ایران زندگی می‌کنند."
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Zie je ze vaak?",
+      "fa": "زیاد می‌بینی‌شان؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Eén keer per jaar. We bellen elke week.",
+      "fa": "سالی یک بار. هر هفته تلفنی صحبت می‌کنیم."
+    }
+  ]
+}

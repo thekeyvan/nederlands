@@ -6,16 +6,12 @@ import {baseDialogues} from '../../content/dialogues.js';
 import {baseSentences} from '../../content/grammar.js';
 import {grammarExamples} from '../../content/grammar-examples.js';
 import {locales} from '../../locales/index.js';
+import {groups as courseGroups} from '../../content/index.js';
 
 const fa = locales.fa;
 
-/** Theme groups, in the order the pages list them, with their Persian names. */
-export const groups = [
-  {id: 'dagelijks', fa: 'زندگی روزمره', ids: ['boodschappen', 'wonen', 'huis-kopen', 'huishouden', 'school', 'digitaal', 'geld', 'gemeente', 'huisarts', 'apotheek', 'gezondheid', 'noodgeval']},
-  {id: 'werk', fa: 'کار و شغل', ids: ['werk', 'overleg', 'loopbaan', 'beroepen', 'solliciteren']},
-  {id: 'vrijetijd', fa: 'اوقات فراغت و بیرون', ids: ['vrijetijd', 'cultuur', 'reizen', 'verkeer', 'natuur', 'uitgaan', 'kleding', 'feest']},
-  {id: 'taal', fa: 'زبان، ارتباط و احساسات', ids: ['contact', 'mening', 'familie', 'weer', 'tijd', 'modalen', 'inburgering']},
-];
+/** Theme groups, in the order the pages list them, with their Persian names (from content/index.js). */
+export const groups = courseGroups.map(({id, fa, themes: ids}) => ({id, fa, ids}));
 
 export const kindFa = {woord: 'واژه', werkwoord: 'فعل', uitdrukking: 'اصطلاح'};
 

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:hoeven",
+  "title": "Niet hoeven ≠ niet mogen",
+  "level": "A2",
+  "pattern": "hoeven + niet / geen + ... + te + infinitief",
+  "example": "Ik hoef morgen niet te werken.",
+  "prompt": "Ik hoef morgen niet ___ werken.",
+  "answer": "te",
+  "fa": {
+    "rule": "hoeven met niet یا geen یعنی «لازم نیست». mogen met niet یعنی «اجازه نداری».",
+    "note": "نداشتنِ الزام با ممنوعیت فرق دارد. وقتی یک اسم نامعین را منفی می‌کنی از منفی‌کنندهٔ اسم استفاده کن؛ با سایر بخش‌ها معمولاً منفی‌کنندهٔ عمومی جمله می‌آید. فعل جداشدنی در این ساختار از دو طرف نشانهٔ مصدر قرار می‌گیرد.",
+    "translation": "لازم نیست فردا کار کنم."
+  },
+  "examples": [
+    {
+      "nl": "Je hoeft niet te betalen.",
+      "gap": "te",
+      "fa": "لازم نیست پول بدهی."
+    },
+    {
+      "nl": "We hoeven vandaag niet vroeg op te staan.",
+      "gap": "hoeven",
+      "fa": "امروز لازم نیست زود بیدار شویم."
+    },
+    {
+      "nl": "U hoeft geen afspraak te maken.",
+      "gap": "hoeft",
+      "fa": "لازم نیست وقت بگیرید."
+    }
+  ]
+}

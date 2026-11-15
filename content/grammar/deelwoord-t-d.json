@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:deelwoord-t-d",
+  "title": "Gewerkt, gewoond, gepraat",
+  "level": "A2",
+  "pattern": "SoFT KeTCHuP → -t, anders -d · gewerkt, gewoond, gepraat, gekend, geluncht · leven → geleefd",
+  "example": "We hebben gepraat en samen geluncht.",
+  "prompt": "We hebben samen ___. (lunchen)",
+  "answer": "geluncht",
+  "fa": {
+    "rule": "پایان اسم مفعول فعل منظم را با قاعدهٔ همخوان پایانی تعیین کن.",
+    "note": "قاعدهٔ کلاس بر پایهٔ همخوان پیش از پایان مصدر است. در فعل زندگی کردن، همخوان اصلی در مصدر صدادار است؛ حتی اگر ریشه در نوشتار به حرف بی‌واک تبدیل شود، اسم مفعول پایان صدادار می‌گیرد. شکل خندیدن بی‌قاعده است؛ ناهار خوردن منظم است.",
+    "translation": "صحبت کردیم و با هم ناهار خوردیم."
+  },
+  "examples": [
+    {
+      "nl": "Ik heb de hele avond gekookt.",
+      "gap": "gekookt",
+      "fa": "تمام شب آشپزی کرده‌ام.",
+      "hint": "koken"
+    },
+    {
+      "nl": "We hebben in Utrecht gewoond.",
+      "gap": "gewoond",
+      "fa": "در اوترخت زندگی کرده‌ایم.",
+      "hint": "wonen"
+    },
+    {
+      "nl": "Ze heeft op de bus gewacht.",
+      "gap": "gewacht",
+      "fa": "منتظر اتوبوس مانده است.",
+      "hint": "wachten"
+    }
+  ]
+}

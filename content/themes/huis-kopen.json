@@ -1,0 +1,319 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "huis-kopen",
+  "title": "Kopen, huren & regelen",
+  "fa": "خرید، اجاره و کارهای خانه",
+  "icon": "06",
+  "intro": "Welke keuzes moet je maken?",
+  "words": [
+    {
+      "nl": "kopen",
+      "kind": "werkwoord",
+      "fa": "خریدن",
+      "example": "We willen volgend jaar een huis kopen.",
+      "exampleFa": "می‌خواهیم سال آینده خانه بخریم.",
+      "forms": [
+        "kocht",
+        "heb gekocht",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "verkopen",
+      "kind": "werkwoord",
+      "fa": "فروختن",
+      "example": "Mijn buren verkopen hun appartement.",
+      "exampleFa": "همسایه‌هایم آپارتمانشان را می‌فروشند.",
+      "forms": [
+        "verkocht",
+        "heb verkocht",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "huren",
+      "kind": "werkwoord",
+      "fa": "اجاره کردن",
+      "example": "Ik huur een kamer in een gedeeld huis.",
+      "exampleFa": "یک اتاق در خانه‌ای مشترک اجاره می‌کنم.",
+      "forms": [
+        "huurde",
+        "heb gehuurd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "verhuren",
+      "kind": "werkwoord",
+      "fa": "اجاره دادن",
+      "example": "Zij verhuurt haar oude woning aan een gezin.",
+      "exampleFa": "او خانهٔ قدیمی‌اش را به یک خانواده اجاره می‌دهد.",
+      "forms": [
+        "verhuurde",
+        "heb verhuurd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de huurder",
+      "kind": "woord",
+      "fa": "مستأجر",
+      "example": "De huurder betaalt de huur elke maand.",
+      "exampleFa": "مستأجر هر ماه اجاره را می‌پردازد."
+    },
+    {
+      "nl": "de verhuurder",
+      "kind": "woord",
+      "fa": "اجاره‌دهنده؛ صاحب‌خانه",
+      "example": "Ik bel de verhuurder omdat de verwarming niet werkt.",
+      "exampleFa": "به صاحب‌خانه زنگ می‌زنم چون گرمایش کار نمی‌کند."
+    },
+    {
+      "nl": "de huurprijs",
+      "kind": "woord",
+      "fa": "مبلغ اجاره",
+      "example": "Is de huurprijs inclusief water en elektriciteit?",
+      "exampleFa": "آیا مبلغ اجاره شامل آب و برق است؟"
+    },
+    {
+      "nl": "de makelaar",
+      "kind": "woord",
+      "fa": "مشاور املاک",
+      "example": "De makelaar laat ons de woning zien.",
+      "exampleFa": "مشاور املاک خانه را به ما نشان می‌دهد."
+    },
+    {
+      "nl": "de hypotheek",
+      "kind": "woord",
+      "fa": "وام مسکن",
+      "example": "We hebben een afspraak om onze hypotheek te bespreken.",
+      "exampleFa": "برای صحبت دربارهٔ وام مسکنمان وقت گرفته‌ایم."
+    },
+    {
+      "nl": "de rente",
+      "kind": "woord",
+      "fa": "نرخ بهره",
+      "example": "Hoeveel rente betaal ik over deze lening?",
+      "exampleFa": "برای این وام چقدر بهره می‌پردازم؟"
+    },
+    {
+      "nl": "de hypotheekrente",
+      "kind": "woord",
+      "fa": "نرخ بهرهٔ وام مسکن",
+      "example": "Ik wil weten hoe lang de hypotheekrente vaststaat.",
+      "exampleFa": "می‌خواهم بدانم نرخ بهرهٔ وام مسکن برای چه مدتی ثابت می‌ماند."
+    },
+    {
+      "nl": "de inflatie",
+      "kind": "woord",
+      "fa": "تورم",
+      "example": "Door de inflatie kan ik met hetzelfde geld minder kopen.",
+      "exampleFa": "به دلیل تورم با همان مقدار پول می‌توانم کمتر خرید کنم."
+    },
+    {
+      "nl": "de investering",
+      "kind": "woord",
+      "fa": "سرمایه‌گذاری",
+      "example": "Nieuwe ramen zijn een grote investering.",
+      "exampleFa": "پنجره‌های جدید سرمایه‌گذاری بزرگی هستند."
+    },
+    {
+      "nl": "investeren in",
+      "kind": "uitdrukking",
+      "fa": "در چیزی سرمایه‌گذاری کردن",
+      "example": "We investeren in betere isolatie van ons huis.",
+      "exampleFa": "برای عایق‌بندی بهتر خانه‌مان سرمایه‌گذاری می‌کنیم."
+    },
+    {
+      "nl": "voor de lange termijn",
+      "kind": "uitdrukking",
+      "fa": "برای بلندمدت",
+      "example": "We zoeken een woning voor de lange termijn.",
+      "exampleFa": "برای سکونت بلندمدت دنبال خانه هستیم."
+    },
+    {
+      "nl": "voordelig",
+      "kind": "woord",
+      "fa": "به‌صرفه؛ سودمند",
+      "example": "Dit abonnement is voordelig als je vaak met de trein reist.",
+      "exampleFa": "اگر زیاد با قطار سفر می‌کنی، این اشتراک به‌صرفه است."
+    },
+    {
+      "nl": "betaalbaar",
+      "kind": "woord",
+      "fa": "با قیمت قابل‌پرداخت",
+      "example": "Het is moeilijk om een betaalbare woning te vinden.",
+      "exampleFa": "پیدا کردن خانه‌ای با قیمت قابل‌پرداخت سخت است."
+    },
+    {
+      "nl": "de nieuwbouw",
+      "kind": "woord",
+      "fa": "ساختمان نوساز؛ ساخت‌وساز جدید",
+      "example": "Bij het station komt veel nieuwbouw.",
+      "exampleFa": "نزدیک ایستگاه ساخت‌وساز جدید زیادی انجام می‌شود."
+    },
+    {
+      "nl": "kopen vanaf tekening",
+      "kind": "uitdrukking",
+      "fa": "خانه را روی نقشه و پیش از ساخت خریدن",
+      "example": "Wij hebben ons huis vanaf tekening gekocht.",
+      "exampleFa": "ما خانه‌مان را از روی نقشه و پیش از ساخته شدن خریده‌ایم."
+    },
+    {
+      "nl": "de verbouwing",
+      "kind": "woord",
+      "fa": "بازسازی؛ تغییرات ساختمانی",
+      "example": "Tijdens de verbouwing wonen we tijdelijk ergens anders.",
+      "exampleFa": "در زمان بازسازی، موقتاً جای دیگری زندگی می‌کنیم."
+    },
+    {
+      "nl": "de vergunning",
+      "kind": "woord",
+      "fa": "مجوز",
+      "example": "Moet ik voor deze verbouwing een vergunning aanvragen?",
+      "exampleFa": "برای این بازسازی باید درخواست مجوز بدهم؟"
+    },
+    {
+      "nl": "regelen",
+      "kind": "werkwoord",
+      "fa": "هماهنگ کردن؛ ترتیب دادن",
+      "example": "We moeten nog veel regelen.",
+      "exampleFa": "هنوز باید کارهای زیادی را هماهنگ کنیم.",
+      "forms": [
+        "regelde",
+        "heb geregeld",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "uitzoeken",
+      "kind": "werkwoord",
+      "fa": "بررسی و پیدا کردن؛ انتخاب کردن",
+      "example": "Ik zoek uit welke documenten we nodig hebben.",
+      "exampleFa": "بررسی می‌کنم که به چه مدارکی نیاز داریم.",
+      "forms": [
+        "zocht uit",
+        "heb uitgezocht",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "berekenen",
+      "kind": "werkwoord",
+      "fa": "محاسبه کردن",
+      "example": "Kun je de totale kosten voor mij berekenen?",
+      "exampleFa": "می‌توانی کل هزینه‌ها را برایم حساب کنی؟",
+      "forms": [
+        "berekende",
+        "heb berekend",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "aanvragen",
+      "kind": "werkwoord",
+      "fa": "درخواست دادن",
+      "example": "Ik vraag de vergunning online aan.",
+      "exampleFa": "به‌صورت اینترنتی درخواست مجوز می‌دهم.",
+      "forms": [
+        "vroeg aan",
+        "heb aangevraagd",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "verwachten",
+      "kind": "werkwoord",
+      "fa": "انتظار داشتن",
+      "example": "Wanneer verwacht je dat de woning klaar is?",
+      "exampleFa": "انتظار داری خانه چه زمانی آماده شود؟",
+      "forms": [
+        "verwachtte",
+        "heb verwacht",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "schilderen",
+      "kind": "werkwoord",
+      "fa": "رنگ کردن؛ نقاشی کردن",
+      "example": "We schilderen de muren van de slaapkamer wit.",
+      "exampleFa": "دیوارهای اتاق‌خواب را سفید رنگ می‌کنیم.",
+      "forms": [
+        "schilderde",
+        "heb geschilderd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "in de verkoop staan",
+      "kind": "uitdrukking",
+      "fa": "برای فروش گذاشته شده بودن",
+      "example": "Het huis naast ons staat in de verkoop.",
+      "exampleFa": "خانهٔ کنار ما برای فروش گذاشته شده است."
+    },
+    {
+      "nl": "in de planning staan",
+      "kind": "uitdrukking",
+      "fa": "در برنامه قرار داشتن",
+      "example": "De verbouwing staat voor september in de planning.",
+      "exampleFa": "بازسازی برای سپتامبر برنامه‌ریزی شده است."
+    },
+    {
+      "nl": "de vloerbedekking",
+      "kind": "woord",
+      "fa": "کف‌پوش",
+      "example": "We kiezen nieuwe vloerbedekking.",
+      "exampleFa": "کف‌پوش جدید انتخاب می‌کنیم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Is de huurprijs inclusief gas, water en licht?",
+      "level": "A2",
+      "fa": "آیا مبلغ اجاره شامل گاز، آب و برق است؟"
+    },
+    {
+      "nl": "Wanneer kan ik de woning bezichtigen?",
+      "level": "A2",
+      "fa": "چه زمانی می‌توانم خانه را بازدید کنم؟"
+    },
+    {
+      "nl": "Hoe hoog is de borg?",
+      "level": "A2",
+      "fa": "مبلغ ودیعه چقدر است؟"
+    },
+    {
+      "nl": "Welke documenten moet ik meenemen?",
+      "level": "A2",
+      "fa": "چه مدارکی باید همراه بیاورم؟"
+    },
+    {
+      "nl": "Kunt u mij het contract per e-mail sturen?",
+      "level": "A2",
+      "fa": "می‌توانید قرارداد را با ایمیل برایم بفرستید؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Wanneer kan ik de woning bezichtigen?",
+      "fa": "چه زمانی می‌توانم خانه را بازدید کنم؟"
+    },
+    {
+      "speaker": "Makelaar",
+      "nl": "Morgenmiddag om drie uur kan.",
+      "fa": "فردا بعدازظهر ساعت سه امکانش هست."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Welke documenten moet ik meenemen?",
+      "fa": "چه مدارکی باید همراه بیاورم؟"
+    },
+    {
+      "speaker": "Makelaar",
+      "nl": "Ik stuur je de lijst met documenten.",
+      "fa": "فهرست مدارک را برایت می‌فرستم."
+    }
+  ]
+}

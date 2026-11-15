@@ -1,0 +1,231 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "feest",
+  "title": "Feest & verjaardag",
+  "fa": "جشن و تولد",
+  "icon": "26",
+  "intro": "Feliciteer, nodig uit en vier mee.",
+  "words": [
+    {
+      "nl": "de verjaardag",
+      "kind": "woord",
+      "fa": "تولد",
+      "example": "Zaterdag vier ik mijn verjaardag.",
+      "exampleFa": "شنبه تولدم را جشن می‌گیرم."
+    },
+    {
+      "nl": "het feest",
+      "kind": "woord",
+      "fa": "جشن / مهمانی",
+      "example": "Kom je ook naar het feest?",
+      "exampleFa": "تو هم به مهمانی می‌آیی؟"
+    },
+    {
+      "nl": "de uitnodiging",
+      "kind": "woord",
+      "fa": "دعوت‌نامه",
+      "example": "Ik heb een uitnodiging voor een bruiloft gekregen.",
+      "exampleFa": "یک دعوت‌نامه برای عروسی گرفته‌ام."
+    },
+    {
+      "nl": "het cadeau",
+      "kind": "woord",
+      "fa": "هدیه",
+      "example": "Wat geef je als cadeau?",
+      "exampleFa": "چه چیزی هدیه می‌دهی؟"
+    },
+    {
+      "nl": "de taart",
+      "kind": "woord",
+      "fa": "کیک",
+      "example": "Er is taart voor iedereen.",
+      "exampleFa": "برای همه کیک هست."
+    },
+    {
+      "nl": "de bruiloft",
+      "kind": "woord",
+      "fa": "عروسی",
+      "example": "De bruiloft is in juni.",
+      "exampleFa": "عروسی در ژوئن است."
+    },
+    {
+      "nl": "de feestdag",
+      "kind": "woord",
+      "fa": "روز تعطیل / جشن",
+      "example": "Koningsdag is een bekende feestdag.",
+      "exampleFa": "روز پادشاه یک روز جشن معروف است."
+    },
+    {
+      "nl": "Koningsdag",
+      "kind": "woord",
+      "fa": "روز پادشاه",
+      "example": "Op Koningsdag dragen veel mensen oranje.",
+      "exampleFa": "در روز پادشاه خیلی‌ها نارنجی می‌پوشند."
+    },
+    {
+      "nl": "Sinterklaas",
+      "kind": "woord",
+      "fa": "جشن سینترکلاس",
+      "example": "Met Sinterklaas krijgen kinderen cadeautjes.",
+      "exampleFa": "در جشن سینترکلاس بچه‌ها هدیه می‌گیرند."
+    },
+    {
+      "nl": "de kaart",
+      "kind": "woord",
+      "fa": "کارت تبریک",
+      "example": "Ik stuur haar een kaart.",
+      "exampleFa": "برایش یک کارت تبریک می‌فرستم."
+    },
+    {
+      "nl": "de gast",
+      "kind": "woord",
+      "fa": "مهمان",
+      "example": "We verwachten twintig gasten.",
+      "exampleFa": "منتظر بیست مهمان هستیم."
+    },
+    {
+      "nl": "de kring",
+      "kind": "woord",
+      "fa": "دایره (نشستن دور هم)",
+      "example": "Bij een Nederlandse verjaardag zit iedereen in een kring.",
+      "exampleFa": "در تولد هلندی همه دور هم در یک دایره می‌نشینند."
+    },
+    {
+      "nl": "het jubileum",
+      "kind": "woord",
+      "fa": "سالگرد",
+      "example": "Hij viert zijn jubileum op het werk.",
+      "exampleFa": "او سالگرد کاری‌اش را جشن می‌گیرد."
+    },
+    {
+      "nl": "het Suikerfeest",
+      "kind": "woord",
+      "fa": "عید فطر",
+      "example": "Met het Suikerfeest bezoeken we familie.",
+      "exampleFa": "در عید فطر به دیدن خانواده می‌رویم."
+    },
+    {
+      "nl": "vieren",
+      "kind": "werkwoord",
+      "fa": "جشن گرفتن",
+      "example": "We vieren het in een restaurant.",
+      "exampleFa": "آن را در یک رستوران جشن می‌گیریم.",
+      "forms": [
+        "vierde",
+        "heb gevierd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "feliciteren",
+      "kind": "werkwoord",
+      "fa": "تبریک گفتن",
+      "example": "Ik wil je feliciteren met je nieuwe baan.",
+      "exampleFa": "می‌خواهم شغل جدیدت را تبریک بگویم.",
+      "forms": [
+        "feliciteerde",
+        "heb gefeliciteerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "uitnodigen",
+      "kind": "werkwoord",
+      "fa": "دعوت کردن",
+      "example": "Ik nodig mijn collega’s uit.",
+      "exampleFa": "همکارانم را دعوت می‌کنم.",
+      "forms": [
+        "nodigde uit",
+        "heb uitgenodigd",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "trakteren",
+      "kind": "werkwoord",
+      "fa": "مهمان کردن (شیرینی دادن)",
+      "example": "Op je verjaardag trakteer je op je werk.",
+      "exampleFa": "روز تولدت در محل کار به همه شیرینی می‌دهی.",
+      "forms": [
+        "trakteerde",
+        "heb getrakteerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "versieren",
+      "kind": "werkwoord",
+      "fa": "تزئین کردن",
+      "example": "We versieren de kamer met slingers.",
+      "exampleFa": "اتاق را با ریسه تزئین می‌کنیم.",
+      "forms": [
+        "versierde",
+        "heb versierd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "gefeliciteerd",
+      "kind": "uitdrukking",
+      "fa": "تبریک!",
+      "example": "Gefeliciteerd met je verjaardag!",
+      "exampleFa": "تولدت مبارک!"
+    },
+    {
+      "nl": "proost",
+      "kind": "uitdrukking",
+      "fa": "به سلامتی",
+      "example": "Proost, op een mooi jaar!",
+      "exampleFa": "به سلامتی، به امید سالی خوب!"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Gefeliciteerd met je dochter!",
+      "level": "A2",
+      "fa": "تولد دخترت را تبریک می‌گویم!"
+    },
+    {
+      "nl": "Hoe oud ben je geworden?",
+      "level": "A2",
+      "fa": "چند ساله شدی؟"
+    },
+    {
+      "nl": "Wil je op mijn feestje komen?",
+      "level": "A2",
+      "fa": "می‌خواهی به مهمانی‌ام بیایی؟"
+    },
+    {
+      "nl": "Wat moet ik meenemen?",
+      "level": "A2",
+      "fa": "چه چیزی باید بیاورم؟"
+    },
+    {
+      "nl": "Bedankt voor de uitnodiging, ik kom graag.",
+      "level": "A2",
+      "fa": "ممنون از دعوت، با کمال میل می‌آیم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Collega",
+      "nl": "Ik ben morgen jarig en ik trakteer!",
+      "fa": "فردا تولدم است و شیرینی می‌دهم!"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Gefeliciteerd alvast! Hoe oud word je?",
+      "fa": "پیشاپیش تبریک! چند ساله می‌شوی؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Veertig. Zaterdag geef ik een feestje. Kom je ook?",
+      "fa": "چهل. شنبه یک مهمانی می‌گیرم. تو هم می‌آیی؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Leuk, ik kom graag. Moet ik iets meenemen?",
+      "fa": "چه خوب، با کمال میل می‌آیم. باید چیزی بیاورم؟"
+    }
+  ]
+}

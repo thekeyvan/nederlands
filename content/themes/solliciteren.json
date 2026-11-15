@@ -1,0 +1,221 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "solliciteren",
+  "title": "Solliciteren",
+  "fa": "درخواست کار",
+  "icon": "28",
+  "intro": "Schrijf een brief en vertel wie je bent.",
+  "words": [
+    {
+      "nl": "de vacature",
+      "kind": "woord",
+      "fa": "آگهی استخدام",
+      "example": "Ik zag een leuke vacature op internet.",
+      "exampleFa": "یک آگهی استخدام جالب در اینترنت دیدم."
+    },
+    {
+      "nl": "het cv",
+      "kind": "woord",
+      "fa": "رزومه",
+      "example": "Stuur je cv en een motivatiebrief.",
+      "exampleFa": "رزومه و یک انگیزه‌نامه بفرست."
+    },
+    {
+      "nl": "de motivatiebrief",
+      "kind": "woord",
+      "fa": "انگیزه‌نامه",
+      "example": "In de motivatiebrief vertel je waarom je wilt werken.",
+      "exampleFa": "در انگیزه‌نامه می‌گویی چرا می‌خواهی کار کنی."
+    },
+    {
+      "nl": "het sollicitatiegesprek",
+      "kind": "woord",
+      "fa": "مصاحبهٔ کاری",
+      "example": "Morgen heb ik een sollicitatiegesprek.",
+      "exampleFa": "فردا یک مصاحبهٔ کاری دارم."
+    },
+    {
+      "nl": "de leidinggevende",
+      "kind": "woord",
+      "fa": "سرپرست",
+      "example": "Mijn leidinggevende is heel aardig.",
+      "exampleFa": "سرپرستم خیلی مهربان است."
+    },
+    {
+      "nl": "de sollicitant",
+      "kind": "woord",
+      "fa": "متقاضی کار",
+      "example": "Er zijn tien sollicitanten voor deze baan.",
+      "exampleFa": "برای این شغل ده متقاضی هست."
+    },
+    {
+      "nl": "de ervaring",
+      "kind": "woord",
+      "fa": "تجربه",
+      "example": "Ik heb vijf jaar ervaring in de zorg.",
+      "exampleFa": "پنج سال تجربه در حوزهٔ مراقبت دارم."
+    },
+    {
+      "nl": "het diploma",
+      "kind": "woord",
+      "fa": "مدرک تحصیلی",
+      "example": "Mijn diploma is erkend in Nederland.",
+      "exampleFa": "مدرک تحصیلی‌ام در هلند تأیید شده است."
+    },
+    {
+      "nl": "de opleiding",
+      "kind": "woord",
+      "fa": "تحصیلات / دوره آموزشی",
+      "example": "Welke opleiding heb je gedaan?",
+      "exampleFa": "چه دوره‌ای خوانده‌ای؟"
+    },
+    {
+      "nl": "de vaardigheid",
+      "kind": "woord",
+      "fa": "مهارت",
+      "example": "Communicatie is een belangrijke vaardigheid.",
+      "exampleFa": "ارتباط یک مهارت مهم است."
+    },
+    {
+      "nl": "het functieprofiel",
+      "kind": "woord",
+      "fa": "شرح شغل",
+      "example": "Lees het functieprofiel goed voordat je solliciteert.",
+      "exampleFa": "قبل از درخواست، شرح شغل را با دقت بخوان."
+    },
+    {
+      "nl": "de proeftijd",
+      "kind": "woord",
+      "fa": "دورهٔ آزمایشی",
+      "example": "De proeftijd duurt een maand.",
+      "exampleFa": "دورهٔ آزمایشی یک ماه طول می‌کشد."
+    },
+    {
+      "nl": "het uitzendbureau",
+      "kind": "woord",
+      "fa": "آژانس کاریابی",
+      "example": "Via het uitzendbureau vond ik snel werk.",
+      "exampleFa": "از طریق آژانس کاریابی سریع کار پیدا کردم."
+    },
+    {
+      "nl": "de referentie",
+      "kind": "woord",
+      "fa": "معرف / توصیه‌نامه",
+      "example": "Mijn oude baas wil een referentie geven.",
+      "exampleFa": "رئیس قبلی‌ام حاضر است معرفم شود."
+    },
+    {
+      "nl": "de sterke kant",
+      "kind": "woord",
+      "fa": "نقطهٔ قوت",
+      "example": "Wat is jouw sterke kant?",
+      "exampleFa": "نقطهٔ قوتت چیست؟"
+    },
+    {
+      "nl": "solliciteren",
+      "kind": "werkwoord",
+      "fa": "درخواست کار دادن",
+      "example": "Ik solliciteer naar een baan als monteur.",
+      "exampleFa": "برای شغل تعمیرکار درخواست می‌دهم.",
+      "forms": [
+        "solliciteerde",
+        "heb gesolliciteerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "uitnodigen voor een gesprek",
+      "kind": "uitdrukking",
+      "fa": "به مصاحبه دعوت کردن",
+      "example": "Ze nodigen me uit voor een gesprek.",
+      "exampleFa": "من را به مصاحبه دعوت می‌کنند."
+    },
+    {
+      "nl": "afwijzen",
+      "kind": "werkwoord",
+      "fa": "رد کردن",
+      "example": "Helaas hebben ze mijn sollicitatie afgewezen.",
+      "exampleFa": "متأسفانه درخواستم را رد کردند.",
+      "forms": [
+        "wees af",
+        "heb afgewezen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "voorstellen",
+      "kind": "werkwoord",
+      "fa": "معرفی کردن",
+      "example": "Mag ik mezelf even voorstellen?",
+      "exampleFa": "اجازه هست خودم را معرفی کنم?",
+      "forms": [
+        "stelde voor",
+        "heb voorgesteld",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "in dienst",
+      "kind": "uitdrukking",
+      "fa": "استخدام‌شده",
+      "example": "Ik ben sinds mei in dienst.",
+      "exampleFa": "از ماه مه استخدام شده‌ام."
+    },
+    {
+      "nl": "zich aanmelden",
+      "kind": "uitdrukking",
+      "fa": "ثبت‌نام کردن",
+      "example": "Je kunt je online aanmelden.",
+      "exampleFa": "می‌توانی آنلاین ثبت‌نام کنی."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik reageer op uw vacature.",
+      "level": "B1",
+      "fa": "در پاسخ به آگهی استخدام شما می‌نویسم."
+    },
+    {
+      "nl": "Ik ben flexibel en werk graag in een team.",
+      "level": "A2",
+      "fa": "انعطاف‌پذیرم و دوست دارم در گروه کار کنم."
+    },
+    {
+      "nl": "Wanneer hoor ik iets van u?",
+      "level": "A2",
+      "fa": "کی از شما خبر می‌گیرم؟"
+    },
+    {
+      "nl": "Wat zijn de werktijden?",
+      "level": "A2",
+      "fa": "ساعات کاری چیست؟"
+    },
+    {
+      "nl": "In mijn vorige baan was ik verantwoordelijk voor de planning.",
+      "level": "B1",
+      "fa": "در شغل قبلی‌ام مسئول برنامه‌ریزی بودم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Werkgever",
+      "nl": "Vertel eens iets over jezelf.",
+      "fa": "کمی دربارهٔ خودت بگو."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ik heb vijf jaar als kok gewerkt in Teheran.",
+      "fa": "پنج سال در تهران آشپز بودم."
+    },
+    {
+      "speaker": "Werkgever",
+      "nl": "Waarom wil je bij ons werken?",
+      "fa": "چرا می‌خواهی پیش ما کار کنی؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ik houd van koken en ik wil mijn Nederlands verbeteren.",
+      "fa": "آشپزی را دوست دارم و می‌خواهم هلندی‌ام را بهتر کنم."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:zullen-we",
+  "title": "Zullen we ...?",
+  "level": "A2",
+  "pattern": "Zullen we + ... + infinitief?",
+  "example": "Zullen we samen koffie drinken?",
+  "prompt": "___ we samen eten?",
+  "answer": "Zullen",
+  "fa": {
+    "rule": "برای پیشنهاد یک کار مشترک، از Zullen we استفاده می‌کنیم.",
+    "note": "dan maar یا nu maar می‌تواند پیشنهاد را نرم‌تر کند: Zullen we dan maar vertrekken?",
+    "translation": "با هم قهوه بخوریم؟"
+  },
+  "examples": [
+    {
+      "nl": "Zullen we morgen gaan wandelen?",
+      "gap": "Zullen",
+      "fa": "فردا برویم پیاده‌روی؟"
+    },
+    {
+      "nl": "Zullen we om zes uur afspreken?",
+      "gap": "afspreken",
+      "fa": "ساعت شش قرار بگذاریم؟"
+    },
+    {
+      "nl": "Zullen we een pizza bestellen?",
+      "gap": "bestellen",
+      "fa": "یک پیتزا سفارش بدهیم؟"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nedfa grammar rule",
+  "description": "One grammar rule (Zinsbouw) with a Persian explanation and example sentences for its exercises.",
+  "type": "object",
+  "required": ["id", "title", "level", "pattern", "example", "prompt", "answer", "fa", "examples"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "id": {"type": "string", "pattern": "^zin:[a-z0-9-]+$", "description": "\"zin:\" plus the file name."},
+    "title": {"type": "string", "description": "Dutch title, e.g. \"Het werkwoord op plek twee\"."},
+    "level": {"enum": ["A1", "A2", "B1", "B2"]},
+    "pattern": {"type": "string", "description": "The rule as a short pattern, e.g. \"Tijd / plaats → werkwoord → onderwerp\"."},
+    "example": {"type": "string", "description": "The main example sentence."},
+    "prompt": {"type": "string", "description": "An exercise sentence with exactly one ___; a hint in brackets is allowed."},
+    "answer": {"type": "string", "description": "What goes in the ___."},
+    "fa": {
+      "type": "object",
+      "required": ["rule", "translation"],
+      "properties": {"rule": {"type": "string"}, "note": {"type": "string"}, "translation": {"type": "string", "description": "Persian of the main example."}},
+      "additionalProperties": false
+    },
+    "examples": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["nl", "gap", "fa"],
+        "properties": {"nl": {"type": "string"}, "gap": {"type": "string", "description": "A whole word that appears exactly once in nl; it is left out in the gap exercise."}, "fa": {"type": "string"}, "hint": {"type": "string"}},
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -5,7 +5,7 @@ in Dutch at `/…` (the default) and in Persian at `/fa/…` (`lang="fa" dir="rt
 (x-default: Dutch). The keyword table below is for the Persian pages; add `/fa` to each URL.
 Dutch words are marked `lang="nl" dir="ltr"`, Persian fragments on Dutch pages `lang="fa" dir="rtl"`.
 
-`scripts/site/build-site.mjs` writes them after `vite build`, from the same content files as the app
+The React Router routes in `app/routes/site/` render them on the server, from the same content files as the app
 (`content/*.js` and the Persian pack in `locales/`). Adding a theme or grammar pattern adds its page, sitemap
 entry and llms.txt line automatically. The app itself lives at `/leren.html` and is `noindex`.
 

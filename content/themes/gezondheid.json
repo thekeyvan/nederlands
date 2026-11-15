@@ -1,0 +1,272 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "gezondheid",
+  "title": "Hoe voel je je?",
+  "fa": "حال و سلامتی",
+  "icon": "15",
+  "intro": "Vertel hoe je je voelt.",
+  "words": [
+    {
+      "nl": "zich voelen",
+      "kind": "uitdrukking",
+      "fa": "احساس کردن",
+      "example": "Ik voel me vandaag beter.",
+      "exampleFa": "امروز حالم بهتر است."
+    },
+    {
+      "nl": "last hebben van",
+      "kind": "uitdrukking",
+      "fa": "از چیزی ناراحتی یا مشکل داشتن",
+      "example": "Ik heb last van mijn keel.",
+      "exampleFa": "گلویم اذیتم می‌کند."
+    },
+    {
+      "nl": "de allergie",
+      "kind": "woord",
+      "fa": "آلرژی؛ حساسیت",
+      "example": "Heeft u een allergie voor bepaalde medicijnen?",
+      "exampleFa": "آیا به داروی خاصی حساسیت دارید؟"
+    },
+    {
+      "nl": "de hooikoorts",
+      "kind": "woord",
+      "fa": "حساسیت فصلی",
+      "example": "In het voorjaar heb ik last van hooikoorts.",
+      "exampleFa": "در فصل بهار حساسیت فصلی اذیتم می‌کند."
+    },
+    {
+      "nl": "de hoofdpijn",
+      "kind": "woord",
+      "fa": "سردرد",
+      "example": "Door de hoofdpijn kan ik me niet goed concentreren.",
+      "exampleFa": "به خاطر سردرد نمی‌توانم خوب تمرکز کنم."
+    },
+    {
+      "nl": "de keel",
+      "kind": "woord",
+      "fa": "گلو",
+      "example": "Mijn keel doet pijn als ik slik.",
+      "exampleFa": "وقتی قورت می‌دهم، گلویم درد می‌کند."
+    },
+    {
+      "nl": "het medicijn",
+      "kind": "woord",
+      "fa": "دارو",
+      "example": "Ik wil de apotheker iets vragen over dit medicijn.",
+      "exampleFa": "می‌خواهم دربارهٔ این دارو چیزی از داروساز بپرسم."
+    },
+    {
+      "nl": "innemen",
+      "kind": "werkwoord",
+      "fa": "مصرف کردن؛ در مورد دارو",
+      "example": "Moet ik dit medicijn voor of na het eten innemen?",
+      "exampleFa": "این دارو را باید قبل از غذا مصرف کنم یا بعد از آن؟",
+      "forms": [
+        "nam in",
+        "heb ingenomen",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "moe",
+      "kind": "woord",
+      "fa": "خسته",
+      "example": "Na mijn werk ben ik vaak moe.",
+      "exampleFa": "بعد از کار اغلب خسته‌ام."
+    },
+    {
+      "nl": "doodmoe",
+      "kind": "woord",
+      "fa": "بسیار خسته؛ از خستگی له",
+      "example": "Na de verhuizing waren we doodmoe.",
+      "exampleFa": "بعد از اسباب‌کشی از خستگی از پا افتاده بودیم."
+    },
+    {
+      "nl": "rustig",
+      "kind": "woord",
+      "fa": "آرام؛ خلوت",
+      "example": "Ik zoek een rustige plek om even te zitten.",
+      "exampleFa": "دنبال جای آرامی هستم که کمی بنشینم."
+    },
+    {
+      "nl": "onrustig",
+      "kind": "woord",
+      "fa": "ناآرام؛ بی‌قرار",
+      "example": "Ik heb vannacht onrustig geslapen.",
+      "exampleFa": "دیشب خواب ناآرامی داشتم."
+    },
+    {
+      "nl": "nerveus",
+      "kind": "woord",
+      "fa": "مضطرب",
+      "example": "Voor een belangrijk gesprek ben ik vaak nerveus.",
+      "exampleFa": "قبل از یک گفت‌وگوی مهم اغلب مضطرب هستم."
+    },
+    {
+      "nl": "bang zijn voor",
+      "kind": "uitdrukking",
+      "fa": "از چیزی ترسیدن",
+      "example": "Mijn zus is bang voor spinnen.",
+      "exampleFa": "خواهرم از عنکبوت می‌ترسد."
+    },
+    {
+      "nl": "schrikken van",
+      "kind": "uitdrukking",
+      "fa": "از چیزی ناگهان ترسیدن یا جا خوردن",
+      "example": "Ik schrok van het harde geluid.",
+      "exampleFa": "از صدای بلند ناگهان ترسیدم."
+    },
+    {
+      "nl": "slapen",
+      "kind": "werkwoord",
+      "fa": "خوابیدن",
+      "example": "Ik heb vannacht acht uur geslapen.",
+      "exampleFa": "دیشب هشت ساعت خوابیدم.",
+      "forms": [
+        "sliep",
+        "heb geslapen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "opstaan",
+      "kind": "werkwoord",
+      "fa": "از خواب یا از جا بلند شدن",
+      "example": "Ik sta op werkdagen om zeven uur op.",
+      "exampleFa": "روزهای کاری ساعت هفت بیدار می‌شوم و از تخت بلند می‌شوم.",
+      "forms": [
+        "stond op",
+        "ben opgestaan",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "rustig worden van",
+      "kind": "uitdrukking",
+      "fa": "با چیزی آرام شدن",
+      "example": "Ik word rustig van een wandeling in het bos.",
+      "exampleFa": "پیاده‌روی در جنگل آرامم می‌کند."
+    },
+    {
+      "nl": "groeien",
+      "kind": "werkwoord",
+      "fa": "رشد کردن",
+      "example": "De kinderen zijn dit jaar veel gegroeid.",
+      "exampleFa": "بچه‌ها امسال خیلی رشد کرده‌اند.",
+      "forms": [
+        "groeide",
+        "ben gegroeid",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "worden",
+      "kind": "werkwoord",
+      "fa": "شدن",
+      "example": "Ik word moe van al dat lawaai.",
+      "exampleFa": "از این‌همه سروصدا خسته می‌شوم.",
+      "forms": [
+        "werd",
+        "ben geworden",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "blijven",
+      "kind": "werkwoord",
+      "fa": "ماندن",
+      "example": "Ik blijf vandaag thuis omdat ik me niet lekker voel.",
+      "exampleFa": "امروز در خانه می‌مانم چون حالم خوب نیست.",
+      "forms": [
+        "bleef",
+        "ben gebleven",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "gebeuren",
+      "kind": "werkwoord",
+      "fa": "اتفاق افتادن",
+      "example": "Wat is er gebeurd? Je ziet er geschrokken uit.",
+      "exampleFa": "چه اتفاقی افتاده؟ ترسیده به نظر می‌رسی.",
+      "forms": [
+        "gebeurde",
+        "is gebeurd (het ongeluk)",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "slagen",
+      "kind": "werkwoord",
+      "fa": "قبول یا موفق شدن",
+      "example": "Mijn vriendin is geslaagd voor haar examen.",
+      "exampleFa": "دوستم در امتحانش قبول شده است.",
+      "forms": [
+        "slaagde",
+        "ben geslaagd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "trouwen",
+      "kind": "werkwoord",
+      "fa": "ازدواج کردن",
+      "example": "Mijn broer gaat volgende zomer trouwen.",
+      "exampleFa": "برادرم تابستان آینده ازدواج می‌کند.",
+      "forms": [
+        "trouwde",
+        "ben getrouwd",
+        "regelmatig"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik voel me vandaag niet zo lekker.",
+      "level": "A2",
+      "fa": "امروز حالم چندان خوب نیست."
+    },
+    {
+      "nl": "Ik heb vannacht slecht geslapen.",
+      "level": "A2",
+      "fa": "دیشب بد خوابیدم."
+    },
+    {
+      "nl": "Ik maak me zorgen over mijn gezondheid.",
+      "level": "A2",
+      "fa": "نگران سلامتی‌ام هستم."
+    },
+    {
+      "nl": "Ik heb even rust nodig.",
+      "level": "A2",
+      "fa": "کمی به استراحت نیاز دارم."
+    },
+    {
+      "nl": "Hoe gaat het nu met je?",
+      "level": "A2",
+      "fa": "حالا حالت چطور است؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Ik voel me vandaag niet zo lekker.",
+      "fa": "امروز حالم چندان خوب نیست."
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "Wat vervelend. Wil je erover praten?",
+      "fa": "چه بد. می‌خواهی درباره‌اش صحبت کنی؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Hoe gaat het nu met je?",
+      "fa": "حالا حالت چطور است؟"
+    },
+    {
+      "speaker": "Vriend",
+      "nl": "Het gaat iets beter, dank je.",
+      "fa": "کمی بهترم، ممنون."
+    }
+  ]
+}

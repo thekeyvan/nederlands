@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:toen-als",
+  "title": "Toen of als?",
+  "level": "A2",
+  "pattern": "een moment / periode vroeger: toen · voorwaarde / herhaling: als",
+  "example": "Toen ik jong was, voetbalde ik vaak.",
+  "prompt": "___ ik jong was, voetbalde ik vaak.",
+  "answer": "Toen",
+  "fa": {
+    "rule": "برای یک زمان یا دورهٔ مشخص در گذشته، حرف ربط زمانیِ مخصوص گذشته را به‌کار ببر.",
+    "note": "برای شرط، آینده یا موقعیت تکرارشونده معمولاً حرف ربط شرطی می‌آید. هر دو جملهٔ وابسته می‌سازند و فعل را به پایان می‌برند؛ اگر اول بیایند، جملهٔ اصلی وارونگی دارد.",
+    "translation": "وقتی جوان بودم، اغلب فوتبال بازی می‌کردم."
+  },
+  "examples": [
+    {
+      "nl": "Toen ik in Nederland aankwam, sprak ik geen Nederlands.",
+      "gap": "Toen",
+      "fa": "وقتی به هلند رسیدم، هلندی بلد نبودم."
+    },
+    {
+      "nl": "Als het regent, neem ik de bus.",
+      "gap": "Als",
+      "fa": "وقتی باران می‌بارد، اتوبوس سوار می‌شوم."
+    },
+    {
+      "nl": "Toen we klaar waren, gingen we naar huis.",
+      "gap": "Toen",
+      "fa": "وقتی کارمان تمام شد، به خانه رفتیم."
+    }
+  ]
+}

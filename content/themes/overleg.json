@@ -1,0 +1,286 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "overleg",
+  "title": "Samen op het werk",
+  "fa": "همکاری و جلسه",
+  "icon": "02",
+  "intro": "Hoe werk je samen met je collega’s?",
+  "words": [
+    {
+      "nl": "vergaderen",
+      "kind": "werkwoord",
+      "fa": "جلسه داشتن؛ در جلسه شرکت کردن",
+      "example": "Wij vergaderen elke maandag.",
+      "exampleFa": "ما هر دوشنبه جلسه داریم.",
+      "forms": [
+        "vergaderde",
+        "heb vergaderd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de vergadering",
+      "kind": "woord",
+      "fa": "جلسه",
+      "example": "De vergadering begint om tien uur.",
+      "exampleFa": "جلسه ساعت ده شروع می‌شود."
+    },
+    {
+      "nl": "overleggen",
+      "kind": "werkwoord",
+      "fa": "مشورت و هماهنگی کردن",
+      "example": "Ik overleg met mijn collega.",
+      "exampleFa": "با همکارم مشورت می‌کنم.",
+      "forms": [
+        "overlegde",
+        "heb overlegd",
+        "regelmatig · niet scheidbaar"
+      ]
+    },
+    {
+      "nl": "bespreken",
+      "kind": "werkwoord",
+      "fa": "دربارهٔ چیزی گفت‌وگو کردن",
+      "example": "We bespreken het project.",
+      "exampleFa": "دربارهٔ پروژه صحبت می‌کنیم.",
+      "forms": [
+        "besprak",
+        "heb besproken",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "een beslissing nemen",
+      "kind": "uitdrukking",
+      "fa": "تصمیم گرفتن",
+      "example": "We nemen morgen een beslissing over het voorstel.",
+      "exampleFa": "فردا دربارهٔ پیشنهاد تصمیم می‌گیریم."
+    },
+    {
+      "nl": "het voorstel",
+      "kind": "woord",
+      "fa": "پیشنهاد",
+      "example": "Ik vind jouw voorstel een goed idee.",
+      "exampleFa": "پیشنهاد تو را ایدهٔ خوبی می‌دانم."
+    },
+    {
+      "nl": "de agenda",
+      "kind": "woord",
+      "fa": "دستور جلسه؛ برنامه",
+      "example": "Staat dit onderwerp op de agenda van de vergadering?",
+      "exampleFa": "آیا این موضوع در دستور جلسه هست؟"
+    },
+    {
+      "nl": "de notulen",
+      "kind": "woord",
+      "fa": "صورت‌جلسه",
+      "example": "Kun je de notulen van de vergadering naar iedereen sturen?",
+      "exampleFa": "می‌توانی صورت‌جلسه را برای همه بفرستی؟"
+    },
+    {
+      "nl": "het actiepunt",
+      "kind": "woord",
+      "fa": "کار مشخصی که باید پیگیری شود",
+      "example": "Wie is verantwoordelijk voor dit actiepunt?",
+      "exampleFa": "چه کسی مسئول پیگیری این کار است؟"
+    },
+    {
+      "nl": "de deelnemer",
+      "kind": "woord",
+      "fa": "شرکت‌کننده",
+      "example": "Elke deelnemer krijgt de agenda vooraf.",
+      "exampleFa": "هر شرکت‌کننده دستور جلسه را از قبل دریافت می‌کند."
+    },
+    {
+      "nl": "aan de orde komen",
+      "kind": "uitdrukking",
+      "fa": "مطرح شدن؛ مورد بحث قرار گرفتن",
+      "example": "De planning komt straks aan de orde.",
+      "exampleFa": "برنامه‌ریزی کمی بعد مطرح می‌شود."
+    },
+    {
+      "nl": "op de hoogte blijven van",
+      "kind": "uitdrukking",
+      "fa": "در جریان چیزی ماندن",
+      "example": "Via de nieuwsbrief blijf ik op de hoogte van de veranderingen.",
+      "exampleFa": "از طریق خبرنامه در جریان تغییرات می‌مانم."
+    },
+    {
+      "nl": "de vinger aan de pols houden",
+      "kind": "uitdrukking",
+      "fa": "نبض اوضاع را در دست داشتن؛ وضعیت را پیگیری کردن",
+      "example": "We houden de vinger aan de pols en bellen de klant elke week.",
+      "exampleFa": "اوضاع را پیگیری می‌کنیم و هر هفته به مشتری زنگ می‌زنیم."
+    },
+    {
+      "nl": "draagvlak creëren",
+      "kind": "uitdrukking",
+      "fa": "حمایت و پذیرش جمعی ایجاد کردن",
+      "example": "We praten met het team om draagvlak voor het plan te creëren.",
+      "exampleFa": "با تیم صحبت می‌کنیم تا برای برنامه حمایت و پذیرش ایجاد کنیم."
+    },
+    {
+      "nl": "op één lijn krijgen",
+      "kind": "uitdrukking",
+      "fa": "هم‌نظر و هماهنگ کردن",
+      "example": "Hoe krijgen we alle collega's op één lijn?",
+      "exampleFa": "چطور همهٔ همکارها را هم‌نظر و هماهنگ کنیم؟"
+    },
+    {
+      "nl": "overtuigen",
+      "kind": "werkwoord",
+      "fa": "متقاعد کردن",
+      "example": "Kun je mij overtuigen dat dit de beste oplossing is?",
+      "exampleFa": "می‌توانی قانعم کنی که این بهترین راه‌حل است؟",
+      "forms": [
+        "overtuigde",
+        "heb overtuigd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "samenwerken",
+      "kind": "werkwoord",
+      "fa": "همکاری کردن",
+      "example": "Ik werk graag samen met mijn collega's.",
+      "exampleFa": "دوست دارم با همکارهایم همکاری کنم.",
+      "forms": [
+        "werkte samen",
+        "heb samengewerkt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "tegenwerken",
+      "kind": "werkwoord",
+      "fa": "کارشکنی یا مخالفت کردن",
+      "example": "We moeten elkaar helpen en niet tegenwerken.",
+      "exampleFa": "باید به هم کمک کنیم، نه اینکه جلوی کار هم را بگیریم.",
+      "forms": [
+        "werkte tegen",
+        "heb tegengewerkt",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "akkoord gaan met",
+      "kind": "uitdrukking",
+      "fa": "با چیزی موافقت کردن",
+      "example": "Ik ben akkoord gegaan met het voorstel.",
+      "exampleFa": "با پیشنهاد موافقت کردم."
+    },
+    {
+      "nl": "leidinggeven",
+      "kind": "werkwoord",
+      "fa": "مدیریت کردن",
+      "example": "Zij geeft leiding aan een team van zes mensen.",
+      "exampleFa": "او یک تیم شش‌نفره را مدیریت می‌کند.",
+      "forms": [
+        "gaf leiding",
+        "heb leidinggegeven",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "aansturen",
+      "kind": "werkwoord",
+      "fa": "هدایت کردن",
+      "example": "Wie stuurt het projectteam aan?",
+      "exampleFa": "چه کسی تیم پروژه را هدایت می‌کند؟",
+      "forms": [
+        "stuurde aan",
+        "heb aangestuurd",
+        "regelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "loslaten",
+      "kind": "werkwoord",
+      "fa": "رها کردن؛ کنار گذاشتن",
+      "example": "Ik vind het moeilijk om mijn werk in het weekend los te laten.",
+      "exampleFa": "برایم سخت است آخر هفته ذهنم را از کار رها کنم.",
+      "forms": [
+        "liet los",
+        "heb losgelaten",
+        "onregelmatig · scheidbaar"
+      ]
+    },
+    {
+      "nl": "de werksfeer",
+      "kind": "woord",
+      "fa": "جو و فضای محیط کار",
+      "example": "De werksfeer is prettig: iedereen helpt elkaar.",
+      "exampleFa": "جو محیط کار خوشایند است؛ همه به هم کمک می‌کنند."
+    },
+    {
+      "nl": "de gezelligheid",
+      "kind": "woord",
+      "fa": "صمیمیت و فضای خوشایند",
+      "example": "Ik kom naar de borrel voor de gezelligheid.",
+      "exampleFa": "برای بودن در جمع صمیمی به دورهمی می‌آیم."
+    },
+    {
+      "nl": "praten als Brugman",
+      "kind": "uitdrukking",
+      "fa": "بسیار پرشور و قانع‌کننده حرف زدن",
+      "example": "Hij praat als Brugman om ons van zijn plan te overtuigen.",
+      "exampleFa": "او با حرارت و اصرار حرف می‌زند تا ما را به برنامه‌اش قانع کند."
+    },
+    {
+      "nl": "er alleen voor staan",
+      "kind": "uitdrukking",
+      "fa": "بدون کمک و پشتیبانی ماندن",
+      "example": "Je staat er niet alleen voor; wij helpen je.",
+      "exampleFa": "تنها و بی‌پشتیبان نیستی؛ ما کمکت می‌کنیم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Kunnen we de vergadering een halfuur verzetten?",
+      "level": "A2",
+      "fa": "می‌توانیم جلسه را نیم ساعت جابه‌جا کنیم؟"
+    },
+    {
+      "nl": "Wat vind jij van dit voorstel?",
+      "level": "A2",
+      "fa": "نظرت دربارهٔ این پیشنهاد چیست؟"
+    },
+    {
+      "nl": "Mag ik daar iets aan toevoegen?",
+      "level": "A2",
+      "fa": "می‌توانم چیزی به آن اضافه کنم؟"
+    },
+    {
+      "nl": "Wie pakt dit actiepunt op?",
+      "level": "A2",
+      "fa": "چه کسی پیگیری این کار را بر عهده می‌گیرد؟"
+    },
+    {
+      "nl": "Laten we de afspraken even samenvatten.",
+      "level": "A2",
+      "fa": "بیا توافق‌ها را کوتاه جمع‌بندی کنیم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Kunnen we de vergadering een halfuur verzetten?",
+      "fa": "می‌توانیم جلسه را نیم ساعت جابه‌جا کنیم؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Ja, een halfuur later past voor mij.",
+      "fa": "بله، نیم ساعت دیرتر برای من مناسب است."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Wie pakt dit actiepunt op?",
+      "fa": "چه کسی پیگیری این کار را بر عهده می‌گیرد؟"
+    },
+    {
+      "speaker": "Collega",
+      "nl": "Ik doe het. Ik stuur morgen een bericht.",
+      "fa": "من انجامش می‌دهم. فردا پیام می‌فرستم."
+    }
+  ]
+}

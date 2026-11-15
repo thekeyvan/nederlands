@@ -33,6 +33,9 @@ const query = (req) => (req.originalUrl.includes('?') ? req.originalUrl.slice(re
 app.get('/leren.html', (req, res) => res.redirect(301, `/leren${query(req)}`));
 app.get('/privacy.html', (req, res) => res.redirect(301, `/privacy${query(req)}`));
 app.get('/bronnen.html', (_req, res) => res.redirect(301, '/leren#bronnen'));
+// The first offline version's service worker answers every page with /index.html, which no longer exists.
+// Serve the app page there (no redirect: service workers reject redirected page responses), so the app loads and installs the new worker.
+app.get('/index.html', (req, _res, next) => { req.url = req.originalUrl = `/leren${query(req)}`; next(); });
 
 // Dutch moved from /nl/ to the root.
 app.get(['/nl', '/nl/{*rest}'], (req, res) => res.redirect(301, req.originalUrl.replace(/^\/nl/, '') || '/'));

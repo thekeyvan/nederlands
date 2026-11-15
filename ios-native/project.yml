@@ -47,6 +47,8 @@ targets:
       path: Nedfa/Info.plist
       properties:
         CFBundleDisplayName: Nedfa
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: nl
         ITSAppUsesNonExemptEncryption: false
         LSApplicationCategoryType: public.app-category.education

@@ -4,7 +4,7 @@ import {Capacitor} from '@capacitor/core';
 
 export const isNative = Capacitor.isNativePlatform();
 export const platform = Capacitor.getPlatform();
-/** Custom URL scheme the Google sign-in returns to (also registered in Info.plist and Supabase). */
+/** Custom URL scheme the Google sign-in returns to (also registered in Info.plist). */
 export const AUTH_CALLBACK = 'com.keyvanmahmoudi.nederlands://auth';
 
 type Feedback = 'success' | 'error' | 'tap';

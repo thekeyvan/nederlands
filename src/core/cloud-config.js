@@ -1,10 +1,10 @@
-// Generated deployment settings are intentionally absent from a fresh fork.
-export const cloudConfig = {url:'',key:'',appleWeb:false};
+// Whether this deployment has accounts (nedfa.nl's own API on Railway) and Apple on the web. A fresh fork runs without.
+export const cloudConfig = {auth:false,appleWeb:false};
 export async function loadCloudConfig() {
  try {
-  const response=await fetch('./deployment-config.json');
+  const response=await fetch('/deployment-config.json');
   if(!response.ok)return;
   const settings=await response.json();
-  if(settings.url&&settings.key?.startsWith('sb_publishable_'))Object.assign(cloudConfig,{url:settings.url,key:settings.key,appleWeb:settings.appleWeb===true});
+  Object.assign(cloudConfig,{auth:settings.auth===true,appleWeb:settings.auth===true&&settings.appleWeb===true});
  } catch { /* Offline mode remains available. */ }
 }

@@ -13,7 +13,7 @@ A small, open-source Dutch learning site for A2–B1 that feels like a game, wit
 - 48 grammar patterns, recall practice and SM-2 spaced repetition
 - Bundled Dutch audio with two voices, conversation recall mode and short keyboard-friendly practice rounds
 - A complete Persian translation pack, including RTL and Vazirmatn; extensible language packs
-- Browser-only progress by default; optional Google sign-in and private Supabase sync
+- Browser-only progress by default; optional Apple or Google sign-in (one account for both) with sync to the site's own Postgres database
 - 53 learning resources and four bookstore links
 
 ## Run your own copy
@@ -48,18 +48,11 @@ Dutch content lives in `content/`; translations live in `locales/`. Every theme 
 
 All learning words, examples, sentences and dialogues have bundled Dutch MP3 clips. Visitors can choose Ronnie or Pim and five playback speeds, from 0.75× to 1.25×. Audio works without a TTS account or device voice installation. No text is sent to a speech service. Forks can serve the bundled files unchanged; after editing Dutch content, regenerate clips with the optional [audio authoring tools](docs/AUDIO.md).
 
-## Optional Google account sync
+## Optional accounts
 
-Use **your own** Supabase and Google Cloud projects. The repository contains no active default backend configuration. Set these two public deployment environment variables before building:
+Accounts and sync are part of the server (`server/`): Sign in with Apple and Google are checked against the providers' public keys, so no client secret is needed, and progress lives in Postgres. Set `DATABASE_URL` and the server creates its tables at start; without it the site runs with progress on the device only. Apple and Google sign-ins with the same verified email share one account, and a signed-in learner can link the other one under Instellingen. [Full account setup](docs/ACCOUNT-SETUP.md).
 
-```text
-PUBLIC_SUPABASE_URL=https://YOUR-PROJECT.supabase.co
-PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_YOUR-PUBLIC-KEY
-```
-
-The server answers `/deployment-config.json` with these values, which are public by design. Never put a service-role key, database password or Google client secret there. `.env` files are ignored, and the build does not load them automatically. Export values in your shell, or configure them in your host's environment settings. [Full account setup](docs/ACCOUNT-SETUP.md).
-
-`npm run build` then `npm start` runs the production server (`server.mjs`), which sets the security headers; the live site runs it on Railway. The supplied CSP allows connections to Supabase project domains; narrow it to your own backend if preferred. Preview deployments have account sync off unless you explicitly configure their environment too.
+`npm run build` then `npm start` runs the production server (`server.mjs`), which sets the security headers; the live site runs it on Railway with a Railway Postgres database.
 
 ## Progress and privacy
 

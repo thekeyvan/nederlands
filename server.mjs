@@ -2,8 +2,12 @@
 import compression from 'compression';
 import express from 'express';
 import {createRequestHandler} from '@react-router/express';
+import {accountApi} from './server/api.mjs';
+import {migrate} from './server/db.mjs';
 
 const build = await import('./build/server/index.js');
+// Accounts live in Railway Postgres; without DATABASE_URL the site runs with progress on the device only.
+await migrate().catch((error) => console.error('database', error.message));
 const app = express();
 app.disable('x-powered-by');
 app.set('trust proxy', true);
@@ -32,6 +36,7 @@ app.get('/bronnen.html', (_req, res) => res.redirect(301, '/leren#bronnen'));
 // Dutch moved from /nl/ to the root.
 app.get(['/nl', '/nl/{*rest}'], (req, res) => res.redirect(301, req.originalUrl.replace(/^\/nl/, '') || '/'));
 app.get('/health', (_req, res) => res.type('text').send('ok'));
+app.use('/api', accountApi());
 
 // Files with a hash in their name never change; audio and pictures change rarely; the service worker must be fresh.
 app.use('/assets/audio', express.static('build/client/assets/audio', {maxAge: '7d'}));

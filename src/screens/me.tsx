@@ -12,7 +12,7 @@ import {Stars} from '@/components/game/stars';
 import {ThemeArt} from '@/components/game/theme-art';
 import {Avatar} from '@/components/app/account-chip';
 import {Group, GroupLabel, Row, RowIcon, ScreenTitle} from '@/components/app/list';
-import {openSignIn, useCanSignIn} from '@/components/app/sign-in';
+import {AppleLogo, GoogleLogo, openSignIn, useCanSignIn} from '@/components/app/sign-in';
 import {AppCard} from '@/components/pwa';
 import {Page} from '@/components/page';
 import {useAudio} from '@/hooks/use-audio';
@@ -21,7 +21,7 @@ import {useGame} from '@/hooks/use-progress';
 import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
 import {useTheme, type ThemePreference} from '@/hooks/use-theme';
-import {deleteAccount, forgetDevice, signOut} from '@/core/cloud.js';
+import {appleAvailable, deleteAccount, forgetDevice, linkProvider, signOut, unlinkProvider} from '@/core/cloud.js';
 import {dailyGoals} from '@/core/state.js';
 import {chooseLocale, locale, locales} from '@/core/i18n.js';
 
@@ -79,7 +79,6 @@ export function SettingsScreen() {
   const audio = useAudio();
   const {preference, setPreference} = useTheme();
   const packs = Object.values(locales);
-  const provider = cloud.user?.provider === 'apple' ? 'Apple' : 'Google';
   return (
     <Page className="max-w-2xl">
       <h1 className="mb-2 text-[28px] font-extrabold tracking-tight">Instellingen</h1>
@@ -116,7 +115,9 @@ export function SettingsScreen() {
       <Group>
         {cloud.user ? (
           <>
-            <Row title={`Ingelogd met ${provider}`} detail={syncMessages[cloud.status]} titleClassName="font-medium" />
+            <Row title={cloud.user.email || cloud.user.name || 'Je account'} detail={syncMessages[cloud.status]} titleClassName="font-medium" />
+            <SignInMethod provider="apple" linked={cloud.user.providers} />
+            <SignInMethod provider="google" linked={cloud.user.providers} />
             <Row onClick={() => void signOut()} chevron={false} title="Uitloggen" titleClassName="font-medium text-primary" />
           </>
         ) : canSignIn && cloud.status !== 'starting' ? (
@@ -134,6 +135,21 @@ export function SettingsScreen() {
       <GroupLabel>App</GroupLabel>
       <AppCard />
     </Page>
+  );
+}
+
+/** Apple or Google on the account: linked, or a button to add it (so both open the same progress). */
+function SignInMethod({provider, linked}: {provider: 'apple' | 'google'; linked: Array<'apple' | 'google'>}) {
+  const isLinked = linked.includes(provider);
+  if (provider === 'apple' && !isLinked && !appleAvailable()) return null;
+  const name = provider === 'apple' ? 'Apple' : 'Google';
+  const icon = provider === 'apple' ? <RowIcon className="bg-foreground text-background"><AppleLogo /></RowIcon> : <RowIcon className="border bg-card"><GoogleLogo /></RowIcon>;
+  return (
+    <Row leading={icon} title={name} titleClassName="font-medium"
+      detail={isLinked ? 'Gekoppeld' : 'Nog niet gekoppeld'}
+      trailing={isLinked
+        ? linked.length > 1 && <Button size="sm" variant="ghost" className="text-muted-foreground" onClick={() => void unlinkProvider(provider)}>Ontkoppelen</Button>
+        : <Button size="sm" variant="outline" onClick={() => void linkProvider(provider)}>Koppelen</Button>} />
   );
 }
 

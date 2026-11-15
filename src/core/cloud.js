@@ -1,10 +1,10 @@
-// Optional Google sign-in and Supabase sync. No DOM access: the UI subscribes to the cloud state.
+// Optional account (Apple or Google) and progress sync with nedfa.nl's own API on Railway.
+// The session is an httpOnly cookie, so this file never sees a token. No DOM access: the UI subscribes to the cloud state.
 import {preferenceSnapshot,switchPreferences,mergePreferences} from './preferences.js';
 import {cloudConfig,loadCloudConfig} from './cloud-config.js';
 import {getProgress,getIdentity,switchUser,mergeCloud,clearGuestAfterSync} from './progress-store.js';
-import {Capacitor} from '@capacitor/core';
 
-let client=null,user=null,working=false,rerun=false,initializing=false,started=false;
+let user=null,working=false,rerun=false,initializing=false,started=false;
 // status: starting | local-only | unavailable | guest | syncing | saved | retry | load-failed
 let state={status:'starting',user:null};
 const listeners=new Set();
@@ -12,71 +12,43 @@ function set(patch){state={...state,...patch};for(const listener of listeners)li
 export const getCloud=()=>state;
 export function subscribeCloud(listener){listeners.add(listener);return ()=>listeners.delete(listener);}
 function message(text){window.dispatchEvent(new CustomEvent('auth-message',{detail:text}));}
-const profile=next=>next?{id:next.id,name:next.user_metadata?.full_name||next.user_metadata?.name||next.email||'',email:next.email||'',provider:next.app_metadata?.provider||'google'}:null;
+const profile=next=>next?{id:next.id,name:next.name||next.email||'',email:next.email||'',providers:next.providers||[],provider:next.providers?.[0]||'google'}:null;
 
-// In the iOS app the page runs from bundled files, so sign-in returns through a URL scheme
-// (Google, in Safari) or the native Apple sheet instead of a web redirect.
-const native=Capacitor.isNativePlatform();
-const AUTH_CALLBACK='com.keyvanmahmoudi.nederlands://auth';
-const APPLE_CLIENT_ID='com.keyvanmahmoudi.nederlands';
-// The Services ID registered for nedfa.nl; Supabase accepts its tokens without an OAuth secret.
+// The Services ID registered for nedfa.nl (Sign in with Apple JS).
 const APPLE_WEB_ID='com.keyvanmahmoudi.nederlands.web';
-// Apple sign-in: the native sheet in the iOS app; Sign in with Apple JS on the website.
-export const appleAvailable=()=>(native&&Capacitor.getPlatform()==='ios')||cloudConfig.appleWeb===true;
+export const appleAvailable=()=>cloudConfig.appleWeb===true;
 
-async function providerReady(provider){
- try{
-  const response=await fetch(`${cloudConfig.url}/auth/v1/settings`,{headers:{apikey:cloudConfig.key}});const settings=await response.json();
-  if(!response.ok||!settings.external?.[provider]){message(`${provider==='apple'?'Inloggen met Apple':'Google-inloggen'} wordt nog ingesteld. Je voortgang blijft op dit apparaat.`);return false;}
-  return true;
- }catch{message('Geen verbinding. Je kunt op dit apparaat verder oefenen.');return false;}
+async function api(path,{method='GET',body}={}){
+ const response=await fetch(`/api${path}`,{method,credentials:'same-origin',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});
+ const data=await response.json().catch(()=>({}));
+ if(!response.ok){const error=new Error(data.error||`HTTP ${response.status}`);error.status=response.status;throw error;}
+ return data;
 }
 
-export async function signIn(provider='google'){
- if(user)return;
- if(!client){message('Inloggen is nu niet beschikbaar. Je kunt wel oefenen.');return;}
+/** Signs in, or with `link` adds this Apple or Google account to the one you are signed in with. */
+export async function signIn(provider='google',{link=false}={}){
+ if(user&&!link)return;
+ if(state.status==='local-only'||state.status==='unavailable'){message('Inloggen is nu niet beschikbaar. Je kunt wel oefenen.');return;}
  // Apple's popup must open straight from the tap, so this runs before anything is awaited.
- if(provider==='apple'&&!native){await signInWithAppleWeb();return;}
- if(!await providerReady(provider))return;
- if(provider==='apple'&&native){await signInWithApple();return;}
- if(native){
-  const {data,error}=await client.auth.signInWithOAuth({provider:'google',options:{redirectTo:AUTH_CALLBACK,skipBrowserRedirect:true,queryParams:{prompt:'select_account'}}});
-  if(error||!data?.url){message('Inloggen lukt nu niet. Probeer het later opnieuw.');return;}
-  const {Browser}=await import('@capacitor/browser');
-  await Browser.open({url:data.url,presentationStyle:'popover'});
-  return;
- }
- const {error}=await client.auth.signInWithOAuth({provider,options:{redirectTo:`${location.origin}/leren`,...(provider==='google'?{queryParams:{prompt:'select_account'}}:{})}});
- if(error)message('Inloggen lukt nu niet. Probeer het later opnieuw.');
+ if(provider==='apple'){await signInWithApple(link);return;}
+ if(user)await sync();
+ const params=new URLSearchParams({return:`${location.pathname}${location.hash}`});
+ if(link)params.set('link','1');
+ location.assign(`/api/auth/google?${params}`);
+}
+export const linkProvider=provider=>signIn(provider,{link:true});
+
+/** Removes Apple or Google from the account (only when the other one stays). */
+export async function unlinkProvider(provider){
+ try{const {user:next}=await api(`/me/identities/${provider}`,{method:'DELETE'});user=next;set({user:profile(next)});}
+ catch(error){message(error.status===409?'Je hebt minstens één manier van inloggen nodig.':'Dat lukt nu niet. Probeer het later opnieuw.');}
 }
 
 const hex=bytes=>[...new Uint8Array(bytes)].map(byte=>byte.toString(16).padStart(2,'0')).join('');
-async function signInWithApple(){
- // Apple signs a hash of the nonce; Supabase checks it against the raw value.
- const raw=hex(crypto.getRandomValues(new Uint8Array(32)));
- const hashed=hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw)));
- let result;
- try{
-  const {SignInWithApple}=await import('@capacitor-community/apple-sign-in');
-  result=await SignInWithApple.authorize({clientId:APPLE_CLIENT_ID,redirectURI:AUTH_CALLBACK,scopes:'email name',nonce:hashed});
- }catch(error){
-  // Closing the Apple sheet is not an error worth a message.
-  if(!/cancel|1001/i.test(String(error?.message||error?.code||'')))message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');
-  return;
- }
- const token=result?.response?.identityToken;
- if(!token){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
- const {data,error}=await client.auth.signInWithIdToken({provider:'apple',token,nonce:raw});
- if(error){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
- // Apple only shares the name the first time; keep it on the account.
- const name=[result.response.givenName,result.response.familyName].filter(Boolean).join(' ');
- if(name&&!data.user?.user_metadata?.full_name)await client.auth.updateUser({data:{full_name:name}});
-}
-
 // Sign in with Apple JS: loaded and given a fresh nonce ahead of time, so the tap opens the popup at once.
 let appleWeb=null;
-async function prepareAppleWeb(){
- if(native||!cloudConfig.appleWeb||typeof window==='undefined')return;
+async function prepareApple(){
+ if(!cloudConfig.appleWeb||typeof window==='undefined')return;
  if(!window.AppleID){
   await new Promise((resolve,reject)=>{
    const script=document.createElement('script');
@@ -91,9 +63,9 @@ async function prepareAppleWeb(){
  appleWeb={raw};
 }
 
-async function signInWithAppleWeb(){
+async function signInWithApple(link){
  const prepared=appleWeb;
- if(!prepared||!window.AppleID){message('Inloggen met Apple wordt nog geladen. Probeer het zo opnieuw.');void prepareAppleWeb().catch(()=>{});return;}
+ if(!prepared||!window.AppleID){message('Inloggen met Apple wordt nog geladen. Probeer het zo opnieuw.');void prepareApple().catch(()=>{});return;}
  appleWeb=null;
  let result;
  try{result=await window.AppleID.auth.signIn();}
@@ -101,33 +73,23 @@ async function signInWithAppleWeb(){
   // Closing the Apple popup is not an error worth a message.
   if(!/popup_closed|user_cancel/i.test(String(error?.error||error?.message||error)))message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');
   return;
- }finally{void prepareAppleWeb().catch(()=>{});}
+ }finally{void prepareApple().catch(()=>{});}
  const token=result?.authorization?.id_token;
  if(!token){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
- const {data,error}=await client.auth.signInWithIdToken({provider:'apple',token,nonce:prepared.raw});
- if(error){message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');return;}
- // Apple only shares the name the first time; keep it on the account.
+ // Apple only shares the name the first time.
  const name=[result.user?.name?.firstName,result.user?.name?.lastName].filter(Boolean).join(' ');
- if(name&&!data.user?.user_metadata?.full_name)await client.auth.updateUser({data:{full_name:name}});
-}
-
-async function finishNativeSignIn(url){
- if(!url?.startsWith(AUTH_CALLBACK))return;
- const {Browser}=await import('@capacitor/browser');
- void Browser.close().catch(()=>{});
- const params=new URL(url).searchParams;
- const code=params.get('code');
- if(!code){if(params.has('error'))message('Google-inloggen is niet afgerond. Je kunt het opnieuw proberen.');return;}
- const {error}=await client.auth.exchangeCodeForSession(code);
- if(error)message('Inloggen lukt nu niet. Probeer het later opnieuw.');
+ try{
+  const {user:next}=await api('/auth/apple',{method:'POST',body:{idToken:token,nonce:prepared.raw,name,link}});
+  if(link){await setUser(next);message('Apple is gekoppeld aan je account.');return;}
+  await setUser(next);
+ }catch{message('Inloggen met Apple lukt nu niet. Probeer het later opnieuw.');}
 }
 
 /** Deletes the account and everything saved with it, online and on this device. */
 export async function deleteAccount(){
- if(client&&user){
-  const {error}=await client.rpc('delete_my_account');
-  if(error){message('Je account kon niet worden verwijderd. Controleer je verbinding en probeer het opnieuw.');return false;}
-  await client.auth.signOut({scope:'local'}).catch(()=>{});
+ if(user){
+  try{await api('/me',{method:'DELETE'});}
+  catch{message('Je account kon niet worden verwijderd. Controleer je verbinding en probeer het opnieuw.');return false;}
  }
  forgetDevice();
  return true;
@@ -139,66 +101,59 @@ export function forgetDevice(){
 }
 
 export async function signOut(){
- if(!client||!user)return;
+ if(!user)return;
  await sync();
- const {error}=await client.auth.signOut({scope:'local'});
- if(error){message('Uitloggen lukt nu niet. Probeer het opnieuw.');return;}
- await setSession(null);
+ try{await api('/auth/signout',{method:'POST'});}catch{message('Uitloggen lukt nu niet. Probeer het opnieuw.');return;}
+ await setUser(null);
 }
 
 async function loadCloud(id){
- const [cards,events,prefs]=await Promise.all([client.from('review_cards').select('*').limit(1000),client.from('review_events').select('id,card_id,grade,reviewed_at').order('reviewed_at',{ascending:false}).limit(2000),client.from('learning_preferences').select('data,updated_at').maybeSingle()]);
+ const {cards,events,preferences}=await api('/me/progress');
  if(id!==user?.id)return;
- if(cards.error||events.error||prefs.error)throw cards.error||events.error||prefs.error;
- mergePreferences(prefs.data);
- const reviews=Object.fromEntries(cards.data.map(card=>[card.card_id,{ease:Number(card.ease),interval:card.interval_days,repetitions:card.repetitions,due:card.due,lastReviewed:card.last_reviewed,grade:card.grade,reviews:card.reviews}]));
- mergeCloud(reviews,events.data.map(event=>({id:event.id,cardId:event.card_id,grade:event.grade,at:event.reviewed_at})));
+ mergePreferences(preferences);
+ const reviews=Object.fromEntries(cards.map(card=>[card.card_id,{ease:Number(card.ease),interval:card.interval_days,repetitions:card.repetitions,due:card.due,lastReviewed:card.last_reviewed,grade:card.grade,reviews:card.reviews}]));
+ mergeCloud(reviews,events.map(event=>({id:event.id,cardId:event.card_id,grade:event.grade,at:event.reviewed_at})));
 }
 
 export async function sync(){
- if(!client||!user||initializing)return;
+ if(!user||initializing)return;
  if(working){rerun=true;return;}
  working=true;const id=user.id;set({status:'syncing'});
  try{
-  const data=getProgress();const {error}=await client.rpc('sync_learning',{payload:{cards:Object.entries(data.reviews).map(([cardId,value])=>({id:cardId,...value})),events:data.events}});
-  if(error)throw error;
+  const data=getProgress();
+  await api('/me/sync',{method:'POST',body:{cards:Object.entries(data.reviews).map(([cardId,value])=>({id:cardId,...value})),events:data.events}});
   const prefs=preferenceSnapshot();
-  if(prefs.updated_at){const result=await client.from('learning_preferences').upsert({user_id:id,...prefs});if(result.error)throw result.error;}
+  if(prefs.updated_at)await api('/me/preferences',{method:'PUT',body:prefs});
   if(id===user?.id){clearGuestAfterSync();set({status:'saved'});}
- }catch{if(id===user?.id)set({status:'retry'});}
+ }catch(error){
+  if(error.status===401){working=false;await setUser(null);return;}
+  if(id===user?.id)set({status:'retry'});
+ }
  finally{working=false;if(rerun){rerun=false;void sync();}}
 }
 
-async function setSession(session){
- const next=session?.user||null;
- // A first check without a session is still an answer: leave "starting" so the sign-in button appears.
- if(next?.id===user?.id&&getIdentity()===(next?.id||'guest')){if(state.status==='starting')set({status:next?'saved':'guest'});return;}
+async function setUser(next){
+ // The same learner again (e.g. after linking): only refresh the profile.
+ if(next?.id===user?.id&&getIdentity()===(next?.id||'guest')){user=next;set({user:profile(next),...(state.status==='starting'?{status:next?'saved':'guest'}:{})});return;}
  user=next;switchUser(next?.id);switchPreferences(next?.id);set({user:profile(next),status:next?'syncing':'guest'});
  if(!next)return;initializing=true;
  try{await loadCloud(next.id);}catch{set({status:'load-failed'});initializing=false;return;}
  initializing=false;await sync();
 }
 
+const loginMessages={cancelled:'Inloggen is niet afgerond. Je kunt het opnieuw proberen.',failed:'Inloggen lukt nu niet. Probeer het later opnieuw.',expired:'Inloggen duurde te lang. Probeer het opnieuw.'};
+
 export async function initCloud(){
  if(started)return;started=true;
  await loadCloudConfig();
- if(!cloudConfig.key){set({status:'local-only'});return;}
- try{
-  const {createClient}=await import('@supabase/supabase-js');
-  client=createClient(cloudConfig.url,cloudConfig.key,{auth:{flowType:'pkce',detectSessionInUrl:!native,persistSession:true,autoRefreshToken:true}});
- }catch{set({status:'unavailable'});return;}
- if(native){
-  const {App}=await import('@capacitor/app');
-  App.addListener('appUrlOpen',event=>void finishNativeSignIn(event.url));
- }
- void prepareAppleWeb().catch(()=>{});
+ if(!cloudConfig.auth){set({status:'local-only'});return;}
  const params=new URLSearchParams(location.search);
- if(params.has('error')){message('Google-inloggen is niet afgerond. Je kunt het opnieuw proberen.');history.replaceState(null,'',location.pathname+location.hash);}
- const {data,error}=await client.auth.getSession();
- if(error)message('Je sessie kon niet worden geladen. Log opnieuw in.');
- if(params.has('code'))history.replaceState(null,'',location.pathname+location.hash);
- await setSession(data?.session);
- client.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>void setSession(session),0);});
+ const login=params.get('login');
+ if(login){message(loginMessages[login]||loginMessages.failed);params.delete('login');history.replaceState(null,'',location.pathname+(params.size?`?${params}`:'')+location.hash);}
+ let me;
+ try{({user:me}=await api('/me'));}catch{set({status:'unavailable'});return;}
+ await setUser(me);
+ void prepareApple().catch(()=>{});
  window.addEventListener('learning-review',()=>void sync());
  window.addEventListener('learning-preferences-changed',()=>void sync());
  window.addEventListener('online',async()=>{if(user){try{await loadCloud(user.id);}catch{}void sync();}});

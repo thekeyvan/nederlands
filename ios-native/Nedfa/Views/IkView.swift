@@ -168,8 +168,12 @@ struct SettingsView: View {
             }
             Section("Account") {
                 if let user = cloud.user {
-                    LabeledContent("Ingelogd met \(user.provider == "apple" ? "Apple" : "Google")", value: user.email)
-                    Text(cloud.status.text).font(.footnote).foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(user.email.isEmpty ? user.name : user.email).font(.body.weight(.medium))
+                        Text(cloud.status.text).font(.footnote).foregroundStyle(.secondary)
+                    }
+                    SignInMethodRow(provider: "apple", user: user)
+                    SignInMethodRow(provider: "google", user: user)
                     Button("Uitloggen") { Task { await cloud.signOut() } }
                 } else if cloud.status != .unavailable {
                     Button("Inloggen met Apple of Google") { showSignIn = true }
@@ -221,6 +225,39 @@ struct ResourcesView: View {
 }
 
 // MARK: Sign in
+
+/// Apple or Google on the account: linked, or a button to add it so both open the same progress.
+struct SignInMethodRow: View {
+    let provider: String
+    let user: Cloud.User
+    @State private var cloud = Cloud.shared
+    @Environment(\.colorScheme) private var scheme
+
+    var body: some View {
+        let linked = user.has(provider)
+        let name = provider == "apple" ? "Apple" : "Google"
+        HStack(spacing: 12) {
+            Image(systemName: provider == "apple" ? "apple.logo" : "g.circle.fill").font(.title3).frame(width: 28)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(name).font(.body.weight(.medium))
+                Text(linked ? "Gekoppeld" : "Koppel \(name) om ook daarmee in te loggen").font(.caption).foregroundStyle(.secondary)
+            }
+            Spacer()
+            if linked {
+                if user.providers.count > 1 { Button("Ontkoppel") { Task { await cloud.unlink(provider) } }.font(.subheadline).foregroundStyle(.secondary).buttonStyle(.borderless) }
+                else { Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.success) }
+            } else if provider == "apple" {
+                SignInWithAppleButton(.continue) { cloud.appleRequest($0, link: true) } onCompletion: { result in Task { await cloud.appleCompletion(result) } }
+                    .signInWithAppleButtonStyle(scheme == .dark ? .white : .black)
+                    .frame(width: 120, height: 34)
+                    .clipShape(Capsule())
+                    .accessibilityLabel("Koppel Apple")
+            } else {
+                Button("Koppelen") { Task { await cloud.signInWithGoogle(link: true) } }.buttonStyle(.bordered).buttonBorderShape(.capsule)
+            }
+        }
+    }
+}
 
 struct SignInButtons: View {
     var done: () -> Void = {}

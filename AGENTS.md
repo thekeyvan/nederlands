@@ -6,7 +6,7 @@ Nedfa teaches Dutch (A2–B1) to Persian speakers. One repository holds everythi
 - `app/`: the website, React Router 8 with server rendering (Dutch at `/`, Persian at `/fa/`), plus the content API at `/api/v1`.
 - `src/`: the practice web app at `/leren` (React 19, renders in the browser) and the shared domain logic in `src/core/`.
 - `ios-native/`: the native SwiftUI iPhone app. `npm run build:native` exports `content.json` from `content/` and generates the Xcode project.
-- `server.mjs`: the production server on Railway, which deploys `main` automatically.
+- `server.mjs`: the production server on Railway, which deploys `main` automatically. `server/` holds accounts (Sign in with Apple and Google, one account for both) and progress sync on Railway Postgres; see [docs/ACCOUNT-SETUP.md](docs/ACCOUNT-SETUP.md).
 
 ## Content rules
 

@@ -19,7 +19,7 @@ const setOpen = (value: boolean) => {
 export const openSignIn = () => setOpen(true);
 const useSignInOpen = () => useSyncExternalStore((listener) => { listeners.add(listener); return () => listeners.delete(listener); }, () => open, () => open);
 
-/** True when this build can sign in at all (Supabase configured and reachable). */
+/** True when this deployment has accounts (the Railway database) and they are reachable. */
 export function useCanSignIn() {
   const cloud = useCloud();
   return !['local-only', 'unavailable'].includes(cloud.status);
@@ -29,7 +29,7 @@ export const AppleLogo = ({className}: {className?: string}) => (
   <svg viewBox="0 0 24 24" aria-hidden className={cn('size-5 fill-current', className)}><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.15-2.77.83-3.49.83-.72 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.59-.75 2.99-.75 1.39 0 1.79.75 3.01.72 1.24-.02 2.03-1.13 2.79-2.25.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.45-3.71ZM14.08 5.84c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.78-.97 2.83 1.03.08 2.07-.52 2.71-1.29Z" /></svg>
 );
 
-const GoogleLogo = ({className}: {className?: string}) => (
+export const GoogleLogo = ({className}: {className?: string}) => (
   <svg viewBox="0 0 24 24" aria-hidden className={cn('size-5', className)}>
     <path fill="#4285F4" d="M22.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.3h5.9a5.05 5.05 0 0 1-2.19 3.31v2.75h3.54c2.07-1.91 3.25-4.72 3.25-8.09Z" />
     <path fill="#34A853" d="M12 23c2.95 0 5.43-.98 7.24-2.64l-3.54-2.75c-.98.66-2.23 1.05-3.7 1.05-2.85 0-5.26-1.92-6.12-4.5H2.22v2.84A10.99 10.99 0 0 0 12 23Z" />
@@ -79,7 +79,7 @@ export function SignInSheet() {
         <SignInReasons />
         <SignInButtons />
         <p className="text-center text-xs text-muted-foreground">
-          {appleAvailable() ? 'Gebruik op elk apparaat dezelfde manier van inloggen.' : 'Gebruik op je telefoon en laptop hetzelfde Google-account.'} Je kunt je account altijd verwijderen bij Ik.
+          Apple en Google met hetzelfde e-mailadres komen in hetzelfde account; bij Instellingen koppel je ze ook zelf. Je kunt je account altijd verwijderen.
         </p>
       </div>
     </ResponsiveSheet>

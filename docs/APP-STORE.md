@@ -58,10 +58,10 @@ The app works without an account ("Eerst proberen zonder account" on the first s
 
 ## Sign in with Apple
 
-- The app uses the native Apple sheet; Supabase checks the token against the client IDs
+- The app uses the native Apple sheet; nedfa.nl (`server/auth.mjs`) checks the token against the client IDs
   `com.keyvanmahmoudi.nederlands` (app) and `com.keyvanmahmoudi.nederlands.web` (website Services ID).
 - The website uses Sign in with Apple JS (a popup) with the Services ID, whose website URLs list
-  `nedfa.nl` and the return URL `https://nedfa.nl/leren`. The token goes to Supabase with
-  `signInWithIdToken`, so no OAuth secret key is needed and nothing expires every 6 months.
+  `nedfa.nl` and the return URL `https://nedfa.nl/leren`. The token goes to `/api/auth/apple`,
+  so no OAuth secret key is needed and nothing expires every 6 months.
   Both client IDs belong to the same primary App ID, so the app and the website see the same Apple account.
 - `PUBLIC_APPLE_WEB_SIGNIN=0` on Railway hides the Apple button on the website.

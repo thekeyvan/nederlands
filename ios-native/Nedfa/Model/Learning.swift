@@ -1,6 +1,6 @@
 import Foundation
 
-/// One card's place in the SM-2 schedule. Field names match the website and the Supabase sync.
+/// One card's place in the SM-2 schedule. Field names match the website and the nedfa.nl sync API.
 struct Review: Codable, Hashable {
     var ease: Double
     var interval: Int

@@ -6,10 +6,6 @@ options:
     iOS: "17.0"
   developmentLanguage: nl
   createIntermediateGroups: true
-packages:
-  Supabase:
-    url: https://github.com/supabase/supabase-swift
-    from: 2.20.0
 settings:
   base:
     DEVELOPMENT_TEAM: 95YDC2AP63
@@ -28,17 +24,12 @@ targets:
           - "Resources/*.json"
       - path: Nedfa/Resources/content.json
         buildPhase: resources
-      - path: Nedfa/Resources/config.json
-        buildPhase: resources
       - path: ../public/assets/audio
         type: folder
         buildPhase: resources
       - path: ../src/assets/illustrations
         type: folder
         buildPhase: resources
-    dependencies:
-      - package: Supabase
-        product: Supabase
     entitlements:
       path: Nedfa/Nedfa.entitlements
       properties:

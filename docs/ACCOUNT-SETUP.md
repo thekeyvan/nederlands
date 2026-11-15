@@ -1,32 +1,23 @@
-# Optional Google sign-in for your fork
+# Accounts (Apple and Google) for your fork
 
-A fresh fork is local-only. It does not connect to the original site's accounts. You can publish the static site without setting up a backend.
+A fresh fork is local-only: without `DATABASE_URL` the site keeps progress on the device. Accounts need three things.
 
-## Supabase
+## 1. A Postgres database
 
-1. Create your own project.
-2. Run `database/schema.sql` once in its SQL editor. It creates review cards, events and preferences, owner-scoped RLS policies and the `SECURITY INVOKER` sync function. It is an initial schema, not an idempotent upgrade migration.
-3. Run `database/verify-rls.sql`. It creates temporary test records inside a transaction, checks ownership and rolls back. Use a clean test project first; do not run scratch SQL in someone else's project.
-4. In Authentication → URL Configuration, set Site URL to your deployed origin and allow `https://YOUR-SITE/leren` as an exact redirect.
-5. Keep anonymous sign-ins and manual linking off. After Google works, disable the email provider if you want Google-only accounts.
+On Railway: add a Postgres service and give the web service `DATABASE_URL=${{Postgres.DATABASE_URL}}`. The server applies `server/schema.sql` at every start (it only creates what is missing). Run the account tests against a throwaway database with `TEST_DATABASE_URL=postgres://… npm test`.
 
-## Google Cloud
+## 2. Google
 
-1. Create a Google Auth application for your own project. Fill in your app name, support contact, homepage and your fork's actual privacy policy. The operator accepts Google's applicable terms.
-2. Create an OAuth **Web application** client. Set the JavaScript origin to your deployed site origin and the redirect URI to `https://YOUR-PROJECT.supabase.co/auth/v1/callback`.
-3. Put its client ID and secret into Supabase's Google provider settings. Leave nonce verification enabled and email required. Do not put the client secret into source code or frontend environment variables.
-4. Use only the basic profile/email sign-in scopes. Add test users while testing; complete the Google publishing process before general use. Scope or branding changes can trigger Google's verification requirements.
+Create an OAuth **Web application** client in Google Cloud. Add your site as JavaScript origin and `https://YOUR-SITE/api/auth/google/callback` as redirect URI, and set `GOOGLE_CLIENT_ID` (public) on the server. The sign-in uses the OpenID Connect ID token posted back to that URL, so the client secret is never needed. The iPhone app opens `/api/auth/google?mode=app` in a Safari sheet and receives a one-time code on `com.keyvanmahmoudi.nederlands://auth`.
 
-## Build and deploy
+## 3. Apple
 
-Set `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_PUBLISHABLE_KEY` in the **production** environment of your static host, then run `npm run build`. The generated JSON contains public connection settings, not credentials with administrative authority. The build accepts only the Supabase HTTPS project URL and `sb_publishable_` keys.
+Enable Sign in with Apple on the app's App ID, and create a Services ID for the website with your domain and the return URL `https://YOUR-SITE/leren`. Put both identifiers in `APPLE_CLIENT_IDS` in `server/auth.mjs` and the Services ID in `src/core/cloud.js`. Group the Services ID under the app's primary App ID, so Apple gives the website and the app the same user id. No key or secret is needed: the app's native sheet and Sign in with Apple JS both return an ID token that the server checks.
 
-Vercel uses `vercel.json` automatically. Other hosts serve `dist/` and need their own equivalent security headers. Preview/local builds stay local-only unless you set both variables for that environment. For local OAuth tests, separately allow the exact localhost return URL in Supabase; keep production redirects narrow.
+## How accounts work
 
-## Verify before sharing
+- One learner can have an Apple and a Google sign-in (`identities`). A new sign-in with a verified email that another sign-in already uses joins that learner; Apple's hidden relay addresses never match. Under Instellingen a learner links the other provider; if that sign-in already had its own progress, both are merged (the newest review of each card wins).
+- Sessions are random tokens; only their SHA-256 hash is stored. The website gets an httpOnly cookie, and requests that change data must come from the site's own origin. The app keeps its token in the Keychain.
+- Deleting the account removes the learner and, through foreign keys, every sign-in, session and saved answer.
 
-Sign in with Google, review a card, confirm it is stored in your database, then return/reload and confirm the progress remains. Verify one signed-in account cannot read or update another account's rows. Check logout switches to a separate guest cache. Inspect `app/routes/site/privacy.tsx`: replace the original operator/contact information and document your own data location, retention and deletion process.
-
-Local review history is capped at 2,000 events. The cloud table retains history; the client currently loads the 2,000 latest events and up to 1,000 scheduled cards. Expand/paginate those limits before growing beyond 1,000 distinct cards. The current shipped content has 641 review cards.
-
-References: [Supabase Google sign-in](https://supabase.com/docs/guides/auth/social-sign-in/auth-google), [redirect URLs](https://supabase.com/docs/guides/auth/redirect-urls), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security).
+Before sharing, update `app/routes/site/privacy.tsx` with your own operator, contact and data location.

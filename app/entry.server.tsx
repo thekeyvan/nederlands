@@ -17,7 +17,7 @@ const policy = (nonce: string) =>
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
     "img-src 'self' data:",
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
+    "connect-src 'self'",
     "worker-src 'self'",
     "frame-ancestors 'none'",
     "base-uri 'self'",

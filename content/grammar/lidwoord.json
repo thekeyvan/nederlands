@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:lidwoord",
+  "title": "De, het en een",
+  "level": "A0",
+  "pattern": "de/het + naamwoord · een = één, onbepaald",
+  "example": "Ik heb een fiets. De fiets is nieuw.",
+  "prompt": "___ huis is groot.",
+  "answer": "Het",
+  "fa": {
+    "rule": "هلندی دو حرف تعریف معین دارد: de و het. een یعنی «یک» و نامعین است. همهٔ اسم‌های جمع de می‌گیرند.",
+    "note": "حدود دو سوم اسم‌ها de هستند و اسم‌های کوچک‌شده (‎-je‎) همیشه het. بهتر است هر اسم را همراه حرف تعریفش حفظ کنید.",
+    "translation": "یک دوچرخه دارم. دوچرخه نو است."
+  },
+  "examples": [
+    {
+      "nl": "Het boek ligt op tafel.",
+      "gap": "Het",
+      "fa": "کتاب روی میز است."
+    },
+    {
+      "nl": "De man drinkt koffie.",
+      "gap": "De",
+      "fa": "مرد قهوه می‌نوشد."
+    },
+    {
+      "nl": "Ik koop een appel.",
+      "gap": "een",
+      "fa": "یک سیب می‌خرم."
+    }
+  ]
+}

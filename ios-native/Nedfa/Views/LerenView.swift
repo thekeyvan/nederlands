@@ -40,12 +40,14 @@ struct PatternLink: Hashable { let id: String }
 
 struct ThemesGrid: View {
     @State private var progress = Learner.shared
+    @State private var preferences = Preferences.shared
     @State private var query = ""
 
     var body: some View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
         let needle = query.trimmingCharacters(in: .whitespaces).lowercased()
-        let themes = Content.shared.themes.filter { needle.isEmpty || "\($0.title) \($0.meaning) \($0.intro)".lowercased().contains(needle) }
+        // Themes for the learner's level (niveautest) first.
+        let themes = LevelPlan.sorted(Content.shared.themes, for: preferences.level).filter { needle.isEmpty || "\($0.title) \($0.meaning) \($0.intro)".lowercased().contains(needle) }
         ScrollView {
             SearchField(prompt: "Zoek een thema", text: $query).padding(.horizontal, 20).padding(.top, 12)
             if themes.isEmpty {

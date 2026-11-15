@@ -92,6 +92,9 @@ final class Preferences {
     var records: [String: Int] { didSet { UserDefaults.standard.set(records, forKey: "records") } }
     var played: [String: Int] { didSet { UserDefaults.standard.set(played, forKey: "played") } }
     var updatedAt: Date? { didSet { UserDefaults.standard.set(updatedAt, forKey: "preferencesUpdated") } }
+    /// From the niveautest (A0–B1); nil until the learner did it or chose to start from zero. Synced like the goal.
+    var level: String? { didSet { UserDefaults.standard.set(level, forKey: "level"); if level != oldValue { updatedAt = .now } } }
+    static let levels = ["A0", "A1", "A2", "B1"]
 
     private init() {
         let defaults = UserDefaults.standard
@@ -106,6 +109,7 @@ final class Preferences {
         records = defaults.dictionary(forKey: "records") as? [String: Int] ?? [:]
         played = defaults.dictionary(forKey: "played") as? [String: Int] ?? [:]
         updatedAt = defaults.object(forKey: "preferencesUpdated") as? Date
+        level = defaults.string(forKey: "level").flatMap { Self.levels.contains($0) ? $0 : nil }
     }
 
     /// Saves a game score; returns the previous best.
@@ -117,7 +121,7 @@ final class Preferences {
     }
 
     func reset() {
-        for key in ["goal", "voice", "speed", "appearance", "reminderHour", "welcomeDone", "records", "played", "preferencesUpdated"] { UserDefaults.standard.removeObject(forKey: key) }
-        goal = 5; voice = "ronnie"; speed = 1; appearance = "system"; reminderHour = nil; welcomeDone = false; records = [:]; played = [:]; updatedAt = nil
+        for key in ["goal", "voice", "speed", "appearance", "reminderHour", "welcomeDone", "records", "played", "preferencesUpdated", "level"] { UserDefaults.standard.removeObject(forKey: key) }
+        goal = 5; voice = "ronnie"; speed = 1; appearance = "system"; reminderHour = nil; welcomeDone = false; records = [:]; played = [:]; level = nil; updatedAt = nil
     }
 }

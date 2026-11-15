@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:er-is",
+  "title": "Er is, er zijn",
+  "level": "A1",
+  "pattern": "er is + enkelvoud · er zijn + meervoud",
+  "example": "Er is een bakker in onze straat.",
+  "prompt": "Er ___ drie stoelen in de kamer.",
+  "answer": "zijn",
+  "fa": {
+    "rule": "برای گفتن «هست / وجود دارد» از er is (برای مفرد) و er zijn (برای جمع) استفاده کنید.",
+    "note": "در سؤال، فعل اول می‌آید: Is er een supermarkt in de buurt?",
+    "translation": "در خیابان ما یک نانوایی هست."
+  },
+  "examples": [
+    {
+      "nl": "Er is geen melk meer.",
+      "gap": "is",
+      "fa": "دیگر شیر نداریم."
+    },
+    {
+      "nl": "Er zijn veel fietsen in Nederland.",
+      "gap": "zijn",
+      "fa": "در هلند دوچرخه‌های زیادی هست."
+    },
+    {
+      "nl": "Is er een supermarkt in de buurt?",
+      "gap": "Is",
+      "fa": "این نزدیکی سوپرمارکت هست؟"
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "mijn-dag",
+  "title": "Mijn dag",
+  "fa": "روز من",
+  "icon": "37",
+  "level": "A0",
+  "intro": "Hoe ziet jouw dag eruit?",
+  "words": [
+    {
+      "nl": "opstaan",
+      "kind": "werkwoord",
+      "fa": "از خواب بلند شدن",
+      "example": "Ik sta om zeven uur op.",
+      "exampleFa": "ساعت هفت از خواب بلند می‌شوم.",
+      "forms": [
+        "stond op",
+        "ben opgestaan",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "slapen",
+      "kind": "werkwoord",
+      "fa": "خوابیدن",
+      "example": "Ik slaap acht uur per nacht.",
+      "exampleFa": "شبی هشت ساعت می‌خوابم.",
+      "forms": [
+        "sliep",
+        "heb geslapen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "werken",
+      "kind": "werkwoord",
+      "fa": "کار کردن",
+      "example": "Ik werk in een winkel.",
+      "exampleFa": "در یک مغازه کار می‌کنم.",
+      "forms": [
+        "werkte",
+        "heb gewerkt",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "leren",
+      "kind": "werkwoord",
+      "fa": "یاد گرفتن",
+      "example": "Ik leer elke dag Nederlands.",
+      "exampleFa": "هر روز هلندی یاد می‌گیرم.",
+      "forms": [
+        "leerde",
+        "heb geleerd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "douchen",
+      "kind": "werkwoord",
+      "fa": "دوش گرفتن",
+      "example": "Ik douche elke ochtend.",
+      "exampleFa": "هر صبح دوش می‌گیرم.",
+      "forms": [
+        "douchte",
+        "heb gedoucht",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "gaan",
+      "kind": "werkwoord",
+      "fa": "رفتن",
+      "example": "Ik ga met de bus naar mijn werk.",
+      "exampleFa": "با اتوبوس سر کار می‌روم.",
+      "forms": [
+        "ging",
+        "ben gegaan",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "koken",
+      "kind": "werkwoord",
+      "fa": "آشپزی کردن",
+      "example": "Mijn man kookt vanavond.",
+      "exampleFa": "شوهرم امشب آشپزی می‌کند.",
+      "forms": [
+        "kookte",
+        "heb gekookt",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de ochtend",
+      "kind": "woord",
+      "fa": "صبح",
+      "example": "In de ochtend drink ik koffie.",
+      "exampleFa": "صبح‌ها قهوه می‌نوشم."
+    },
+    {
+      "nl": "de middag",
+      "kind": "woord",
+      "fa": "بعدازظهر",
+      "example": "In de middag haal ik de kinderen op.",
+      "exampleFa": "بعدازظهر دنبال بچه‌ها می‌روم."
+    },
+    {
+      "nl": "de avond",
+      "kind": "woord",
+      "fa": "عصر، شب",
+      "example": "In de avond kijk ik tv.",
+      "exampleFa": "عصرها تلویزیون تماشا می‌کنم."
+    },
+    {
+      "nl": "de nacht",
+      "kind": "woord",
+      "fa": "شب",
+      "example": "De nacht is lang en donker.",
+      "exampleFa": "شب طولانی و تاریک است."
+    },
+    {
+      "nl": "vandaag",
+      "kind": "woord",
+      "fa": "امروز",
+      "example": "Vandaag heb ik vrij.",
+      "exampleFa": "امروز تعطیلم."
+    },
+    {
+      "nl": "morgen",
+      "kind": "woord",
+      "fa": "فردا",
+      "example": "Morgen ga ik naar de dokter.",
+      "exampleFa": "فردا پیش دکتر می‌روم."
+    },
+    {
+      "nl": "gisteren",
+      "kind": "woord",
+      "fa": "دیروز",
+      "example": "Gisteren was ik moe.",
+      "exampleFa": "دیروز خسته بودم."
+    },
+    {
+      "nl": "altijd",
+      "kind": "woord",
+      "fa": "همیشه",
+      "example": "Ik ontbijt altijd om acht uur.",
+      "exampleFa": "همیشه ساعت هشت صبحانه می‌خورم."
+    },
+    {
+      "nl": "soms",
+      "kind": "woord",
+      "fa": "گاهی",
+      "example": "Soms fiets ik naar mijn werk.",
+      "exampleFa": "گاهی با دوچرخه سر کار می‌روم."
+    },
+    {
+      "nl": "moe",
+      "kind": "woord",
+      "fa": "خسته",
+      "example": "Na het werk ben ik moe.",
+      "exampleFa": "بعد از کار خسته‌ام."
+    },
+    {
+      "nl": "de week",
+      "kind": "woord",
+      "fa": "هفته",
+      "example": "Ik werk vier dagen per week.",
+      "exampleFa": "هفته‌ای چهار روز کار می‌کنم."
+    },
+    {
+      "nl": "het weekend",
+      "kind": "woord",
+      "fa": "آخر هفته",
+      "example": "In het weekend slaap ik lang.",
+      "exampleFa": "آخر هفته تا دیروقت می‌خوابم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Hoe laat sta je op?",
+      "level": "A0",
+      "fa": "ساعت چند از خواب بلند می‌شوی؟"
+    },
+    {
+      "nl": "Ik ga naar mijn werk.",
+      "level": "A0",
+      "fa": "سر کار می‌روم."
+    },
+    {
+      "nl": "Wat doe je vandaag?",
+      "level": "A0",
+      "fa": "امروز چه کار می‌کنی؟"
+    },
+    {
+      "nl": "Ik ben vandaag erg moe.",
+      "level": "A0",
+      "fa": "امروز خیلی خسته‌ام."
+    },
+    {
+      "nl": "Na het eten doe ik de afwas.",
+      "level": "A1",
+      "fa": "بعد از غذا ظرف‌ها را می‌شویم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Tom",
+      "nl": "Hoe laat sta jij op?",
+      "fa": "تو ساعت چند از خواب بلند می‌شوی؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Om half zeven. Dan douche ik en ontbijt ik.",
+      "fa": "ساعت شش و نیم. بعد دوش می‌گیرم و صبحانه می‌خورم."
+    },
+    {
+      "speaker": "Tom",
+      "nl": "En daarna?",
+      "fa": "و بعدش؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Daarna ga ik met de fiets naar mijn werk.",
+      "fa": "بعد با دوچرخه سر کار می‌روم."
+    },
+    {
+      "speaker": "Tom",
+      "nl": "Wat een lange dag!",
+      "fa": "چه روز طولانی‌ای!"
+    }
+  ]
+}

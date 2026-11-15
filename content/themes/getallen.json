@@ -1,0 +1,208 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "getallen",
+  "title": "Tellen en betalen",
+  "fa": "شمردن و پرداخت",
+  "icon": "34",
+  "level": "A0",
+  "intro": "Hoeveel kost het en hoe laat is het?",
+  "words": [
+    {
+      "nl": "één",
+      "kind": "woord",
+      "fa": "یک",
+      "example": "Ik heb één broer.",
+      "exampleFa": "من یک برادر دارم."
+    },
+    {
+      "nl": "twee",
+      "kind": "woord",
+      "fa": "دو",
+      "example": "Twee koffie, alsjeblieft.",
+      "exampleFa": "دو قهوه، لطفاً."
+    },
+    {
+      "nl": "drie",
+      "kind": "woord",
+      "fa": "سه",
+      "example": "We hebben drie kinderen.",
+      "exampleFa": "ما سه بچه داریم."
+    },
+    {
+      "nl": "vier",
+      "kind": "woord",
+      "fa": "چهار",
+      "example": "De les begint om vier uur.",
+      "exampleFa": "کلاس ساعت چهار شروع می‌شود."
+    },
+    {
+      "nl": "vijf",
+      "kind": "woord",
+      "fa": "پنج",
+      "example": "Het kost vijf euro.",
+      "exampleFa": "پنج یورو قیمت دارد."
+    },
+    {
+      "nl": "zes",
+      "kind": "woord",
+      "fa": "شش",
+      "example": "Ik werk zes uur per dag.",
+      "exampleFa": "روزی شش ساعت کار می‌کنم."
+    },
+    {
+      "nl": "zeven",
+      "kind": "woord",
+      "fa": "هفت",
+      "example": "Een week heeft zeven dagen.",
+      "exampleFa": "یک هفته هفت روز دارد."
+    },
+    {
+      "nl": "acht",
+      "kind": "woord",
+      "fa": "هشت",
+      "example": "Ik sta om acht uur op.",
+      "exampleFa": "ساعت هشت بیدار می‌شوم."
+    },
+    {
+      "nl": "negen",
+      "kind": "woord",
+      "fa": "نه (عدد ۹)",
+      "example": "Mijn dochter is negen jaar.",
+      "exampleFa": "دخترم نه سال دارد."
+    },
+    {
+      "nl": "tien",
+      "kind": "woord",
+      "fa": "ده",
+      "example": "De winkel gaat om tien uur open.",
+      "exampleFa": "مغازه ساعت ده باز می‌شود."
+    },
+    {
+      "nl": "twintig",
+      "kind": "woord",
+      "fa": "بیست",
+      "example": "Ik ben twintig jaar oud.",
+      "exampleFa": "من بیست ساله‌ام."
+    },
+    {
+      "nl": "honderd",
+      "kind": "woord",
+      "fa": "صد",
+      "example": "Deze fiets kost honderd euro.",
+      "exampleFa": "این دوچرخه صد یورو قیمت دارد."
+    },
+    {
+      "nl": "de euro",
+      "kind": "woord",
+      "fa": "یورو",
+      "example": "Een brood kost twee euro.",
+      "exampleFa": "یک نان دو یورو است."
+    },
+    {
+      "nl": "kosten",
+      "kind": "werkwoord",
+      "fa": "قیمت داشتن",
+      "example": "Wat kost een kopje koffie?",
+      "exampleFa": "یک فنجان قهوه چند است؟",
+      "forms": [
+        "kostte",
+        "heeft gekost",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "betalen",
+      "kind": "werkwoord",
+      "fa": "پرداختن، پول دادن",
+      "example": "Kan ik met mijn pinpas betalen?",
+      "exampleFa": "می‌توانم با کارت بانکی‌ام پرداخت کنم؟",
+      "forms": [
+        "betaalde",
+        "heb betaald",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "het uur",
+      "kind": "woord",
+      "fa": "ساعت",
+      "example": "Het is nu drie uur.",
+      "exampleFa": "الان ساعت سه است."
+    },
+    {
+      "nl": "hoeveel",
+      "kind": "woord",
+      "fa": "چند، چقدر",
+      "example": "Hoeveel kost dit?",
+      "exampleFa": "این چقدر قیمت دارد؟"
+    },
+    {
+      "nl": "het nummer",
+      "kind": "woord",
+      "fa": "شماره",
+      "example": "Mijn nummer is 0612345678.",
+      "exampleFa": "شمارهٔ من ۰۶۱۲۳۴۵۶۷۸ است."
+    },
+    {
+      "nl": "hoe oud",
+      "kind": "uitdrukking",
+      "fa": "چند ساله",
+      "example": "Hoe oud is je zoon?",
+      "exampleFa": "پسرت چند سال دارد؟"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Hoeveel kost het?",
+      "level": "A0",
+      "fa": "قیمتش چقدر است؟"
+    },
+    {
+      "nl": "Het kost drie euro vijftig.",
+      "level": "A0",
+      "fa": "سه یورو و پنجاه سنت است."
+    },
+    {
+      "nl": "Hoe laat is het?",
+      "level": "A0",
+      "fa": "ساعت چند است؟"
+    },
+    {
+      "nl": "Het is half acht.",
+      "level": "A1",
+      "fa": "ساعت هفت و نیم است."
+    },
+    {
+      "nl": "Ik ben vijfendertig jaar.",
+      "level": "A0",
+      "fa": "من سی و پنج سال دارم."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Verkoper",
+      "nl": "Goedemorgen! Wat mag het zijn?",
+      "fa": "صبح بخیر! چه میل دارید؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Twee broodjes, alsjeblieft.",
+      "fa": "دو تا نان ساندویچی، لطفاً."
+    },
+    {
+      "speaker": "Verkoper",
+      "nl": "Dat is drie euro.",
+      "fa": "می‌شود سه یورو."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Alstublieft. Hoe laat gaat u morgen open?",
+      "fa": "بفرمایید. فردا ساعت چند باز می‌کنید؟"
+    },
+    {
+      "speaker": "Verkoper",
+      "nl": "Om acht uur. Tot morgen!",
+      "fa": "ساعت هشت. تا فردا!"
+    }
+  ]
+}

@@ -16,6 +16,8 @@ import {AppleLogo, GoogleLogo, openSignIn, useCanSignIn} from '@/components/app/
 import {AppCard} from '@/components/pwa';
 import {Confirm} from '@/components/confirm';
 import {FeedbackSheet} from '@/components/feedback';
+import {openLevelTest} from '@/components/level-test';
+import {levelInfo} from '@/core/level.js';
 import {Page} from '@/components/page';
 import {useAudio} from '@/hooks/use-audio';
 import {syncMessages, useCloud} from '@/hooks/use-cloud';
@@ -103,6 +105,10 @@ export function SettingsScreen() {
             </Select>
           </li>
         )}
+      </Group>
+      <GroupLabel>Niveau</GroupLabel>
+      <Group>
+        <Row onClick={openLevelTest} title={preferences.level ? `${preferences.level} · ${levelInfo[preferences.level].name}` : 'Nog geen niveau'} detail={preferences.level ? 'Thema’s voor dit niveau staan bovenaan. Tik om de test opnieuw te doen.' : 'Doe de niveautest (± 3 min)'} titleClassName="font-medium" />
       </Group>
       <GroupLabel>Weergave</GroupLabel>
       <Group className="p-1.5">

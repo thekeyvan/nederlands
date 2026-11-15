@@ -29,6 +29,8 @@ import {LearnTabs} from '@/components/app/learn-tabs';
 import {Group, Row, ScreenTitle} from '@/components/app/list';
 import {ThemeGamesSheet} from '@/screens/games';
 import type {Card, Review, Theme} from '@/core/types';
+import {usePreferences} from '@/hooks/use-preferences';
+import {sortForLevel} from '@/core/level.js';
 
 
 export function ThemesScreen({themeId, topic}: {themeId: string | null; topic: Route['topic']}) {
@@ -40,7 +42,9 @@ function ThemeLibrary() {
   const {reviews} = useProgress();
   const [query, setQuery] = useState('');
   const needle = query.trim().toLocaleLowerCase('nl');
-  const visible = themes.filter((theme) => `${theme.title} ${theme.meaning} ${theme.intro}`.toLocaleLowerCase('nl').includes(needle));
+  const [preferences] = usePreferences();
+  // Themes for the learner's level (from the niveautest) come first; the level badge shows on beginner and B1 themes.
+  const visible = sortForLevel(themes, preferences.level).filter((theme) => `${theme.title} ${theme.meaning} ${theme.intro}`.toLocaleLowerCase('nl').includes(needle));
   return (
     <Page>
       <ScreenTitle title="Leren" />
@@ -59,7 +63,7 @@ function ThemeLibrary() {
             const sentences = phrases.filter((card) => card.themeId === theme.id).length;
             return (
               <Row key={theme.id} onClick={() => navigate('woorden', {theme: theme.id})} leading={<ThemeArt theme={theme} className="size-11 shrink-0 rounded-lg" />}
-                title={theme.title} detail={stats.done ? `${stats.done} van ${stats.total} geoefend` : `${words} woorden · ${sentences} zinnen`}
+                title={theme.title} detail={`${theme.level && theme.level !== 'A2' ? `${theme.level} · ` : ''}${stats.done ? `${stats.done} van ${stats.total} geoefend` : `${words} woorden · ${sentences} zinnen`}`}
                 trailing={stats.done ? <Stars count={stars} className="[&_svg]:size-3.5" /> : <Badge variant="streak">Nieuw</Badge>} />
             );
           })}

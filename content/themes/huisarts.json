@@ -89,6 +89,67 @@
       "fa": "نسخهٔ دارو",
       "example": "De huisarts stuurt het recept naar mijn apotheek.",
       "exampleFa": "پزشک عمومی نسخه را به داروخانه‌ام می‌فرستد."
+    },
+    {
+      "nl": "de huisarts",
+      "kind": "woord",
+      "fa": "پزشک خانواده",
+      "example": "Ik bel de huisarts voor een afspraak.",
+      "exampleFa": "برای گرفتن وقت به پزشک خانواده زنگ می‌زنم."
+    },
+    {
+      "nl": "de keel",
+      "kind": "woord",
+      "fa": "گلو",
+      "example": "Mijn keel doet pijn.",
+      "exampleFa": "گلویم درد می‌کند."
+    },
+    {
+      "nl": "hoesten",
+      "kind": "werkwoord",
+      "fa": "سرفه کردن",
+      "example": "Ik hoest al een week.",
+      "exampleFa": "یک هفته است که سرفه می‌کنم.",
+      "forms": [
+        "hoestte",
+        "heb gehoest",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "verkouden",
+      "kind": "woord",
+      "fa": "سرماخورده",
+      "example": "Ik ben verkouden en moe.",
+      "exampleFa": "سرما خورده‌ام و خسته‌ام."
+    },
+    {
+      "nl": "de griep",
+      "kind": "woord",
+      "fa": "آنفولانزا",
+      "example": "Mijn zoon heeft griep.",
+      "exampleFa": "پسرم آنفولانزا گرفته است."
+    },
+    {
+      "nl": "pijn doen",
+      "kind": "uitdrukking",
+      "fa": "درد کردن",
+      "example": "Mijn rug doet pijn.",
+      "exampleFa": "کمرم درد می‌کند."
+    },
+    {
+      "nl": "de spoedpost",
+      "kind": "woord",
+      "fa": "مرکز پزشکی اورژانسی (شب و آخر هفته)",
+      "example": "In het weekend bel je de spoedpost.",
+      "exampleFa": "آخر هفته به مرکز پزشکی اورژانسی زنگ می‌زنی."
+    },
+    {
+      "nl": "beter worden",
+      "kind": "uitdrukking",
+      "fa": "خوب شدن، بهبود یافتن",
+      "example": "Ik hoop dat je snel beter wordt.",
+      "exampleFa": "امیدوارم زود خوب شوی."
     }
   ],
   "phrases": [

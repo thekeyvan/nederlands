@@ -234,9 +234,13 @@ final class Cloud {
         Learner.shared.merge(
             reviews: Dictionary(progress.cards.map { ($0.card_id, Review(ease: $0.ease, interval: $0.interval_days, repetitions: $0.repetitions, due: $0.due, lastReviewed: $0.last_reviewed, grade: $0.grade, reviews: $0.reviews)) }, uniquingKeysWith: { a, _ in a }),
             events: progress.events.map { ReviewEvent(id: $0.id, cardId: $0.card_id, grade: $0.grade, at: $0.reviewed_at) })
-        if let remote = progress.preferences, case .number(let goal)? = remote.data["goal"], Preferences.goals.contains(Int(goal)) {
+        if let remote = progress.preferences {
             let local = Preferences.shared.updatedAt
-            if local == nil || (remote.updated_at ?? .distantPast) > local! { Preferences.shared.goal = Int(goal); Preferences.shared.updatedAt = remote.updated_at }
+            if local == nil || (remote.updated_at ?? .distantPast) > local! {
+                if case .number(let goal)? = remote.data["goal"], Preferences.goals.contains(Int(goal)) { Preferences.shared.goal = Int(goal) }
+                if case .string(let level)? = remote.data["level"], Preferences.levels.contains(level) { Preferences.shared.level = level }
+                Preferences.shared.updatedAt = remote.updated_at
+            }
         }
         remotePreferences = progress.preferences?.data ?? [:]
     }
@@ -271,6 +275,7 @@ final class Cloud {
             if let updated = Preferences.shared.updatedAt {
                 var data = remotePreferences
                 data["goal"] = .number(Double(Preferences.shared.goal))
+                if let level = Preferences.shared.level { data["level"] = .string(level) }
                 struct Body: Encodable { let data: [String: JSONValue]; let updated_at: String }
                 let _: OK = try await request("me/preferences", method: "PUT", body: Body(data: data, updated_at: iso.string(from: updated)))
             }

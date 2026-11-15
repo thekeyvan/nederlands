@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:niet",
+  "title": "Niet: waar staat het?",
+  "level": "A1",
+  "pattern": "werkwoord … niet · niet + bijvoeglijk naamwoord / plaats",
+  "example": "Ik werk vandaag niet.",
+  "prompt": "Het huis is ___ groot.",
+  "answer": "niet",
+  "fa": {
+    "rule": "niet جمله یا بخشی از آن را منفی می‌کند. معمولاً آخر جمله می‌آید (Ik werk niet)، اما قبل از صفت، مکان و حرف اضافه قرار می‌گیرد (niet groot، niet thuis، niet in Delft).",
+    "note": "برای اسم بدون حرف تعریف یا با een از geen استفاده کنید: Ik heb geen auto.",
+    "translation": "امروز کار نمی‌کنم."
+  },
+  "examples": [
+    {
+      "nl": "Ik kom morgen niet.",
+      "gap": "niet",
+      "fa": "فردا نمی‌آیم."
+    },
+    {
+      "nl": "De soep is niet warm.",
+      "gap": "niet",
+      "fa": "سوپ گرم نیست."
+    },
+    {
+      "nl": "Hij woont niet in Rotterdam.",
+      "gap": "niet",
+      "fa": "او در روتردام زندگی نمی‌کند."
+    }
+  ]
+}

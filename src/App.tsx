@@ -21,6 +21,7 @@ import {MeScreen, SettingsScreen} from '@/screens/me';
 import {ResourcesScreen} from '@/screens/resources';
 import {hideSplash} from '@/lib/native';
 import {GameLayer, GamesScreen} from '@/screens/games';
+import {LevelTestSheet} from '@/components/level-test';
 import {WelcomeScreen, useWelcome} from '@/screens/welcome';
 import {SignInSheet} from '@/components/app/sign-in';
 
@@ -110,6 +111,7 @@ export function App() {
             <a href="#main" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Naar de inhoud</a>
             {welcome.show ? <WelcomeScreen onDone={welcome.finish} /> : <Screens />}
             <SignInSheet />
+            <LevelTestSheet />
             <VoiceSettingsSheet />
             <PwaUpdates />
             <Toaster position={desktop ? 'bottom-right' : 'top-center'} mobileOffset={{top: 'calc(env(safe-area-inset-top) + 12px)'}} />

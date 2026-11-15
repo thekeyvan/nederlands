@@ -42,11 +42,11 @@ Sitemap: ${SITE}/sitemap.xml
 export function llms() {
   return `# Nedfa (نِدفا)
 
-> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from level A2 to B1. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Dutch (${SITE}/, the default) and Persian (${SITE}/fa/). Web app: ${SITE}/leren (no account needed). iPhone app: coming to the App Store. Contact: ${EMAIL}.
+> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from complete beginner (A0) to B1, with a short level test that picks the right start. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Dutch (${SITE}/, the default) and Persian (${SITE}/fa/). Web app: ${SITE}/leren (no account needed). iPhone app: coming to the App Store. Contact: ${EMAIL}.
 
-نِدفا اپ و سایت رایگان آموزش زبان هلندی برای فارسی‌زبانان (ایرانی‌ها و افغان‌ها) از سطح A2 تا B1 است.
+نِدفا اپ و سایت رایگان آموزش زبان هلندی برای فارسی‌زبانان (ایرانی‌ها و افغان‌ها) از صفر تا سطح B1 است.
 
-Nedfa is een gratis app om Nederlands te leren voor Perzisch sprekenden, van A2 naar B1.
+Nedfa is een gratis app om Nederlands te leren voor Perzisch sprekenden, van nul tot B1.
 
 ## Main pages
 - [Home (Dutch)](${SITE}/) · [Persian: آموزش زبان هلندی به فارسی](${SITE}/fa/)
@@ -88,7 +88,7 @@ Rule (Persian): ${p.rule}
 ${p.note ? `Note (Persian): ${p.note}\n` : ''}Examples:
 ${p.examples.map((example) => `- ${example.nl} — ${example.translation}`).join('\n')}
 `).join('\n');
-  return `# Nedfa — all lessons (Dutch for Persian speakers, A2–B1)
+  return `# Nedfa — all lessons (Dutch for Persian speakers, A0–B1)
 
 Free to read and quote with a link to ${SITE}. Practise with audio and spaced repetition at ${SITE}/leren.
 

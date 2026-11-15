@@ -82,6 +82,20 @@ import ruleToenAls from './grammar/toen-als.json' with {type: 'json'};
 import ruleIndirecteVraag from './grammar/indirecte-vraag.json' with {type: 'json'};
 import ruleHypothese from './grammar/hypothese.json' with {type: 'json'};
 
+import themeKennismaken from './themes/kennismaken.json' with {type: 'json'};
+import themeGetallen from './themes/getallen.json' with {type: 'json'};
+import themeKleuren from './themes/kleuren.json' with {type: 'json'};
+import themeEtenDrinken from './themes/eten-drinken.json' with {type: 'json'};
+import themeMijnDag from './themes/mijn-dag.json' with {type: 'json'};
+import themeDeWeg from './themes/de-weg.json' with {type: 'json'};
+import ruleZijn from './grammar/zijn.json' with {type: 'json'};
+import ruleLidwoord from './grammar/lidwoord.json' with {type: 'json'};
+import ruleMeervoud from './grammar/meervoud.json' with {type: 'json'};
+import rulePresens from './grammar/presens.json' with {type: 'json'};
+import ruleBezittelijk from './grammar/bezittelijk.json' with {type: 'json'};
+import ruleNiet from './grammar/niet.json' with {type: 'json'};
+import ruleErIs from './grammar/er-is.json' with {type: 'json'};
+
 /** Themes in course order. */
 export const themeFiles = [
   themeWerk,
@@ -116,6 +130,13 @@ export const themeFiles = [
   themeNoodgeval,
   themeFamilie,
   themeInburgering,
+  // Beginners (A0): appended so existing ids and order stay the same.
+  themeKennismaken,
+  themeGetallen,
+  themeKleuren,
+  themeEtenDrinken,
+  themeMijnDag,
+  themeDeWeg,
 ];
 
 /** Grammar rules in course order. */
@@ -168,10 +189,24 @@ export const grammarFiles = [
   ruleToenAls,
   ruleIndirecteVraag,
   ruleHypothese,
+  // Beginners (A0–A1)
+  ruleZijn,
+  ruleLidwoord,
+  ruleMeervoud,
+  rulePresens,
+  ruleBezittelijk,
+  ruleNiet,
+  ruleErIs,
 ];
 
 /** Theme groups as the website and the apps list them; every theme is in exactly one group. */
 export const groups = [
+  {
+    id: 'beginnen',
+    nl: 'Beginnen',
+    fa: 'شروع از صفر',
+    themes: ['kennismaken', 'getallen', 'kleuren', 'eten-drinken', 'mijn-dag', 'de-weg']
+  },
   {
     id: 'dagelijks',
     nl: 'Elke dag',

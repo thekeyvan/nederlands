@@ -8,12 +8,13 @@ struct OefenenView: View {
     @State private var theme = "all"
     @State private var showSignIn = false
     @State private var stop: Stats.Stop?
+    @State private var showLevelTest = false
     private let session = PracticeSession.shared
 
     var body: some View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
         let goal = preferences.goal
-        let resumeId = Stats.resumeTheme(events: progress.events)
+        let resumeId = Stats.resumeTheme(events: progress.events, level: preferences.level)
         let roundSize = min(20, max(5, goal - stats.today))
         let daily = Planner.plan(reviews: progress.reviews, theme: stats.due > 0 ? "all" : resumeId, limit: stats.due > 0 ? 20 : roundSize)
 
@@ -37,6 +38,8 @@ struct OefenenView: View {
                         .buttonStyle(.plain)
                         .padding(.horizontal, 20)
                     }
+
+                    levelCard(stats)
 
                     PathStrip(stats: stats) { stop = $0 }
                     missions(stats)
@@ -72,6 +75,7 @@ struct OefenenView: View {
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
             .sheet(isPresented: $showSignIn) { SignInSheet() }
             .sheet(item: $stop) { StopSheet(stop: $0) }
+            .sheet(isPresented: $showLevelTest) { LevelTestView() }
         }
     }
 
@@ -90,6 +94,52 @@ struct OefenenView: View {
         }
         .padding(.horizontal, 20)
         .padding(.top, 8)
+    }
+
+    /// Without a level: an invitation to the niveautest. With one: three themes that fit it.
+    @ViewBuilder private func levelCard(_ stats: Stats) -> some View {
+        if let level = preferences.level {
+            VStack(alignment: .leading, spacing: 12) {
+                SectionTitle("Voor jouw niveau") {
+                    Button { showLevelTest = true } label: { Text("\(level) · \(LevelPlan.info[level]?.name ?? "")").font(.subheadline.weight(.semibold)).foregroundStyle(Color.brand) }
+                }
+                VStack(spacing: 0) {
+                    ForEach(Array(LevelPlan.suggested(for: level, stats: stats).enumerated()), id: \.element.id) { index, theme in
+                        if index > 0 { Divider().padding(.leading, 74) }
+                        NavigationLink(value: theme) {
+                            HStack(spacing: 12) {
+                                Art(name: "themes/\(theme.id)", size: 48, corner: 12)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(theme.title).font(.game(16, .heavy)).foregroundStyle(Color.primary)
+                                    Text(theme.intro).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                                }
+                                Spacer(minLength: 0)
+                                Image(systemName: "chevron.right").font(.footnote.weight(.bold)).foregroundStyle(.tertiary)
+                            }
+                            .padding(.vertical, 10)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .card(padding: 14, radius: 24)
+                .padding(.horizontal, 20)
+            }
+        } else {
+            Button { showLevelTest = true } label: {
+                HStack(spacing: 12) {
+                    Mascot(mood: .think, size: 48)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Hoe goed ken je Nederlands al?").font(.game(16, .heavy)).foregroundStyle(Color.primary)
+                        Text("Doe de niveautest (± 3 min). Dan kiest Nedfa wat bij je past.").font(.subheadline).foregroundStyle(.secondary).multilineTextAlignment(.leading)
+                    }
+                    Spacer(minLength: 0)
+                    Image(systemName: "arrow.right.circle.fill").font(.title2).foregroundStyle(Color.brand)
+                }
+                .padding(14)
+            }
+            .buttonStyle(PressableTile(fill: .butterSoft, edge: .goldEdge.opacity(0.5), radius: 22))
+            .padding(.horizontal, 20)
+        }
     }
 
     private func missions(_ stats: Stats) -> some View {

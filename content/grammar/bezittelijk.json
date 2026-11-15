@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:bezittelijk",
+  "title": "Mijn, jouw, zijn, haar",
+  "level": "A0",
+  "pattern": "mijn · jouw/je · zijn · haar · ons/onze · jullie · hun",
+  "example": "Dit is mijn broer en dat is zijn vrouw.",
+  "prompt": "Sara en ___ man wonen in Delft.",
+  "answer": "haar",
+  "fa": {
+    "rule": "ضمیر ملکی قبل از اسم می‌آید: mijn (مال من)، jouw (مال تو)، zijn (مال او، مرد)، haar (مال او، زن)، ons/onze (مال ما)، jullie (مال شما)، hun (مال آن‌ها).",
+    "note": "ons برای اسم‌های het است (ons huis) و onze برای اسم‌های de و جمع (onze auto، onze kinderen).",
+    "translation": "این برادرم است و آن همسر اوست."
+  },
+  "examples": [
+    {
+      "nl": "Is dit jouw tas?",
+      "gap": "jouw",
+      "fa": "این کیف توست؟"
+    },
+    {
+      "nl": "Ons huis is klein.",
+      "gap": "Ons",
+      "fa": "خانهٔ ما کوچک است."
+    },
+    {
+      "nl": "Hun kinderen gaan naar school.",
+      "gap": "Hun",
+      "fa": "بچه‌هایشان به مدرسه می‌روند."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "about": "The level test (niveautest). Blocks of five questions per level; a block counts as passed with 4 of 5 right, and the test stops at the first block that is not passed. The learner starts at that level (or B1 after passing every block). Options are shuffled in the apps; `answer` is the right option.",
+  "passMark": 4,
+  "questions": [
+    {"level": "A0", "kind": "meaning", "prompt": "hallo", "answer": "سلام", "options": ["سلام", "خداحافظ", "ممنون", "بله"]},
+    {"level": "A0", "kind": "meaning", "prompt": "het water", "answer": "آب", "options": ["آب", "نان", "شیر", "چای"]},
+    {"level": "A0", "kind": "fill", "prompt": "Ik ___ Sara.", "answer": "heet", "options": ["heet", "heten", "heeft", "hebben"]},
+    {"level": "A0", "kind": "understand", "prompt": "Waar woon je?", "answer": "کجا زندگی می‌کنی؟", "options": ["کجا زندگی می‌کنی؟", "اسمت چیست؟", "چند سال داری؟", "کجا کار می‌کنی؟"]},
+    {"level": "A0", "kind": "meaning", "prompt": "drie", "answer": "سه", "options": ["سه", "دو", "سی", "سیزده"]},
+
+    {"level": "A1", "kind": "fill", "prompt": "Wij ___ uit Iran.", "answer": "komen", "options": ["komen", "komt", "kom", "komte"]},
+    {"level": "A1", "kind": "fill", "prompt": "Ik heb twee ___ (kind).", "answer": "kinderen", "options": ["kinderen", "kinds", "kinden", "kindes"]},
+    {"level": "A1", "kind": "understand", "prompt": "Ik heb geen auto.", "answer": "من ماشین ندارم.", "options": ["من ماشین ندارم.", "من یک ماشین دارم.", "ماشینم کجاست؟", "ماشین نمی‌خواهم."]},
+    {"level": "A1", "kind": "meaning", "prompt": "goedkoop", "answer": "ارزان", "options": ["ارزان", "گران", "نزدیک", "زود"]},
+    {"level": "A1", "kind": "fill", "prompt": "Hoe laat ___ de les?", "answer": "begint", "options": ["begint", "beginnen", "begin", "beginnend"]},
+
+    {"level": "A2", "kind": "fill", "prompt": "Gisteren ___ ik naar de dokter gegaan.", "answer": "ben", "options": ["ben", "heb", "was", "word"]},
+    {"level": "A2", "kind": "fill", "prompt": "Ik blijf thuis, omdat ik ziek ___.", "answer": "ben", "options": ["ben", "is", "zijn", "heb"]},
+    {"level": "A2", "kind": "fill", "prompt": "Morgen ___ ik met de trein.", "answer": "ga", "options": ["ga", "gaat", "gaan", "gegaan"]},
+    {"level": "A2", "kind": "understand", "prompt": "Kunt u mij helpen?", "answer": "می‌توانید به من کمک کنید؟", "options": ["می‌توانید به من کمک کنید؟", "باید به من کمک کنید.", "به شما کمک کردم.", "کمک لازم ندارم."]},
+    {"level": "A2", "kind": "meaning", "prompt": "de afspraak", "answer": "قرار، وقت ملاقات", "options": ["قرار، وقت ملاقات", "بیمه", "نشانی", "اجاره"]},
+
+    {"level": "B1", "kind": "fill", "prompt": "Als ik meer tijd had, ___ ik vaker sporten.", "answer": "zou", "options": ["zou", "zal", "wil", "had"]},
+    {"level": "B1", "kind": "fill", "prompt": "Ik vraag me af ___ hij morgen komt.", "answer": "of", "options": ["of", "dat", "want", "omdat"]},
+    {"level": "B1", "kind": "fill", "prompt": "Het boek ___ ik gisteren heb gekocht, is erg mooi.", "answer": "dat", "options": ["dat", "die", "wat", "waar"]},
+    {"level": "B1", "kind": "understand", "prompt": "Ondanks de regen gingen we wandelen.", "answer": "با وجود باران، به پیاده‌روی رفتیم.", "options": ["با وجود باران، به پیاده‌روی رفتیم.", "به خاطر باران پیاده‌روی نکردیم.", "وقتی باران آمد، به خانه رفتیم.", "قبل از باران پیاده‌روی کردیم."]},
+    {"level": "B1", "kind": "meaning", "prompt": "de voorwaarde", "answer": "شرط", "options": ["شرط", "پیشنهاد", "نتیجه", "وظیفه"]}
+  ]
+}

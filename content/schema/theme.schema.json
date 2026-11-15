@@ -3,27 +3,97 @@
   "title": "Nedfa theme",
   "description": "One theme: Dutch words, handy phrases and a short dialogue, each with Persian. Ids are made from the Dutch; set \"id\" only to keep an old id after fixing a spelling.",
   "type": "object",
-  "required": ["id", "title", "fa", "icon", "intro", "words", "phrases", "dialogue"],
+  "required": [
+    "id",
+    "title",
+    "fa",
+    "icon",
+    "intro",
+    "words",
+    "phrases",
+    "dialogue"
+  ],
   "properties": {
-    "$schema": {"type": "string"},
-    "id": {"type": "string", "pattern": "^[a-z0-9-]+$", "description": "Same as the file name, e.g. \"boodschappen\"."},
-    "title": {"type": "string", "description": "Dutch title shown in the apps."},
-    "fa": {"type": "string", "description": "Persian title."},
-    "icon": {"type": "string", "description": "Two-digit number, the theme's place in the course."},
-    "intro": {"type": "string", "description": "One Dutch question that opens the theme."},
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Same as the file name, e.g. \"boodschappen\"."
+    },
+    "title": {
+      "type": "string",
+      "description": "Dutch title shown in the apps."
+    },
+    "fa": {
+      "type": "string",
+      "description": "Persian title."
+    },
+    "icon": {
+      "type": "string",
+      "description": "Two-digit number, the theme's place in the course."
+    },
+    "level": {
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "B1"
+      ],
+      "description": "Level of the theme; leave out for A2. A0 = starting from zero."
+    },
+    "intro": {
+      "type": "string",
+      "description": "One Dutch question that opens the theme."
+    },
     "words": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["nl", "kind", "fa", "example", "exampleFa"],
+        "required": [
+          "nl",
+          "kind",
+          "fa",
+          "example",
+          "exampleFa"
+        ],
         "properties": {
-          "id": {"type": "string"},
-          "nl": {"type": "string", "description": "Dutch word; nouns with de/het, e.g. \"de afspraak\"."},
-          "kind": {"enum": ["woord", "werkwoord", "uitdrukking"]},
-          "fa": {"type": "string", "description": "Persian meaning."},
-          "example": {"type": "string", "description": "A natural Dutch sentence with the word (A2–B1)."},
-          "exampleFa": {"type": "string", "description": "Persian translation of the example."},
-          "forms": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "string"}, "description": "Verbs only: [past, perfect, \"regelmatig\" | \"onregelmatig\"], e.g. [\"werkte\", \"heb gewerkt\", \"regelmatig\"]."}
+          "id": {
+            "type": "string"
+          },
+          "nl": {
+            "type": "string",
+            "description": "Dutch word; nouns with de/het, e.g. \"de afspraak\"."
+          },
+          "kind": {
+            "enum": [
+              "woord",
+              "werkwoord",
+              "uitdrukking"
+            ]
+          },
+          "fa": {
+            "type": "string",
+            "description": "Persian meaning."
+          },
+          "example": {
+            "type": "string",
+            "description": "A natural Dutch sentence with the word (A2–B1)."
+          },
+          "exampleFa": {
+            "type": "string",
+            "description": "Persian translation of the example."
+          },
+          "forms": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "string"
+            },
+            "description": "Verbs only: [past, perfect, \"regelmatig\" | \"onregelmatig\"], e.g. [\"werkte\", \"heb gewerkt\", \"regelmatig\"]."
+          }
         },
         "additionalProperties": false
       }
@@ -32,8 +102,31 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["nl", "level", "fa"],
-        "properties": {"id": {"type": "string"}, "nl": {"type": "string"}, "level": {"enum": ["A1", "A2", "B1", "B2"]}, "fa": {"type": "string"}},
+        "required": [
+          "nl",
+          "level",
+          "fa"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "nl": {
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              "A0",
+              "A1",
+              "A2",
+              "B1",
+              "B2"
+            ]
+          },
+          "fa": {
+            "type": "string"
+          }
+        },
         "additionalProperties": false
       }
     },
@@ -42,8 +135,25 @@
       "description": "4–6 lines; the learner is \"Jij\".",
       "items": {
         "type": "object",
-        "required": ["speaker", "nl", "fa"],
-        "properties": {"id": {"type": "string"}, "speaker": {"type": "string"}, "nl": {"type": "string"}, "fa": {"type": "string"}},
+        "required": [
+          "speaker",
+          "nl",
+          "fa"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "speaker": {
+            "type": "string"
+          },
+          "nl": {
+            "type": "string"
+          },
+          "fa": {
+            "type": "string"
+          }
+        },
         "additionalProperties": false
       }
     }

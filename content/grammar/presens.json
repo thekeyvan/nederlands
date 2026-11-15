@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:presens",
+  "title": "Werkwoorden in de tegenwoordige tijd",
+  "level": "A0",
+  "pattern": "ik werk · jij/hij werkt · wij werken",
+  "example": "Ik werk in Utrecht en mijn vrouw werkt in Den Haag.",
+  "prompt": "Hij ___ in een restaurant (werken).",
+  "answer": "werkt",
+  "fa": {
+    "rule": "برای ik فقط ریشهٔ فعل را بگذارید (werk). برای jij و hij/zij ‎-t‎ اضافه کنید (werkt). برای wij، jullie و zij شکل کامل فعل را بگذارید (werken).",
+    "note": "در سؤال، وقتی jij بعد از فعل می‌آید ‎-t‎ حذف می‌شود: Werk jij hier?",
+    "translation": "من در اوترخت کار می‌کنم و همسرم در لاهه کار می‌کند."
+  },
+  "examples": [
+    {
+      "nl": "Ik woon in Amsterdam.",
+      "gap": "woon",
+      "fa": "در آمستردام زندگی می‌کنم."
+    },
+    {
+      "nl": "Zij leert Nederlands.",
+      "gap": "leert",
+      "fa": "او هلندی یاد می‌گیرد."
+    },
+    {
+      "nl": "Wij drinken koffie.",
+      "gap": "drinken",
+      "fa": "ما قهوه می‌نوشیم."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:meervoud",
+  "title": "Meervoud: -en en -s",
+  "level": "A0",
+  "pattern": "boek → boeken · tafel → tafels",
+  "example": "Ik koop twee broden en drie appels.",
+  "prompt": "Ik lees twee ___ (boek).",
+  "answer": "boeken",
+  "fa": {
+    "rule": "بیشتر اسم‌ها با ‎-en‎ جمع بسته می‌شوند (boek ← boeken). اسم‌هایی که به ‎-el، ‎-er، ‎-em، ‎-en یا ‎-je‎ ختم می‌شوند معمولاً ‎-s‎ می‌گیرند (tafel ← tafels). اسم جمع همیشه de دارد.",
+    "note": "گاهی املا تغییر می‌کند: man ← mannen، straat ← straten، brood ← broden.",
+    "translation": "دو نان و سه سیب می‌خرم."
+  },
+  "examples": [
+    {
+      "nl": "De boeken liggen op tafel.",
+      "gap": "boeken",
+      "fa": "کتاب‌ها روی میز هستند."
+    },
+    {
+      "nl": "Er staan vier stoelen in de keuken.",
+      "gap": "stoelen",
+      "fa": "در آشپزخانه چهار صندلی هست."
+    },
+    {
+      "nl": "Mijn ooms wonen in Teheran.",
+      "gap": "ooms",
+      "fa": "عموهایم در تهران زندگی می‌کنند."
+    }
+  ]
+}

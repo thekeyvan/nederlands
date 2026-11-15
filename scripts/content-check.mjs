@@ -8,7 +8,8 @@ import {audioCatalog} from '../src/core/audio-catalog.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const KINDS = ['woord', 'werkwoord', 'uitdrukking'];
-const LEVELS = ['A1', 'A2', 'B1', 'B2'];
+const LEVELS = ['A0', 'A1', 'A2', 'B1', 'B2'];
+const THEME_LEVELS = ['A0', 'A1', 'A2', 'B1'];
 const persian = /[؀-ۿ]/;
 
 /** Returns {errors, warnings}, each a list of "file › place: problem" lines. */
@@ -50,6 +51,7 @@ export function checkContent() {
     text(theme.title, file, 'title');
     text(theme.fa, file, 'fa', {fa: true});
     text(theme.intro, file, 'intro');
+    if (theme.level !== undefined && !THEME_LEVELS.includes(theme.level)) errors.push(`${file}: "level" must be one of ${THEME_LEVELS.join(', ')} (or left out for A2)`);
     if (!existsSync(path.join(ROOT, 'src/assets/illustrations/themes', `${theme.id}.jpg`))) warnings.push(`${file}: no picture yet at src/assets/illustrations/themes/${theme.id}.jpg (the apps show the logo)`);
     if (theme.words.length < 8) warnings.push(`${file}: only ${theme.words.length} words; a theme feels complete from about 20`);
     const seen = new Set();

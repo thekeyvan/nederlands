@@ -89,6 +89,72 @@
       "fa": "تأییدیه",
       "example": "Ik heb de bevestiging van mijn afspraak per e-mail ontvangen.",
       "exampleFa": "تأییدیهٔ وقتم را از طریق ایمیل دریافت کرده‌ام."
+    },
+    {
+      "nl": "het loket",
+      "kind": "woord",
+      "fa": "باجه",
+      "example": "Ga naar loket drie.",
+      "exampleFa": "به باجهٔ شمارهٔ سه بروید."
+    },
+    {
+      "nl": "de pasfoto",
+      "kind": "woord",
+      "fa": "عکس پرسنلی",
+      "example": "Neem een pasfoto mee voor je paspoort.",
+      "exampleFa": "برای گذرنامه‌ات یک عکس پرسنلی بیاور."
+    },
+    {
+      "nl": "de handtekening",
+      "kind": "woord",
+      "fa": "امضا",
+      "example": "Zet hier uw handtekening.",
+      "exampleFa": "اینجا را امضا کنید."
+    },
+    {
+      "nl": "het adres",
+      "kind": "woord",
+      "fa": "نشانی، آدرس",
+      "example": "Wat is uw nieuwe adres?",
+      "exampleFa": "نشانی جدید شما چیست؟"
+    },
+    {
+      "nl": "de geboortedatum",
+      "kind": "woord",
+      "fa": "تاریخ تولد",
+      "example": "Vul hier uw geboortedatum in.",
+      "exampleFa": "تاریخ تولدتان را اینجا وارد کنید."
+    },
+    {
+      "nl": "invullen",
+      "kind": "werkwoord",
+      "fa": "پر کردن (فرم)",
+      "example": "Kunt u dit formulier invullen?",
+      "exampleFa": "می‌توانید این فرم را پر کنید؟",
+      "forms": [
+        "vulde in",
+        "heb ingevuld",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "verlengen",
+      "kind": "werkwoord",
+      "fa": "تمدید کردن",
+      "example": "Ik wil mijn paspoort verlengen.",
+      "exampleFa": "می‌خواهم گذرنامه‌ام را تمدید کنم.",
+      "forms": [
+        "verlengde",
+        "heb verlengd",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "DigiD",
+      "kind": "woord",
+      "fa": "دیجی‌دی (شناسهٔ دیجیتال دولتی)",
+      "example": "Met je DigiD log je online in bij de gemeente.",
+      "exampleFa": "با دیجی‌دی آنلاین وارد سایت شهرداری می‌شوی."
     }
   ],
   "phrases": [

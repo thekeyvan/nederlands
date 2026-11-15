@@ -1,0 +1,208 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "eten-drinken",
+  "title": "Eten en drinken",
+  "fa": "خوردن و نوشیدن",
+  "icon": "36",
+  "level": "A0",
+  "intro": "Wat eet en drink je graag?",
+  "words": [
+    {
+      "nl": "eten",
+      "kind": "werkwoord",
+      "fa": "خوردن؛ غذا",
+      "example": "We eten om zes uur.",
+      "exampleFa": "ما ساعت شش غذا می‌خوریم.",
+      "forms": [
+        "at",
+        "heb gegeten",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "drinken",
+      "kind": "werkwoord",
+      "fa": "نوشیدن",
+      "example": "Ik drink elke ochtend thee.",
+      "exampleFa": "هر صبح چای می‌نوشم.",
+      "forms": [
+        "dronk",
+        "heb gedronken",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "het water",
+      "kind": "woord",
+      "fa": "آب",
+      "example": "Mag ik een glas water?",
+      "exampleFa": "می‌توانم یک لیوان آب داشته باشم؟"
+    },
+    {
+      "nl": "de koffie",
+      "kind": "woord",
+      "fa": "قهوه",
+      "example": "Wil je koffie met melk?",
+      "exampleFa": "قهوه با شیر می‌خواهی؟"
+    },
+    {
+      "nl": "de thee",
+      "kind": "woord",
+      "fa": "چای",
+      "example": "Ik drink thee met suiker.",
+      "exampleFa": "چای را با شکر می‌نوشم."
+    },
+    {
+      "nl": "de melk",
+      "kind": "woord",
+      "fa": "شیر",
+      "example": "De melk staat in de koelkast.",
+      "exampleFa": "شیر در یخچال است."
+    },
+    {
+      "nl": "het brood",
+      "kind": "woord",
+      "fa": "نان",
+      "example": "We kopen elke dag vers brood.",
+      "exampleFa": "هر روز نان تازه می‌خریم."
+    },
+    {
+      "nl": "de kaas",
+      "kind": "woord",
+      "fa": "پنیر",
+      "example": "Ik eet een boterham met kaas.",
+      "exampleFa": "یک تکه نان با پنیر می‌خورم."
+    },
+    {
+      "nl": "het ei",
+      "kind": "woord",
+      "fa": "تخم‌مرغ",
+      "example": "Ik eet een ei bij het ontbijt.",
+      "exampleFa": "سر صبحانه یک تخم‌مرغ می‌خورم."
+    },
+    {
+      "nl": "de appel",
+      "kind": "woord",
+      "fa": "سیب",
+      "example": "Een appel per dag is gezond.",
+      "exampleFa": "روزی یک سیب سالم است."
+    },
+    {
+      "nl": "de rijst",
+      "kind": "woord",
+      "fa": "برنج",
+      "example": "Wij eten vaak rijst.",
+      "exampleFa": "ما اغلب برنج می‌خوریم."
+    },
+    {
+      "nl": "het vlees",
+      "kind": "woord",
+      "fa": "گوشت",
+      "example": "Hij eet geen vlees.",
+      "exampleFa": "او گوشت نمی‌خورد."
+    },
+    {
+      "nl": "de groente",
+      "kind": "woord",
+      "fa": "سبزی، سبزیجات",
+      "example": "Groente is gezond.",
+      "exampleFa": "سبزیجات سالم است."
+    },
+    {
+      "nl": "het ontbijt",
+      "kind": "woord",
+      "fa": "صبحانه",
+      "example": "Het ontbijt is om half acht.",
+      "exampleFa": "صبحانه ساعت هفت و نیم است."
+    },
+    {
+      "nl": "de lunch",
+      "kind": "woord",
+      "fa": "ناهار",
+      "example": "Ik neem een broodje als lunch.",
+      "exampleFa": "برای ناهار یک ساندویچ می‌خورم."
+    },
+    {
+      "nl": "het avondeten",
+      "kind": "woord",
+      "fa": "شام",
+      "example": "Wat eten we als avondeten?",
+      "exampleFa": "شام چه می‌خوریم؟"
+    },
+    {
+      "nl": "lekker",
+      "kind": "woord",
+      "fa": "خوشمزه",
+      "example": "Deze soep is heel lekker.",
+      "exampleFa": "این سوپ خیلی خوشمزه است."
+    },
+    {
+      "nl": "honger hebben",
+      "kind": "uitdrukking",
+      "fa": "گرسنه بودن",
+      "example": "Ik heb honger, jij ook?",
+      "exampleFa": "گرسنه‌ام، تو هم؟"
+    },
+    {
+      "nl": "dorst hebben",
+      "kind": "uitdrukking",
+      "fa": "تشنه بودن",
+      "example": "Heb je dorst?",
+      "exampleFa": "تشنه‌ای؟"
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Eet smakelijk!",
+      "level": "A0",
+      "fa": "نوش جان!"
+    },
+    {
+      "nl": "Ik wil graag een kop koffie.",
+      "level": "A0",
+      "fa": "یک فنجان قهوه می‌خواهم."
+    },
+    {
+      "nl": "Wat eet je graag?",
+      "level": "A0",
+      "fa": "چه غذایی دوست داری؟"
+    },
+    {
+      "nl": "Ik eet geen varkensvlees.",
+      "level": "A1",
+      "fa": "من گوشت خوک نمی‌خورم."
+    },
+    {
+      "nl": "Mag ik de rekening?",
+      "level": "A1",
+      "fa": "می‌شود صورت‌حساب را بیاورید؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Sanne",
+      "nl": "Heb je honger?",
+      "fa": "گرسنه‌ای؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ja, een beetje. Wat eten we?",
+      "fa": "بله، کمی. چه می‌خوریم؟"
+    },
+    {
+      "speaker": "Sanne",
+      "nl": "Rijst met groente en kip.",
+      "fa": "برنج با سبزیجات و مرغ."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Lekker! Ik heb ook dorst. Is er water?",
+      "fa": "خوشمزه است! تشنه هم هستم. آب هست؟"
+    },
+    {
+      "speaker": "Sanne",
+      "nl": "Ja, het staat op tafel. Eet smakelijk!",
+      "fa": "بله، روی میز است. نوش جان!"
+    }
+  ]
+}

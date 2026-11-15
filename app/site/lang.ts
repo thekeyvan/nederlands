@@ -17,7 +17,9 @@ export const num = (lang: Lang, value: number) => Number(value).toLocaleString(l
 export const appLink = (query = '') => `/leren${query}`;
 export const themePath = (id: string) => `/woorden/${id}/`;
 export const patternPath = (slug: string) => `/grammatica/${slug}/`;
-export const themeImage = (id: string) => `/img/themes/${id}.jpg`;
-export const groupNl: Record<string, string> = {dagelijks: 'Elke dag', werk: 'Werk', vrijetijd: 'Vrije tijd & uitgaan', taal: 'Taal, contact & gevoel'};
+// Themes without their own picture yet (e.g. a new beginner theme) show the waving mascot instead of a broken image.
+const themePictures = new Set(Object.keys(import.meta.glob('/src/assets/illustrations/themes/*.jpg')).map((file) => file.split('/').pop()!.replace(/\.jpg$/, '')));
+export const themeImage = (id: string) => (themePictures.has(id) ? `/img/themes/${id}.jpg` : '/img/mascot-wave.jpg');
+export const groupNl: Record<string, string> = {beginnen: 'Beginnen', dagelijks: 'Elke dag', werk: 'Werk', vrijetijd: 'Vrije tijd & uitgaan', taal: 'Taal, contact & gevoel'};
 export const kindNl: Record<string, string> = {woord: 'woord', werkwoord: 'werkwoord', uitdrukking: 'uitdrukking'};
 export const organization = {'@type': 'Organization', '@id': `${SITE}/#org`, name: 'Nedfa', alternateName: BRAND_FA, url: SITE, logo: `${SITE}/img/logo.png`, email: EMAIL};

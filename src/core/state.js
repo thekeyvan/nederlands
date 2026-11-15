@@ -12,7 +12,9 @@ export function loadState(storage, validIds, currentWeek = weekKey()) {
     saved: Array.isArray(raw.saved) ? [...new Set(raw.saved.filter(id => validIds.includes(id)))] : [],
     week: currentWeek,
     done: raw.week === currentWeek && Array.isArray(raw.done) ? [...new Set(raw.done.filter(id => ['listen','read','speak','write','review'].includes(id)))] : [],
-    goal: dailyGoals.includes(raw.goal) ? raw.goal : 5
+    goal: dailyGoals.includes(raw.goal) ? raw.goal : 5,
+    // From the niveautest (A0–B1); null until the learner has done it or chosen to start from zero.
+    level: ['A0', 'A1', 'A2', 'B1'].includes(raw.level) ? raw.level : null
   };
 }
 export function matchingResources(resources, { category, level, query }, saved) {

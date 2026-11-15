@@ -119,10 +119,12 @@ struct Stats {
     func progress(for theme: String) -> ThemeProgress? { themes.first { $0.theme.id == theme } }
 
     /// The theme you practised most recently, for "Verder met".
-    static func resumeTheme(events: [ReviewEvent]) -> String {
+    /// The theme to continue with: the last one practised, or for a new learner the first theme that fits their level.
+    static func resumeTheme(events: [ReviewEvent], level: String? = nil) -> String {
         for event in events.reversed() {
             if let card = Content.shared.card(event.cardId), Content.shared.theme(card.themeId) != nil { return card.themeId }
         }
+        if events.isEmpty, let level { return LevelPlan.sorted(Content.shared.themes, for: level).first?.id ?? "huisarts" }
         return events.isEmpty ? "huisarts" : "werk"
     }
 }

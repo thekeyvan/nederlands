@@ -16,7 +16,9 @@ import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
 import {themes} from '@/core/learning-data.js';
 import {cards, planSession, resumeTheme} from '@/core/learning-model.js';
-import type {Card} from '@/core/types';
+import {levelInfo, startTheme, suggestedThemes} from '@/core/level.js';
+import {openLevelTest} from '@/components/level-test';
+import type {Card, Level, Theme} from '@/core/types';
 
 /** The start screen: today's mixed round, then one list of focused rounds. */
 export function OefenenScreen() {
@@ -29,7 +31,9 @@ export function OefenenScreen() {
   const today = game.activity.today;
   const due = game.dueCards;
   const fresh = events.length === 0;
-  const resumeId = fresh ? 'huisarts' : resumeTheme(events);
+  const level = preferences.level;
+  // New learners start at a theme that fits their level (from the niveautest).
+  const resumeId = fresh ? (level ? startTheme(themes, level) : 'huisarts') : resumeTheme(events);
   const resume = themes.find((item) => item.id === resumeId) ?? themes[0];
   const resumeStats = game.themes.find((item) => item.theme.id === resume.id)?.stats;
   const roundSize = Math.min(20, Math.max(5, goal - today));
@@ -76,6 +80,7 @@ export function OefenenScreen() {
             </Button>
           </section>
           <SignInNudge />
+          <LevelCard level={level} suggestions={suggestedThemes(themes, level, (id) => game.themes.find((item) => item.theme.id === id)?.stats, 3)} />
           <div>
             <GroupLabel className="mt-2" action={
               <Select value={theme} onValueChange={setTheme}>
@@ -110,5 +115,33 @@ export function OefenenScreen() {
         </div>
       </div>
     </Page>
+  );
+}
+
+/** Asks new learners for the niveautest; afterwards shows their level and three themes that fit it. */
+function LevelCard({level, suggestions}: {level: Level | null; suggestions: Theme[]}) {
+  if (!level) {
+    return (
+      <button type="button" onClick={openLevelTest} className="flex items-center gap-3 rounded-2xl border-2 border-primary/30 bg-primary/10 p-3.5 text-left transition hover:bg-primary/15">
+        <Mascot mood="think" className="size-12 shrink-0" />
+        <span className="min-w-0 flex-1">
+          <span className="block font-bold">Hoe goed ken je Nederlands al?</span>
+          <span className="block text-sm text-muted-foreground">Doe de niveautest (± 3 min). Dan kiest Nedfa wat bij je past.</span>
+        </span>
+        <ArrowRight className="size-5 shrink-0 text-primary" />
+      </button>
+    );
+  }
+  return (
+    <div>
+      <GroupLabel className="mt-2" action={<button type="button" onClick={openLevelTest} className="text-xs font-semibold text-primary">Test opnieuw</button>}>
+        Voor jouw niveau · {level} {levelInfo[level].name}
+      </GroupLabel>
+      <Group>
+        {suggestions.map((theme) => (
+          <Row key={theme.id} onClick={() => navigate('woorden', {theme: theme.id})} leading={<ThemeArt theme={theme} className="size-11 shrink-0 rounded-lg" />} title={theme.title} detail={theme.intro} />
+        ))}
+      </Group>
+    </div>
   );
 }

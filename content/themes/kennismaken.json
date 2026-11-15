@@ -1,0 +1,230 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "kennismaken",
+  "title": "Hallo! Wie ben je?",
+  "fa": "سلام! آشنایی",
+  "icon": "33",
+  "level": "A0",
+  "intro": "Hoe heet je en waar kom je vandaan?",
+  "words": [
+    {
+      "nl": "hallo",
+      "kind": "uitdrukking",
+      "fa": "سلام",
+      "example": "Hallo, ik ben Sara.",
+      "exampleFa": "سلام، من سارا هستم."
+    },
+    {
+      "nl": "goedemorgen",
+      "kind": "uitdrukking",
+      "fa": "صبح بخیر",
+      "example": "Goedemorgen, meneer De Vries!",
+      "exampleFa": "صبح بخیر، آقای دفریس!"
+    },
+    {
+      "nl": "goedenavond",
+      "kind": "uitdrukking",
+      "fa": "عصر بخیر",
+      "example": "Goedenavond, mevrouw.",
+      "exampleFa": "عصر بخیر، خانم."
+    },
+    {
+      "nl": "tot ziens",
+      "kind": "uitdrukking",
+      "fa": "خدانگهدار",
+      "example": "Bedankt en tot ziens!",
+      "exampleFa": "ممنون و خدانگهدار!"
+    },
+    {
+      "nl": "hoe gaat het",
+      "kind": "uitdrukking",
+      "fa": "حالت چطور است؟",
+      "example": "Hoi Sam, hoe gaat het?",
+      "exampleFa": "سلام سام، حالت چطور است؟"
+    },
+    {
+      "nl": "dank je wel",
+      "kind": "uitdrukking",
+      "fa": "خیلی ممنون",
+      "example": "Dank je wel voor de koffie.",
+      "exampleFa": "بابت قهوه خیلی ممنون."
+    },
+    {
+      "nl": "alsjeblieft",
+      "kind": "uitdrukking",
+      "fa": "لطفاً؛ بفرما",
+      "example": "Een thee, alsjeblieft.",
+      "exampleFa": "یک چای، لطفاً."
+    },
+    {
+      "nl": "de naam",
+      "kind": "woord",
+      "fa": "نام، اسم",
+      "example": "Mijn naam is Reza.",
+      "exampleFa": "اسم من رضا است."
+    },
+    {
+      "nl": "heten",
+      "kind": "werkwoord",
+      "fa": "نام داشتن",
+      "example": "Ik heet Mina, en jij?",
+      "exampleFa": "اسم من میناست، تو چطور؟",
+      "forms": [
+        "heette",
+        "heb geheten",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "komen",
+      "kind": "werkwoord",
+      "fa": "آمدن؛ اهل جایی بودن",
+      "example": "Ik kom uit Iran.",
+      "exampleFa": "من اهل ایران هستم.",
+      "forms": [
+        "kwam",
+        "ben gekomen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "wonen",
+      "kind": "werkwoord",
+      "fa": "زندگی کردن، ساکن بودن",
+      "example": "Ik woon in Utrecht.",
+      "exampleFa": "در اوترخت زندگی می‌کنم.",
+      "forms": [
+        "woonde",
+        "heb gewoond",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "spreken",
+      "kind": "werkwoord",
+      "fa": "صحبت کردن (به زبانی)",
+      "example": "Ik spreek een beetje Nederlands.",
+      "exampleFa": "کمی هلندی صحبت می‌کنم.",
+      "forms": [
+        "sprak",
+        "heb gesproken",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "het land",
+      "kind": "woord",
+      "fa": "کشور",
+      "example": "Uit welk land kom je?",
+      "exampleFa": "اهل کدام کشوری؟"
+    },
+    {
+      "nl": "de taal",
+      "kind": "woord",
+      "fa": "زبان",
+      "example": "Nederlands is een mooie taal.",
+      "exampleFa": "هلندی زبان قشنگی است."
+    },
+    {
+      "nl": "de vriend",
+      "kind": "woord",
+      "fa": "دوست (مرد)",
+      "example": "Dit is mijn vriend Omid.",
+      "exampleFa": "این دوستم امید است."
+    },
+    {
+      "nl": "de vriendin",
+      "kind": "woord",
+      "fa": "دوست (زن)",
+      "example": "Mijn vriendin heet Laleh.",
+      "exampleFa": "اسم دوستم لاله است."
+    },
+    {
+      "nl": "leuk",
+      "kind": "woord",
+      "fa": "خوب، جالب، دلپذیر",
+      "example": "Leuk je te ontmoeten!",
+      "exampleFa": "از آشنایی با تو خوشحالم!"
+    },
+    {
+      "nl": "ja",
+      "kind": "woord",
+      "fa": "بله",
+      "example": "Ja, ik ben nieuw hier.",
+      "exampleFa": "بله، من اینجا تازه‌واردم."
+    },
+    {
+      "nl": "nee",
+      "kind": "woord",
+      "fa": "نه",
+      "example": "Nee, ik woon niet in Amsterdam.",
+      "exampleFa": "نه، من در آمستردام زندگی نمی‌کنم."
+    },
+    {
+      "nl": "ook",
+      "kind": "woord",
+      "fa": "هم، همچنین",
+      "example": "Ik kom ook uit Iran.",
+      "exampleFa": "من هم اهل ایران هستم."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Ik heet Sara.",
+      "level": "A0",
+      "fa": "اسم من ساراست."
+    },
+    {
+      "nl": "Hoe heet jij?",
+      "level": "A0",
+      "fa": "اسم تو چیست؟"
+    },
+    {
+      "nl": "Waar kom je vandaan?",
+      "level": "A0",
+      "fa": "اهل کجایی؟"
+    },
+    {
+      "nl": "Ik kom uit Afghanistan.",
+      "level": "A0",
+      "fa": "من اهل افغانستان هستم."
+    },
+    {
+      "nl": "Ik spreek nog niet zo goed Nederlands.",
+      "level": "A1",
+      "fa": "هنوز هلندی را خیلی خوب صحبت نمی‌کنم."
+    },
+    {
+      "nl": "Kunt u dat herhalen, alstublieft?",
+      "level": "A1",
+      "fa": "لطفاً می‌توانید آن را تکرار کنید؟"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Lisa",
+      "nl": "Hallo! Ik ben Lisa. Hoe heet jij?",
+      "fa": "سلام! من لیزا هستم. اسم تو چیست؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Hallo, ik heet Amir.",
+      "fa": "سلام، اسم من امیر است."
+    },
+    {
+      "speaker": "Lisa",
+      "nl": "Leuk je te ontmoeten, Amir. Waar kom je vandaan?",
+      "fa": "از آشنایی‌ات خوشحالم، امیر. اهل کجایی؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ik kom uit Iran. Ik woon nu in Leiden.",
+      "fa": "من اهل ایرانم. الان در لیدن زندگی می‌کنم."
+    },
+    {
+      "speaker": "Lisa",
+      "nl": "Wat leuk! Welkom in Nederland.",
+      "fa": "چه خوب! به هلند خوش آمدی."
+    }
+  ]
+}

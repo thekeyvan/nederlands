@@ -139,6 +139,7 @@ struct SettingsView: View {
     @State private var showSignIn = false
     @State private var confirmDelete = false
     @State private var confirmSignOut = false
+    @State private var showLevelTest = false
     @State private var reminderOn = Preferences.shared.reminderHour != nil
     @State private var reminderDenied = false
 
@@ -164,6 +165,14 @@ struct SettingsView: View {
             }
             .onChange(of: preferences.reminderHour) { _, hour in
                 Task { let ok = await Reminder.set(hour: hour); reminderDenied = !ok; if !ok { reminderOn = false; preferences.reminderHour = nil } }
+            }
+            Section("Niveau") {
+                Button { showLevelTest = true } label: {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(preferences.level.map { "\($0) · \(LevelPlan.info[$0]?.name ?? "")" } ?? "Nog geen niveau").foregroundStyle(Color.primary)
+                        Text(preferences.level == nil ? "Doe de niveautest (± 3 min)" : "Thema’s voor dit niveau staan bovenaan. Tik om de test opnieuw te doen.").font(.caption).foregroundStyle(Color(.secondaryLabel))
+                    }
+                }
             }
             Section("Weergave") {
                 Picker("Weergave", selection: $preferences.appearance) {
@@ -200,6 +209,7 @@ struct SettingsView: View {
         .navigationTitle("Instellingen")
         .feedbackScreen("Instellingen")
         .sheet(isPresented: $showSignIn) { SignInSheet() }
+        .sheet(isPresented: $showLevelTest) { LevelTestView() }
         .confirmationDialog("Uitloggen?", isPresented: $confirmSignOut, titleVisibility: .visible) {
             Button("Uitloggen", role: .destructive) { Task { await cloud.signOut() } }
             Button("Annuleren", role: .cancel) {}
@@ -358,7 +368,7 @@ struct WelcomeView: View {
         VStack(spacing: 18) {
             Spacer()
             Mascot(mood: .wave, size: 150)
-            Text("NEDFA · NEDERLANDS A2 → B1").font(.caption.weight(.bold)).foregroundStyle(Color.brand).tracking(1)
+            Text("NEDFA · NEDERLANDS VAN NUL TOT B1").font(.caption.weight(.bold)).foregroundStyle(Color.brand).tracking(1)
             Text("Elke dag een beetje Nederlands.").font(.largeTitle.weight(.heavy)).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
             Text("Thema’s met audio, spellen en slim herhalen. Een paar minuten per dag is genoeg.").foregroundStyle(.secondary).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
             Spacer()

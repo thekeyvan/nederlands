@@ -11,6 +11,7 @@ import {audioCatalog} from './audio-catalog.js';
 import {examplesFor} from './grammar-examples.js';
 import {patternDrill, orderItem, pickOptions} from '../lib/drill.ts';
 import {groups} from '../site/content.js';
+import {passMark, placementQuestions} from './level.js';
 
 
 const audio = (text) => Boolean(text && Object.hasOwn(audioCatalog.clips, text));
@@ -38,8 +39,8 @@ const drillJson = (exercise) => ({
 /** Everything the iPhone app shows, with answer options, drills and game rounds made by the same code as the website. */
 export function buildNativeContent() {
   return {
-  themes: themes.map((theme) => ({id: theme.id, title: theme.title, meaning: theme.meaning, intro: theme.intro, group: groups.find((group) => group.ids.includes(theme.id))?.id ?? 'dagelijks'})),
-  groups: groups.map(({id, ids}) => ({id, title: {dagelijks: 'Elke dag', werk: 'Werk', vrijetijd: 'Vrije tijd & uitgaan', taal: 'Taal & contact'}[id], themeIds: ids})),
+  themes: themes.map((theme) => ({id: theme.id, title: theme.title, meaning: theme.meaning, intro: theme.intro, level: theme.level, group: groups.find((group) => group.ids.includes(theme.id))?.id ?? 'dagelijks'})),
+  groups: groups.map(({id, ids}) => ({id, title: {beginnen: 'Beginnen', dagelijks: 'Elke dag', werk: 'Werk', vrijetijd: 'Vrije tijd & uitgaan', taal: 'Taal & contact'}[id], themeIds: ids})),
   cards: cards.map(cardJson),
   patterns: sentences.map((card) => ({
     id: card.id,
@@ -49,6 +50,7 @@ export function buildNativeContent() {
   dialogues: dialogues.map((dialogue) => ({id: dialogue.id, themeId: dialogue.themeId, lines: dialogue.lines.map((line) => ({id: line.id, speaker: line.speaker, nl: line.nl, translation: line.translation, hasAudio: audio(line.nl)}))})),
   lessons: courseLessons.map(({id, title, level, grammarIds, themeIds, cardIds, goal, task}) => ({id, title, level, grammarIds, themeIds, cardIds, goal, task})),
   levels,
+  placement: {passMark, questions: placementQuestions},
   stamps: stamps.map(({id, title, description}) => ({id, title, description})),
   resources: resources.map(({id, name, categories, level, cost, description, url, steps, time, note}) => ({id, name, categories, level, cost, description, url, steps, time: time ?? null, note: note ?? null})),
   audio: {voices: audioCatalog.voices.map(({id, name}) => ({id, name})), clips: audioCatalog.clips},

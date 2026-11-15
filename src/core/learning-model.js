@@ -2,11 +2,13 @@ import {themes,vocabulary} from './learning-data.js';
 import {phrases} from './phrase-data.js';
 import {sentences} from './sentence-data.js';
 import {makeQueue,progressStatus} from './srs.js';
+import {groups as courseGroups} from '../../content/index.js';
 export const cards=[...vocabulary,...phrases,...sentences.map(card=>({...card,themeId:'zinsbouw'}))];
-const categoryMap={werk:['werk','overleg','loopbaan','beroepen','solliciteren'],dagelijks:['wonen','huis-kopen','gezondheid','geld','huisarts','apotheek','gemeente','boodschappen','school','digitaal','huishouden','noodgeval'],vrijetijd:['vrijetijd','cultuur','reizen','natuur','uitgaan','kleding','verkeer','feest'],taal:['contact','mening','tijd','modalen','weer','familie','inburgering']};
-export const groupNames={werk:'Werk & samenwerken',dagelijks:'Elke dag',vrijetijd:'Vrije tijd & onderweg',taal:'Taal & contact'};
+// Groups come from content/index.js, so a new theme only has to be listed there.
+const categoryMap=Object.fromEntries(courseGroups.map(group=>[group.id,group.themes]));
+export const groupNames={beginnen:'Beginnen',werk:'Werk & samenwerken',dagelijks:'Elke dag',vrijetijd:'Vrije tijd & onderweg',taal:'Taal & contact'};
 const icons={werk:'briefcase-business',overleg:'users',loopbaan:'building-2',beroepen:'briefcase-business',wonen:'house','huis-kopen':'key-round',vrijetijd:'bike',cultuur:'music',reizen:'train-front',natuur:'trees',uitgaan:'utensils',contact:'message-circle',mening:'scale',tijd:'clock',gezondheid:'heart-handshake',geld:'wallet',modalen:'message-circle',huisarts:'stethoscope',apotheek:'pill',gemeente:'landmark',boodschappen:'shopping-cart',school:'school',weer:'cloud-sun',kleding:'shirt',verkeer:'bike',feest:'party-popper',digitaal:'mail',solliciteren:'file-text',huishouden:'sparkles',noodgeval:'siren',familie:'heart',inburgering:'graduation-cap'};
-export function themeMeta(theme){const group=Object.keys(categoryMap).find(key=>categoryMap[key].includes(theme.id)) || 'dagelijks';return {icon:icons[theme.id] || 'book-open',group,label:groupNames[group],color:group==='werk'?'lavender':group==='vrijetijd'?'mint':group==='taal'?'blue':'peach'};}
+export function themeMeta(theme){const group=Object.keys(categoryMap).find(key=>categoryMap[key].includes(theme.id)) || 'dagelijks';return {icon:icons[theme.id] || 'book-open',group,label:groupNames[group],color:group==='beginnen'?'mint':group==='werk'?'lavender':group==='vrijetijd'?'mint':group==='taal'?'blue':'peach'};}
 export function themeStats(id,reviews){const list=cards.filter(card=>card.themeId===id);return {total:list.length,done:list.filter(card=>reviews[card.id]).length,known:list.filter(card=>progressStatus(reviews[card.id])==='known').length};}
 export const dayKey=date=>`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 export function activity(events,now=new Date()){

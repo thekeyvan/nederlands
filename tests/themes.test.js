@@ -15,7 +15,7 @@ test('every theme has practical sentences and a coherent dialogue structure',()=
  assert.equal(ids.size,cards.length);
  const themes=new Set(baseThemes.map(theme=>theme.id));assert.equal(themes.size,baseThemes.length);
  for(const theme of themes){assert.ok(baseVocabulary.some(card=>card.themeId===theme));assert.ok(basePhrases.filter(card=>card.themeId===theme).length>=5);const dialogue=baseDialogues.find(item=>item.themeId===theme);assert.ok(dialogue?.lines.length>=4);for(const line of dialogue.lines){assert.ok(line.speaker);assert.ok(line.nl);}}
- for(const phrase of basePhrases){assert.ok(themes.has(phrase.themeId));assert.ok(['A2','B1'].includes(phrase.level));}
+ for(const phrase of basePhrases){assert.ok(themes.has(phrase.themeId));assert.ok(['A0','A1','A2','B1'].includes(phrase.level));}
  const lines=baseDialogues.flatMap(item=>item.lines);assert.equal(new Set(lines.map(line=>line.id)).size,lines.length);
  assert.ok(themes.has('huisarts'));assert.ok(themes.has('apotheek'));assert.ok(themes.has('gemeente'));
 });

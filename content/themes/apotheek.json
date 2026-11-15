@@ -89,6 +89,72 @@
       "fa": "با نسخه",
       "example": "Is dit medicijn alleen op recept verkrijgbaar?",
       "exampleFa": "آیا این دارو فقط با نسخه قابل‌دریافت است؟"
+    },
+    {
+      "nl": "de pijnstiller",
+      "kind": "woord",
+      "fa": "مسکّن",
+      "example": "Neem een pijnstiller als je hoofdpijn hebt.",
+      "exampleFa": "اگر سردرد داری یک مسکّن بخور."
+    },
+    {
+      "nl": "innemen",
+      "kind": "werkwoord",
+      "fa": "(دارو) خوردن",
+      "example": "Neem de tabletten in na het eten.",
+      "exampleFa": "قرص‌ها را بعد از غذا بخورید.",
+      "forms": [
+        "nam in",
+        "heb ingenomen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "de oogdruppels",
+      "kind": "woord",
+      "fa": "قطرهٔ چشم",
+      "example": "Ik heb oogdruppels nodig.",
+      "exampleFa": "به قطرهٔ چشم نیاز دارم."
+    },
+    {
+      "nl": "de hoestdrank",
+      "kind": "woord",
+      "fa": "شربت سرفه",
+      "example": "Deze hoestdrank helpt goed.",
+      "exampleFa": "این شربت سرفه خوب اثر می‌کند."
+    },
+    {
+      "nl": "zonder recept",
+      "kind": "uitdrukking",
+      "fa": "بدون نسخه",
+      "example": "Dit kun je zonder recept kopen.",
+      "exampleFa": "این را بدون نسخه می‌توانی بخری."
+    },
+    {
+      "nl": "het advies",
+      "kind": "woord",
+      "fa": "توصیه، مشاوره",
+      "example": "De apotheker geeft goed advies.",
+      "exampleFa": "داروساز توصیهٔ خوبی می‌دهد."
+    },
+    {
+      "nl": "ophalen",
+      "kind": "werkwoord",
+      "fa": "(چیزی را) گرفتن، تحویل گرفتن",
+      "example": "Je kunt je medicijnen morgen ophalen.",
+      "exampleFa": "می‌توانی داروهایت را فردا تحویل بگیری.",
+      "forms": [
+        "haalde op",
+        "heb opgehaald",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "de zorgverzekering",
+      "kind": "woord",
+      "fa": "بیمهٔ درمانی",
+      "example": "Betaalt de zorgverzekering dit medicijn?",
+      "exampleFa": "بیمهٔ درمانی هزینهٔ این دارو را می‌دهد؟"
     }
   ],
   "phrases": [

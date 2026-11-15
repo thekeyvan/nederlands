@@ -1,6 +1,6 @@
 import type {Card, Review, ReviewEvent, Theme} from './types';
 export const cards: Card[];
-export const groupNames: Record<'werk' | 'dagelijks' | 'vrijetijd' | 'taal', string>;
+export const groupNames: Record<'beginnen' | 'werk' | 'dagelijks' | 'vrijetijd' | 'taal', string>;
 export function themeMeta(theme: Pick<Theme, 'id'>): {icon: string; group: keyof typeof groupNames; label: string; color: 'lavender' | 'mint' | 'blue' | 'peach'};
 export function themeStats(id: string, reviews: Record<string, Review>): {total: number; done: number; known: number};
 export function dayKey(date: Date): string;

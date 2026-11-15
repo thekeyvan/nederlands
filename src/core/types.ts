@@ -1,4 +1,4 @@
-export interface Theme {id: string; title: string; icon: string; intro: string; meaning: string}
+export interface Theme {id: string; title: string; icon: string; intro: string; meaning: string; level?: string}
 export type WordKind = 'woord' | 'werkwoord' | 'uitdrukking';
 /** One review card: a word, a practical sentence (phrase:) or a grammar pattern (zin:). */
 export interface Card {
@@ -18,4 +18,5 @@ export interface Resource {id: string; name: string; categories: string[]; level
 export interface Idea {type: string; title: string; description: string; resource: string}
 export interface WeekTask {id: string; title: string; copy: string; time: string}
 export interface Locale {code: string; name: string; dutchName: string; dir: 'ltr' | 'rtl'; font: string; ui: Record<string, string>}
-export interface PreferenceState {saved: string[]; week: string; done: string[]; goal: number}
+export type Level = 'A0' | 'A1' | 'A2' | 'B1';
+export interface PreferenceState {saved: string[]; week: string; done: string[]; goal: number; level: Level | null}

@@ -1,0 +1,206 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "de-weg",
+  "title": "De weg vragen",
+  "fa": "پرسیدن نشانی",
+  "icon": "38",
+  "level": "A0",
+  "intro": "Waar is het station?",
+  "words": [
+    {
+      "nl": "waar",
+      "kind": "woord",
+      "fa": "کجا",
+      "example": "Waar is de wc?",
+      "exampleFa": "دستشویی کجاست؟"
+    },
+    {
+      "nl": "links",
+      "kind": "woord",
+      "fa": "چپ",
+      "example": "Ga hier links.",
+      "exampleFa": "از اینجا به چپ بروید."
+    },
+    {
+      "nl": "rechts",
+      "kind": "woord",
+      "fa": "راست",
+      "example": "De bakker is rechts.",
+      "exampleFa": "نانوایی سمت راست است."
+    },
+    {
+      "nl": "rechtdoor",
+      "kind": "woord",
+      "fa": "مستقیم",
+      "example": "Loop rechtdoor tot de kerk.",
+      "exampleFa": "تا کلیسا مستقیم بروید."
+    },
+    {
+      "nl": "dichtbij",
+      "kind": "woord",
+      "fa": "نزدیک",
+      "example": "Is de supermarkt dichtbij?",
+      "exampleFa": "سوپرمارکت نزدیک است؟"
+    },
+    {
+      "nl": "ver",
+      "kind": "woord",
+      "fa": "دور",
+      "example": "Het station is niet ver.",
+      "exampleFa": "ایستگاه دور نیست."
+    },
+    {
+      "nl": "de straat",
+      "kind": "woord",
+      "fa": "خیابان",
+      "example": "Ik woon in deze straat.",
+      "exampleFa": "من در این خیابان زندگی می‌کنم."
+    },
+    {
+      "nl": "het station",
+      "kind": "woord",
+      "fa": "ایستگاه قطار",
+      "example": "Hoe kom ik bij het station?",
+      "exampleFa": "چطور به ایستگاه قطار بروم؟"
+    },
+    {
+      "nl": "de bushalte",
+      "kind": "woord",
+      "fa": "ایستگاه اتوبوس",
+      "example": "De bushalte is om de hoek.",
+      "exampleFa": "ایستگاه اتوبوس سر نبش است."
+    },
+    {
+      "nl": "de winkel",
+      "kind": "woord",
+      "fa": "مغازه",
+      "example": "De winkel is op zondag dicht.",
+      "exampleFa": "مغازه یکشنبه‌ها بسته است."
+    },
+    {
+      "nl": "de kerk",
+      "kind": "woord",
+      "fa": "کلیسا",
+      "example": "Naast de kerk is een café.",
+      "exampleFa": "کنار کلیسا یک کافه است."
+    },
+    {
+      "nl": "het plein",
+      "kind": "woord",
+      "fa": "میدان",
+      "example": "Het café is aan het plein.",
+      "exampleFa": "کافه در میدان است."
+    },
+    {
+      "nl": "de brug",
+      "kind": "woord",
+      "fa": "پل",
+      "example": "Ga over de brug.",
+      "exampleFa": "از روی پل رد شوید."
+    },
+    {
+      "nl": "de hoek",
+      "kind": "woord",
+      "fa": "نبش، گوشه",
+      "example": "De apotheek is op de hoek.",
+      "exampleFa": "داروخانه سر نبش است."
+    },
+    {
+      "nl": "lopen",
+      "kind": "werkwoord",
+      "fa": "راه رفتن، پیاده رفتن",
+      "example": "Ik loop naar school.",
+      "exampleFa": "پیاده به مدرسه می‌روم.",
+      "forms": [
+        "liep",
+        "heb gelopen",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "fietsen",
+      "kind": "werkwoord",
+      "fa": "دوچرخه‌سواری کردن",
+      "example": "We fietsen naar het park.",
+      "exampleFa": "با دوچرخه به پارک می‌رویم.",
+      "forms": [
+        "fietste",
+        "heb gefietst",
+        "regelmatig"
+      ]
+    },
+    {
+      "nl": "zoeken",
+      "kind": "werkwoord",
+      "fa": "گشتن، جستجو کردن",
+      "example": "Ik zoek de bibliotheek.",
+      "exampleFa": "دنبال کتابخانه می‌گردم.",
+      "forms": [
+        "zocht",
+        "heb gezocht",
+        "onregelmatig"
+      ]
+    },
+    {
+      "nl": "de kaart",
+      "kind": "woord",
+      "fa": "نقشه",
+      "example": "Kijk even op de kaart.",
+      "exampleFa": "یک نگاهی به نقشه بینداز."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Pardon, waar is het station?",
+      "level": "A0",
+      "fa": "ببخشید، ایستگاه قطار کجاست؟"
+    },
+    {
+      "nl": "Is het ver?",
+      "level": "A0",
+      "fa": "دور است؟"
+    },
+    {
+      "nl": "Ga de eerste straat links.",
+      "level": "A1",
+      "fa": "اولین خیابان به چپ بپیچید."
+    },
+    {
+      "nl": "Het is vijf minuten lopen.",
+      "level": "A1",
+      "fa": "پنج دقیقه پیاده‌روی است."
+    },
+    {
+      "nl": "Ik ben de weg kwijt.",
+      "level": "A1",
+      "fa": "راه را گم کرده‌ام."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Jij",
+      "nl": "Pardon, mevrouw. Waar is het station?",
+      "fa": "ببخشید خانم. ایستگاه قطار کجاست؟"
+    },
+    {
+      "speaker": "Vrouw",
+      "nl": "Ga hier rechtdoor en dan links.",
+      "fa": "از اینجا مستقیم بروید و بعد به چپ."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Is het ver?",
+      "fa": "دور است؟"
+    },
+    {
+      "speaker": "Vrouw",
+      "nl": "Nee, het is tien minuten lopen.",
+      "fa": "نه، ده دقیقه پیاده‌روی است."
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Dank u wel!",
+      "fa": "خیلی ممنون!"
+    }
+  ]
+}

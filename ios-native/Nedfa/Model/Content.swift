@@ -52,6 +52,22 @@ struct Theme: Codable, Identifiable, Hashable {
     let meaning: String
     let intro: String
     let group: String
+    /// A0 (starting from zero), A1, A2 or B1; older content has none (A2).
+    let level: String?
+    var levelOrDefault: String { level ?? "A2" }
+}
+
+/// The niveautest: five questions per level; a block is passed with `passMark` right answers.
+struct Placement: Codable {
+    struct Question: Codable, Hashable {
+        let level: String
+        let kind: String
+        let prompt: String
+        let answer: String
+        let options: [String]
+    }
+    let passMark: Int
+    let questions: [Question]
 }
 
 struct ThemeGroup: Codable, Identifiable {
@@ -151,6 +167,7 @@ struct ContentFile: Codable {
     let dialogues: [Dialogue]
     let lessons: [Lesson]
     let levels: [LevelInfo]
+    let placement: Placement?
     let stamps: [StampInfo]
     let resources: [Resource]
     let audio: AudioCatalog
@@ -169,6 +186,7 @@ final class Content: Sendable {
     let dialogues: [Dialogue]
     let lessons: [Lesson]
     let levels: [LevelInfo]
+    let placement: Placement
     let stamps: [StampInfo]
     let resources: [Resource]
     let audio: AudioCatalog
@@ -176,7 +194,8 @@ final class Content: Sendable {
     private let byId: [String: Card]
 
     private init() {
-        let file = ContentUpdater.downloaded() ?? (try! JSONDecoder().decode(ContentFile.self, from: Data(contentsOf: Bundle.main.url(forResource: "content", withExtension: "json")!)))
+        let bundled = { try! JSONDecoder().decode(ContentFile.self, from: Data(contentsOf: Bundle.main.url(forResource: "content", withExtension: "json")!)) }
+        let file = ContentUpdater.downloaded() ?? bundled()
         version = file.version
         themes = file.themes
         groups = file.groups
@@ -185,6 +204,8 @@ final class Content: Sendable {
         dialogues = file.dialogues
         lessons = file.lessons
         levels = file.levels
+        // A copy downloaded before the niveautest existed has no questions; the bundled file always has them.
+        placement = file.placement ?? bundled().placement ?? Placement(passMark: 4, questions: [])
         stamps = file.stamps
         resources = file.resources
         audio = file.audio

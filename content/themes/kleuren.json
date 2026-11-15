@@ -1,0 +1,198 @@
+{
+  "$schema": "../schema/theme.schema.json",
+  "id": "kleuren",
+  "title": "Kleuren en dingen",
+  "fa": "رنگ‌ها و وسایل",
+  "icon": "35",
+  "level": "A0",
+  "intro": "Welke kleur heeft jouw tas?",
+  "words": [
+    {
+      "nl": "rood",
+      "kind": "woord",
+      "fa": "قرمز",
+      "example": "Mijn jas is rood.",
+      "exampleFa": "کاپشن من قرمز است."
+    },
+    {
+      "nl": "blauw",
+      "kind": "woord",
+      "fa": "آبی",
+      "example": "De lucht is blauw.",
+      "exampleFa": "آسمان آبی است."
+    },
+    {
+      "nl": "groen",
+      "kind": "woord",
+      "fa": "سبز",
+      "example": "Het gras is groen.",
+      "exampleFa": "چمن سبز است."
+    },
+    {
+      "nl": "geel",
+      "kind": "woord",
+      "fa": "زرد",
+      "example": "De bananen zijn geel.",
+      "exampleFa": "موزها زرد هستند."
+    },
+    {
+      "nl": "zwart",
+      "kind": "woord",
+      "fa": "سیاه",
+      "example": "Mijn telefoon is zwart.",
+      "exampleFa": "گوشی من سیاه است."
+    },
+    {
+      "nl": "wit",
+      "kind": "woord",
+      "fa": "سفید",
+      "example": "De muur is wit.",
+      "exampleFa": "دیوار سفید است."
+    },
+    {
+      "nl": "groot",
+      "kind": "woord",
+      "fa": "بزرگ",
+      "example": "Ons huis is niet groot.",
+      "exampleFa": "خانهٔ ما بزرگ نیست."
+    },
+    {
+      "nl": "klein",
+      "kind": "woord",
+      "fa": "کوچک",
+      "example": "Mijn kamer is klein.",
+      "exampleFa": "اتاق من کوچک است."
+    },
+    {
+      "nl": "nieuw",
+      "kind": "woord",
+      "fa": "نو، جدید",
+      "example": "Mijn fiets is nieuw.",
+      "exampleFa": "دوچرخه‌ام نو است."
+    },
+    {
+      "nl": "oud",
+      "kind": "woord",
+      "fa": "کهنه؛ پیر",
+      "example": "Deze stoel is oud.",
+      "exampleFa": "این صندلی کهنه است."
+    },
+    {
+      "nl": "de tas",
+      "kind": "woord",
+      "fa": "کیف",
+      "example": "Waar is mijn tas?",
+      "exampleFa": "کیفم کجاست؟"
+    },
+    {
+      "nl": "de sleutel",
+      "kind": "woord",
+      "fa": "کلید",
+      "example": "Ik zoek mijn sleutel.",
+      "exampleFa": "دنبال کلیدم می‌گردم."
+    },
+    {
+      "nl": "de telefoon",
+      "kind": "woord",
+      "fa": "تلفن، گوشی",
+      "example": "Mijn telefoon ligt op tafel.",
+      "exampleFa": "گوشی‌ام روی میز است."
+    },
+    {
+      "nl": "de tafel",
+      "kind": "woord",
+      "fa": "میز",
+      "example": "De tafel staat in de keuken.",
+      "exampleFa": "میز در آشپزخانه است."
+    },
+    {
+      "nl": "de stoel",
+      "kind": "woord",
+      "fa": "صندلی",
+      "example": "Pak een stoel en ga zitten.",
+      "exampleFa": "یک صندلی بردار و بنشین."
+    },
+    {
+      "nl": "het boek",
+      "kind": "woord",
+      "fa": "کتاب",
+      "example": "Dit boek is heel leuk.",
+      "exampleFa": "این کتاب خیلی جالب است."
+    },
+    {
+      "nl": "de pen",
+      "kind": "woord",
+      "fa": "خودکار",
+      "example": "Mag ik je pen even lenen?",
+      "exampleFa": "می‌توانم خودکارت را یک لحظه قرض بگیرم؟"
+    },
+    {
+      "nl": "het raam",
+      "kind": "woord",
+      "fa": "پنجره",
+      "example": "Kun je het raam opendoen?",
+      "exampleFa": "می‌توانی پنجره را باز کنی؟"
+    },
+    {
+      "nl": "de deur",
+      "kind": "woord",
+      "fa": "در",
+      "example": "De deur is dicht.",
+      "exampleFa": "در بسته است."
+    }
+  ],
+  "phrases": [
+    {
+      "nl": "Wat is dit?",
+      "level": "A0",
+      "fa": "این چیست؟"
+    },
+    {
+      "nl": "Dat is een sleutel.",
+      "level": "A0",
+      "fa": "آن یک کلید است."
+    },
+    {
+      "nl": "Welke kleur is het?",
+      "level": "A0",
+      "fa": "چه رنگی است؟"
+    },
+    {
+      "nl": "Ik zoek een blauwe tas.",
+      "level": "A1",
+      "fa": "دنبال یک کیف آبی می‌گردم."
+    },
+    {
+      "nl": "Het is te groot.",
+      "level": "A1",
+      "fa": "خیلی بزرگ است."
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "Verkoper",
+      "nl": "Kan ik u helpen?",
+      "fa": "می‌توانم کمکتان کنم؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Ja, ik zoek een tas.",
+      "fa": "بله، دنبال یک کیف می‌گردم."
+    },
+    {
+      "speaker": "Verkoper",
+      "nl": "Welke kleur wilt u?",
+      "fa": "چه رنگی می‌خواهید؟"
+    },
+    {
+      "speaker": "Jij",
+      "nl": "Zwart of blauw, niet te groot.",
+      "fa": "سیاه یا آبی، نه خیلی بزرگ."
+    },
+    {
+      "speaker": "Verkoper",
+      "nl": "Kijk, deze blauwe tas is nieuw.",
+      "fa": "ببینید، این کیف آبی تازه آمده است."
+    }
+  ]
+}

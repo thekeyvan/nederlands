@@ -67,7 +67,6 @@ struct LevelTestView: View {
             .padding(.bottom, 12)
             .animation(.snappy, value: step)
         }
-        .overlay { if case .result = step { Confetti(count: 70, origin: UnitPoint(x: 0.5, y: 0.15)) } }
         .feedbackScreen("Niveautest", restoresOnClose: true)
         .onAppear(perform: shuffle)
     }
@@ -88,7 +87,7 @@ struct LevelTestView: View {
     private var intro: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 14) {
-                Mascot(mood: .think, size: 64, motion: .idle)
+                Mascot(mood: .think, size: 64)
                 Text("Je krijgt korte vragen, eerst heel makkelijk en daarna moeilijker. Weet je het niet? Kies dan gewoon. De test stopt vanzelf op jouw niveau.")
                     .font(.subheadline)
             }
@@ -128,8 +127,6 @@ struct LevelTestView: View {
                         .padding(.horizontal, 16).frame(maxWidth: .infinity, minHeight: 56)
                     }
                     .buttonStyle(PressableTile(fill: fill(for: option, item: item), radius: 18))
-                    .shake(when: picked == option && option != item.answer)
-                    .popOnChange(of: picked != nil && option == item.answer, scale: 1.05)
                     .disabled(picked != nil)
                 }
             }
@@ -142,10 +139,10 @@ struct LevelTestView: View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
         return VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 16) {
-                Mascot(mood: .cheer, size: 84, motion: .hopThenIdle)
+                Mascot(mood: .cheer, size: 84)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(level).font(.game(44, .black)).foregroundStyle(Color.brand).popIn(delay: 0.25, from: 0.2)
-                    Text(info.name).font(.game(20, .heavy)).popIn(delay: 0.4)
+                    Text(level).font(.game(44, .black)).foregroundStyle(Color.brand)
+                    Text(info.name).font(.game(20, .heavy))
                 }
             }
             Text("\(info.text) Thema’s voor jouw niveau staan voortaan bovenaan. Je kunt de test altijd opnieuw doen bij Instellingen.")

@@ -255,18 +255,9 @@ struct GameOver: View {
         let isBest = result.score > best && result.score > 0
         ScrollView {
             VStack(spacing: 16) {
-                let happy = isBest || (result.total.map { Double(result.score) / Double($0) >= 0.7 } ?? (result.score >= 10))
-                Mascot(mood: happy ? .cheer : .think, size: 170, motion: happy ? .hopThenIdle : .wiggle).padding(.top, 20)
+                Mascot(mood: isBest || (result.total.map { Double(result.score) / Double($0) >= 0.7 } ?? (result.score >= 10)) ? .cheer : .think, size: 170).padding(.top, 20)
                 Text(game.title).font(.caption.weight(.bold)).textCase(.uppercase).foregroundStyle(Color.brand)
-                Group {
-                    if let total = result.total { CountUp(to: result.score, suffix: " van de \(total) goed", delay: 0.3) } else { CountUp(to: result.score, suffix: " goed!", delay: 0.3) }
-                }
-                .font(.largeTitle.weight(.heavy))
-                if isBest {
-                    Label("Nieuw record", systemImage: "trophy.fill").font(.game(17, .black)).foregroundStyle(Color.goldInk)
-                        .padding(.horizontal, 14).padding(.vertical, 7).background(Color.butterSoft, in: Capsule())
-                        .popIn(delay: 1.1, from: 0.3)
-                }
+                Text(result.total.map { "\(result.score) van de \($0) goed" } ?? "\(result.score) goed!").font(.largeTitle.weight(.heavy))
                 Text(isBest ? (best > 0 ? "Nieuw record! Je vorige record was \(best)." : "Je eerste record staat erop.") : "Jouw record: \(max(best, result.score)).").foregroundStyle(.secondary)
                 if !result.misses.isEmpty {
                     VStack(alignment: .leading, spacing: 8) {
@@ -289,7 +280,6 @@ struct GameOver: View {
             }
             .padding()
         }
-        .overlay { if previousBest != nil && isBest { Confetti() } }
         .onAppear {
             if previousBest == nil {
                 previousBest = Preferences.shared.record(game: game.rawValue, score: result.score)

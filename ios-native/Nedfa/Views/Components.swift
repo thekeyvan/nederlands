@@ -180,8 +180,8 @@ struct StatChip: View {
     let color: Color
     var body: some View {
         HStack(spacing: 5) {
-            Image(systemName: systemImage).symbolRenderingMode(.hierarchical).symbolEffect(.bounce, value: value)
-            Text(value).monospacedDigit().contentTransition(.numericText())
+            Image(systemName: systemImage).symbolRenderingMode(.hierarchical)
+            Text(value).monospacedDigit()
         }
         .font(.game(16, .heavy))
         .foregroundStyle(color)
@@ -201,38 +201,14 @@ struct ThickProgress: View {
                 Capsule().fill(Color.track)
                 Capsule().fill(color)
                     .overlay(alignment: .top) { Capsule().fill(.white.opacity(0.3)).frame(height: height * 0.3).padding(.horizontal, height / 2).padding(.top, height * 0.18) }
-                    .overlay { ProgressShine(trigger: value) }
-                    .clipShape(Capsule())
                     .frame(width: max(height, proxy.size.width * min(1, max(0, value))))
                     .opacity(value > 0 ? 1 : 0)
-                    .popOnChange(of: value, scale: 1.04)
             }
         }
         .frame(height: height)
         .animation(.spring(duration: 0.4), value: value)
         .accessibilityElement()
         .accessibilityValue("\(Int(value * 100)) procent")
-    }
-}
-
-/// A light that sweeps over a progress bar each time it grows.
-private struct ProgressShine: View {
-    let trigger: Double
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    var body: some View {
-        GeometryReader { proxy in
-            LinearGradient(colors: [.clear, .white.opacity(0.55), .clear], startPoint: .leading, endPoint: .trailing)
-                .frame(width: max(24, proxy.size.width * 0.35))
-                .keyframeAnimator(initialValue: CGFloat(-1), trigger: trigger) { view, x in
-                    view.offset(x: x * proxy.size.width * 1.4)
-                } keyframes: { _ in
-                    KeyframeTrack {
-                        LinearKeyframe(-0.4, duration: 0.01)
-                        CubicKeyframe(1.1, duration: reduceMotion ? 0.01 : 0.6)
-                    }
-                }
-        }
-        .allowsHitTesting(false)
     }
 }
 
@@ -308,21 +284,17 @@ enum Mood: String { case wave, cheer, think, sleep }
 struct Mascot: View {
     var mood: Mood = .wave
     var size: CGFloat = 64
-    /// Still by default; `.idle` breathes, `.hop` and `.wiggle` react (see Motion.swift).
-    var motion: MascotMotion = .none
-    var trigger = 0
-    var body: some View { Art(name: "mascot/\(mood.rawValue)", size: size).mascotMotion(motion, trigger: trigger) }
+    var body: some View { Art(name: "mascot/\(mood.rawValue)", size: size) }
 }
 
 /// The mascot standing on a soft shadow, as the hero of a card.
 struct HeroMascot: View {
     var mood: Mood = .wave
     var size: CGFloat = 110
-    var motion: MascotMotion = .idle
     var body: some View {
         ZStack(alignment: .bottom) {
             Ellipse().fill(.black.opacity(0.22)).frame(width: size * 0.7, height: size * 0.12).blur(radius: 3).offset(y: 4)
-            Mascot(mood: mood, size: size, motion: motion)
+            Mascot(mood: mood, size: size)
         }
     }
 }

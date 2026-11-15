@@ -6,9 +6,9 @@ import {mascotPose, type MascotPose} from '@/lib/illustrations';
 /**
  * The cut-out mascot, standing on a soft shadow. Only the character moves, never a picture frame,
  * and only once: `moment` plays when it appears (a right or wrong answer, a combo, a finished round,
- * the first visit). Without a moment it stands still. Same moments as MascotActor in the iPhone app.
+ * the first visit, a card you got wrong before). Without a moment it stands still. Same moments as MascotActor in the iPhone app.
  */
-export type MascotMoment = 'hop' | 'double' | 'nope' | 'greet';
+export type MascotMoment = 'hop' | 'double' | 'nope' | 'greet' | 'ponder';
 
 export function MascotActor({pose, moment, stars = false, delay = 0, className, label}: {
   pose: MascotPose; moment?: MascotMoment; stars?: boolean; delay?: number; className?: string; label?: string;

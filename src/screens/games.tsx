@@ -24,8 +24,17 @@ const sections: {title: string; ids: GameId[]}[] = [
   {title: 'Luisteren & spreken', ids: ['dictee', 'gesprek']},
 ];
 
-/** Rows of games, grouped by skill. Shared by the Spellen tab and a theme's "Spelen" sheet. */
-export function GameList({theme, onPick}: {theme: string; onPick?: () => void}) {
+/** The challenge of the week: one game in the spotlight, the same one as in the iPhone app (ISO week number). */
+const weeklyOrder: GameId[] = ['lidwoord', 'tijdrace', 'zinsbouwer', 'aanvullen', 'werkwoorden', 'dictee', 'gesprek'];
+export function weeklyGame(date = new Date()): GameId {
+  const day = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  day.setUTCDate(day.getUTCDate() + 4 - (day.getUTCDay() || 7));
+  const week = Math.ceil(((day.getTime() - Date.UTC(day.getUTCFullYear(), 0, 1)) / 86400000 + 1) / 7);
+  return weeklyOrder[week % weeklyOrder.length];
+}
+
+/** Rows of games, grouped by skill. Shared by the Arcade tab and a theme's "Spelen" sheet. */
+export function GameList({theme, onPick, exclude}: {theme: string; onPick?: () => void; exclude?: GameId}) {
   const {records} = useGameRecords();
   const {playGame} = usePractice();
   return (
@@ -34,7 +43,7 @@ export function GameList({theme, onPick}: {theme: string; onPick?: () => void}) 
         <div key={section.title}>
           <GroupLabel className={index === 0 ? 'mt-0' : undefined}>{section.title}</GroupLabel>
           <Group>
-            {section.ids.map((id) => {
+            {section.ids.filter((id) => id !== exclude).map((id) => {
               const game = gameInfo(id)!;
               const record = records[id];
               return (
@@ -54,9 +63,10 @@ export function GameList({theme, onPick}: {theme: string; onPick?: () => void}) 
 export function GamesScreen() {
   const [theme, setTheme] = useState('all');
   const themeTitle = themes.find((item) => item.id === theme)?.title;
+  const weekly = weeklyGame();
   return (
     <Page>
-      <ScreenTitle title="Spellen" action={
+      <ScreenTitle title="Arcade" action={
         <Select value={theme} onValueChange={setTheme}>
           <SelectTrigger size="sm" className="h-8 max-w-48 gap-1 rounded-full bg-card px-3 text-xs [&>svg:last-child]:hidden" aria-label="Speel met woorden uit">
             <span className="truncate">{themeTitle ?? 'Alle thema’s'}</span><ChevronDown className="size-3.5 opacity-60" />
@@ -67,8 +77,33 @@ export function GamesScreen() {
           </SelectContent>
         </Select>
       } />
-      <div className="max-w-2xl"><GameList theme={theme} /></div>
+      <div className="max-w-2xl">
+        <WeeklyCard id={weekly} theme={theme} />
+        <GameList theme={theme} exclude={weekly} />
+      </div>
     </Page>
+  );
+}
+
+/** The big orange card for the challenge of the week. */
+function WeeklyCard({id, theme}: {id: GameId; theme: string}) {
+  const {records} = useGameRecords();
+  const {playGame} = usePractice();
+  const game = gameInfo(id)!;
+  const record = records[id];
+  return (
+    <button type="button" onClick={() => playGame(id, theme)}
+      className="mb-2 flex w-full items-start gap-3 rounded-3xl bg-primary p-5 text-left text-primary-foreground shadow-[0_5px_0_var(--primary-edge)] transition active:translate-y-1 active:shadow-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
+      <span className="flex min-w-0 flex-1 flex-col items-start gap-2">
+        <span className="rounded-full bg-white/22 px-2.5 py-1 text-[11px] font-extrabold tracking-wide uppercase">Uitdaging van de week</span>
+        <span className="text-[26px] leading-tight font-black">{game.title}</span>
+        <span className="text-sm font-semibold opacity-90">{game.length}</span>
+        <span className="mt-2 inline-flex h-11 items-center gap-2 rounded-2xl bg-white px-4 font-black text-primary shadow-[0_4px_0_#f7c9a3]">
+          <Play className="size-4 fill-current" aria-hidden />{record ? `Speel · record ${record.best}` : 'Speel'}
+        </span>
+      </span>
+      <img src={game.image} alt="" className="mt-6 size-28 shrink-0 rotate-[4deg] rounded-[28px] bg-[#fcfaf6] object-cover sm:size-32" draggable={false} />
+    </button>
   );
 }
 

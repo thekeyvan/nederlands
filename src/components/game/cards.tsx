@@ -50,6 +50,18 @@ export function StreakCard({stats, week, className}: {stats: GameStats; week: We
   );
 }
 
+/** The level number on a gold coin, with a thin ring that fills towards the next level (as in the iPhone app). */
+export function LevelCoin({stats, className}: {stats: GameStats; className?: string}) {
+  const {level} = stats;
+  return (
+    <span className={cn('relative grid size-11 shrink-0 place-items-center rounded-full', className)} aria-hidden
+      style={{background: `conic-gradient(var(--xp) ${Math.round(level.progress * 360)}deg, color-mix(in oklab, var(--xp) 22%, transparent) 0)`}}>
+      <span className="absolute inset-[3.5px] rounded-full bg-background" />
+      <span className="relative grid size-[30px] place-items-center rounded-full bg-xp text-[15px] font-black text-[#24416a] tabular-nums">{level.number}</span>
+    </span>
+  );
+}
+
 export function LevelCard({stats, className}: {stats: GameStats; className?: string}) {
   const {level, xp} = stats;
   return (

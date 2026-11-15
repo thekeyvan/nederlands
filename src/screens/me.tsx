@@ -7,7 +7,7 @@ import {Switch} from '@/components/ui/switch';
 import {setStatsEnabled, statsEnabled} from '@/lib/stats';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {ToggleGroup, ToggleGroupItem} from '@/components/ui/toggle-group';
-import {LevelCard, MissionsCard, StampsCard, StreakCard} from '@/components/game/cards';
+import {LevelCard, StampsCard, StreakCard} from '@/components/game/cards';
 import {Mascot} from '@/components/game/mascot';
 import {sceneFor} from '@/lib/illustrations';
 import {Stars} from '@/components/game/stars';
@@ -58,7 +58,6 @@ export function MeScreen() {
           <StreakCard stats={game} week={week} />
         </div>
         <div className="flex flex-col gap-4">
-          <MissionsCard events={game.progress.events} />
           <StampsCard stats={game} labels />
           {themeRows.length > 0 && (
             <div>

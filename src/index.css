@@ -163,12 +163,14 @@
   100% { transform: rotate(0) translateY(0); }
 }
 @keyframes mascot-greet { 0% { transform: translateY(0); } 30% { transform: translateY(-9%) rotate(-3deg); } 60% { transform: translateY(0) scale(1.04, 0.96); } 100% { transform: translateY(0); } }
+@keyframes mascot-ponder { 0% { transform: rotate(0); } 35% { transform: rotate(-6deg); } 100% { transform: rotate(-3deg); } }
 @keyframes mascot-star { 0% { opacity: 0; transform: translate(0, 0) scale(0.4); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.1) rotate(160deg); } }
 .mascot-body { transform-origin: 50% 92%; animation-fill-mode: both; }
 .mascot-body.hop { animation: mascot-hop 700ms cubic-bezier(.3, .7, .4, 1) both; }
 .mascot-body.double { animation: mascot-double 1150ms cubic-bezier(.3, .7, .4, 1) both; }
 .mascot-body.nope { animation: mascot-nope 620ms ease-out both; }
 .mascot-body.greet { animation: mascot-greet 650ms ease-out both; }
+.mascot-body.ponder { animation: mascot-ponder 500ms ease-out both; }
 .mascot-shadow.hop { animation: mascot-hop-shadow 700ms cubic-bezier(.3, .7, .4, 1) both; }
 .mascot-shadow.double { animation: mascot-double-shadow 1150ms cubic-bezier(.3, .7, .4, 1) both; }
 .mascot-star { animation: mascot-star 850ms ease-out both; }

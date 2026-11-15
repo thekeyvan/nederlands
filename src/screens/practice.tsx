@@ -157,6 +157,8 @@ const poolFor = (card: LearningCard) => (cardKind(card) === 'phrase' ? phrases :
 function ChooseCard({card, field, outcome, onSubmit}: {card: LearningCard; field: 'meaning' | 'nl'; outcome: Outcome | null; onSubmit: (outcome: Outcome) => void}) {
   const options = useMemo(() => buildOptions(card, poolFor(card), field), [card, field]);
   const [chosen, setChosen] = useState<string | null>(null);
+  // A card the learner got wrong last time: the mascot tilts its head and thinks (as in the iPhone app).
+  const [hard] = useState(() => (getProgress().reviews[card.id]?.grade ?? 5) < 3);
   const pick = (option: Option) => {
     if (outcome) return;
     setChosen(option.id);
@@ -167,6 +169,7 @@ function ChooseCard({card, field, outcome, onSubmit}: {card: LearningCard; field
       <p className="font-semibold text-muted-foreground">{field === 'meaning' ? 'Wat betekent dit?' : 'Hoe zeg je dit in het Nederlands?'}</p>
       {field === 'nl' && <Translation className="text-sm text-muted-foreground">{t('reverseHint')}</Translation>}
       <div className="my-6 flex items-center gap-4 sm:my-8">
+        <MascotActor pose="think" moment={hard ? 'ponder' : undefined} delay={250} className="-my-3 size-20 shrink-0 sm:size-24" />
         {field === 'meaning' ? (
           <>
             <ListenButton text={card.nl!} variant="info" size="icon-lg" className="size-14 rounded-xl shadow-[0_4px_0_var(--info)]" />

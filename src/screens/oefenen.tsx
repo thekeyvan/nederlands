@@ -1,11 +1,13 @@
 import {useMemo, useState} from 'react';
-import {ArrowRight, ChevronDown, Flame} from 'lucide-react';
+import {ArrowRight, ChevronDown, Flame, Star} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {Button} from '@/components/ui/button';
 import {Select, SelectContent, SelectItem, SelectTrigger} from '@/components/ui/select';
 import {GoalRing} from '@/components/game/goal-ring';
 import {ThemeArt} from '@/components/game/theme-art';
-import {Group, GroupLabel, Row, ScreenTitle} from '@/components/app/list';
+import {Group, GroupLabel, Row} from '@/components/app/list';
+import {LevelCoin, MissionsCard} from '@/components/game/cards';
+import {RouteStrip} from '@/components/game/route-strip';
 import {Mascot} from '@/components/game/mascot';
 import {practiceScene, sceneFor} from '@/lib/illustrations';
 import {SignInNudge} from '@/components/app/sign-in';
@@ -20,7 +22,7 @@ import {levelInfo, startTheme, suggestedThemes} from '@/core/level.js';
 import {openLevelTest} from '@/components/level-test';
 import type {Card, Level, Theme} from '@/core/types';
 
-/** The start screen: today's mixed round, then one list of focused rounds. */
+/** Vandaag, the start screen (same as the iPhone app): level and streak, today's round, your level, the path, missions and focused rounds. */
 export function OefenenScreen() {
   const game = useGame();
   const [preferences] = usePreferences();
@@ -57,11 +59,20 @@ export function OefenenScreen() {
 
   return (
     <Page wide>
-      <ScreenTitle title="Oefenen" action={
-        <button type="button" onClick={() => navigate('voortgang', {root: true})} className="rounded-full focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none lg:hidden" aria-label={`Reeks van ${game.streak.count} dagen. Bekijk je voortgang.`}>
-          <Badge variant="streak" className="h-8 px-3 text-sm"><Flame />{game.streak.count}</Badge>
+      <h1 className="sr-only">Vandaag</h1>
+      <header className="mb-4 flex items-center gap-3 pt-2 lg:pt-0">
+        <button type="button" onClick={() => navigate('voortgang', {root: true})} className="flex min-w-0 items-center gap-2.5 rounded-full text-left focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none" aria-label={`Niveau ${game.level.number}, ${game.level.name}. Bekijk je voortgang.`}>
+          <LevelCoin stats={game} />
+          <span className="min-w-0">
+            <span className="block text-[11px] font-extrabold tracking-wider text-muted-foreground uppercase">Niveau {game.level.number}</span>
+            <span className="block truncate text-[17px] leading-tight font-black">{game.level.name}</span>
+          </span>
         </button>
-      } />
+        <div className="ml-auto flex shrink-0 gap-2">
+          <Badge variant="streak" className="h-8 px-3 text-sm" aria-label={`Reeks van ${game.streak.count} dagen`}><Flame />{game.streak.count}</Badge>
+          <Badge variant="xp" className="h-8 px-3 text-sm" aria-label={`${game.xp} XP`}><Star />{game.xp}</Badge>
+        </div>
+      </header>
       <div className="grid gap-x-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <div className="flex min-w-0 flex-col gap-4">
           <section aria-labelledby="daily-title" className="rounded-2xl bg-secondary p-4 text-secondary-foreground shadow-[0_4px_0_var(--secondary-edge)] sm:p-5">
@@ -81,6 +92,11 @@ export function OefenenScreen() {
           </section>
           <SignInNudge />
           <LevelCard level={level} suggestions={suggestedThemes(themes, level, (id) => game.themes.find((item) => item.theme.id === id)?.stats, 3)} />
+          <div>
+            <GroupLabel className="mt-2" action={<span className="text-xs font-semibold text-muted-foreground tabular-nums">Halte {Math.min(game.route.current + 1, game.route.steps.length)} van {game.route.steps.length}</span>}>Jouw pad</GroupLabel>
+            <div className="rounded-2xl border bg-card px-3 pb-2"><RouteStrip route={game.route} /></div>
+          </div>
+          <MissionsCard events={events} />
           <div>
             <GroupLabel className="mt-2" action={
               <Select value={theme} onValueChange={setTheme}>

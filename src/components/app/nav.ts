@@ -7,9 +7,9 @@ export interface NavItem {panel: Panel; label: string; icon: LucideIcon}
 
 /** The four sections, the same in the phone's tab bar and the laptop's sidebar. */
 export const tabs: NavItem[] = [
-  {panel: 'oefenen', label: 'Oefenen', icon: Zap},
+  {panel: 'oefenen', label: 'Vandaag', icon: Zap},
   {panel: 'woorden', label: 'Leren', icon: BookOpen},
-  {panel: 'spellen', label: 'Spellen', icon: Gamepad2},
+  {panel: 'spellen', label: 'Arcade', icon: Gamepad2},
   {panel: 'voortgang', label: 'Ik', icon: UserRound},
 ];
 

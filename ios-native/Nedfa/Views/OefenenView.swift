@@ -237,12 +237,13 @@ struct DailyCard: View {
                         .padding(.top, 6)
                 }
                 Spacer(minLength: 0)
-                HeroMascot(mood: reached ? .cheer : count > 0 ? .wave : .sleep, size: 108)
+                HeroMascot(mood: reached ? .cheer : count > 0 ? .wave : .sleep, size: 108, motion: reached ? .hopThenIdle : .idle)
             }
             Button(action: start) {
                 HStack(spacing: 10) { Text(reached ? "Nog een rondje" : today > 0 ? "Speel verder" : "Start"); Image(systemName: "play.fill") }
             }
             .buttonStyle(GameButtonStyle())
+            .pulse(today == 0 && count > 0)
             .disabled(count == 0)
         }
         .padding(20)

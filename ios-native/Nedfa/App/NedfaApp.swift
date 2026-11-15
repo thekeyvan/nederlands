@@ -5,15 +5,20 @@ import UserNotifications
 struct NedfaApp: App {
     @State private var preferences = Preferences.shared
     @State private var cloud = Cloud.shared
+    /// The animated splash plays once per launch, over the app that is already loading underneath.
+    @State private var splash = true
 
     var body: some Scene {
         WindowGroup {
-            Group {
-                if preferences.welcomeDone || cloud.user != nil {
-                    RootView()
-                } else {
-                    WelcomeView()
+            ZStack {
+                Group {
+                    if preferences.welcomeDone || cloud.user != nil {
+                        RootView()
+                    } else {
+                        WelcomeView()
+                    }
                 }
+                if splash { SplashView { splash = false }.zIndex(1) }
             }
             .tint(.brand)
             .preferredColorScheme(preferences.appearance == "light" ? .light : preferences.appearance == "dark" ? .dark : nil)

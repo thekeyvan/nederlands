@@ -84,7 +84,7 @@ struct IkView: View {
 
     @ViewBuilder private func profile(_ stats: Stats) -> some View {
         HStack(spacing: 16) {
-            Mascot(mood: stats.streak.today ? .cheer : .wave, size: 84)
+            Mascot(mood: stats.streak.today ? .cheer : .wave, size: 84, motion: .idle)
             VStack(alignment: .leading, spacing: 6) {
                 if let user = cloud.user {
                     Text(user.name.isEmpty ? "Mijn account" : user.name).font(.game(22, .black)).lineLimit(1)
@@ -371,7 +371,7 @@ struct WelcomeView: View {
     var body: some View {
         VStack(spacing: 18) {
             Spacer()
-            Mascot(mood: .wave, size: 150)
+            Mascot(mood: .wave, size: 150, motion: .hopThenIdle)
             Text("NEDFA · NEDERLANDS VAN NUL TOT B1").font(.caption.weight(.bold)).foregroundStyle(Color.brand).tracking(1)
             Text("Elke dag een beetje Nederlands.").font(.largeTitle.weight(.heavy)).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
             Text("Thema’s met audio, spellen en slim herhalen. Een paar minuten per dag is genoeg.").foregroundStyle(.secondary).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)

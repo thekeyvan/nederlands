@@ -18,6 +18,7 @@ struct RoundView: View {
     @State private var results: [(cardId: String, grade: Int, correct: Bool)] = []
     @State private var combo = 0
     @State private var bestCombo = 0
+    @State private var comboBanner: Int?
     @State private var confirmQuit = false
     @State private var before = Stats(reviews: Learner.shared.reviews, events: Learner.shared.events)
 
@@ -45,13 +46,28 @@ struct RoundView: View {
                         .accessibilityLabel("Stoppen met oefenen")
                         ThickProgress(value: Double(results.count) / Double(max(1, round.cards.count)), color: .mint, height: 16)
                             .accessibilityLabel("\(index + 1) van \(round.cards.count)")
-                        HStack(spacing: 3) { Image(systemName: "flame.fill"); Text("\(combo)").monospacedDigit() }
-                            .font(.game(17, .black)).foregroundStyle(combo >= 2 ? Color.brand : Color.secondary.opacity(0.5))
+                        HStack(spacing: 3) {
+                            Image(systemName: "flame.fill").symbolEffect(.bounce, value: combo)
+                            Text("\(combo)").monospacedDigit().contentTransition(.numericText())
+                        }
+                        .font(.game(17, .black)).foregroundStyle(combo >= 2 ? Color.brand : Color.secondary.opacity(0.5))
+                        .animation(.snappy, value: combo)
                             .accessibilityLabel("Combo \(combo)")
                     }
                     .padding(.horizontal, 20).padding(.top, 8).padding(.bottom, 4)
                     .background(Color.ground)
                     .scrollEdgeFade()
+                }
+            }
+            .overlay(alignment: .top) {
+                if let comboBanner {
+                    Label("\(comboBanner) goed op rij!", systemImage: "flame.fill")
+                        .font(.game(19, .black)).foregroundStyle(.white)
+                        .padding(.horizontal, 18).padding(.vertical, 10)
+                        .background(Capsule().fill(Color.brand).shadow(color: Color.brandEdge.opacity(0.5), radius: 0, y: 4))
+                        .padding(.top, 10)
+                        .transition(.scale(scale: 0.4).combined(with: .opacity))
+                        .allowsHitTesting(false)
                 }
             }
             .gameBackground()
@@ -75,7 +91,17 @@ struct RoundView: View {
         bestCombo = max(bestCombo, combo)
         if result.correct { Haptics.success() } else { Haptics.error() }
         if card.mode == nil, result.correct, card.kind != .grammar, let nl = card.nl { Audio.shared.play(nl) }
-        outcome = result
+        withAnimation(.spring(response: 0.38, dampingFraction: 0.82)) { outcome = result }
+        if [3, 5, 10, 15, 20, 30].contains(combo) { showCombo(combo) }
+    }
+
+    private func showCombo(_ count: Int) {
+        Haptics.pop()
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) { comboBanner = count }
+        Task {
+            try? await Task.sleep(for: .seconds(1.6))
+            withAnimation(.easeIn(duration: 0.25)) { if comboBanner == count { comboBanner = nil } }
+        }
     }
 
     private func next() {
@@ -115,6 +141,7 @@ struct CardRunner: View {
             .padding(.bottom, 200)
         }
         .scrollDismissesKeyboard(.interactively)
+        .shake(when: outcome?.correct == false && [.type, .gap, .order].contains(mode ?? .flash))
         .onAppear { if mode == nil { mode = Planner.mode(for: card, review: Learner.shared.reviews[card.id], position: position) } }
     }
 }
@@ -148,7 +175,10 @@ struct OptionList: View {
                     .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(right ? Color.mint : wrong ? Color.danger : .clear, lineWidth: 3))
                 }
                 .buttonStyle(PressableTile(fill: right ? Color.mintSoft : wrong ? Color.dangerSoft : .surface, edge: right ? .mintEdge : wrong ? .dangerEdge : .edge))
+                .shake(when: wrong)
+                .popOnChange(of: right, scale: 1.06)
                 .opacity(outcome != nil && !right && !wrong ? 0.45 : 1)
+                .animation(.easeOut(duration: 0.2), value: outcome != nil)
                 .disabled(outcome != nil)
             }
         }
@@ -162,7 +192,7 @@ struct PromptBubble<Content: View>: View {
     @ViewBuilder var content: () -> Content
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            Mascot(mood: mood, size: 84)
+            Mascot(mood: mood, size: 84, motion: .idle)
             content()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16)
@@ -388,6 +418,7 @@ struct FeedbackPanel: View {
     let card: Card
     let outcome: Outcome
     let next: () -> Void
+    @State private var praise = ["Top!", "Goed zo!", "Precies!", "Lekker bezig!", "Knap!", "Ja, dat is 'm!"].randomElement()!
     var body: some View {
         let good = outcome.result == .correct
         let close = outcome.result == .close
@@ -396,13 +427,16 @@ struct FeedbackPanel: View {
         let answerText = whole ? card.example : card.kind == .grammar ? card.answer : card.nl
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                Mascot(mood: good || close ? .cheer : .think, size: 56)
+                Mascot(mood: good || close ? .cheer : .think, size: 56, motion: good || close ? .hop : .wiggle)
+                    .background { if good { SparkleBurst(radius: 44) } }
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(good ? "Top!" : close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.game(22, .black)).foregroundStyle(ink)
+                    Text(good ? praise : close ? (outcome.hint == "article" ? "Bijna! Let op de of het." : "Bijna! Kleine typfout.") : "Nog niet. Dit is het:").font(.game(22, .black)).foregroundStyle(ink)
+                        .popIn(delay: 0.05, from: 0.7)
                     if outcome.result != .correct || card.kind == .grammar, let answerText { Text(answerText).font(.headline) }
                 }
                 Spacer(minLength: 0)
                 Text("+\(XP.forGrade(outcome.grade)) XP").font(.game(16, .black)).foregroundStyle(Color.goldInk)
+                    .popIn(delay: 0.2, from: 0.3)
             }
             if card.kind != .grammar, let example = card.example {
                 HStack(alignment: .top) {
@@ -425,7 +459,8 @@ struct FeedbackPanel: View {
     }
 }
 
-/// The end of a round: the mascot cheers, XP, right answers, streak, new stamps.
+/// The end of a round: stars pop in one by one, the numbers count up, confetti, and cards for a longer streak,
+/// a new level or a new stamp.
 struct RoundSummary: View {
     let round: Round
     let results: [(cardId: String, grade: Int, correct: Bool)]
@@ -434,53 +469,89 @@ struct RoundSummary: View {
     let again: () -> Void
     let done: () -> Void
     @State private var progress = Learner.shared
+    @State private var starsShown = 0
+    @State private var confetti = false
 
     var body: some View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
         let right = results.filter(\.correct).count
         let xp = results.reduce(0) { $0 + XP.forGrade($1.grade) }
+        let stars = starCount(right: right)
         let newStamps = Content.shared.stamps.filter { stats.earned.contains($0.id) && !before.earned.contains($0.id) }
+        let streakGrew = stats.streak.count > before.streak.count
+        let levelUp = stats.level.number > before.level.number
         ScrollView {
             VStack(spacing: 18) {
                 if !results.isEmpty {
                     HStack(alignment: .bottom, spacing: 8) {
                         ForEach(0..<3, id: \.self) { star in
+                            let shown = star < starsShown
                             Image(systemName: "star.fill").font(.system(size: star == 1 ? 64 : 46))
-                                .foregroundStyle(star < starCount(right: right) ? Color.butter : .white.opacity(0.18))
-                                .rotationEffect(.degrees(star == 0 ? -12 : star == 2 ? 12 : 0))
+                                .foregroundStyle(star < stars ? Color.butter : .white.opacity(0.18))
+                                .shadow(color: star < stars && shown ? Color.butter.opacity(0.6) : .clear, radius: 12)
+                                .scaleEffect(shown ? 1 : 0.1)
+                                .rotationEffect(.degrees(shown ? (star == 0 ? -12 : star == 2 ? 12 : 0) : -120))
+                                .opacity(shown ? 1 : 0)
                         }
                     }
+                    .frame(height: 70)
                     .padding(.top, 30)
+                    .accessibilityElement()
+                    .accessibilityLabel("\(stars) van de 3 sterren")
                 }
-                HeroMascot(mood: results.isEmpty ? .sleep : .cheer, size: 170).padding(.top, results.isEmpty ? 40 : 0)
-                Text(results.isEmpty ? "Je bent weer bij." : "Rondje klaar!").font(.game(34, .black)).foregroundStyle(.white)
+                HeroMascot(mood: results.isEmpty ? .sleep : .cheer, size: 170, motion: results.isEmpty ? .idle : .hopThenIdle).padding(.top, results.isEmpty ? 40 : 0)
+                Text(results.isEmpty ? "Je bent weer bij." : "Rondje klaar!").font(.game(34, .black)).foregroundStyle(.white).popIn(delay: 0.15, from: 0.5)
                 if !results.isEmpty {
-                    Text(right == results.count ? "Alles goed. Wat knap!" : right * 2 >= results.count ? "Lekker bezig. De moeilijke komen snel terug." : "Goed geoefend. Morgen gaat het al makkelijker.").foregroundStyle(.white.opacity(0.75)).multilineTextAlignment(.center)
+                    Text(right == results.count ? "Alles goed. Wat knap!" : right * 2 >= results.count ? "Lekker bezig. De moeilijke komen snel terug." : "Goed geoefend. Morgen gaat het al makkelijker.")
+                        .foregroundStyle(.white.opacity(0.75)).multilineTextAlignment(.center).popIn(delay: 0.3, from: 0.9)
                     HStack(spacing: 10) {
-                        tile("XP", "+\(xp)", .goldInk, .goldEdge)
-                        tile("Goed", "\(right)/\(results.count)", .success, .mintEdge)
-                        tile("Reeks", "\(stats.streak.count)", .brand, .brandEdge)
+                        tile("XP", .goldInk, .goldEdge) { CountUp(to: xp, prefix: "+", delay: 1.1) }.popIn(delay: 0.95)
+                        tile("Goed", .success, .mintEdge) { CountUp(to: right, suffix: "/\(results.count)", delay: 1.2, duration: 0.6) }.popIn(delay: 1.05)
+                        tile("Reeks", .brand, .brandEdge) { CountUp(to: stats.streak.count, from: before.streak.count, delay: 1.5, duration: 0.4) }.popIn(delay: 1.15)
                     }
-                    if bestCombo >= 3 { Label("Beste combo: \(bestCombo) goed op rij", systemImage: "flame.fill").font(.subheadline.weight(.semibold)).foregroundStyle(.white) }
-                    if stats.level.number > before.level.number {
-                        HStack(spacing: 12) { LevelRing(number: stats.level.number, progress: stats.level.progress); VStack(alignment: .leading) { Eyebrow("Nieuw niveau", color: .butter); Text(stats.level.name).font(.game(18, .black)).foregroundStyle(.white) } ; Spacer() }
-                            .padding(14).background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    if bestCombo >= 3 {
+                        Label("Beste combo: \(bestCombo) goed op rij", systemImage: "flame.fill").font(.subheadline.weight(.semibold)).foregroundStyle(.white).popIn(delay: 1.4)
                     }
-                    ForEach(newStamps) { stamp in
-                        HStack(spacing: 12) { Art(name: "stamps/\(stamp.id)", size: 58); VStack(alignment: .leading) { Eyebrow("Nieuwe stempel", color: .butter); Text(stamp.title).font(.game(18, .black)).foregroundStyle(.white); Text(stamp.description).font(.footnote).foregroundStyle(.white.opacity(0.7)) }; Spacer() }
-                            .padding(14).background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    if streakGrew {
+                        StreakCard(count: stats.streak.count).popIn(delay: 1.7, from: 0.4)
+                    }
+                    if levelUp {
+                        HStack(spacing: 12) {
+                            LevelRing(number: stats.level.number, progress: stats.level.progress).coinSpin(delay: 2.1)
+                            VStack(alignment: .leading) { Eyebrow("Nieuw niveau", color: .butter); Text(stats.level.name).font(.game(18, .black)).foregroundStyle(.white) }
+                            Spacer()
+                        }
+                        .padding(14).background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                        .popIn(delay: 1.9, from: 0.4)
+                    }
+                    ForEach(Array(newStamps.enumerated()), id: \.element.id) { index, stamp in
+                        HStack(spacing: 12) {
+                            Art(name: "stamps/\(stamp.id)", size: 58).stampSlam(delay: 2.2 + Double(index) * 0.45)
+                            VStack(alignment: .leading) { Eyebrow("Nieuwe stempel", color: .butter); Text(stamp.title).font(.game(18, .black)).foregroundStyle(.white); Text(stamp.description).font(.footnote).foregroundStyle(.white.opacity(0.7)) }
+                            Spacer()
+                        }
+                        .padding(14).background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                        .popIn(delay: 2.0 + Double(index) * 0.45, from: 0.8)
                     }
                 }
-                Button(action: done) { Text("Verder") }.buttonStyle(GameButtonStyle()).padding(.top, 8)
+                Button(action: done) { Text("Verder") }.buttonStyle(GameButtonStyle()).padding(.top, 8).popIn(delay: results.isEmpty ? 0.3 : 1.3, from: 0.9)
                 Button("Nog een rondje", action: again).font(.headline).foregroundStyle(.white.opacity(0.85)).frame(minHeight: 44)
             }
             .padding(20)
         }
         .background(Color.navy.ignoresSafeArea())
-        .onAppear {
+        .overlay { if confetti { Confetti(origin: UnitPoint(x: 0.5, y: 0.12)).ignoresSafeArea() } }
+        .task {
             guard !results.isEmpty else { return }
             Haptics.success()
             Analytics.shared.event("ronde klaar", ["soort": round.drill ? "patroon" : "mix", "kaartjes": results.count, "goed": results.filter(\.correct).count])
+            try? await Task.sleep(for: .milliseconds(350))
+            for star in 0..<3 {
+                withAnimation(.spring(response: 0.42, dampingFraction: 0.5)) { starsShown = star + 1 }
+                if star < stars { Haptics.pop(0.5 + Double(star) * 0.25) }
+                try? await Task.sleep(for: .milliseconds(260))
+            }
+            if stars >= 2 { confetti = true }
         }
     }
 
@@ -490,13 +561,39 @@ struct RoundSummary: View {
         return share >= 0.9 ? 3 : share >= 0.6 ? 2 : 1
     }
 
-    private func tile(_ label: String, _ value: String, _ ink: Color, _ edge: Color) -> some View {
+    private func tile<Value: View>(_ label: String, _ ink: Color, _ edge: Color, @ViewBuilder value: () -> Value) -> some View {
         VStack(spacing: 2) {
             Text(label.uppercased()).font(.caption2.weight(.heavy)).tracking(0.6).foregroundStyle(ink)
-            Text(value).font(.game(24, .black)).foregroundStyle(Color(light: 0x141B2B, dark: 0x141B2B)).monospacedDigit()
+            value().font(.game(24, .black)).foregroundStyle(Color(light: 0x141B2B, dark: 0x141B2B))
         }
         .frame(maxWidth: .infinity).padding(.vertical, 12)
         .tile(radius: 20, fill: .white, edge: edge, depth: 5)
+    }
+}
+
+/// "Je reeks: 6 dagen": a dancing flame, shown when today's practice made the streak longer.
+struct StreakCard: View {
+    let count: Int
+    @State private var dance = 0
+    var body: some View {
+        HStack(spacing: 14) {
+            Image(systemName: "flame.fill")
+                .font(.system(size: 40, weight: .bold))
+                .foregroundStyle(LinearGradient(colors: [.butter, .brand], startPoint: .top, endPoint: .bottom))
+                .symbolEffect(.bounce.up, options: .repeat(3), value: dance)
+            VStack(alignment: .leading, spacing: 2) {
+                Eyebrow("Reeks", color: .butter)
+                Text(count == 1 ? "Je eerste dag!" : "\(count) dagen op rij!").font(.game(20, .black)).foregroundStyle(.white)
+                Text("Kom morgen terug om hem vast te houden.").font(.footnote).foregroundStyle(.white.opacity(0.7))
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(14).background(Color.brand.opacity(0.22), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .task {
+            try? await Task.sleep(for: .milliseconds(1900))
+            dance += 1
+            Haptics.pop(0.6)
+        }
     }
 }
 

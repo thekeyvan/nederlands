@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "Ik denk dat + onderwerp + ... + werkwoord",
   "example": "Ik denk dat hij morgen moet werken.",
-  "prompt": "Ik denk dat hij morgen ___ werken.",
+  "prompt": "Ik denk dat hij morgen ___ werken. (moeten)",
   "answer": "moet",
   "fa": {
     "rule": "بعد از dat، فعل یا گروه فعل‌ها به انتهای بخش وابسته می‌رود.",
@@ -16,17 +16,20 @@
     {
       "nl": "Ik denk dat het morgen gaat regenen.",
       "gap": "gaat",
-      "fa": "فکر می‌کنم فردا باران می‌بارد."
+      "fa": "فکر می‌کنم فردا باران می‌بارد.",
+      "hint": "gaan"
     },
     {
       "nl": "Ze zegt dat ze vandaag thuis werkt.",
       "gap": "werkt",
-      "fa": "می‌گوید امروز در خانه کار می‌کند."
+      "fa": "می‌گوید امروز در خانه کار می‌کند.",
+      "hint": "werken"
     },
     {
       "nl": "Ik hoop dat je snel beter wordt.",
       "gap": "wordt",
-      "fa": "امیدوارم زود خوب شوی."
+      "fa": "امیدوارم زود خوب شوی.",
+      "hint": "worden"
     }
   ]
 }

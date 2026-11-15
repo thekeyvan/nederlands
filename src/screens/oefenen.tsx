@@ -12,7 +12,7 @@ import {useGame} from '@/hooks/use-progress';
 import {usePractice} from '@/hooks/use-practice';
 import {usePreferences} from '@/hooks/use-preferences';
 import {navigate} from '@/hooks/use-route';
-import {cards, missionRound} from '@/core/learning-model.js';
+import {cards, missionRound, oldCards} from '@/core/learning-model.js';
 import {currentTheme} from '@/core/path.js';
 import {openLevelTest} from '@/components/level-test';
 import type {Card} from '@/core/types';
@@ -31,6 +31,8 @@ export function OefenenScreen() {
   const due = game.dueCards;
   const level = preferences.level;
   const current = useMemo(() => currentTheme(reviews, events, level), [reviews, events, level]);
+  // Someone who started today has no old cards yet: that mission waits until tomorrow.
+  const canRepeat = useMemo(() => oldCards(reviews, events).length > 0, [reviews, events]);
   const mistakes = useMemo(() => cards.filter((card: Card) => reviews[card.id] && reviews[card.id].grade < 3)
     .sort((a, b) => reviews[b.id].lastReviewed.localeCompare(reviews[a.id].lastReviewed)).slice(0, 20), [reviews]);
   return (
@@ -55,7 +57,7 @@ export function OefenenScreen() {
           {(due > 0 || mistakes.length > 0) && (
             <Group>
               {due > 0 && (
-                <Row onClick={() => start({queue: missionRound('herhaal', reviews, {limit: 20}), label: 'Herhalen'})} label={`Herhalen: ${due} kaartjes`}
+                <Row onClick={() => start({queue: missionRound('herhaal', reviews, {limit: 20, events}), label: 'Herhalen'})} label={`Herhalen: ${due} kaartjes`}
                   leading={<img src={practiceScene('fouten')} alt="" className="size-11 shrink-0 rounded-xl bg-[#fcfaf6] object-cover" draggable={false} />}
                   title="Herhalen" detail="Wat je bijna vergeet, uit alle situaties" trailing={<span className="text-sm font-semibold text-primary tabular-nums">{due}</span>} />
               )}
@@ -70,7 +72,7 @@ export function OefenenScreen() {
           {!level && <LevelCard />}
         </div>
         <div className="min-w-0">
-          <MissionsCard className="mt-4 lg:mt-0" events={events} onStart={(id, title) => start({queue: missionRound(id, reviews, {theme: current}), label: title})} />
+          <MissionsCard className="mt-4 lg:mt-0" events={events} waiting={canRepeat ? [] : ['herhaal']} onStart={(id, title) => start({queue: missionRound(id, reviews, {theme: current, events}), label: title})} />
         </div>
       </div>
     </Page>

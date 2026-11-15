@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "Zal ik + ... + infinitief?",
   "example": "Zal ik je helpen?",
-  "prompt": "___ ik een paraplu meenemen?",
+  "prompt": "___ ik een paraplu meenemen? (zullen)",
   "answer": "Zal",
   "fa": {
     "rule": "برای پیشنهاد انجام کاری توسط خودت، از Zal ik استفاده کن.",
@@ -16,7 +16,8 @@
     {
       "nl": "Zal ik het raam opendoen?",
       "gap": "Zal",
-      "fa": "پنجره را باز کنم؟"
+      "fa": "پنجره را باز کنم؟",
+      "hint": "zullen"
     },
     {
       "nl": "Zal ik koffie voor je halen?",

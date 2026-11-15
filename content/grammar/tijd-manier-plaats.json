@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "onderwerp + persoonsvorm + tijd + manier + plaats + tweede werkwoord",
   "example": "Ik ben gisteren met de trein naar Utrecht gegaan.",
-  "prompt": "Ik ben gisteren met de trein naar Utrecht ___.",
+  "prompt": "Ik ben gisteren met de trein naar Utrecht ___. (gaan)",
   "answer": "gegaan",
   "fa": {
     "rule": "برای ساختن جمله، زمان، چگونگی و مکان را بعد از فعل صرف‌شده تمرین کن.",
@@ -26,7 +26,8 @@
     {
       "nl": "Ze is vorige week met de trein naar Parijs gereisd.",
       "gap": "gereisd",
-      "fa": "او هفتهٔ پیش با قطار به پاریس سفر کرد."
+      "fa": "او هفتهٔ پیش با قطار به پاریس سفر کرد.",
+      "hint": "reizen"
     }
   ]
 }

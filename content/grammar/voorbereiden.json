@@ -26,7 +26,8 @@
     {
       "nl": "Ik heb me goed voorbereid.",
       "gap": "voorbereid",
-      "fa": "خودم را خوب آماده کرده‌ام."
+      "fa": "خودم را خوب آماده کرده‌ام.",
+      "hint": "voorbereiden"
     }
   ]
 }

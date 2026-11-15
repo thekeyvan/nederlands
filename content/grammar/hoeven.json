@@ -26,7 +26,8 @@
     {
       "nl": "U hoeft geen afspraak te maken.",
       "gap": "hoeft",
-      "fa": "لازم نیست وقت بگیرید."
+      "fa": "لازم نیست وقت بگیرید.",
+      "hint": "hoeven"
     }
   ]
 }

@@ -5,7 +5,7 @@
   "level": "B1",
   "pattern": "Als ik jou was, zou ik ... + infinitief",
   "example": "Als ik jou was, zou ik eerder gaan.",
-  "prompt": "Als ik jou was, ___ ik eerder gaan.",
+  "prompt": "Als ik jou was, ___ ik eerder gaan. (zullen)",
   "answer": "zou",
   "fa": {
     "rule": "برای توصیه یا موقعیت فرضی، از گذشته در بخش شرط و zou در نتیجه استفاده می‌کنیم.",
@@ -16,7 +16,8 @@
     {
       "nl": "Als ik jou was, zou ik een jas meenemen.",
       "gap": "zou",
-      "fa": "اگر جای تو بودم، یک کت با خودم می‌بردم."
+      "fa": "اگر جای تو بودم، یک کت با خودم می‌بردم.",
+      "hint": "zullen"
     },
     {
       "nl": "Als ik jou was, zou ik de huisarts bellen.",

@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "want + onderwerp + persoonsvorm · omdat + onderwerp + ... + werkwoord(en) · MEOWD: maar, en, of, want, dus",
   "example": "Ik blijf thuis omdat ik moe ben.",
-  "prompt": "Ik blijf thuis omdat ik moe ___.",
+  "prompt": "Ik blijf thuis omdat ik moe ___. (zijn)",
   "answer": "ben",
   "fa": {
     "rule": "هر دو دلیل می‌دهند. با omdat فعل آخر بخش می‌آید؛ بعد از want ترتیب جمله عادی است.",
@@ -16,7 +16,8 @@
     {
       "nl": "Ik kom later omdat de trein vertraging heeft.",
       "gap": "heeft",
-      "fa": "دیرتر می‌آیم چون قطار تأخیر دارد."
+      "fa": "دیرتر می‌آیم چون قطار تأخیر دارد.",
+      "hint": "hebben"
     },
     {
       "nl": "Ik neem een taxi, want het regent.",
@@ -26,7 +27,8 @@
     {
       "nl": "We eten thuis omdat het restaurant dicht is.",
       "gap": "is",
-      "fa": "در خانه غذا می‌خوریم چون رستوران بسته است."
+      "fa": "در خانه غذا می‌خوریم چون رستوران بسته است.",
+      "hint": "zijn"
     }
   ]
 }

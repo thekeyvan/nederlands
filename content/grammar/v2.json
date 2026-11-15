@@ -5,8 +5,8 @@
   "level": "A2",
   "pattern": "Tijd / plaats → werkwoord → onderwerp",
   "example": "In de pauze drinken we koffie.",
-  "prompt": "In de pauze ___ we koffie.",
-  "answer": "drinken",
+  "prompt": "In de pauze ___ ik koffie. (drinken)",
+  "answer": "drink",
   "fa": {
     "rule": "در جملهٔ خبری، فعل صرف‌شده جایگاه دوم را دارد. جایگاه اول می‌تواند یک عبارت چندکلمه‌ای باشد.",
     "note": "فعل صرف‌شده در جایگاه دومِ جملهٔ خبری است؛ جایگاه یعنی یک جزء جمله، نه لزوماً یک کلمه. اگر زمان یا مکان اول بیاید، فاعل بعد از فعل می‌آید. ترتیب زمان، چگونگی و مکان یک الگوی تمرینی است و با تأکید و نوع عبارت می‌تواند تغییر کند.",
@@ -16,7 +16,8 @@
     {
       "nl": "Morgen werk ik thuis.",
       "gap": "werk",
-      "fa": "فردا در خانه کار می‌کنم."
+      "fa": "فردا در خانه کار می‌کنم.",
+      "hint": "werken"
     },
     {
       "nl": "In het weekend gaan we fietsen.",
@@ -26,7 +27,8 @@
     {
       "nl": "Op maandag heb ik Nederlandse les.",
       "gap": "heb",
-      "fa": "دوشنبه‌ها کلاس هلندی دارم."
+      "fa": "دوشنبه‌ها کلاس هلندی دارم.",
+      "hint": "hebben"
     }
   ]
 }

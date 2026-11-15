@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "Jij hebt ... → Heb jij ...?",
   "example": "Heb jij mijn bericht gekregen?",
-  "prompt": "___ jij mijn bericht gekregen?",
+  "prompt": "___ jij mijn bericht gekregen? (hebben)",
   "answer": "Heb",
   "fa": {
     "rule": "در پرسش، فعل کمکی پیش از فاعل می‌آید. اگر jij/je فاعل بعد از فعل باشد، t اضافه‌شده حذف می‌شود.",
@@ -16,7 +16,8 @@
     {
       "nl": "Woon jij al lang in Nederland?",
       "gap": "Woon",
-      "fa": "خیلی وقت است در هلند زندگی می‌کنی؟"
+      "fa": "خیلی وقت است در هلند زندگی می‌کنی؟",
+      "hint": "wonen"
     },
     {
       "nl": "Hebben jullie een kamer vrij?",
@@ -26,7 +27,8 @@
     {
       "nl": "Werkt zij ook bij de gemeente?",
       "gap": "Werkt",
-      "fa": "او هم در شهرداری کار می‌کند؟"
+      "fa": "او هم در شهرداری کار می‌کند؟",
+      "hint": "werken"
     }
   ]
 }

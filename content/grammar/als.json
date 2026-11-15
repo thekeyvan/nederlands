@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "Als + onderwerp + ... + werkwoord, werkwoord + onderwerp",
   "example": "Als ik tijd heb, bel ik je.",
-  "prompt": "Als ik tijd heb, ___ ik je.",
+  "prompt": "Als ik tijd heb, ___ ik je. (bellen)",
   "answer": "bel",
   "fa": {
     "rule": "als برای «اگر» یا «وقتی که» است. فعل بخش als در آخر می‌آید. اگر آن بخش اول باشد، بخش اصلی با فعل شروع می‌شود.",
@@ -21,12 +21,14 @@
     {
       "nl": "Als je vragen hebt, mail je mij.",
       "gap": "mail",
-      "fa": "اگر سؤالی داری، به من ایمیل بزن."
+      "fa": "اگر سؤالی داری، به من ایمیل بزن.",
+      "hint": "mailen"
     },
     {
       "nl": "Als ik moe ben, ga ik vroeg slapen.",
       "gap": "ga",
-      "fa": "وقتی خسته‌ام، زود می‌خوابم."
+      "fa": "وقتی خسته‌ام، زود می‌خوابم.",
+      "hint": "gaan"
     }
   ]
 }

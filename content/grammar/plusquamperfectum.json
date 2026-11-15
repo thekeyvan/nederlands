@@ -5,7 +5,7 @@
   "level": "B1",
   "pattern": "had / was + ... + voltooid deelwoord",
   "example": "Ik had al gegeten toen hij kwam.",
-  "prompt": "Ik ___ al gegeten toen hij kwam.",
+  "prompt": "Ik ___ al gegeten toen hij kwam. (hebben of zijn)",
   "answer": "had",
   "fa": {
     "rule": "برای کاری که پیش از یک زمان دیگر در گذشته انجام شده، فعل کمکی به گذشته می‌رود.",
@@ -16,12 +16,14 @@
     {
       "nl": "De film was al begonnen toen we aankwamen.",
       "gap": "was",
-      "fa": "وقتی رسیدیم فیلم شروع شده بود."
+      "fa": "وقتی رسیدیم فیلم شروع شده بود.",
+      "hint": "hebben of zijn"
     },
     {
       "nl": "Ik had de deur al dichtgedaan.",
       "gap": "had",
-      "fa": "در را بسته بودم."
+      "fa": "در را بسته بودم.",
+      "hint": "hebben of zijn"
     },
     {
       "nl": "Ze had het nog nooit gezien.",

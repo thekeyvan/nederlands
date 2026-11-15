@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "ik heb · jij hebt · u hebt / heeft · hij / zij heeft · wij / jullie / zij hebben",
   "example": "U hebt een vraag. Heb jij ook een vraag?",
-  "prompt": "___ jij ook een vraag?",
+  "prompt": "___ jij ook een vraag? (hebben)",
   "answer": "Heb",
   "fa": {
     "rule": "فعل داشتن را با فاعل صرف کن؛ در سؤال با ضمیر تو، حرف پایانی فعل حذف می‌شود.",
@@ -16,7 +16,8 @@
     {
       "nl": "Hij heeft twee kinderen.",
       "gap": "heeft",
-      "fa": "او دو بچه دارد."
+      "fa": "او دو بچه دارد.",
+      "hint": "hebben"
     },
     {
       "nl": "Hebben jullie al gegeten?",
@@ -26,7 +27,8 @@
     {
       "nl": "Jij hebt gelijk.",
       "gap": "hebt",
-      "fa": "حق با توست."
+      "fa": "حق با توست.",
+      "hint": "hebben"
     }
   ]
 }

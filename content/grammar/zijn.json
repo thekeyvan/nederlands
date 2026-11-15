@@ -5,8 +5,8 @@
   "level": "A0",
   "pattern": "ik ben · jij bent · hij/zij is · wij/jullie/zij zijn",
   "example": "Ik ben Sara en ik ben nieuw hier.",
-  "prompt": "Wij ___ uit Afghanistan.",
-  "answer": "zijn",
+  "prompt": "Hij ___ uit Afghanistan. (zijn)",
+  "answer": "is",
   "fa": {
     "rule": "zijn یعنی «بودن» و بی‌قاعده است: ik ben، jij bent، hij/zij/het is، wij/jullie/zij zijn.",
     "note": "در سؤال، بعد از jij شکل bent می‌ماند: Ben jij nieuw? (حرف t فقط در فعل‌های باقاعده حذف می‌شود.)",
@@ -16,12 +16,14 @@
     {
       "nl": "Jij bent mijn buurman.",
       "gap": "bent",
-      "fa": "تو همسایهٔ من هستی."
+      "fa": "تو همسایهٔ من هستی.",
+      "hint": "zijn"
     },
     {
       "nl": "Het is koud vandaag.",
       "gap": "is",
-      "fa": "امروز هوا سرد است."
+      "fa": "امروز هوا سرد است.",
+      "hint": "zijn"
     },
     {
       "nl": "Zij zijn in de klas.",

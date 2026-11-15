@@ -47,7 +47,8 @@ struct RoundView: View {
                         .accessibilityLabel("Stoppen met oefenen")
                         ThickProgress(value: Double(results.count) / Double(max(1, round.cards.count)), color: .mint, height: 16)
                             .accessibilityLabel("\(index + 1) van \(round.cards.count)")
-                        HStack(spacing: 3) { Image(systemName: "flame.fill"); Text("\(combo)").monospacedDigit() }
+                        // Right answers in a row: a bolt, so it is not mistaken for the daily streak (the flame).
+                        HStack(spacing: 3) { Image(systemName: "bolt.fill"); Text("\(combo)").monospacedDigit() }
                             .font(.game(17, .black)).foregroundStyle(combo >= 2 ? Color.brand : Color.secondary.opacity(0.5))
                             .accessibilityLabel("Combo \(combo)")
                     }
@@ -565,7 +566,7 @@ struct RoundSummary: View {
                         tile("Goed", "\(right)/\(results.count)", .success, .mintEdge)
                         tile("Reeks", "\(stats.streak.count)", .brand, .brandEdge)
                     }
-                    if bestCombo >= 3 { Label("Beste combo: \(bestCombo) goed op rij", systemImage: "flame.fill").font(.subheadline.weight(.semibold)).foregroundStyle(.white) }
+                    if bestCombo >= 3 { Label("Beste combo: \(bestCombo) goed op rij", systemImage: "bolt.fill").font(.subheadline.weight(.semibold)).foregroundStyle(.white) }
                     if stats.level.number > before.level.number {
                         HStack(spacing: 12) { LevelRing(number: stats.level.number, progress: stats.level.progress); VStack(alignment: .leading) { Eyebrow("Nieuw niveau", color: .butter); Text(stats.level.name).font(.game(18, .black)).foregroundStyle(.white) } ; Spacer() }
                             .padding(14).background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 22, style: .continuous))

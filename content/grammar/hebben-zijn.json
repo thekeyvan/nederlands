@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "heb in het park gewandeld / ben naar het park gewandeld · heb gevlogen / ben naar Parijs gevlogen",
   "example": "Ik heb gefietst. Ik ben naar huis gefietst.",
-  "prompt": "Ik ___ naar huis gegaan.",
+  "prompt": "Ik ___ naar huis gegaan. (hebben of zijn)",
   "answer": "ben",
   "fa": {
     "rule": "فعل‌ها را همراه فعل کمکی یاد بگیر. فعالیت‌ها اغلب hebben می‌گیرند. بسیاری از فعل‌های تغییر وضعیت یا جابه‌جایی با zijn می‌آیند.",
@@ -16,17 +16,20 @@
     {
       "nl": "Ik ben naar Amsterdam gereisd.",
       "gap": "ben",
-      "fa": "به آمستردام سفر کرده‌ام."
+      "fa": "به آمستردام سفر کرده‌ام.",
+      "hint": "hebben of zijn"
     },
     {
       "nl": "We hebben een uur gewandeld.",
       "gap": "hebben",
-      "fa": "یک ساعت پیاده‌روی کرده‌ایم."
+      "fa": "یک ساعت پیاده‌روی کرده‌ایم.",
+      "hint": "hebben of zijn"
     },
     {
       "nl": "Hij is gisteren naar huis gegaan.",
       "gap": "is",
-      "fa": "او دیروز به خانه رفت."
+      "fa": "او دیروز به خانه رفت.",
+      "hint": "hebben of zijn"
     }
   ]
 }

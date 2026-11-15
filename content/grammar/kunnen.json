@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "Ik kan / mag / moet + ... + infinitief",
   "example": "Ik kan komen, maar ik moet eerst werken.",
-  "prompt": "Ik ___ hier niet parkeren: het is verboden.",
+  "prompt": "Ik ___ hier niet parkeren: het is verboden. (mogen)",
   "answer": "mag",
   "fa": {
     "rule": "kunnen توانایی یا امکان است؛ mogen اجازه است؛ moeten الزام است. فعل اصلی در آخر و به صورت مصدر می‌آید.",
@@ -16,17 +16,20 @@
     {
       "nl": "Je mag hier niet roken.",
       "gap": "mag",
-      "fa": "اینجا نباید سیگار بکشی."
+      "fa": "اینجا نباید سیگار بکشی.",
+      "hint": "mogen"
     },
     {
       "nl": "Ik moet om acht uur op mijn werk zijn.",
       "gap": "moet",
-      "fa": "باید ساعت هشت سر کارم باشم."
+      "fa": "باید ساعت هشت سر کارم باشم.",
+      "hint": "moeten"
     },
     {
       "nl": "Kun je morgen om tien uur komen?",
       "gap": "Kun",
-      "fa": "می‌توانی فردا ساعت ده بیایی؟"
+      "fa": "می‌توانی فردا ساعت ده بیایی؟",
+      "hint": "kunnen"
     }
   ]
 }

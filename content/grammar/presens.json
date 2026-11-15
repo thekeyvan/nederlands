@@ -16,12 +16,14 @@
     {
       "nl": "Ik woon in Amsterdam.",
       "gap": "woon",
-      "fa": "در آمستردام زندگی می‌کنم."
+      "fa": "در آمستردام زندگی می‌کنم.",
+      "hint": "wonen"
     },
     {
       "nl": "Zij leert Nederlands.",
       "gap": "leert",
-      "fa": "او هلندی یاد می‌گیرد."
+      "fa": "او هلندی یاد می‌گیرد.",
+      "hint": "leren"
     },
     {
       "nl": "Wij drinken koffie.",

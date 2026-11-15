@@ -28,11 +28,20 @@ export function planSession(reviews,{theme='all',type='all',now=new Date(),limit
 }
 
 // A mission on Vandaag starts the round that completes it: old cards, new cards (from the theme you are on), or practical sentences.
-export function missionRound(id,reviews,{theme='all',now=new Date(),limit=5}={}){
+// "Old" means first practised before today (the same rule dailyMissions counts with), so a round of old cards always counts.
+export function missionRound(id,reviews,{theme='all',now=new Date(),limit=5,events=[]}={}){
  const oldest=list=>list.filter(card=>reviews[card.id]).sort((a,b)=>new Date(reviews[a.id].lastReviewed)-new Date(reviews[b.id].lastReviewed));
  if(id==='zinnen'){const queue=planSession(reviews,{type:'praktisch',now,limit});return queue.length?queue:oldest(phrases).slice(0,limit);}
  if(id==='nieuw'){const fresh=cards.filter(card=>!reviews[card.id]);return [...fresh.filter(card=>card.themeId===theme),...fresh.filter(card=>card.themeId!==theme)].slice(0,limit);}
- const due=cards.filter(card=>reviews[card.id]&&new Date(reviews[card.id].due)<=now).sort((a,b)=>new Date(reviews[a.id].due)-new Date(reviews[b.id].due));
- const queue=[...due,...oldest(cards).filter(card=>!due.includes(card))].slice(0,limit);
- return queue.length?queue:missionRound('nieuw',reviews,{theme,now,limit});
+ return oldCards(reviews,events,now).slice(0,limit);
+}
+/** Cards first practised before today: the ones that are due first, then the ones practised longest ago. Empty for someone who started today. */
+export function oldCards(reviews,events,now=new Date()){
+ const today=dayKey(now),first=new Map();
+ for(const event of events)if(!first.has(event.cardId))first.set(event.cardId,dayKey(new Date(event.at)));
+ const old=card=>{const review=reviews[card.id];if(!review)return false;const day=first.get(card.id)??dayKey(new Date(review.lastReviewed));return day!==today;};
+ const list=cards.filter(old);
+ const due=list.filter(card=>new Date(reviews[card.id].due)<=now).sort((a,b)=>new Date(reviews[a.id].due)-new Date(reviews[b.id].due));
+ const rest=list.filter(card=>!due.includes(card)).sort((a,b)=>new Date(reviews[a.id].lastReviewed)-new Date(reviews[b.id].lastReviewed));
+ return [...due,...rest];
 }

@@ -5,7 +5,7 @@
   "level": "A2",
   "pattern": "iedereen heeft / iedereen is",
   "example": "Iedereen is gebleven.",
-  "prompt": "Iedereen ___ gekomen.",
+  "prompt": "Iedereen ___ gekomen. (zijn)",
   "answer": "is",
   "fa": {
     "rule": "iedereen از نظر معنایی همه است، ولی از نظر دستوری مفرد است.",
@@ -16,17 +16,20 @@
     {
       "nl": "Iedereen heeft een eigen kamer.",
       "gap": "heeft",
-      "fa": "هر کس اتاق خودش را دارد."
+      "fa": "هر کس اتاق خودش را دارد.",
+      "hint": "hebben"
     },
     {
       "nl": "Iedereen was op tijd.",
       "gap": "was",
-      "fa": "همه سر وقت بودند."
+      "fa": "همه سر وقت بودند.",
+      "hint": "zijn"
     },
     {
       "nl": "Iedereen mag meedoen.",
       "gap": "mag",
-      "fa": "همه می‌توانند شرکت کنند."
+      "fa": "همه می‌توانند شرکت کنند.",
+      "hint": "mogen"
     }
   ]
 }

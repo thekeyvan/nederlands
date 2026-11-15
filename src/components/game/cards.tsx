@@ -87,7 +87,7 @@ export function LevelCard({stats, className}: {stats: GameStats; className?: str
 const missionPictures = {rotate: 'fouten', sparkles: 'woorden', message: 'zinnen'} as const;
 
 /** Today's missions. Each one is a button that starts the round that completes it. */
-export function MissionsCard({events, className, onStart}: {events: ReviewEvent[]; className?: string; onStart?: (id: string, title: string) => void}) {
+export function MissionsCard({events, className, onStart, waiting = []}: {events: ReviewEvent[]; className?: string; onStart?: (id: string, title: string) => void; waiting?: string[]}) {
   const missions = dailyMissions(events);
   const done = missions.filter((mission) => mission.done).length;
   return (
@@ -99,8 +99,8 @@ export function MissionsCard({events, className, onStart}: {events: ReviewEvent[
       <CardContent className="flex flex-col gap-3 px-4">
         {missions.map((mission) => {
           return (
-            <button key={mission.id} type="button" onClick={() => onStart?.(mission.id, mission.title)} aria-label={`${mission.title}: ${mission.count} van ${mission.target}. Start een rondje`}
-              className="-mx-2 flex items-center gap-3 rounded-xl px-2 py-1 text-left transition hover:bg-muted/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none active:scale-[0.99] active:bg-muted">
+            <button key={mission.id} type="button" disabled={waiting.includes(mission.id)} onClick={() => onStart?.(mission.id, mission.title)} aria-label={waiting.includes(mission.id) ? `${mission.title}: kan vanaf morgen` : `${mission.title}: ${mission.count} van ${mission.target}. Start een rondje`}
+              className="-mx-2 flex items-center gap-3 rounded-xl px-2 py-1 text-left transition hover:bg-muted/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none active:scale-[0.99] active:bg-muted disabled:opacity-60 disabled:hover:bg-transparent">
               <span className="relative shrink-0">
                 <img src={practiceScene(missionPictures[mission.icon])} alt="" className={cn('size-11 rounded-xl bg-[#fcfaf6]', mission.done && 'opacity-60')} draggable={false} />
                 {mission.done && <span className="absolute -end-1 -bottom-1 grid size-5 place-items-center rounded-full bg-success text-white ring-2 ring-card"><Check className="size-3" aria-hidden /></span>}
@@ -109,7 +109,7 @@ export function MissionsCard({events, className, onStart}: {events: ReviewEvent[
                 <p className={cn('text-sm font-medium', mission.done && 'text-muted-foreground line-through decoration-success/60')}>{mission.title}</p>
                 <Progress value={(mission.count / mission.target) * 100} className="mt-1.5 h-1.5" indicatorClassName={mission.done ? 'bg-success' : undefined} aria-label={`${mission.title}: ${mission.count} van ${mission.target}`} />
               </div>
-              <span className="text-xs font-semibold text-muted-foreground tabular-nums">{mission.count}/{mission.target}</span>
+              {waiting.includes(mission.id) ? <span className="text-xs text-muted-foreground">vanaf morgen</span> : <span className="text-xs font-semibold text-muted-foreground tabular-nums">{mission.count}/{mission.target}</span>}
               <Play className={cn('size-4 shrink-0 fill-current', mission.done ? 'text-muted-foreground/50' : 'text-primary')} aria-hidden />
             </button>
           );

@@ -26,7 +26,8 @@
     {
       "nl": "Zou u uw naam willen spellen?",
       "gap": "Zou",
-      "fa": "ممکن است نامتان را هجی کنید؟"
+      "fa": "ممکن است نامتان را هجی کنید؟",
+      "hint": "zullen"
     }
   ]
 }

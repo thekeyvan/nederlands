@@ -26,7 +26,8 @@
     {
       "nl": "Kun je zeggen hoe laat de trein vertrekt?",
       "gap": "vertrekt",
-      "fa": "می‌توانی بگویی قطار چه ساعتی حرکت می‌کند؟"
+      "fa": "می‌توانی بگویی قطار چه ساعتی حرکت می‌کند؟",
+      "hint": "vertrekken"
     }
   ]
 }

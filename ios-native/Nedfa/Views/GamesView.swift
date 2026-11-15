@@ -602,7 +602,12 @@ struct ConversationGame: View {
                                     ForEach(options, id: \.lineId) { option in
                                         if let text = Content.shared.line(option.lineId) {
                                             Button { pick(option, line: line) } label: {
-                                                Text(text.nl).frame(maxWidth: .infinity, alignment: .leading).padding(14)
+                                                VStack(alignment: .leading, spacing: 4) {
+                                                    Text(text.nl)
+                                                    // After choosing: what each answer means.
+                                                    if chosen != nil, !text.translation.isEmpty { Text(text.translation).font(.subheadline).foregroundStyle(.secondary) }
+                                                }
+                                                .frame(maxWidth: .infinity, alignment: .leading).padding(14)
                                                     .background((chosen == nil ? Color(.secondarySystemBackground) : option.correct ? Color.success.opacity(0.2) : chosen == option.lineId ? Color.danger.opacity(0.2) : Color(.secondarySystemBackground)), in: RoundedRectangle(cornerRadius: 14))
                                             }
                                             .buttonStyle(.plain).disabled(chosen != nil)
@@ -627,7 +632,15 @@ struct ConversationGame: View {
         let mine = line.speaker == "Jij"
         return VStack(alignment: mine ? .trailing : .leading, spacing: 2) {
             Text(line.speaker).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-            Text(line.nl).padding(12).background(mine ? Color.brand.opacity(0.15) : Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
+            // The sentence with its Persian translation, as on the website.
+            HStack(alignment: .top, spacing: 6) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(line.nl)
+                    if !line.translation.isEmpty { Text(line.translation).font(.subheadline).foregroundStyle(.secondary) }
+                }
+                if line.hasAudio { ListenButton(text: line.nl, size: 13) }
+            }
+            .padding(12).background(mine ? Color.brand.opacity(0.15) : Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
         }
         .frame(maxWidth: .infinity, alignment: mine ? .trailing : .leading)
     }

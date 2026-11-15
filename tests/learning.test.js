@@ -39,13 +39,18 @@ test('a mission starts the round that completes it', async () => {
   const review = (dueDays, lastDays) => ({ease: 2.5, interval: 1, repetitions: 1, due: new Date(Date.now() + dueDays * day).toISOString(), lastReviewed: new Date(Date.now() - lastDays * day).toISOString(), grade: 4, reviews: 1});
   const [a, b, c] = cards.filter((card) => !card.id.startsWith('phrase:'));
   const reviews = {[a.id]: review(3, 1), [b.id]: review(-1, 2), [c.id]: review(2, 5)};
-  // Old cards: the due one first, then the ones practised longest ago.
-  assert.deepEqual(missionRound('herhaal', reviews).map((card) => card.id), [b.id, c.id, a.id]);
+  // Old cards: the due one first, then the ones practised longest ago — only cards first practised before today.
+  const yesterday = new Date(Date.now() - day).toISOString();
+  const events = [a, b, c].map((card, index) => ({id: `e${index}`, cardId: card.id, grade: 4, at: yesterday}));
+  assert.deepEqual(missionRound('herhaal', reviews, {events}).map((card) => card.id), [b.id, c.id, a.id]);
+  // A card first practised today is new, not old: it is never in the old-cards round.
+  const todayEvents = [...events.slice(0, 2), {id: 'e9', cardId: c.id, grade: 4, at: new Date().toISOString()}];
+  assert.deepEqual(missionRound('herhaal', reviews, {events: todayEvents}).map((card) => card.id), [b.id, a.id]);
   // New cards: never practised, from the theme you are on first.
   const fresh = missionRound('nieuw', reviews, {theme: 'huisarts'});
   assert.equal(fresh.length, 5);
   assert.ok(fresh.every((card) => !reviews[card.id] && card.themeId === 'huisarts'));
   assert.ok(missionRound('zinnen', reviews).every((card) => card.id.startsWith('phrase:')));
-  // Nothing practised yet: "old cards" starts with new ones instead of an empty round.
-  assert.equal(missionRound('herhaal', {}).length, 5);
+  // Nothing practised before today: no old cards yet (the mission waits until tomorrow).
+  assert.equal(missionRound('herhaal', {}).length, 0);
 });

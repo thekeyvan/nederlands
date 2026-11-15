@@ -64,7 +64,7 @@ struct OefenenView: View {
             VStack(spacing: 0) {
                 if stats.due > 0 {
                     repeatRow(title: "Herhalen", detail: "Wat je bijna vergeet, uit alle situaties", picture: "oefenen/fouten", count: stats.due) {
-                        session.start(Planner.mission("herhaal", reviews: progress.reviews, limit: 20), label: "Herhalen")
+                        session.start(Planner.mission("herhaal", reviews: progress.reviews, events: progress.events, limit: 20), label: "Herhalen")
                     }
                 }
                 if stats.due > 0, !mistakes.isEmpty { Divider().padding(.leading, 70) }
@@ -167,7 +167,8 @@ struct OefenenView: View {
             SectionTitle("Missies van vandaag")
             VStack(spacing: 0) {
                 ForEach(Array(stats.missions.enumerated()), id: \.element.id) { index, mission in
-                    Button { session.start(Planner.mission(mission.id, reviews: progress.reviews, theme: theme), label: mission.title) } label: {
+                    let waiting = mission.id == "herhaal" && Planner.oldCards(reviews: progress.reviews, events: progress.events).isEmpty
+                    Button { session.start(Planner.mission(mission.id, reviews: progress.reviews, events: progress.events, theme: theme), label: mission.title) } label: {
                     HStack(spacing: 12) {
                         Art(name: mission.picture, size: 44, corner: 12)
                         VStack(alignment: .leading, spacing: 6) {
@@ -176,6 +177,9 @@ struct OefenenView: View {
                         }
                         if mission.done {
                             Image(systemName: "checkmark.circle.fill").font(.title3).foregroundStyle(Color.mint)
+                        } else if waiting {
+                            // Someone who started today has no old cards yet.
+                            Text("vanaf morgen").font(.caption).foregroundStyle(.secondary)
                         } else {
                             Text("\(min(mission.count, mission.target))/\(mission.target)").font(.game(15, .heavy)).foregroundStyle(.secondary).monospacedDigit()
                         }
@@ -185,7 +189,9 @@ struct OefenenView: View {
                     .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel("\(mission.title): \(min(mission.count, mission.target)) van \(mission.target). Start een rondje")
+                    .disabled(waiting)
+                    .opacity(waiting ? 0.6 : 1)
+                    .accessibilityLabel(waiting ? "\(mission.title): kan vanaf morgen" : "\(mission.title): \(min(mission.count, mission.target)) van \(mission.target). Start een rondje")
                     if index < stats.missions.count - 1 { Divider() }
                 }
             }

@@ -16,7 +16,8 @@
     {
       "nl": "Er is geen melk meer.",
       "gap": "is",
-      "fa": "دیگر شیر نداریم."
+      "fa": "دیگر شیر نداریم.",
+      "hint": "zijn"
     },
     {
       "nl": "Er zijn veel fietsen in Nederland.",
@@ -26,7 +27,8 @@
     {
       "nl": "Is er een supermarkt in de buurt?",
       "gap": "Is",
-      "fa": "این نزدیکی سوپرمارکت هست؟"
+      "fa": "این نزدیکی سوپرمارکت هست؟",
+      "hint": "zijn"
     }
   ]
 }

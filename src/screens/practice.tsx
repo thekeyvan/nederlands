@@ -65,7 +65,7 @@ function SessionView({session}: {session: Session}) {
           confirm={session.results.length > 0 && session.results.length < session.queue.length} onQuit={() => close()} />
         <Progress value={(session.results.length / session.queue.length) * 100} className="h-3.5 flex-1 bg-success/15" indicatorClassName="bg-success" aria-label={`Kaartje ${session.index + 1} van ${session.queue.length}`} />
         {session.combo >= 2 ? (
-          <Badge key={session.combo} variant="streak" className="h-7 px-2.5 text-sm"><Flame />{session.combo}×</Badge>
+          <Badge key={session.combo} variant="streak" className="h-7 px-2.5 text-sm" aria-label={`${session.combo} goed op rij`}><Zap />{session.combo}×</Badge>
         ) : (
           <Badge variant="xp" className="h-7 px-2.5 text-sm"><Star />+{xp}</Badge>
         )}

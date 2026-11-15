@@ -84,7 +84,23 @@ enum Planner {
     }
 
     /// A mission on Vandaag starts the round that completes it: old cards, new cards (from the theme you are on), or practical sentences.
-    static func mission(_ id: String, reviews: [String: Review], theme: String = "all", limit: Int = 5, now: Date = .now) -> [Card] {
+    /// Cards first practised before today (the same rule the mission counts with): due ones first, then the ones practised longest ago.
+    /// Empty for someone who started today.
+    static func oldCards(reviews: [String: Review], events: [ReviewEvent], now: Date = .now) -> [Card] {
+        let calendar = Calendar.current
+        var first: [String: Date] = [:]
+        for event in events where first[event.cardId] == nil { first[event.cardId] = event.at }
+        let old = Content.shared.cards.filter { card in
+            guard let review = reviews[card.id] else { return false }
+            return !calendar.isDate(first[card.id] ?? review.lastReviewed, inSameDayAs: now)
+        }
+        let due = old.filter { reviews[$0.id]!.due <= now }.sorted { reviews[$0.id]!.due < reviews[$1.id]!.due }
+        let dueIds = Set(due.map(\.id))
+        let rest = old.filter { !dueIds.contains($0.id) }.sorted { reviews[$0.id]!.lastReviewed < reviews[$1.id]!.lastReviewed }
+        return due + rest
+    }
+
+    static func mission(_ id: String, reviews: [String: Review], events: [ReviewEvent] = [], theme: String = "all", limit: Int = 5, now: Date = .now) -> [Card] {
         let cards = Content.shared.cards
         func oldest(_ list: [Card]) -> [Card] {
             list.compactMap { card in reviews[card.id].map { (card, $0.lastReviewed) } }.sorted { $0.1 < $1.1 }.map(\.0)
@@ -97,10 +113,7 @@ enum Planner {
             let fresh = cards.filter { reviews[$0.id] == nil }
             return Array((fresh.filter { $0.themeId == theme } + fresh.filter { $0.themeId != theme }).prefix(limit))
         default:
-            let due: [Card] = cards.compactMap { card in reviews[card.id].flatMap { $0.due <= now ? (card, $0.due) : nil } }.sorted { $0.1 < $1.1 }.map(\.0)
-            let dueIds = Set(due.map(\.id))
-            let queue = Array((due + oldest(cards).filter { !dueIds.contains($0.id) }).prefix(limit))
-            return queue.isEmpty ? mission("nieuw", reviews: reviews, theme: theme, limit: limit, now: now) : queue
+            return Array(oldCards(reviews: reviews, events: events, now: now).prefix(limit))
         }
     }
 

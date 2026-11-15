@@ -5,7 +5,7 @@
   "level": "B1",
   "pattern": "Als ik president was, zou ik ... + infinitief",
   "example": "Als ik president was, zou ik de wereld een betere plek maken.",
-  "prompt": "Als ik president was, ___ ik de wereld een betere plek maken.",
+  "prompt": "Als ik president was, ___ ik de wereld een betere plek maken. (zullen)",
   "answer": "zou",
   "fa": {
     "rule": "برای فرض غیرواقعی در زمان حال، گذشتهٔ ساده در شرط و ساختار شرطی در نتیجه رایج است.",
@@ -16,17 +16,20 @@
     {
       "nl": "Als ik rijk was, zou ik een groot huis kopen.",
       "gap": "zou",
-      "fa": "اگر ثروتمند بودم، خانه‌ای بزرگ می‌خریدم."
+      "fa": "اگر ثروتمند بودم، خانه‌ای بزرگ می‌خریدم.",
+      "hint": "zullen"
     },
     {
       "nl": "Als ik meer tijd had, zou ik vaker sporten.",
       "gap": "had",
-      "fa": "اگر وقت بیشتری داشتم، بیشتر ورزش می‌کردم."
+      "fa": "اگر وقت بیشتری داشتم، بیشتر ورزش می‌کردم.",
+      "hint": "hebben"
     },
     {
       "nl": "Als het niet regende, zouden we buiten eten.",
       "gap": "zouden",
-      "fa": "اگر باران نمی‌بارید، بیرون غذا می‌خوردیم."
+      "fa": "اگر باران نمی‌بارید، بیرون غذا می‌خوردیم.",
+      "hint": "zullen"
     }
   ]
 }

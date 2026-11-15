@@ -21,7 +21,8 @@
     {
       "nl": "Zou ik morgen vrij mogen nemen?",
       "gap": "Zou",
-      "fa": "ممکن است فردا مرخصی بگیرم؟"
+      "fa": "ممکن است فردا مرخصی بگیرم؟",
+      "hint": "zullen"
     },
     {
       "nl": "Zou ik hier even mogen zitten?",

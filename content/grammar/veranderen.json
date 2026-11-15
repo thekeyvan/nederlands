@@ -5,7 +5,7 @@
   "level": "B1",
   "pattern": "iets is veranderd / iemand heeft iets veranderd",
   "example": "De planning is veranderd. Ik heb de planning veranderd.",
-  "prompt": "Ik ___ mijn plannen veranderd.",
+  "prompt": "Ik ___ mijn plannen veranderd. (hebben of zijn)",
   "answer": "heb",
   "fa": {
     "rule": "وقتی خودِ چیزی تغییر می‌کند، zijn می‌آید. وقتی کسی چیز دیگری را تغییر می‌دهد، hebben می‌آید.",
@@ -16,17 +16,20 @@
     {
       "nl": "Het weer is snel veranderd.",
       "gap": "is",
-      "fa": "هوا سریع عوض شده است."
+      "fa": "هوا سریع عوض شده است.",
+      "hint": "hebben of zijn"
     },
     {
       "nl": "Ze heeft haar wachtwoord veranderd.",
       "gap": "heeft",
-      "fa": "او رمزش را عوض کرده است."
+      "fa": "او رمزش را عوض کرده است.",
+      "hint": "hebben of zijn"
     },
     {
       "nl": "Er is veel veranderd in de stad.",
       "gap": "veranderd",
-      "fa": "در شهر خیلی چیزها عوض شده است."
+      "fa": "در شهر خیلی چیزها عوض شده است.",
+      "hint": "veranderen"
     }
   ]
 }

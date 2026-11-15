@@ -1,4 +1,4 @@
-// Writes the public, indexable pages after `vite build`, in Persian (/) and Dutch (/nl/): a landing page, one page
+// Writes the public, indexable pages after `vite build`, in Dutch (/, the default) and Persian (/fa/): a landing page, one page
 // per theme and per grammar pattern, an inburgering guide, plus sitemap.xml, robots.txt, llms.txt and llms-full.txt.
 // Everything comes from the same lesson content as the app, so the pages stay in step with it.
 import {copyFile, mkdir, readFile, readdir, rm, writeFile} from 'node:fs/promises';
@@ -23,7 +23,7 @@ async function write(dist, lang, pagePath, html, priority) {
   const file = path.join(dist, full, 'index.html');
   await mkdir(path.dirname(file), {recursive: true});
   await writeFile(file, html);
-  if (lang === 'fa') paths.push({path: pagePath, priority});
+  if (lang === LANGS[0]) paths.push({path: pagePath, priority});
 }
 
 export async function buildSite(dist) {
@@ -44,7 +44,7 @@ export async function buildSite(dist) {
   await writeFile(path.join(dist, 'llms.txt'), llms());
   await writeFile(path.join(dist, 'llms-full.txt'), llmsFull());
   await rm(path.join(dist, '.vite'), {recursive: true, force: true});
-  console.log(`Public site: ${paths.length * LANGS.length} pages in Persian and Dutch, sitemap, robots.txt and llms.txt.`);
+  console.log(`Public site: ${paths.length * LANGS.length} pages in Dutch and Persian, sitemap, robots.txt and llms.txt.`);
 }
 
 /** Theme scenes from the app, plus the site illustrations and logo, under stable public URLs. */
@@ -88,17 +88,17 @@ function home(lang, assets) {
   const questions = faq(lang === 'fa' ? [
     ['آیا نِدفا رایگان است؟', `بله. نسخهٔ وب و اپ آیفون نِدفا رایگان هستند و تبلیغ ندارند. می‌توانید بدون حساب کاربری شروع کنید.`],
     ['نِدفا برای چه سطحی مناسب است؟', `برای کسانی که الفبای هلندی را می‌شناسند یا دورهٔ مقدماتی را گذرانده‌اند و می‌خواهند از سطح A2 به B1 برسند؛ مثلاً در کنار کلاس زبان یا برای آمادگی آزمون.`],
-    ['آیا برای آزمون اینبورخرینگ (هم‌پذیری) کمک می‌کند؟', `نِدفا موضوعات زندگی روزمره را تمرین می‌کند که در آزمون‌های شنیدن، خواندن، نوشتن و صحبت کردن می‌آیند: پزشک، شهرداری، کار، خانه و خرید. <a class="text-primary underline" href="/inburgering/">راهنمای آزمون اینبورخرینگ</a> را هم ببینید.`],
+    ['آیا برای آزمون اینبورخرینگ (هم‌پذیری) کمک می‌کند؟', `نِدفا موضوعات زندگی روزمره را تمرین می‌کند که در آزمون‌های شنیدن، خواندن، نوشتن و صحبت کردن می‌آیند: پزشک، شهرداری، کار، خانه و خرید. <a class="text-primary underline" href="/fa/inburgering/">راهنمای آزمون اینبورخرینگ</a> را هم ببینید.`],
     ['ترجمه‌ها به فارسی است؟', `بله. همهٔ ${num(lang, totals.words)} لغت، جمله‌ها و نکته‌های گرامری ترجمه و توضیح فارسی دارند و هر جملهٔ هلندی را می‌توانید با صدای هلندی بشنوید.`],
     ['روی آیفون و کامپیوتر کار می‌کند؟', `بله. نسخهٔ وب روی هر مرورگری کار می‌کند و اپ آیفون به‌زودی در App Store است. با ورود از طریق اپل یا گوگل، پیشرفت شما بین گوشی و کامپیوتر همگام می‌شود.`],
-    ['یادگیری زبان هلندی برای فارسی‌زبان‌ها سخت است؟', `هلندی الفبای لاتین و ترتیب کلمات متفاوتی دارد، اما با تمرین روزانهٔ کوتاه به‌خوبی یاد گرفته می‌شود. نکته‌های مهم مثل ${nl('de')} و ${nl('het')}، جای فعل در جمله و افعال جداشدنی را در <a class="text-primary underline" href="/grammatica/">بخش گرامر</a> به فارسی توضیح داده‌ایم.`],
+    ['یادگیری زبان هلندی برای فارسی‌زبان‌ها سخت است؟', `هلندی الفبای لاتین و ترتیب کلمات متفاوتی دارد، اما با تمرین روزانهٔ کوتاه به‌خوبی یاد گرفته می‌شود. نکته‌های مهم مثل ${nl('de')} و ${nl('het')}، جای فعل در جمله و افعال جداشدنی را در <a class="text-primary underline" href="/fa/grammatica/">بخش گرامر</a> به فارسی توضیح داده‌ایم.`],
   ] : [
     ['Is Nedfa gratis?', 'Ja. De website en de iPhone-app zijn gratis en zonder advertenties. Je kunt beginnen zonder account.'],
     ['Voor wie is Nedfa?', 'Voor Perzisch sprekenden (Iraniërs en Afghanen die Farsi of Dari spreken) die al een beetje Nederlands kennen en van A2 naar B1 willen, bijvoorbeeld naast een taalcursus of voor het inburgeringsexamen.'],
-    ['Helpt Nedfa bij het inburgeringsexamen?', `Nedfa oefent de onderwerpen van het dagelijks leven die in de examens luisteren, lezen, schrijven en spreken terugkomen: de huisarts, de gemeente, werk, wonen en boodschappen. Lees ook de <a class="text-primary underline" href="/nl/inburgering/">uitleg over inburgering</a>.`],
+    ['Helpt Nedfa bij het inburgeringsexamen?', `Nedfa oefent de onderwerpen van het dagelijks leven die in de examens luisteren, lezen, schrijven en spreken terugkomen: de huisarts, de gemeente, werk, wonen en boodschappen. Lees ook de <a class="text-primary underline" href="/inburgering/">uitleg over inburgering</a>.`],
     ['Zijn alle vertalingen in het Perzisch?', `Ja. Alle ${totals.words} woorden, de zinnen en de grammatica hebben een Perzische vertaling of uitleg, en elke Nederlandse zin hoor je met Nederlandse audio.`],
     ['Werkt het op de iPhone en de computer?', 'Ja. De website werkt in elke browser en de iPhone-app komt binnenkort in de App Store. Log in met Apple of Google, dan gaat je voortgang mee tussen telefoon en computer.'],
-    ['Kan ik als Nederlander iemand helpen met Nedfa?', `Zeker. Gebruik de <a class="text-primary underline" href="/nl/woorden/">woordenlijsten per thema</a> en de <a class="text-primary underline" href="/nl/grammatica/">grammatica</a> samen met een taalmaatje: de Nederlandse tekst staat er steeds naast de Perzische.`],
+    ['Kan ik als Nederlander iemand helpen met Nedfa?', `Zeker. Gebruik de <a class="text-primary underline" href="/woorden/">woordenlijsten per thema</a> en de <a class="text-primary underline" href="/grammatica/">grammatica</a> samen met een taalmaatje: de Nederlandse tekst staat er steeds naast de Perzische.`],
   ]);
   const features = (lang === 'fa' ? [
     ['/img/themes/huisarts.jpg', 'لغت با تلفظ هلندی', `${num(lang, totals.words)} لغت و اصطلاح در ${num(lang, totals.themes)} موضوع روزمره، هر کدام با جملهٔ مثال، ترجمهٔ فارسی و صدای هلندی.`],
@@ -350,7 +350,7 @@ ${section(`${h2(L('پرسش‌های رایج دربارهٔ اینبورخری�
 /* ------------------------------------------------------- crawlers and bots */
 
 function sitemap() {
-  const entry = (lang, item) => `  <url><loc>${SITE}${at(lang, item.path)}</loc><lastmod>${today}</lastmod><priority>${item.priority}</priority>${LANGS.map((alt) => `<xhtml:link rel="alternate" hreflang="${alt}" href="${SITE}${at(alt, item.path)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${item.path}"/></url>`;
+  const entry = (lang, item) => `  <url><loc>${SITE}${at(lang, item.path)}</loc><lastmod>${today}</lastmod><priority>${item.priority}</priority>${LANGS.map((alt) => `<xhtml:link rel="alternate" hreflang="${alt}" href="${SITE}${at(alt, item.path)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${at('nl', item.path)}"/></url>`;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${LANGS.flatMap((lang) => paths.map((item) => entry(lang, item))).join('\n')}
@@ -375,17 +375,17 @@ Sitemap: ${SITE}/sitemap.xml
 function llms() {
   return `# Nedfa (نِدفا)
 
-> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from level A2 to B1. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Persian (${SITE}/) and Dutch (${SITE}/nl/). Web app: ${SITE}/leren.html (no account needed). iPhone app: coming to the App Store. Contact: ${EMAIL}.
+> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from level A2 to B1. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Dutch (${SITE}/, the default) and Persian (${SITE}/fa/). Web app: ${SITE}/leren.html (no account needed). iPhone app: coming to the App Store. Contact: ${EMAIL}.
 
 نِدفا اپ و سایت رایگان آموزش زبان هلندی برای فارسی‌زبانان (ایرانی‌ها و افغان‌ها) از سطح A2 تا B1 است.
 
 Nedfa is een gratis app om Nederlands te leren voor Perzisch sprekenden, van A2 naar B1.
 
 ## Main pages
-- [Home (Persian): آموزش زبان هلندی به فارسی](${SITE}/) · [Dutch](${SITE}/nl/)
-- [Dutch vocabulary by theme: لغات هلندی به فارسی](${SITE}/woorden/) · [Dutch](${SITE}/nl/woorden/): ${totals.themes} themes with Dutch word, de/het, Persian meaning and example sentence
-- [Dutch grammar in Persian: گرامر زبان هلندی](${SITE}/grammatica/) · [Dutch](${SITE}/nl/grammatica/): ${totals.patterns} patterns with Persian explanation and examples
-- [Inburgering exam guide: آزمون اینبورخرینگ](${SITE}/inburgering/) · [Dutch](${SITE}/nl/inburgering/): exam parts, A2/B1 level and a daily practice plan
+- [Home (Dutch)](${SITE}/) · [Persian: آموزش زبان هلندی به فارسی](${SITE}/fa/)
+- [Dutch vocabulary by theme](${SITE}/woorden/) · [Persian: لغات هلندی به فارسی](${SITE}/fa/woorden/): ${totals.themes} themes with Dutch word, de/het, Persian meaning and example sentence
+- [Dutch grammar](${SITE}/grammatica/) · [Persian: گرامر زبان هلندی](${SITE}/fa/grammatica/): ${totals.patterns} patterns with Persian explanation and examples
+- [Inburgering exam guide](${SITE}/inburgering/) · [Persian: آزمون اینبورخرینگ](${SITE}/fa/inburgering/): exam parts, A2/B1 level and a daily practice plan
 - [The app (practice)](${SITE}/leren.html)
 - [Full text of all lessons](${SITE}/llms-full.txt)
 

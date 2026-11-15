@@ -1,7 +1,8 @@
 # Public site and SEO
 
 The public pages are for Persian speakers (mainly Iranians, also Afghans) who want to learn Dutch. Every page exists
-in Persian at `/…` (`lang="fa" dir="rtl"`) and in Dutch at `/nl/…`, linked with `hreflang` (x-default: Persian).
+in Dutch at `/…` (the default) and in Persian at `/fa/…` (`lang="fa" dir="rtl"`), linked with `hreflang`
+(x-default: Dutch). The keyword table below is for the Persian pages; add `/fa` to each URL.
 Dutch words are marked `lang="nl" dir="ltr"`, Persian fragments on Dutch pages `lang="fa" dir="rtl"`.
 
 `scripts/site/build-site.mjs` writes them after `vite build`, from the same content files as the app

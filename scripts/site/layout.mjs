@@ -1,15 +1,15 @@
-// Shared HTML for the public pages in Persian (/) and Dutch (/nl/): head with SEO tags, header, footer, blocks.
+// Shared HTML for the public pages in Dutch (/, the default) and Persian (/fa/): SEO head, header, footer, blocks.
 export const SITE = 'https://nedfa.nl';
 export const BRAND_FA = 'نِدفا';
 export const EMAIL = 'hallo@nedfa.nl';
-export const LANGS = ['fa', 'nl'];
+export const LANGS = ['nl', 'fa'];
 
 const entities = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
 export const esc = (text = '') => String(text).replace(/[&<>"']/g, (char) => entities[char]);
 /** Pick the Persian or Dutch text. */
 export const tx = (lang, fa, nlText) => (lang === 'fa' ? fa : nlText);
-/** A path in the given language: Persian pages live at the root, Dutch ones under /nl/. */
-export const at = (lang, path) => (lang === 'fa' ? path : `/nl${path}`);
+/** A path in the given language: Dutch pages live at the root (the default), Persian ones under /fa/. */
+export const at = (lang, path) => (lang === 'nl' ? path : `/fa${path}`);
 /** Numbers in Persian digits on Persian pages. */
 export const num = (lang, value) => Number(value).toLocaleString(lang === 'fa' ? 'fa-IR' : 'nl-NL');
 /** A Dutch fragment: left-to-right, Dutch font, read as Dutch by screen readers. */
@@ -37,7 +37,7 @@ export function page({lang, path, title, description, image = '/img/og.jpg', jso
 <link rel="canonical" href="${url}">
 <link rel="alternate" hreflang="fa" href="${SITE}${at('fa', path)}">
 <link rel="alternate" hreflang="nl" href="${SITE}${at('nl', path)}">
-<link rel="alternate" hreflang="x-default" href="${SITE}${at('fa', path)}">
+<link rel="alternate" hreflang="x-default" href="${SITE}${at('nl', path)}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="theme-color" content="#fcfaf6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111a28" media="(prefers-color-scheme: dark)">

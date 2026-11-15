@@ -45,7 +45,11 @@ The app works without an account ("Eerst proberen zonder account" on the first s
 
 ## Privacy (App Store nutrition label)
 
+Published in App Store Connect on 2026-11-15. Privacy policy URL: https://nedfa.nl/privacy
+
+
 - Collected only when signed in, linked to the user, not used for tracking: Contact info (email, name — from Apple/Google sign-in), User content / Other usage data (review progress and settings) for App Functionality.
+- User Content → Customer Support (the feedback form): linked to the user when signed in, not used for tracking, purpose App Functionality.
 - Usage Data → Product Interaction: collected, **not linked** to the user, **not used for tracking**, purpose Analytics (anonymous Umami screen and event counts on our own server; off-switch in Instellingen; see docs/ANALYTICS.md).
 - No ads, no third-party tracking, no App Tracking Transparency prompt needed.
 

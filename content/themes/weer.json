@@ -5,6 +5,7 @@
   "fa": "آب‌وهوا و فصل‌ها",
   "icon": "23",
   "intro": "Praat over het weer, zoals elke Nederlander.",
+  "grammar": ["zin:als", "zin:veranderen"],
   "words": [
     {
       "nl": "het weer",

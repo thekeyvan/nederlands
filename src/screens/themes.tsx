@@ -18,7 +18,7 @@ import {cn} from '@/lib/utils';
 import {plural} from '@/lib/text';
 import {useProgress} from '@/hooks/use-progress';
 import {usePractice} from '@/hooks/use-practice';
-import {navigate, type Route} from '@/hooks/use-route';
+import {type Route} from '@/hooks/use-route';
 import {themes, vocabulary, searchVocabulary} from '@/core/learning-data.js';
 import {dialogues, phrases} from '@/core/phrase-data.js';
 import {themeStats} from '@/core/learning-model.js';
@@ -26,11 +26,12 @@ import {themeStars} from '@/core/game.js';
 import {progressStatus} from '@/core/srs.js';
 import {locale} from '@/core/i18n.js';
 import {LearnTabs} from '@/components/app/learn-tabs';
-import {Group, Row, ScreenTitle} from '@/components/app/list';
+import {ScreenTitle} from '@/components/app/list';
 import {ThemeGamesSheet} from '@/screens/games';
 import type {Card, Review, Theme} from '@/core/types';
 import {usePreferences} from '@/hooks/use-preferences';
-import {sortForLevel} from '@/core/level.js';
+import {currentTheme} from '@/core/path.js';
+import {PathList, StepList} from '@/components/path/path-ui';
 
 
 export function ThemesScreen({themeId, topic}: {themeId: string | null; topic: Route['topic']}) {
@@ -38,50 +39,29 @@ export function ThemesScreen({themeId, topic}: {themeId: string | null; topic: R
   return theme ? <ThemeDetail key={theme.id} theme={theme} initialTopic={topic} /> : <ThemeLibrary />;
 }
 
+/** Leren › Pad: every situation in order from A0 to B1, with where you are. */
 function ThemeLibrary() {
-  const {reviews} = useProgress();
+  const {reviews, events} = useProgress();
   const [query, setQuery] = useState('');
-  const needle = query.trim().toLocaleLowerCase('nl');
   const [preferences] = usePreferences();
-  // Themes for the learner's level (from the niveautest) come first; the level badge shows on beginner and B1 themes.
-  const visible = sortForLevel(themes, preferences.level).filter((theme) => `${theme.title} ${theme.meaning} ${theme.intro}`.toLocaleLowerCase('nl').includes(needle));
+  const current = currentTheme(reviews, events, preferences.level);
   return (
     <Page>
       <ScreenTitle title="Leren" />
       <LearnTabs active="woorden" />
-      <label className="relative mb-3 block sm:max-w-md">
-        <span className="sr-only">Zoek een thema</span>
+      <p className="mb-3 max-w-3xl text-sm text-muted-foreground">Elke situatie heeft vijf stappen: woorden, zinnen, de grammatica die je erbij nodig hebt, een gesprek en een eindspel.</p>
+      <label className="relative mb-4 block sm:max-w-md">
+        <span className="sr-only">Zoek een situatie</span>
         <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-        <Input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Zoek een thema" className="h-10 border-0 bg-muted pl-9 text-[15px]" dir="auto" />
+        <Input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Zoek bijvoorbeeld huisarts" className="h-10 border-0 bg-muted pl-9 text-[15px]" dir="auto" />
       </label>
-      {visible.length ? (
-        <Group className="max-w-3xl">
-          {visible.map((theme) => {
-            const stats = themeStats(theme.id, reviews);
-            const stars = themeStars(stats);
-            const words = vocabulary.filter((card) => card.themeId === theme.id).length;
-            const sentences = phrases.filter((card) => card.themeId === theme.id).length;
-            return (
-              <Row key={theme.id} onClick={() => navigate('woorden', {theme: theme.id})} leading={<ThemeArt theme={theme} className="size-11 shrink-0 rounded-lg" />}
-                title={theme.title} detail={`${theme.level && theme.level !== 'A2' ? `${theme.level} · ` : ''}${stats.done ? `${stats.done} van ${stats.total} geoefend` : `${words} woorden · ${sentences} zinnen`}`}
-                trailing={stats.done ? <Stars count={stars} className="[&_svg]:size-3.5" /> : <Badge variant="streak">Nieuw</Badge>} />
-            );
-          })}
-        </Group>
-      ) : (
-        <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed p-10 text-center">
-          <Mascot mood="think" className="size-20" />
-          <p className="font-semibold">Geen thema gevonden.</p>
-          <Button variant="outline" onClick={() => setQuery('')}>Toon alle thema’s</Button>
-        </div>
-      )}
+      <PathList current={current} query={query} />
     </Page>
   );
 }
 
 function ThemeDetail({theme, initialTopic}: {theme: Theme; initialTopic: Route['topic']}) {
   const {reviews} = useProgress();
-  const {start} = usePractice();
   const [playing, setPlaying] = useState(false);
   const [topic, setTopic] = useState<string>(initialTopic);
   const stats = themeStats(theme.id, reviews);
@@ -100,12 +80,13 @@ function ThemeDetail({theme, initialTopic}: {theme: Theme; initialTopic: Route['
             <div className="flex items-center gap-2 text-sm"><Stars count={stars} /><span className="text-muted-foreground tabular-nums">{stats.done}/{stats.total}</span></div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3 md:ml-auto md:w-80">
-          <Button size="xl" game className="px-3" onClick={() => start({theme: theme.id, type: 'all', label: theme.title})}><Zap />Oefenen</Button>
-          <Button size="xl" variant="info" game className="px-3" onClick={() => setPlaying(true)}><Gamepad2 />Spelen</Button>
-        </div>
       </header>
+      <div className="mb-8 max-w-2xl">
+        <StepList theme={theme} />
+        <button type="button" onClick={() => setPlaying(true)} className="mt-3 flex items-center gap-1.5 px-1 text-sm font-semibold text-primary"><Gamepad2 className="size-4" />Meer spellen met deze situatie</button>
+      </div>
       <ThemeGamesSheet theme={theme} open={playing} onOpenChange={setPlaying} />
+      <h2 className="mb-2 text-[13px] font-semibold tracking-wide text-muted-foreground uppercase">Alles om te lezen en te luisteren</h2>
       <Tabs value={topic} onValueChange={setTopic}>
         <TabsList className="mb-4 h-11 w-full sm:w-fit">
           <TabsTrigger value="words" className="px-4">Woorden <Badge variant="secondary" className="ml-1 bg-muted text-muted-foreground">{words.length}</Badge></TabsTrigger>

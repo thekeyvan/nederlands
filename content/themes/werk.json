@@ -5,6 +5,7 @@
   "fa": "کار و زندگی",
   "icon": "01",
   "intro": "Wat vind jij belangrijk in je werk?",
+  "grammar": ["zin:v2", "zin:tijd-manier-plaats"],
   "words": [
     {
       "nl": "de balans",

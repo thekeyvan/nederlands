@@ -5,6 +5,8 @@
   "fa": "توانستن، اجازه و الزام",
   "icon": "17",
   "intro": "Eén ander werkwoord, een andere betekenis.",
+  "grammar": ["zin:kunnen", "zin:hoeven", "zin:dubbel"],
+  "irregular": "modaal",
   "words": [
     {
       "nl": "kunnen",

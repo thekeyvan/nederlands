@@ -62,6 +62,18 @@ struct Theme: Codable, Identifiable, Hashable {
     /// A0 (starting from zero), A1, A2 or B1; older content has none (A2).
     let level: String?
     var levelOrDefault: String { level ?? "A2" }
+    /// The grammar rules (zin:…) you need in this situation, and an Onregelmatig set that goes with it (step 3 of the path).
+    var grammar: [String]? = nil
+    var irregular: String? = nil
+}
+
+/// A section of the path in Leren: situations in the order you learn them.
+struct PathSection: Codable, Identifiable, Hashable {
+    let id: String
+    let title: String
+    let fa: String
+    let level: String
+    let themeIds: [String]
 }
 
 /// The niveautest: five questions per level; a block is passed with `passMark` right answers.
@@ -200,6 +212,8 @@ struct ContentFile: Codable {
     let games: GameData
     /// Missing in content downloaded before Onregelmatig existed.
     let irregular: IrregularData?
+    /// Missing in content downloaded before the path existed.
+    let path: [PathSection]?
 }
 
 /// All content, loaded once at launch: the newest copy from nedfa.nl if one was downloaded, else the bundled one.
@@ -220,11 +234,13 @@ final class Content: Sendable {
     let audio: AudioCatalog
     let games: GameData
     let irregular: IrregularData
+    let path: [PathSection]
     private let byId: [String: Card]
 
     private init() {
         let bundled = { try! JSONDecoder().decode(ContentFile.self, from: Data(contentsOf: Bundle.main.url(forResource: "content", withExtension: "json")!)) }
-        let file = ContentUpdater.downloaded() ?? bundled()
+        // A copy downloaded before this build's content format (no path yet) is older than the bundled one: use the bundled one.
+        let file = ContentUpdater.downloaded().flatMap { $0.path == nil ? nil : $0 } ?? bundled()
         version = file.version
         themes = file.themes
         groups = file.groups
@@ -240,12 +256,13 @@ final class Content: Sendable {
         audio = file.audio
         games = file.games
         irregular = file.irregular ?? bundled().irregular ?? IrregularData(intro: "", sets: [], cards: [])
+        path = file.path ?? bundled().path ?? []
         byId = Dictionary((file.cards + irregular.cards).map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     }
 
     func card(_ id: String) -> Card? { byId[id] }
     /// Every id progress can be saved for: lesson cards and irregular forms.
-    var allIds: Swift.Set<String> { Swift.Set(byId.keys) }
+    var allIds: Swift.Set<String> { Swift.Set(byId.keys).union(themes.map { "gesprek:\($0.id)" }) }
     func irregularSet(_ id: String) -> IrregularData.Set? { irregular.sets.first { $0.id == id } }
     func irregularCards(in set: IrregularData.Set) -> [Card] { set.cardIds.compactMap { byId[$0] } }
     func theme(_ id: String) -> Theme? { themes.first { $0.id == id } }

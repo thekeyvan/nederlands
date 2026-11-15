@@ -5,6 +5,7 @@
   "fa": "رفتن به دکتر",
   "icon": "18",
   "intro": "Vertel wat je voelt en stel je vragen.",
+  "grammar": ["zin:kunnen", "zin:zou-kunnen", "zin:advies"],
   "words": [
     {
       "nl": "de afspraak",

@@ -6,6 +6,7 @@
   "icon": "28",
   "level": "B1",
   "intro": "Schrijf een brief en vertel wie je bent.",
+  "grammar": ["zin:indirecte-vraag", "zin:er-voorzetsel"],
   "words": [
     {
       "nl": "de vacature",

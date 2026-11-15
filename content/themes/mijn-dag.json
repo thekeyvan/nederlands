@@ -6,6 +6,8 @@
   "icon": "37",
   "level": "A0",
   "intro": "Hoe ziet jouw dag eruit?",
+  "grammar": ["zin:presens", "zin:v2"],
+  "irregular": "i-o",
   "words": [
     {
       "nl": "opstaan",

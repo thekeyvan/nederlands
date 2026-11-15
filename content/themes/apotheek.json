@@ -5,6 +5,7 @@
   "fa": "در داروخانه",
   "icon": "19",
   "intro": "Vraag hoe je je medicijnen gebruikt.",
+  "grammar": ["zin:hoeven", "zin:om-te"],
   "words": [
     {
       "nl": "de apotheek",

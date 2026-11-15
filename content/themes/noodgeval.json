@@ -5,6 +5,8 @@
   "fa": "کمک و موارد اضطراری",
   "icon": "30",
   "intro": "Wat zeg je als je snel hulp nodig hebt?",
+  "grammar": ["zin:hebben-zijn", "zin:onregelmatig-deelwoord"],
+  "irregular": "ie",
   "words": [
     {
       "nl": "het noodnummer",

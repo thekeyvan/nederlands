@@ -5,6 +5,7 @@
   "fa": "زمان و واژه‌های کوچک",
   "icon": "14",
   "intro": "Kleine woorden veranderen de betekenis.",
+  "grammar": ["zin:tijd-al", "zin:tijd-manier-plaats"],
   "words": [
     {
       "nl": "nog",

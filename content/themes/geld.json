@@ -5,6 +5,7 @@
   "fa": "پول و کارهای روزمره",
   "icon": "16",
   "intro": "Oefen woorden voor gewone situaties.",
+  "grammar": ["zin:dat", "zin:omdat"],
   "words": [
     {
       "nl": "de betaalpas",

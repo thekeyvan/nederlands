@@ -5,6 +5,8 @@
   "fa": "رفت‌وآمد و سفر",
   "icon": "09",
   "intro": "Hoe ga je naar je bestemming?",
+  "grammar": ["zin:tijd-manier-plaats", "zin:onregelmatig-deelwoord"],
+  "irregular": "ie-oo",
   "words": [
     {
       "nl": "het OV",

@@ -48,7 +48,7 @@ const modeBadges: Record<Mode, {label: string; variant: 'lavender' | 'info' | 'x
   reverse: {label: 'Kiezen', variant: 'lavender'},
   listen: {label: 'Luisteren', variant: 'info'},
   type: {label: 'Typen', variant: 'xp'},
-  gap: {label: 'Zinsbouw', variant: 'success'},
+  gap: {label: 'Grammatica', variant: 'success'},
   flash: {label: 'Kaartje', variant: 'streak'},
   form: {label: 'Onregelmatig', variant: 'xp'},
 };

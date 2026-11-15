@@ -5,6 +5,7 @@
   "fa": "شغل‌ها و محل کار",
   "icon": "04",
   "intro": "Leer een beroep samen met de werkplek.",
+  "grammar": ["zin:die-dat", "zin:samenstelling"],
   "words": [
     {
       "nl": "de huisarts",

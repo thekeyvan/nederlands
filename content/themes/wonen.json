@@ -5,6 +5,7 @@
   "fa": "خانه و محله",
   "icon": "05",
   "intro": "Beschrijf je huis en je buurt.",
+  "grammar": ["zin:voornaamwoord-dingen", "zin:samenstelling"],
   "words": [
     {
       "nl": "de woning",

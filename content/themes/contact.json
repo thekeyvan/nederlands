@@ -5,6 +5,8 @@
   "fa": "گفت‌وگوی روزمره",
   "icon": "12",
   "intro": "Een paar woorden zijn een goed begin.",
+  "grammar": ["zin:hebben-vervoegen", "zin:perfectum"],
+  "irregular": "kern",
   "words": [
     {
       "nl": "Goedemorgen!",

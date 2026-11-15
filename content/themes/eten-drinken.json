@@ -6,6 +6,7 @@
   "icon": "36",
   "level": "A0",
   "intro": "Wat eet en drink je graag?",
+  "grammar": ["zin:er-is", "zin:verkleinwoord"],
   "words": [
     {
       "nl": "eten",

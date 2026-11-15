@@ -5,6 +5,7 @@
   "fa": "اوقات فراغت و ورزش",
   "icon": "07",
   "intro": "Wat doe je graag in je vrije tijd?",
+  "grammar": ["zin:zullen-we", "zin:liever"],
   "words": [
     {
       "nl": "de vrijetijdsbesteding",

@@ -5,6 +5,8 @@
   "fa": "گردش و طبیعت",
   "icon": "10",
   "intro": "Kies een trip en vertel waarom.",
+  "grammar": ["zin:er-is", "zin:toen-als"],
+  "irregular": "e-o",
   "words": [
     {
       "nl": "de bestemming",

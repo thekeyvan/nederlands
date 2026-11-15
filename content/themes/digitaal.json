@@ -5,6 +5,7 @@
   "fa": "پست، تلفن و اینترنت",
   "icon": "27",
   "intro": "Regel je pakket, je abonnement en je DigiD.",
+  "grammar": ["zin:deelwoord-zonder-ge", "zin:verleden-t-d"],
   "words": [
     {
       "nl": "het pakket",

@@ -6,6 +6,7 @@
   "icon": "38",
   "level": "A0",
   "intro": "Waar is het station?",
+  "grammar": ["zin:niet", "zin:vraag"],
   "words": [
     {
       "nl": "waar",

@@ -6,6 +6,7 @@
   "icon": "06",
   "level": "B1",
   "intro": "Welke keuzes moet je maken?",
+  "grammar": ["zin:advies", "zin:daarmee", "zin:dubbel"],
   "words": [
     {
       "nl": "kopen",

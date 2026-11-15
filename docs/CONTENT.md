@@ -53,13 +53,18 @@ Dialogue lines have `speaker`, `nl` and `fa`. The learner is always `"Jij"`; a d
 
 1. Copy a theme file, e.g. `content/themes/huisarts.json`, to `content/themes/<new-id>.json`. The id is lower case with hyphens, the same as the file name, and never changes.
 2. Fill in `title` (Dutch), `fa`, `intro` (one Dutch question), `level` (`A0`, `A1` or `B1`; leave it out for A2), about 20–30 words, 5+ phrases and a dialogue. Beginner themes (A0) go in the `beginnen` group; learners with that level see them first.
-3. In `content/index.js`: add an import line, add it to `themeFiles` and put its id in one of the `groups`.
-4. Optional: a square 3D picture at `src/assets/illustrations/themes/<new-id>.jpg` (about 520 px, same style as the others). Without one the apps show the logo.
-5. Run `npm run content:check`.
+3. In `content/index.js`: add an import line, add it to `themeFiles`, put its id in one of the `groups` and in one section of `path` (the order learners follow in Leren).
+4. Give it `"grammar": ["zin:…"]`: the 1–3 rules you need in this situation (step 3 of its path), and optionally `"irregular": "<set id>"` for an Onregelmatig set that fits.
+5. Optional: a square 3D picture at `src/assets/illustrations/themes/<new-id>.jpg` (about 520 px, same style as the others). Without one the apps show the logo.
+6. Run `npm run content:check`.
 
 ## A new grammar rule
 
 Copy a file in `content/grammar/`. The `id` is `zin:` plus the file name. `prompt` has exactly one `___` where `answer` goes. Give at least three `examples`; each `gap` is a whole word that appears exactly once in its sentence (it is hidden in the gap exercise). Then import it in `content/index.js` and add it to `grammarFiles`.
+
+## The path (Leren)
+
+Every theme is a situation on one path, ordered in `path` in `content/index.js` from A0 to B1. Each situation has five steps: its words, its phrases, its grammar (the rules in the theme's `"grammar"`, plus its `"irregular"` set), its conversation, and a final game. A grammar rule page shows the situations it belongs to ("Nodig bij"); every rule should be linked to at least one theme (`content:check` warns otherwise).
 
 ## Onregelmatig (irregular forms)
 

@@ -5,6 +5,8 @@
   "fa": "جشن و تولد",
   "icon": "26",
   "intro": "Feliciteer, nodig uit en vier mee.",
+  "grammar": ["zin:verleden", "zin:deelwoord-t-d"],
+  "irregular": "e-a",
   "words": [
     {
       "nl": "de verjaardag",

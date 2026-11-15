@@ -5,6 +5,8 @@
   "fa": "کارهای خانه",
   "icon": "29",
   "intro": "Wie doet wat in huis?",
+  "grammar": ["zin:scheidbaar", "zin:deelwoord-scheidbaar"],
+  "irregular": "half",
   "words": [
     {
       "nl": "het huishouden",

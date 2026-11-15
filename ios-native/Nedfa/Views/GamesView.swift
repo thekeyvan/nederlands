@@ -199,7 +199,7 @@ struct GameFlow: View {
         NavigationStack {
             Group {
                 if let result {
-                    GameOver(game: game.game, result: result, again: { self.result = nil; round += 1 }, done: { dismiss() })
+                    GameOver(game: game.game, theme: game.theme, result: result, again: { self.result = nil; round += 1 }, done: { dismiss() })
                 } else if !started {
                     intro
                 } else {
@@ -244,6 +244,7 @@ struct GameResult { let score: Int; let total: Int?; let misses: [Card] }
 
 struct GameOver: View {
     let game: GameID
+    var theme = "all"
     let result: GameResult
     let again: () -> Void
     let done: () -> Void
@@ -284,6 +285,10 @@ struct GameOver: View {
                 previousBest = Preferences.shared.record(game: game.rawValue, score: result.score)
                 if result.score > (previousBest ?? 0) { Haptics.success() }
                 Analytics.shared.event("spel klaar", ["spel": game.rawValue, "score": result.score])
+                // A situation's conversation with half or more right finishes step 4 of its path.
+                if game == .gesprek, theme != "all", let total = result.total, total > 0, result.score * 2 >= total {
+                    Learner.shared.review(LearningPath.conversationId(theme), grade: 4)
+                }
             }
         }
     }

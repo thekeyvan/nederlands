@@ -13,6 +13,7 @@ import {patternDrill, orderItem, pickOptions} from '../lib/drill.ts';
 import {groups} from '../site/content.js';
 import {passMark, placementQuestions} from './level.js';
 import {irregularIntro, irregularSets} from './irregular.js';
+import {pathSections} from './path.js';
 
 
 const audio = (text) => Boolean(text && Object.hasOwn(audioCatalog.clips, text));
@@ -40,7 +41,7 @@ const drillJson = (exercise) => ({
 /** Everything the iPhone app shows, with answer options, drills and game rounds made by the same code as the website. */
 export function buildNativeContent() {
   return {
-  themes: themes.map((theme) => ({id: theme.id, title: theme.title, meaning: theme.meaning, intro: theme.intro, level: theme.level, group: groups.find((group) => group.ids.includes(theme.id))?.id ?? 'dagelijks'})),
+  themes: themes.map((theme) => ({id: theme.id, title: theme.title, meaning: theme.meaning, intro: theme.intro, level: theme.level, grammar: theme.grammar, irregular: theme.irregular, group: groups.find((group) => group.ids.includes(theme.id))?.id ?? 'dagelijks'})),
   groups: groups.map(({id, ids}) => ({id, title: {beginnen: 'Beginnen', dagelijks: 'Elke dag', werk: 'Werk', vrijetijd: 'Vrije tijd & uitgaan', taal: 'Taal & contact'}[id], themeIds: ids})),
   cards: cards.map(cardJson),
   patterns: sentences.map((card) => ({
@@ -51,6 +52,8 @@ export function buildNativeContent() {
   dialogues: dialogues.map((dialogue) => ({id: dialogue.id, themeId: dialogue.themeId, lines: dialogue.lines.map((line) => ({id: line.id, speaker: line.speaker, nl: line.nl, translation: line.translation, hasAudio: audio(line.nl)}))})),
   lessons: courseLessons.map(({id, title, level, grammarIds, themeIds, cardIds, goal, task}) => ({id, title, level, grammarIds, themeIds, cardIds, goal, task})),
   levels,
+  // The path in Leren (build 25+): sections of situations from A0 to B1.
+  path: pathSections.map(({id, nl, fa, level, themes: list}) => ({id, title: nl, fa, level, themeIds: list.map((theme) => theme.id)})),
   // Onregelmatig (build 23+): sets of irregular forms, each form a review card practised with mode "form".
   irregular: {
     intro: irregularIntro,

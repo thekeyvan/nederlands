@@ -6,6 +6,7 @@
   "icon": "35",
   "level": "A0",
   "intro": "Welke kleur heeft jouw tas?",
+  "grammar": ["zin:lidwoord", "zin:aanwijzen"],
   "words": [
     {
       "nl": "rood",

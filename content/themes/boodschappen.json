@@ -5,6 +5,7 @@
   "fa": "در سوپرمارکت",
   "icon": "21",
   "intro": "Wat heb je nodig en waar vind je het?",
+  "grammar": ["zin:geen", "zin:nog-geen-meer"],
   "words": [
     {
       "nl": "de boodschappen",

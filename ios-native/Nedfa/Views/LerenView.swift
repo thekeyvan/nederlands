@@ -1,23 +1,22 @@
 import SwiftUI
 
-/// Leren: the path as a game map, all themes as tiles, and the grammar rules.
+/// Leren: the path of situations (five steps each), and the grammar to look things up.
 struct LerenView: View {
-    enum Part: String, CaseIterable { case pad = "Pad", themas = "Thema’s", zinsbouw = "Grammatica" }
+    enum Part: String, CaseIterable { case pad = "Pad", zinsbouw = "Grammatica" }
     @State private var part: Part = .pad
 
     var body: some View {
         NavigationStack {
             Group {
                 switch part {
-                case .pad: RouteMap()
-                case .themas: ThemesGrid()
+                case .pad: PathView()
                 case .zinsbouw: PatternList()
                 }
             }
             // A fixed header like Vandaag and Arcade: the title and the switch stay put, content scrolls underneath.
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(alignment: .leading, spacing: 12) {
-                    ScreenTitle("Leren", eyebrow: "\(Content.shared.themes.count) thema’s · \(Content.shared.grammar.count) patronen")
+                    ScreenTitle("Leren", eyebrow: "\(Content.shared.themes.count) situaties · \(Content.shared.grammar.count) regels")
                     Picker("Leren", selection: $part) { ForEach(Part.allCases, id: \.self) { Text($0.rawValue) } }
                         .pickerStyle(.segmented)
                 }
@@ -109,12 +108,17 @@ struct ThemeDetailView: View {
                         if let stats { HStack { StarsView(count: stats.stars); Text("\(stats.done)/\(stats.total)").font(.footnote).foregroundStyle(.secondary).monospacedDigit() } }
                     }
                 }
-                HStack(spacing: 12) {
-                    Button { session.start(theme: theme.id, label: theme.title) } label: { Label("Oefenen", systemImage: "bolt.fill") }.buttonStyle(GameButtonStyle())
-                    Button { showGames = true } label: { Label("Spelen", systemImage: "gamecontroller.fill") }.buttonStyle(GameButtonStyle(color: .navy))
-                }
-                .listRowSeparator(.hidden)
+            }
+            Section {
+                StepRows(theme: theme)
+                Button { showGames = true } label: { Label("Meer spellen met deze situatie", systemImage: "gamecontroller.fill") }.font(.subheadline.weight(.semibold))
+            } header: {
+                Text("Vijf stappen")
+            }
+            Section {
                 Picker("Onderdeel", selection: $part) { ForEach(Part.allCases, id: \.self) { Text($0.rawValue) } }.pickerStyle(.segmented)
+            } header: {
+                Text("Alles om te lezen en te luisteren")
             }
             switch part {
             case .woorden:
@@ -330,6 +334,7 @@ struct PatternDetailView: View {
                 }
                 if let rule = card.rule { Section("Uitleg") { Persian(text: rule, font: .body) } }
                 if let note = card.note { Section("Let op") { Persian(text: note) } }
+                NeededInSection(themes: LearningPath.themes(forRule: card.id))
             }
             .navigationTitle(card.title ?? "")
             .navigationBarTitleDisplayMode(.inline)

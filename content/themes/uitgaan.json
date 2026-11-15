@@ -5,6 +5,7 @@
   "fa": "غذا خوردن و بیرون رفتن",
   "icon": "11",
   "intro": "Vraag iets in een café of restaurant.",
+  "grammar": ["zin:zou-willen", "zin:zal-ik"],
   "words": [
     {
       "nl": "uit eten gaan",

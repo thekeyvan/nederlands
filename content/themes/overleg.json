@@ -5,6 +5,7 @@
   "fa": "همکاری و جلسه",
   "icon": "02",
   "intro": "Hoe werk je samen met je collega’s?",
+  "grammar": ["zin:zullen-we", "zin:daarmee"],
   "words": [
     {
       "nl": "vergaderen",

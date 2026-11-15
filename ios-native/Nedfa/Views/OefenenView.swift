@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Vandaag: today's round as the hero, your place on the path, missions and focused practice.
+/// Vandaag: your next step on the path as the one big button, what to repeat, and today's missions.
 struct OefenenView: View {
     @State private var progress = Learner.shared
     @State private var preferences = Preferences.shared
@@ -14,16 +14,15 @@ struct OefenenView: View {
     var body: some View {
         let stats = Stats(reviews: progress.reviews, events: progress.events)
         let goal = preferences.goal
-        let resumeId = Stats.resumeTheme(events: progress.events, level: preferences.level)
-        let roundSize = min(20, max(5, goal - stats.today))
-        let daily = Planner.plan(reviews: progress.reviews, theme: stats.due > 0 ? "all" : resumeId, limit: stats.due > 0 ? 20 : roundSize)
+        let current = LearningPath.current(reviews: progress.reviews, events: progress.events, level: preferences.level)
 
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 26) {
                     header(stats)
-                    DailyCard(today: stats.today, goal: goal, count: daily.count) { session.start(daily, label: "Dagrondje") }
+                    NextStepCard(themeId: current, today: stats.today, goal: goal)
                         .padding(.horizontal, 20)
+                    repeatRows(stats)
 
                     if cloud.user == nil, cloud.status != .unavailable, cloud.status != .starting {
                         Button { showSignIn = true } label: {
@@ -39,32 +38,8 @@ struct OefenenView: View {
                         .padding(.horizontal, 20)
                     }
 
-                    levelCard(stats)
-
-                    PathStrip(stats: stats) { stop = $0 }
-                    missions(stats, theme: resumeId)
-                    focused
-                    if let resume = Content.shared.theme(resumeId) {
-                        VStack(alignment: .leading, spacing: 12) {
-                            SectionTitle("Verder met")
-                            NavigationLink(value: resume) {
-                                HStack(spacing: 14) {
-                                    Art(name: "themes/\(resume.id)", size: 64)
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(resume.title).font(.game(18, .heavy)).foregroundStyle(Color.primary)
-                                        if let item = stats.progress(for: resume.id) {
-                                            ThickProgress(value: Double(item.done) / Double(max(1, item.total)), color: .brand, height: 10)
-                                            Text("\(item.done) van \(item.total) geoefend").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                                        }
-                                    }
-                                    Image(systemName: "chevron.right").font(.footnote.weight(.bold)).foregroundStyle(.tertiary)
-                                }
-                                .padding(12)
-                            }
-                            .buttonStyle(PressableTile())
-                            .padding(.horizontal, 20)
-                        }
-                    }
+                    if preferences.level == nil { levelCard(stats) }
+                    missions(stats, theme: current)
                 }
                 .padding(.bottom, 30)
             }
@@ -73,10 +48,54 @@ struct OefenenView: View {
             .gameBackground()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Theme.self) { ThemeDetailView(theme: $0) }
+            .navigationDestination(for: PatternLink.self) { PatternDetailView(cardId: $0.id) }
+            .navigationDestination(for: IrregularSetLink.self) { IrregularSetView(setId: $0.id) }
             .sheet(isPresented: $showSignIn) { SignInSheet() }
             .sheet(item: $stop) { StopSheet(stop: $0) }
             .sheet(isPresented: $showLevelTest) { LevelTestView() }
         }
+    }
+
+    /// What to repeat (due cards from every situation) and your recent mistakes; hidden when there is nothing.
+    @ViewBuilder private func repeatRows(_ stats: Stats) -> some View {
+        let mistakes = Array(Content.shared.cards.filter { card in progress.reviews[card.id].map { $0.grade < 3 } ?? false }
+            .sorted { progress.reviews[$0.id]!.lastReviewed > progress.reviews[$1.id]!.lastReviewed }.prefix(20))
+        if stats.due > 0 || !mistakes.isEmpty {
+            VStack(spacing: 0) {
+                if stats.due > 0 {
+                    repeatRow(title: "Herhalen", detail: "Wat je bijna vergeet, uit alle situaties", picture: "oefenen/fouten", count: stats.due) {
+                        session.start(Planner.mission("herhaal", reviews: progress.reviews, limit: 20), label: "Herhalen")
+                    }
+                }
+                if stats.due > 0, !mistakes.isEmpty { Divider().padding(.leading, 70) }
+                if !mistakes.isEmpty {
+                    repeatRow(title: "Mijn fouten", detail: "Wat je de laatste keer fout had", picture: "oefenen/woorden", count: mistakes.count) {
+                        session.start(mistakes, label: "Mijn fouten")
+                    }
+                }
+            }
+            .card(padding: 14, radius: 24)
+            .padding(.horizontal, 20)
+        }
+    }
+
+    private func repeatRow(title: String, detail: String, picture: String, count: Int, start: @escaping () -> Void) -> some View {
+        Button(action: start) {
+            HStack(spacing: 12) {
+                Art(name: picture, size: 44, corner: 12)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title).font(.game(16, .heavy)).foregroundStyle(Color.primary)
+                    Text(detail).font(.caption).foregroundStyle(.secondary)
+                }
+                Spacer(minLength: 0)
+                Text("\(count)").font(.game(17, .black)).foregroundStyle(Color.brand).monospacedDigit()
+                Image(systemName: "chevron.right").font(.footnote.weight(.bold)).foregroundStyle(.tertiary)
+            }
+            .padding(.vertical, 8)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("\(title): \(count) kaartjes")
     }
 
     private func header(_ stats: Stats) -> some View {
@@ -130,7 +149,7 @@ struct OefenenView: View {
                     Mascot(mood: .think, size: 48)
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Hoe goed ken je Nederlands al?").font(.game(16, .heavy)).foregroundStyle(Color.primary)
-                        Text("Doe de niveautest (± 3 min). Dan kiest Nedfa wat bij je past.").font(.subheadline).foregroundStyle(.secondary).multilineTextAlignment(.leading)
+                        Text("Doe de niveautest (± 3 min). Dan begint je pad op jouw niveau.").font(.subheadline).foregroundStyle(.secondary).multilineTextAlignment(.leading)
                     }
                     Spacer(minLength: 0)
                     Image(systemName: "arrow.right.circle.fill").font(.title2).foregroundStyle(Color.brand)

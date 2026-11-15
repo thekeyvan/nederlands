@@ -6,6 +6,8 @@
   "icon": "34",
   "level": "A0",
   "intro": "Hoeveel kost het en hoe laat is het?",
+  "grammar": ["zin:meervoud", "zin:anderhalf"],
+  "irregular": "meervoud",
   "words": [
     {
       "nl": "één",

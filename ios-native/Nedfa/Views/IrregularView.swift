@@ -147,6 +147,7 @@ struct IrregularSetView: View {
                 } header: {
                     Text(set.kind == "verb" ? "Werkwoord · verleden tijd · voltooid (met hij)" : set.kind == "compare" ? "Woord · meer · meest" : set.kind == "plural" ? "Eén · meer" : "Zo zeg je het")
                 }
+                NeededInSection(themes: LearningPath.themes(forIrregular: set.id))
             }
             .navigationTitle(set.title)
             .navigationBarTitleDisplayMode(.inline)

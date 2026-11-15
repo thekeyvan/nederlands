@@ -12,6 +12,7 @@ import {navigate} from '@/hooks/use-route';
 import {irregularCards, irregularIntro, irregularProgress, irregularSet, irregularSets, type IrregularSet} from '@/core/irregular.js';
 import {mascotPose} from '@/lib/illustrations';
 import {cn} from '@/lib/utils';
+import {NeededIn} from '@/components/path/path-ui';
 
 export const irregularRule = 'onregelmatig';
 export const setRule = (id: string) => `${irregularRule}:${id}`;
@@ -122,6 +123,7 @@ function SetScreen({set}: {set: IrregularSet}) {
       <h1 className="mt-2 text-[26px] leading-tight font-extrabold tracking-tight sm:text-3xl" lang="nl">{set.title}</h1>
       <p className="mt-3 rounded-lg bg-muted px-3 py-2.5 font-mono text-[13px]" lang="nl">{set.pattern}</p>
       <Translation className="mt-3 text-[15px] text-muted-foreground">{set.rule}</Translation>
+      <NeededIn irregularId={set.id} />
       <div className="mt-4 flex items-center gap-3 rounded-xl border bg-card p-3">
         <Stars count={progress.stars} className="[&_svg]:size-5" />
         <p className="text-sm font-semibold tabular-nums">{progress.known} van {progress.total} gekend</p>

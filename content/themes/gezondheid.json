@@ -5,6 +5,7 @@
   "fa": "حال و سلامتی",
   "icon": "15",
   "intro": "Vertel hoe je je voelt.",
+  "grammar": ["zin:wederkerend", "zin:iedereen"],
   "words": [
     {
       "nl": "zich voelen",

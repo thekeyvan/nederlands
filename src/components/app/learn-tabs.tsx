@@ -2,15 +2,14 @@ import {cn} from '@/lib/utils';
 import {hrefFor, navigate, type Panel} from '@/hooks/use-route';
 
 const parts: {panel: Panel; label: string}[] = [
-  {panel: 'woorden', label: 'Thema’s'},
+  {panel: 'woorden', label: 'Pad'},
   {panel: 'zinnen', label: 'Grammatica'},
-  {panel: 'route', label: 'Route'},
 ];
 
-/** The three parts of Leren, switched in place with a segmented control. */
+/** The two parts of Leren (the path of situations, and grammar to look things up), switched in place. */
 export function LearnTabs({active}: {active: Panel}) {
   return (
-    <nav aria-label="Leren" className="mb-4 grid grid-cols-3 rounded-lg bg-muted p-0.5 sm:max-w-md">
+    <nav aria-label="Leren" className="mb-4 grid grid-cols-2 rounded-lg bg-muted p-0.5 sm:max-w-md">
       {parts.map(({panel, label}) => {
         const current = panel === active;
         return (

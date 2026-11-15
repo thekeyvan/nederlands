@@ -20,6 +20,7 @@ import {patternDrill} from '@/lib/drill';
 import {sceneFor} from '@/lib/illustrations';
 import type {Card} from '@/core/types';
 import {IrregularBanner, IrregularScreen, irregularRule} from '@/screens/irregular';
+import {NeededIn} from '@/components/path/path-ui';
 
 export function GrammarScreen({rule}: {rule: string | null}) {
   if (rule?.startsWith(irregularRule)) return <IrregularScreen rule={rule} />;
@@ -95,6 +96,7 @@ function PatternScreen({card}: {card: Card}) {
       </Group>
       <Translation className="mt-4 text-[15px] text-muted-foreground">{card.rule}</Translation>
       {card.note && <Translation className="mt-3 rounded-lg bg-xp-soft px-3 py-2 text-sm text-xp-foreground">{card.note}</Translation>}
+      <NeededIn ruleId={card.id} />
       <div className="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+4.25rem)] z-20 border-t bg-background/95 px-4 py-3 backdrop-blur lg:static lg:mt-6 lg:border-0 lg:bg-transparent lg:p-0">
         <Button size="xl" game className="w-full lg:w-auto" onClick={() => start({queue: drill, drill: true, label: card.title})}>
           Oefen dit patroon<Badge className="ml-1 bg-white/20 text-white">{drill.length}</Badge>

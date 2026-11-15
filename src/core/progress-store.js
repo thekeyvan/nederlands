@@ -3,7 +3,9 @@ import {phrases} from './phrase-data.js';
 import {sentences} from './sentence-data.js';
 import {irregularCards} from './irregular.js';
 import {scheduleReview,validReviews,mergeReviews} from './srs.js';
-const validIds=new Set([...vocabulary,...sentences,...phrases,...irregularCards].map(card=>card.id));
+import {themes} from './learning-data.js';
+// Lesson cards, irregular forms, and one "gesprek:<theme>" per situation (its conversation, step 4 of the path).
+const validIds=new Set([...vocabulary,...sentences,...phrases,...irregularCards].map(card=>card.id).concat(themes.map(theme=>`gesprek:${theme.id}`)));
 let identity='guest', listeners=new Set(), data=read('guest');
 function read(id){try{const parsed=JSON.parse(localStorage.getItem(`nederlands-learning:${id}`)||'{}');return {reviews:validReviews(parsed.reviews,validIds),events:Array.isArray(parsed.events)?parsed.events.filter(event=>validIds.has(event.cardId)&&[1,3,4,5].includes(event.grade)&&Number.isFinite(Date.parse(event.at))&&typeof event.id==='string').slice(-2000):[]};}catch{return {reviews:{},events:[]};}}
 function save(){try{localStorage.setItem(`nederlands-learning:${identity}`,JSON.stringify(data));}catch{if(typeof window!=='undefined')window.dispatchEvent(new CustomEvent('learning-storage-error'));}}

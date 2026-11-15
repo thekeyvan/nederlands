@@ -5,6 +5,8 @@
   "fa": "دوچرخه و رفت‌وآمد",
   "icon": "25",
   "intro": "Veilig op de fiets en op straat.",
+  "grammar": ["zin:hebben-zijn", "zin:als"],
+  "irregular": "ij-ee",
   "words": [
     {
       "nl": "het fietspad",

@@ -5,6 +5,7 @@
   "fa": "موسیقی، فیلم و هنر",
   "icon": "08",
   "intro": "Vertel over een film of een concert.",
+  "grammar": ["zin:die-dat", "zin:dat"],
   "words": [
     {
       "nl": "het orkest",

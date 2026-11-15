@@ -5,6 +5,7 @@
   "fa": "زبان‌آموزی و هم‌پذیری",
   "icon": "32",
   "intro": "Over je les, je examen en je plannen.",
+  "grammar": ["zin:voorbereiden", "zin:om-te"],
   "words": [
     {
       "nl": "de inburgering",

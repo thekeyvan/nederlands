@@ -5,6 +5,7 @@
   "fa": "در شهرداری",
   "icon": "20",
   "intro": "Regel een afspraak, een formulier of je adres.",
+  "grammar": ["zin:zou-mogen", "zin:indirecte-vraag"],
   "words": [
     {
       "nl": "de gemeente",

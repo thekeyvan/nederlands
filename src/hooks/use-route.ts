@@ -5,7 +5,7 @@ export interface Route {panel: Panel; theme: string | null; topic: 'words' | 'ph
 
 const panels: Panel[] = ['oefenen', 'woorden', 'zinnen', 'route', 'spellen', 'voortgang', 'instellingen', 'bronnen'];
 export const panelTitles: Record<Panel, string> = {
-  oefenen: 'Vandaag', woorden: 'Thema’s', zinnen: 'Grammatica', route: 'Route', spellen: 'Arcade', voortgang: 'Ik', instellingen: 'Instellingen', bronnen: 'Websites & boeken',
+  oefenen: 'Vandaag', woorden: 'Pad', zinnen: 'Grammatica', route: 'Route', spellen: 'Arcade', voortgang: 'Ik', instellingen: 'Instellingen', bronnen: 'Websites & boeken',
 };
 
 let cached: {key: string; route: Route} | null = null;

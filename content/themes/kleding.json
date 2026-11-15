@@ -5,6 +5,8 @@
   "fa": "لباس و خرید",
   "icon": "24",
   "intro": "Pas iets aan en vraag naar je maat.",
+  "grammar": ["zin:liever", "zin:aanwijzen"],
+  "irregular": "vergelijken",
   "words": [
     {
       "nl": "de kleding",

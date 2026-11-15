@@ -6,6 +6,8 @@
   "icon": "33",
   "level": "A0",
   "intro": "Hoe heet je en waar kom je vandaan?",
+  "grammar": ["zin:zijn", "zin:bezittelijk"],
+  "irregular": "nu",
   "words": [
     {
       "nl": "hallo",

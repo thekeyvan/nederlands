@@ -1,3 +1,5 @@
+import {reviewCard} from '@/core/progress-store.js';
+import {conversationId} from '@/core/path.js';
 import {useCallback, useEffect, useRef, useState, type ReactNode} from 'react';
 import {ArrowRight, Check, RotateCcw, Timer, Trophy, X, Zap} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
@@ -130,11 +132,15 @@ const recorded = new Map<string, ReturnType<ReturnType<typeof useGameRecords>['r
 export const newRoundId = (game: string) => `${game}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
 
 /** End of a game: score, personal best, mistakes and what to do next. */
-export function GameOver({game, roundId, score, total, misses, onAgain}: {game: GameInfo; roundId: string; score: number; total?: number; misses: Miss[]; theme?: string; onAgain: () => void}) {
+export function GameOver({game, roundId, score, total, misses, theme, onAgain}: {game: GameInfo; roundId: string; score: number; total?: number; misses: Miss[]; theme?: string; onAgain: () => void}) {
   const {record} = useGameRecords();
   const {start, close} = usePractice();
   const [result] = useState(() => {
-    if (!recorded.has(roundId)) trackEvent('spel klaar', {spel: game.id, score});
+    if (!recorded.has(roundId)) {
+      trackEvent('spel klaar', {spel: game.id, score});
+      // A situation's conversation with half or more right finishes step 4 of its path.
+      if (game.id === 'gesprek' && theme && theme !== 'all' && total && score * 2 >= total) reviewCard(conversationId(theme), 4);
+    }
     const saved = recorded.get(roundId) ?? record(game.id, score);
     recorded.set(roundId, saved);
     return saved;

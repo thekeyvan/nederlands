@@ -2,7 +2,7 @@
 // Errors (exit 1) break the apps; warnings are things to finish later (a picture, audio clips).
 import {existsSync, readdirSync} from 'node:fs';
 import path from 'node:path';
-import {grammarFiles, groups, themeFiles} from '../content/index.js';
+import {grammarFiles, groups, path as pathSections, themeFiles} from '../content/index.js';
 import {lineId, phraseId, slug, wordId} from '../content/ids.js';
 import {audioCatalog} from '../src/core/audio-catalog.js';
 import irregular from '../content/irregular.json' with {type: 'json'};
@@ -107,6 +107,19 @@ export function checkContent() {
     });
     claim(rule.id, file);
   }
+
+  // The path: every theme in exactly one section; its grammar rules and Onregelmatig set exist.
+  const onPath = pathSections.flatMap((section) => section.themes);
+  for (const theme of themeFiles) {
+    const count = onPath.filter((id) => id === theme.id).length;
+    if (count !== 1) errors.push(`content/index.js: theme "${theme.id}" must be in exactly one section of "path" (now ${count})`);
+    const file = `content/themes/${theme.id}.json`;
+    if (!Array.isArray(theme.grammar) || !theme.grammar.length) errors.push(`${file}: "grammar" lists the 1–3 rules (zin:…) you need in this situation`);
+    for (const ruleId of theme.grammar ?? []) if (!grammarFiles.some((rule) => rule.id === ruleId)) errors.push(`${file}: grammar rule "${ruleId}" does not exist`);
+    if (theme.irregular && !irregular.sets.some((set) => set.id === theme.irregular)) errors.push(`${file}: Onregelmatig set "${theme.irregular}" does not exist`);
+  }
+  for (const id of onPath) if (!themeFiles.some((theme) => theme.id === id)) errors.push(`content/index.js: path lists unknown theme "${id}"`);
+  for (const rule of grammarFiles) if (!themeFiles.some((theme) => theme.grammar?.includes(rule.id))) warnings.push(`content/grammar/${rule.id.slice(4)}.json: not linked to any situation yet (add it to a theme's "grammar")`);
 
   // Onregelmatig: every set and form is complete, every form has three wrong answers, ids are unique.
   const IRREGULAR_KINDS = {verb: ['past', 'pastPlural', 'perfect'], present: ['prompt', 'answer'], plural: ['answer'], compare: ['more', 'most']};

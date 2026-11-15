@@ -5,6 +5,7 @@
   "fa": "مدرسه و بچه‌ها",
   "icon": "22",
   "intro": "Praat met de juf en met andere ouders.",
+  "grammar": ["zin:modalen-verleden", "zin:voorbereiden"],
   "words": [
     {
       "nl": "de basisschool",

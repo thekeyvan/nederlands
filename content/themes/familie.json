@@ -5,6 +5,7 @@
   "fa": "خانواده و روابط",
   "icon": "31",
   "intro": "Vertel over je familie en je vrienden.",
+  "grammar": ["zin:verleden", "zin:toen-als"],
   "words": [
     {
       "nl": "de ouders",

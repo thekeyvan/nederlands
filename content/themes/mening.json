@@ -6,6 +6,7 @@
   "icon": "13",
   "level": "B1",
   "intro": "Zeg wat je vindt. Geef een reden.",
+  "grammar": ["zin:dat", "zin:omdat", "zin:hypothese"],
   "words": [
     {
       "nl": "Volgens mij ...",

@@ -232,3 +232,17 @@ export const groups = [
     themes: ['contact', 'mening', 'familie', 'weer', 'tijd', 'modalen', 'inburgering']
   }
 ];
+
+/**
+ * The path in Leren: every situation in the order you learn them, from A0 to B1.
+ * Each situation has five steps (words, sentences, grammar, conversation, final game); see src/core/path.js.
+ * A new theme goes in exactly one section here (and in one of the groups above).
+ */
+export const path = [
+  {id: 'beginnen', nl: 'Beginnen', fa: 'شروع از صفر', level: 'A0', themes: ['kennismaken', 'getallen', 'kleuren', 'eten-drinken', 'mijn-dag', 'de-weg']},
+  {id: 'elke-dag', nl: 'Elke dag', fa: 'زندگی روزمره', level: 'A2', themes: ['boodschappen', 'contact', 'familie', 'wonen', 'huishouden', 'tijd', 'weer', 'kleding']},
+  {id: 'regelen', nl: 'Gezondheid & regelen', fa: 'سلامت و کارهای اداری', level: 'A2', themes: ['gezondheid', 'huisarts', 'apotheek', 'noodgeval', 'gemeente', 'geld', 'digitaal', 'school']},
+  {id: 'vrije-tijd', nl: 'Vrije tijd & onderweg', fa: 'اوقات فراغت و سفر', level: 'A2', themes: ['vrijetijd', 'uitgaan', 'feest', 'verkeer', 'reizen', 'natuur', 'cultuur']},
+  {id: 'werk', nl: 'Werk & inburgering', fa: 'کار و جا افتادن', level: 'A2', themes: ['modalen', 'inburgering', 'beroepen', 'werk', 'overleg']},
+  {id: 'b1', nl: 'Op weg naar B1', fa: 'به سوی B1', level: 'B1', themes: ['mening', 'loopbaan', 'solliciteren', 'huis-kopen']},
+];

@@ -6,6 +6,8 @@
   "icon": "03",
   "level": "B1",
   "intro": "Vertel over je werk en je ervaring.",
+  "grammar": ["zin:plusquamperfectum", "zin:zo-dat"],
+  "irregular": "cht",
   "words": [
     {
       "nl": "de werkervaring",

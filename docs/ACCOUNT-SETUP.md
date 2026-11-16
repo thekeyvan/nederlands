@@ -8,7 +8,7 @@ On Railway: add a Postgres service and give the web service `DATABASE_URL=${{Pos
 
 ## 2. Google
 
-Create an OAuth **Web application** client in Google Cloud. Add your site as JavaScript origin and `https://YOUR-SITE/api/auth/google/callback` as redirect URI, and set `GOOGLE_CLIENT_ID` (public) on the server. The sign-in uses the OpenID Connect ID token posted back to that URL, so the client secret is never needed. The iPhone app opens `/api/auth/google?mode=app` in a Safari sheet and receives a one-time code on `com.keyvanmahmoudi.nederlands://auth`.
+Create an OAuth **Web application** client in Google Cloud. Add your site as JavaScript origin and `https://YOUR-SITE/api/auth/google/callback` as redirect URI, and set `GOOGLE_CLIENT_ID` (public) on the server. The sign-in uses the OpenID Connect ID token posted back to that URL, so the client secret is never needed. The iPhone app opens `/api/auth/google?mode=app` in a Safari sheet and receives a one-time code on `nl.nedfa://auth` (the app sends `app=nl.nedfa`; older builds get `com.keyvanmahmoudi.nederlands://auth`).
 
 ## 3. Apple
 

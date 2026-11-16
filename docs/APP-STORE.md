@@ -2,15 +2,15 @@
 
 The iOS app is the native SwiftUI app in `ios-native/` (`npm run build:native`, then archive; see Release steps).
 
-- **Bundle ID:** com.keyvanmahmoudi.nederlands · **Team:** K&S Apps (95YDC2AP63)
+- **Bundle ID:** nl.nedfa · **App Store Connect app id:** 6835511181 · **SKU:** nl.nedfa (the first record, "Nedfa oud" 6834940847 with com.keyvanmahmoudi.nederlands, was withdrawn from review on 2026-11-16) · **Team:** K&S Apps (95YDC2AP63)
 - **Primary language:** Dutch · **Category:** Education (secondary: Games / Word) · **Price:** free
 - **Privacy policy:** https://nedfa.nl/privacy
 - **Support / marketing URL:** https://nedfa.nl
 
 ## Name and subtitle
 
-- Name: Nedfa
-- Subtitle: Nederlands leren als een spel
+- Name: Nedfa: Nederlands leren
+- Subtitle: Elke dag een beetje, als spel
 
 ## Promotional text
 
@@ -87,9 +87,10 @@ Published in App Store Connect on 2026-11-15. Privacy policy URL: https://nedfa.
 ## Sign in with Apple
 
 - The app uses the native Apple sheet; nedfa.nl (`server/auth.mjs`) checks the token against the client IDs
-  `com.keyvanmahmoudi.nederlands` (app) and `com.keyvanmahmoudi.nederlands.web` (website Services ID).
+  `nl.nedfa` (app, primary App ID) and `nl.nedfa.web` (website Services ID, grouped under nl.nedfa).
+  The old `com.keyvanmahmoudi.nederlands` IDs are still accepted for builds and sessions from before the switch.
 - The website uses Sign in with Apple JS (a popup) with the Services ID, whose website URLs list
   `nedfa.nl` and the return URL `https://nedfa.nl/leren`. The token goes to `/api/auth/apple`,
   so no OAuth secret key is needed and nothing expires every 6 months.
-  Both client IDs belong to the same primary App ID, so the app and the website see the same Apple account.
+  Apple gives all apps and Services IDs of one team the same user id, so the app and the website see the same Apple account.
 - `PUBLIC_APPLE_WEB_SIGNIN=0` on Railway hides the Apple button on the website.

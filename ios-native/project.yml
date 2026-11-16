@@ -50,12 +50,12 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UIRequiredDeviceCapabilities: [arm64]
         CFBundleURLTypes:
-          - CFBundleURLName: com.keyvanmahmoudi.nederlands
-            CFBundleURLSchemes: [com.keyvanmahmoudi.nederlands]
+          - CFBundleURLName: nl.nedfa
+            CFBundleURLSchemes: [nl.nedfa]
         UIBackgroundModes: []
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.keyvanmahmoudi.nederlands
+        PRODUCT_BUNDLE_IDENTIFIER: nl.nedfa
         PRODUCT_NAME: Nedfa
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

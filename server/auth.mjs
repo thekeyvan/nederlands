@@ -4,10 +4,13 @@ import {createHash, randomBytes} from 'node:crypto';
 import {createRemoteJWKSet, jwtVerify} from 'jose';
 import {pool, transaction} from './db.mjs';
 
-export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '129904499235-gns7foak32bvftqtkp537pdv4p5d0k33.apps.googleusercontent.com';
-// The iPhone app (bundle ID) and the website (Services ID) share one primary App ID, so Apple gives both the same user id.
-export const APPLE_CLIENT_IDS = ['com.keyvanmahmoudi.nederlands', 'com.keyvanmahmoudi.nederlands.web'];
-export const APP_CALLBACK = 'com.keyvanmahmoudi.nederlands://auth';
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '330338517367-vo621l562vhjkih8ieaeahflkhvs049j.apps.googleusercontent.com';
+// Apple gives every app and Services ID of one team the same user id, so the app and the website share accounts.
+// nl.nedfa is the new iPhone app; the com.keyvanmahmoudi.nederlands IDs stay until the old app and website Services ID are gone.
+export const APPLE_CLIENT_IDS = ['nl.nedfa', 'nl.nedfa.web', 'com.keyvanmahmoudi.nederlands', 'com.keyvanmahmoudi.nederlands.web'];
+// Where Google sign-in returns to in the app: the new app sends `app=nl.nedfa`; older builds send nothing.
+export const APP_CALLBACKS = {'nl.nedfa': 'nl.nedfa://auth', 'com.keyvanmahmoudi.nederlands': 'com.keyvanmahmoudi.nederlands://auth'};
+export const appCallback = (app) => APP_CALLBACKS[app] || APP_CALLBACKS['com.keyvanmahmoudi.nederlands'];
 const SESSION_DAYS = 180;
 
 const googleKeys = createRemoteJWKSet(new URL('https://www.googleapis.com/oauth2/v3/certs'));

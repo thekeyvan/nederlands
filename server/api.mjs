@@ -1,7 +1,7 @@
 // Accounts and progress API for the website (session cookie) and the iPhone app (bearer token).
 import express from 'express';
 import {pool} from './db.mjs';
-import {APP_CALLBACK, GOOGLE_CLIENT_ID, cleanUp, createCode, createSession, endSession, profile, randomToken, sessionUser, signInIdentity, useCode, verifyApple, verifyGoogle} from './auth.mjs';
+import {GOOGLE_CLIENT_ID, appCallback, cleanUp, createCode, createSession, endSession, profile, randomToken, sessionUser, signInIdentity, useCode, verifyApple, verifyGoogle} from './auth.mjs';
 
 const COOKIE = 'nedfa_session';
 const PUBLIC_ORIGIN = process.env.PUBLIC_ORIGIN || 'https://nedfa.nl';
@@ -86,7 +86,7 @@ export function accountApi() {
     const state = randomToken(24);
     const nonce = randomToken(24);
     await cleanUp();
-    await pool.query('insert into auth_requests(state,nonce,mode,link_user,return_to) values($1,$2,$3,$4,$5)', [state, nonce, mode, linkUser, safeReturn(req.query.return)]);
+    await pool.query('insert into auth_requests(state,nonce,mode,link_user,return_to) values($1,$2,$3,$4,$5)', [state, nonce, mode, linkUser, mode === 'app' ? appCallback(String(req.query.app || '')) : safeReturn(req.query.return)]);
     const url = new URL('https://accounts.google.com/o/oauth2/v2/auth');
     url.search = new URLSearchParams({
       client_id: GOOGLE_CLIENT_ID, redirect_uri: `${PUBLIC_ORIGIN}/api/auth/google/callback`, response_type: 'id_token',
@@ -99,6 +99,7 @@ export function accountApi() {
     const {state, id_token: idToken, error} = req.body || {};
     const {rows: [request]} = await pool.query(`delete from auth_requests where state=$1 and created_at > now() - interval '15 minutes' returning nonce,mode,link_user,return_to`, [String(state || '')]);
     const back = request?.return_to || '/leren';
+    const APP_CALLBACK = appCallback(request?.return_to?.replace('://auth', ''));
     const fail = (reason) => request?.mode === 'app'
       ? res.redirect(303, `${APP_CALLBACK}?error=${reason}`)
       : res.redirect(303, `${back}${back.includes('?') ? '&' : '?'}login=${reason}`);

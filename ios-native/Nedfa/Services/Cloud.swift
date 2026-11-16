@@ -23,7 +23,7 @@ final class Cloud {
     var message: String?
 
     private static let base = URL(string: "https://nedfa.nl/api")!
-    private static let scheme = "com.keyvanmahmoudi.nederlands"
+    private static let scheme = "nl.nedfa"
     @ObservationIgnored private var token: String? = Keychain.read()
     @ObservationIgnored private var working = false
     @ObservationIgnored private var rerun = false
@@ -145,7 +145,7 @@ final class Cloud {
 
     func signInWithGoogle(link: Bool = false) async {
         Analytics.shared.event(link ? "koppelen" : "inloggen", ["provider": "google"])
-        var items = [URLQueryItem(name: "mode", value: "app")]
+        var items = [URLQueryItem(name: "mode", value: "app"), URLQueryItem(name: "app", value: Self.scheme)]
         if link {
             struct Ticket: Decodable { let ticket: String }
             guard let ticket: Ticket = try? await request("auth/link-ticket", method: "POST") else { message = "Koppelen lukt nu niet. Probeer het later opnieuw."; return }

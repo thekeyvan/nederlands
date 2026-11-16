@@ -16,7 +16,7 @@ function message(text){window.dispatchEvent(new CustomEvent('auth-message',{deta
 const profile=next=>next?{id:next.id,name:next.name||next.email||'',email:next.email||'',providers:next.providers||[],provider:next.providers?.[0]||'google'}:null;
 
 // The Services ID registered for nedfa.nl (Sign in with Apple JS).
-const APPLE_WEB_ID='com.keyvanmahmoudi.nederlands.web';
+const APPLE_WEB_ID='nl.nedfa.web';
 export const appleAvailable=()=>cloudConfig.appleWeb===true;
 
 async function api(path,{method='GET',body}={}){

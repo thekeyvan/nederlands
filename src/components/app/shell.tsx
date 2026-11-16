@@ -79,7 +79,7 @@ function Sidebar({panel}: {panel: Panel}) {
       <div className="mt-2 flex items-center gap-1 px-1 text-xs text-muted-foreground">
         <ThemeToggle />
         <a href="/privacy" className="rounded px-1.5 py-1 hover:text-foreground">Privacy</a>
-        <a href="https://github.com/thekeyvan/nederlands" target="_blank" rel="noopener noreferrer" className="rounded px-1.5 py-1 hover:text-foreground">Open source ↗</a>
+        <a href="https://github.com/thekeyvan/nedfa" target="_blank" rel="noopener noreferrer" className="rounded px-1.5 py-1 hover:text-foreground">Open source ↗</a>
       </div>
     </aside>
   );

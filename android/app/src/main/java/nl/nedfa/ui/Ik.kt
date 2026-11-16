@@ -407,7 +407,7 @@ fun SignInSheet(dismiss: () -> Unit) {
             T("Log in en ga overal verder", style = game(24), align = TextAlign.Center)
             Box(Modifier.fillMaxWidth()) { SignInReasons() }
             GoogleButton { Cloud.signInWithGoogle(context); dismiss() }
-            T("Heb je op je iPhone met Apple ingelogd? Koppel daar eerst Google bij Ik › Instellingen, dan vind je hier dezelfde voortgang.", size = 13.sp, color = C.secondary, align = TextAlign.Center)
+            T("Met hetzelfde e-mailadres als bij Apple kom je vanzelf in hetzelfde account. Koos je bij Apple voor ‘Verberg mijn e-mail’? Koppel dan eerst Google op je iPhone bij Ik › Instellingen.", size = 13.sp, color = C.secondary, align = TextAlign.Center)
             T("Je kunt je account altijd verwijderen bij Ik › Instellingen.", size = 13.sp, color = C.secondary, align = TextAlign.Center)
         }
     }
@@ -422,7 +422,7 @@ fun WelcomeScreen() {
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(18.dp),
     ) {
         Spacer(Modifier.height(24.dp))
-        MascotPose("wave", 170.dp)
+        MascotActor("wave", MascotMoment.Greet, 170.dp, delayMillis = 300)
         T("NEDFA · NEDERLANDS VAN NUL TOT B1", style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp), color = C.brand)
         T("Elke dag een beetje Nederlands.", style = game(32, FontWeight.Black), align = TextAlign.Center)
         T("Thema’s met audio, spellen en slim herhalen. Een paar minuten per dag is genoeg.", color = C.secondary, align = TextAlign.Center)

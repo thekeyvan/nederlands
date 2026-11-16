@@ -42,6 +42,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -78,6 +79,7 @@ import nl.nedfa.ui.RoundScreen
 import nl.nedfa.ui.SettingsScreen
 import nl.nedfa.ui.SignInSheet
 import nl.nedfa.ui.SpellenScreen
+import nl.nedfa.ui.SplashView
 import nl.nedfa.ui.ThemeDetailScreen
 import nl.nedfa.ui.VandaagScreen
 import nl.nedfa.ui.WelcomeScreen
@@ -197,6 +199,7 @@ fun Root() {
         )
     }
     val scheme = if (dark) darkColorScheme(primary = C.brand, background = C.ground, surface = C.surface) else lightColorScheme(primary = C.brand, background = C.ground, surface = C.surface)
+    var splash by rememberSaveable { mutableStateOf(true) }
     MaterialTheme(colorScheme = scheme) {
         Box(Modifier.fillMaxSize().background(C.ground)) {
             if (Preferences.welcomeDone || Cloud.user != null) Tabs() else WelcomeScreen()
@@ -209,6 +212,8 @@ fun Root() {
             AnimatedVisibility(game != null, enter = slideInVertically { it }, exit = slideOutVertically { it }) {
                 game?.let { GameFlow(it) }
             }
+            // The animated splash plays once per launch, over the app that is already loading underneath.
+            if (splash) SplashView { splash = false }
             if (Nav.signIn) SignInSheet { Nav.signIn = false }
             if (Nav.levelTest) LevelTestSheet { Nav.levelTest = false }
             Cloud.message?.let { message ->

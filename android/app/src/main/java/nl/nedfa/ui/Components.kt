@@ -280,13 +280,6 @@ enum class Mood { wave, cheer, think, sleep }
 @Composable
 fun Mascot(mood: Mood = Mood.wave, size: Dp = 64.dp) = Art("mascot/${mood.name}", size)
 
-/** The cut-out mascot (no background): wave, cheer, think, oops, idle. */
-@Composable
-fun MascotPose(pose: String, size: Dp = 64.dp, modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    val image = remember(pose) { Images.load(context, "illustrations/mascot-cut/$pose.png") }
-    if (image != null) Image(image, null, modifier.size(size), contentScale = ContentScale.Fit) else Box(modifier.size(size))
-}
 
 // Text and small controls
 

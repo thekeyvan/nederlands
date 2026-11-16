@@ -218,9 +218,10 @@ fun OptionList(options: List<Option>, persian: Boolean = false, outcome: Outcome
 
 /** The mascot asks from just above the bubble; the word or sentence gets the full width. */
 @Composable
-private fun PromptBubble(content: @Composable () -> Unit) {
+private fun PromptBubble(hard: Boolean = false, content: @Composable () -> Unit) {
     Column {
-        MascotPose("think", 60.dp, Modifier.padding(start = 10.dp).offset(y = 6.dp))
+        // A card the learner got wrong last time: the mascot tilts its head and thinks.
+        MascotActor("think", if (hard) MascotMoment.Ponder else null, 60.dp, shadow = false, delayMillis = 250, modifier = Modifier.padding(start = 10.dp).offset(y = 6.dp))
         Box(Modifier.fillMaxWidth().tile(22.dp).padding(16.dp)) { content() }
     }
 }
@@ -228,7 +229,7 @@ private fun PromptBubble(content: @Composable () -> Unit) {
 @Composable
 private fun ChooseCard(card: Card, dutch: Boolean, outcome: Outcome?, answer: (Outcome) -> Unit) {
     Eyebrow(if (dutch) "Hoe zeg je dit in het Nederlands?" else "Wat betekent dit?")
-    PromptBubble {
+    PromptBubble(hard = (Learner.reviews[card.id]?.grade ?: 5) < 3) {
         if (dutch) Persian(card.meaning ?: "", 26, C.text, FontWeight.Bold)
         else Row(verticalAlignment = Alignment.CenterVertically) {
             T(card.nl ?: "", Modifier.weight(1f), style = game(28, FontWeight.Black), maxLines = 2)
@@ -339,7 +340,7 @@ private fun FormCard(card: Card, outcome: Outcome?, answer: (Outcome) -> Unit) {
 
     Eyebrow(if (typed) "Typ de goede vorm" else "Kies de goede vorm")
     Row(verticalAlignment = Alignment.CenterVertically) {
-        MascotPose("think", 84.dp)
+        MascotActor("think", if ((review?.grade ?: 5) < 3) MascotMoment.Ponder else null, 84.dp, delayMillis = 250)
         Spacer(Modifier.width(12.dp))
         Column {
             T(card.title ?: "", style = game(30, FontWeight.Black), maxLines = 1)
@@ -468,7 +469,12 @@ private fun FeedbackPanel(card: Card, outcome: Outcome, combo: Int, next: () -> 
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            MascotPose(if (good || close) "cheer" else "oops", 64.dp)
+            // Right answers in a row, including this one; 3, 5, 10… get a double jump.
+            MascotActor(
+                if (good || close) "cheer" else "oops",
+                if (!good && !close) MascotMoment.Nope else if (combo in listOf(3, 5, 10, 15, 20, 30)) MascotMoment.DoubleHop else MascotMoment.Hop,
+                64.dp,
+            )
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
                 T(
@@ -523,7 +529,7 @@ private fun RoundSummary(round: RoundData, results: List<Result>, bestCombo: Int
                     modifier = Modifier.size(if (star == 1) 64.dp else 46.dp).rotate(if (star == 0) -12f else if (star == 2) 12f else 0f))
             }
         }
-        if (results.isEmpty()) Mascot(Mood.sleep, 170.dp) else MascotPose("cheer", 190.dp)
+        if (results.isEmpty()) Mascot(Mood.sleep, 170.dp) else MascotActor("cheer", MascotMoment.DoubleHop, 190.dp, stars = true, delayMillis = 200)
         T(if (results.isEmpty()) "Je bent weer bij." else "Rondje klaar!", style = game(34, FontWeight.Black), color = Color.White)
         if (results.isNotEmpty()) {
             T(

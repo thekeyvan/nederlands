@@ -469,7 +469,7 @@ private fun IrregularBanner() {
         Modifier.padding(horizontal = 20.dp).padding(top = 4.dp).fillMaxWidth().tile(22.dp, C.butterSoft, C.butter).clickable { Nav.push(Screen.IrregularOverview) }.padding(14.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        MascotPose("think", 72.dp)
+        MascotActor("think", size = 72.dp)
         Spacer(Modifier.width(14.dp))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
             T("Onregelmatig", style = game(20, FontWeight.Black), color = C.goldInk)
@@ -495,7 +495,7 @@ fun IrregularOverviewScreen() {
     }) {
         Group {
             Row(Modifier.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                MascotPose("think", 84.dp)
+                MascotActor("think", size = 84.dp)
                 Spacer(Modifier.width(14.dp))
                 Column {
                     T("Onregelmatig", style = game(26, FontWeight.Black))

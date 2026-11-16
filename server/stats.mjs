@@ -1,6 +1,6 @@
 // Visitor statistics with Umami (cookieless, no personal data), served from nedfa.nl itself.
 // The Umami service runs on Railway's private network; only the tracker script and the collect endpoint pass through here.
-// The dashboard is not proxied: it has its own Railway address.
+// The dashboard is not proxied: it has its own address, https://umami.nedfa.nl.
 import express from 'express';
 
 const UMAMI = process.env.UMAMI_URL ?? 'http://umami.railway.internal:3000';

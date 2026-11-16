@@ -1,12 +1,12 @@
 # Analytics (Umami)
 
-Nedfa counts visits with [Umami](https://umami.is) 3.4.1, self-hosted on Railway. It sets no cookies, stores no IP addresses and never links counts to an account. Learners can turn it off in Instellingen; on the web Do Not Track and Global Privacy Control also turn it off.
+Nedfa counts visits with [Umami](https://umami.is) 3.5.0, self-hosted on Railway. It sets no cookies, stores no IP addresses and never links counts to an account. Learners can turn it off in Instellingen; on the web Do Not Track and Global Privacy Control also turn it off.
 
 ## How it runs
 
 | Piece | Where |
 | --- | --- |
-| Umami app | Railway service `umami` (image `ghcr.io/umami-software/umami:3.4.1`), private address `umami.railway.internal:3000` |
+| Umami app | Railway service `umami` (image `ghcr.io/umami-software/umami:3.5.0`), private address `umami.railway.internal:3000` |
 | Umami database | Railway service `Postgres-xWqn`, separate from the learners' database (`Postgres`) |
 | Collect endpoint | `https://nedfa.nl/stats/api/send` → `server/stats.mjs` forwards it to Umami over the private network |
 | Website id | `0cbc91c6-7ae2-4c9a-9851-d005214361fa` (in `src/lib/stats.ts` and `ios-native/Nedfa/Services/Analytics.swift`) |
@@ -36,6 +36,10 @@ Debug builds of the iPhone app and the website on any host other than nedfa.nl s
 
 Web: `trackEvent('naam', {key: value})` from `src/lib/stats.ts`. iPhone: `Analytics.shared.event("naam", ["key": value])`. Use the same name on both, add it to the table above, and keep the data to counts and fixed choices.
 
+## Updating Umami
+
+Railway shows "Upgrade to …" under the `umami` service's Settings → Source. Before upgrading, read the release's upgrade notes on GitHub: Umami runs its database migrations itself when it starts. Nedfa only uses `/script.js` and `/api/send`, so check that neither changes. `APP_SECRET` must stay set (required since 3.5.0).
+
 ## Dashboard login
 
-Umami starts with the user `admin` / password `umami`. Change it right after the first login (Settings → Profile → Change password), or better, create your own admin user and delete `admin`.
+Umami starts with the user `admin` / password `umami`. Change it right after the first login (Settings → Security → Change password), or better, create your own admin user and delete `admin`.

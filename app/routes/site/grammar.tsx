@@ -47,12 +47,12 @@ export default function Grammar({loaderData}: Route.ComponentProps) {
           <Picture src="/img/themes/zinsbouw.jpg" size={144} eager className="size-28 shrink-0 rounded-2xl sm:size-36" />
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{L('گرامر زبان هلندی به فارسی', 'Nederlandse grammatica met uitleg in het Farsi')}</h1>
-            <p className="mt-3 max-w-3xl text-muted-foreground">{L(`${num(lang, t.patterns)} نکتهٔ مهم دستور زبان هلندی برای سطح A2 و B1، هر کدام با الگوی ساده، توضیح فارسی و چهار جملهٔ مثال. برای فارسی‌زبان‌ها این چهار نکته از همه مهم‌ترند:`, `${t.patterns} belangrijke grammaticaregels voor A2 en B1, elk met een eenvoudig patroon, Perzische uitleg en vier voorbeeldzinnen. Voor Perzisch sprekenden zijn deze vier het belangrijkst:`)}</p>
+            <p className="mt-3 max-w-3xl text-muted-foreground">{L(`${num(lang, t.patterns)} نکتهٔ مهم دستور زبان هلندی از صفر (A0) تا B1، هر کدام با الگوی ساده، توضیح فارسی و چهار جملهٔ مثال. برای فارسی‌زبان‌ها این چهار نکته از همه مهم‌ترند:`, `${t.patterns} belangrijke grammaticaregels van nul (A0) tot B1, elk met een eenvoudig patroon, Perzische uitleg en vier voorbeeldzinnen. Voor Perzisch sprekenden zijn deze vier het belangrijkst:`)}</p>
           </div>
         </div>
         <ul className="mt-5 grid gap-3 sm:grid-cols-2">{key.map(([title, text], index) => <li key={index} className="rounded-xl border bg-card p-4"><h2 className="font-bold">{title}</h2><p className="mt-1 text-sm text-muted-foreground">{text}</p></li>)}</ul>
       </Section>
-      {['A2', 'B1'].map((level) => (
+      {['A0', 'A1', 'A2', 'B1'].map((level) => (
         <Section key={level} className="mt-10">
           <H2>{L(`سطح ${level}`, `Niveau ${level}`)}</H2>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">

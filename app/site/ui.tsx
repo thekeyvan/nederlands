@@ -151,7 +151,7 @@ function Footer({lang}: {lang: Lang}) {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
         <div>
           <p className="flex items-center gap-2 font-bold"><Logo className="size-8" /><span lang="nl">nedfa</span></p>
-          <p className="mt-3 text-sm text-muted-foreground">{tx(lang, `${BRAND_FA}: آموزش رایگان زبان هلندی برای فارسی‌زبانان، از سطح A2 تا B1. هر روز چند دقیقه، با تلفظ هلندی و ترجمهٔ فارسی.`, 'Nedfa: gratis Nederlands leren voor Farsi- en Perzisch sprekenden, van nul tot B1. Elke dag een paar minuten, met Nederlandse audio en Perzische vertaling.')}</p>
+          <p className="mt-3 text-sm text-muted-foreground">{tx(lang, `${BRAND_FA}: آموزش رایگان زبان هلندی برای فارسی‌زبانان، از صفر تا B1. هر روز چند دقیقه، با تلفظ هلندی و ترجمهٔ فارسی.`, 'Nedfa: gratis Nederlands leren voor Farsi- en Perzisch sprekenden, van nul tot B1. Elke dag een paar minuten, met Nederlandse audio en Perzische vertaling.')}</p>
         </div>
         <div>
           <p className="text-sm font-bold">{tx(lang, 'یادگیری', 'Leren')}</p>

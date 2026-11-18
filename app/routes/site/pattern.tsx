@@ -2,7 +2,7 @@ import type {Route} from './+types/pattern';
 import {notFound, patternBySlug, patterns} from '../../site/content.server';
 import {SITE, appLink, at, langOf, num, patternPath, tx} from '../../site/lang';
 import {seo} from '../../site/seo';
-import {Crumbs, Cta, Fa, H2, Nl, Picture, Section} from '../../site/ui';
+import {Crumbs, Fa, H2, Nl, Picture, Section, StoreBadges} from '../../site/ui';
 import {Link} from 'react-router';
 
 export function loader({request, params}: Route.LoaderArgs) {
@@ -23,7 +23,7 @@ export function meta({loaderData}: Route.MetaArgs) {
   return seo({
     lang, path: patternPath(pattern.slug), image: '/img/themes/zinsbouw.jpg',
     title: L(`${pattern.title} — گرامر هلندی به فارسی (${pattern.level}) | نِدفا`, `${pattern.title} — Nederlandse grammatica (${pattern.level}) met voorbeelden | Nedfa`),
-    description: L(`${pattern.rule} توضیح فارسی، الگو و ${num(lang, pattern.examples.length)} جملهٔ مثال هلندی با ترجمه، و تمرین رایگان.`, `${pattern.title}: het patroon ${pattern.pattern}, ${pattern.examples.length} voorbeeldzinnen met Perzische vertaling en gratis oefeningen.`).slice(0, 300),
+    description: L(`${pattern.rule} توضیح فارسی، الگو و ${num(lang, pattern.examples.length)} جملهٔ مثال هلندی با ترجمه، و تمرین رایگان.`, `${pattern.title}: het patroon ${pattern.pattern}, ${pattern.examples.length} voorbeeldzinnen met vertaling in het Farsi (Perzisch) en gratis oefeningen.`).slice(0, 300),
     breadcrumbs: [['Nedfa', '/'], [L('گرامر هلندی', 'Grammatica'), '/grammatica/'], [pattern.title, patternPath(pattern.slug)]],
     jsonLd: [{'@context': 'https://schema.org', '@type': 'LearningResource', name: L(`${pattern.title} (گرامر هلندی)`, `${pattern.title} (Nederlandse grammatica)`), description: lang === 'fa' ? pattern.rule : pattern.pattern, inLanguage: lang, learningResourceType: 'Grammar explanation', educationalLevel: pattern.level, teaches: pattern.title, isAccessibleForFree: true, publisher: {'@id': `${SITE}/#org`}}],
   });
@@ -50,7 +50,7 @@ export default function PatternPage({loaderData}: Route.ComponentProps) {
           <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"><Nl className="block">{pattern.title}</Nl><span className="mt-1 block text-lg font-medium text-muted-foreground">{L('گرامر زبان هلندی به فارسی', 'Nederlandse grammatica')}</span></h1>
           {lang === 'fa' && <p className="mt-5 text-lg">{pattern.rule}</p>}
           <p dir="ltr" lang="nl" className="mt-4 rounded-xl bg-muted px-4 py-3 text-start font-mono text-sm">{pattern.pattern}</p>
-          {lang === 'nl' && <><p className="mt-4 text-sm text-muted-foreground">Uitleg in het Perzisch:</p><p className="mt-1 text-lg"><Fa>{pattern.rule}</Fa></p></>}
+          {lang === 'nl' && <><p className="mt-4 text-sm text-muted-foreground">Uitleg in het Farsi (Perzisch):</p><p className="mt-1 text-lg"><Fa>{pattern.rule}</Fa></p></>}
         </div>
       </Section>
       <Section className="mt-10">
@@ -68,7 +68,7 @@ export default function PatternPage({loaderData}: Route.ComponentProps) {
           <div>
             <h2 className="text-xl font-bold">{L('این الگو را تمرین کنید', 'Oefen dit patroon')}</h2>
             <p className="mt-1 opacity-80">{L('شش تمرین کوتاه در اپ نِدفا: جای خالی، مرتب کردن کلمات و انتخاب جملهٔ درست.', 'Zes korte oefeningen in de app: het gat invullen, woorden in de goede volgorde zetten en de goede zin kiezen.')}</p>
-            <div className="mt-4"><Cta lang={lang} href={appLink(`?regel=${encodeURIComponent(pattern.id)}#zinnen`)}>{L('شروع تمرین', 'Begin met oefenen')}</Cta></div>
+            <StoreBadges lang={lang} web={appLink(`?regel=${encodeURIComponent(pattern.id)}#zinnen`)} className="mt-4" />
           </div>
         </div>
       </Section>

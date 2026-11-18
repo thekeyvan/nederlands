@@ -1,5 +1,5 @@
 import type {MetaDescriptor} from 'react-router';
-import {SITE, at, type Lang} from './lang';
+import {APP_NAME, APP_STORE_ID, SITE, at, type Lang} from './lang';
 
 interface Seo {
   lang: Lang;
@@ -41,7 +41,13 @@ export function seo({lang, path, title, description, image = '/img/og.jpg', json
     {name: 'twitter:title', content: title},
     {name: 'twitter:description', content: description},
     {name: 'twitter:image', content: SITE + image},
-    {name: 'apple-itunes-app', content: 'app-id=6834940847'},
+    {name: 'apple-itunes-app', content: `app-id=${APP_STORE_ID}`},
+    // The iPhone app for link previews (App Links, read by Facebook, WhatsApp and others) and X.
+    {property: 'al:ios:app_store_id', content: APP_STORE_ID},
+    {property: 'al:ios:app_name', content: APP_NAME},
+    {property: 'al:web:url', content: url},
+    {name: 'twitter:app:id:iphone', content: APP_STORE_ID},
+    {name: 'twitter:app:name:iphone', content: APP_NAME},
     {tagName: 'link', rel: 'alternate', type: 'text/plain', title: 'llms.txt', href: '/llms.txt'},
     ...[...jsonLd, ...crumbs].map((data) => ({'script:ld+json': data})),
   ];

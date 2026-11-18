@@ -2,7 +2,7 @@ import type {Route} from './+types/theme';
 import {card, kindFa, notFound, themeById, themes} from '../../site/content.server';
 import {SITE, appLink, kindNl, langOf, num, themeImage, themePath, tx} from '../../site/lang';
 import {seo} from '../../site/seo';
-import {Crumbs, Cta, Fa, H2, Nl, Picture, Section, ThemeCard} from '../../site/ui';
+import {Crumbs, Fa, H2, Nl, Picture, Section, StoreBadges, ThemeCard} from '../../site/ui';
 
 export function loader({request, params}: Route.LoaderArgs) {
   const theme = themeById(params.theme);
@@ -28,12 +28,12 @@ export function meta({loaderData}: Route.MetaArgs) {
   const count = theme.words.length;
   return seo({
     lang, path: themePath(theme.id), image: themeImage(theme.id),
-    title: L(`لغات هلندی ${theme.fa}: ${num(lang, count)} لغت با معنی فارسی | نِدفا`, `${theme.title}: ${count} Nederlandse woorden met Perzische vertaling | Nedfa`),
-    description: L(`${num(lang, count)} لغت هلندی دربارهٔ ${theme.fa} (${theme.title}) با معنی فارسی، de یا het، جملهٔ مثال و ترجمه، به‌علاوهٔ جمله‌های کاربردی و مکالمه. تمرین رایگان با تلفظ هلندی.`, `${count} Nederlandse woorden over ${theme.title.toLowerCase()} met lidwoord, Perzische betekenis (${theme.fa}), voorbeeldzin en vertaling, plus handige zinnen en een gesprek. Gratis oefenen met audio.`),
+    title: L(`لغات هلندی ${theme.fa}: ${num(lang, count)} لغت با معنی فارسی | نِدفا`, `${theme.title}: ${count} Nederlandse woorden met Farsi-vertaling | Nedfa`),
+    description: L(`${num(lang, count)} لغت هلندی دربارهٔ ${theme.fa} (${theme.title}) با معنی فارسی، de یا het، جملهٔ مثال و ترجمه، به‌علاوهٔ جمله‌های کاربردی و مکالمه. تمرین رایگان با تلفظ هلندی.`, `${count} Nederlandse woorden over ${theme.title.toLowerCase()} met lidwoord, betekenis in het Farsi/Perzisch (${theme.fa}), voorbeeldzin en vertaling, plus handige zinnen en een gesprek. Gratis oefenen met audio.`),
     breadcrumbs: [['Nedfa', '/'], [L('لغات هلندی', 'Woorden'), '/woorden/'], [L(theme.fa, theme.title), themePath(theme.id)]],
     jsonLd: [
       {'@context': 'https://schema.org', '@type': 'LearningResource', name: L(`لغات هلندی: ${theme.fa}`, `Nederlandse woorden: ${theme.title}`), inLanguage: lang, learningResourceType: 'Vocabulary list', educationalLevel: 'A2–B1', teaches: `Nederlandse woorden: ${theme.title}`, isAccessibleForFree: true, image: SITE + themeImage(theme.id), publisher: {'@id': `${SITE}/#org`}},
-      {'@context': 'https://schema.org', '@type': 'DefinedTermSet', name: `Nederlands–Perzisch: ${theme.title}`, inLanguage: ['nl', 'fa'], hasDefinedTerm: theme.words.map((word) => ({'@type': 'DefinedTerm', name: word.nl, description: word.meaning, inLanguage: 'nl'}))},
+      {'@context': 'https://schema.org', '@type': 'DefinedTermSet', name: `Nederlands–Farsi (Perzisch): ${theme.title}`, inLanguage: ['nl', 'fa'], hasDefinedTerm: theme.words.map((word) => ({'@type': 'DefinedTerm', name: word.nl, description: word.meaning, inLanguage: 'nl'}))},
     ],
   });
 }
@@ -54,7 +54,7 @@ export default function ThemePage({loaderData}: Route.ComponentProps) {
             <p className="mt-2 text-muted-foreground">{L(`${num(lang, theme.words.length)} لغت و اصطلاح، ${num(lang, theme.phrases.length)} جملهٔ کاربردی و یک مکالمهٔ کوتاه دربارهٔ «${theme.fa}»، با معنی فارسی و جملهٔ مثال.`, `${theme.words.length} woorden en uitdrukkingen, ${theme.phrases.length} handige zinnen en een kort gesprek over "${theme.title}", met Perzische vertaling en voorbeeldzinnen.`)}</p>
           </div>
         </div>
-        <div className="mt-5"><Cta lang={lang} href={practice}>{L('تمرین این لغات با تلفظ', 'Oefen deze woorden met audio')}</Cta></div>
+        <StoreBadges lang={lang} web={practice} className="mt-5" />
       </Section>
       <Section className="mt-10">
         <H2 id="woorden">{L('لغات', 'Woorden')}</H2>
@@ -94,7 +94,7 @@ export default function ThemePage({loaderData}: Route.ComponentProps) {
           <div>
             <h2 className="text-xl font-bold">{L('این لغات را حفظ کنید، نه فقط بخوانید', 'Leer ze echt, niet alleen lezen')}</h2>
             <p className="mt-1 opacity-80">{lang === 'fa' ? <>در اپ نِدفا لغت‌های «{theme.fa}» را می‌شنوید، انتخاب و تایپ می‌کنید و با بازی <Nl>de</Nl> یا <Nl>het</Nl> تمرین می‌کنید.</> : `In de app hoor je de woorden over "${theme.title}", kies en typ je ze, en speel je De of het?`}</p>
-            <div className="mt-4"><Cta lang={lang} href={practice}>{L('شروع تمرین', 'Begin met oefenen')}</Cta></div>
+            <StoreBadges lang={lang} web={practice} className="mt-4" />
           </div>
         </div>
       </Section>

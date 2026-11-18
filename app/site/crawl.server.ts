@@ -1,6 +1,6 @@
 // sitemap.xml, robots.txt, llms.txt and llms-full.txt: everything comes from the same lesson content as the pages.
 import {patterns, themes, totals} from './content.server';
-import {EMAIL, LANGS, SITE, at, patternPath, themePath} from './lang';
+import {APP_STORE, EMAIL, LANGS, SITE, at, patternPath, themePath} from './lang';
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -42,11 +42,11 @@ Sitemap: ${SITE}/sitemap.xml
 export function llms() {
   return `# Nedfa (نِدفا)
 
-> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from complete beginner (A0) to B1, with a short level test that picks the right start. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Dutch (${SITE}/, the default) and Persian (${SITE}/fa/). Web app: ${SITE}/leren (no account needed). iPhone app: coming to the App Store. Contact: ${EMAIL}.
+> Nedfa is a free app and website for learning Dutch (Nederlands) for Persian (Farsi/Dari) speakers, from complete beginner (A0) to B1, with a short level test that picks the right start. It teaches ${totals.words} Dutch words and expressions in ${totals.themes} everyday themes, ${totals.phrases} practical sentences, ${totals.dialogues} short dialogues and ${totals.patterns} grammar patterns, all with Persian translations and Dutch audio, plus spaced repetition (SM-2) and seven study games. It also helps people prepare for the Dutch civic integration exam (inburgeringsexamen). The public pages exist in Dutch (${SITE}/, the default) and Persian (${SITE}/fa/). Web app: ${SITE}/leren (no account needed). iPhone app: ${APP_STORE} (App Store). Contact: ${EMAIL}.
 
 نِدفا اپ و سایت رایگان آموزش زبان هلندی برای فارسی‌زبانان (ایرانی‌ها و افغان‌ها) از صفر تا سطح B1 است.
 
-Nedfa is een gratis app om Nederlands te leren voor Perzisch sprekenden, van nul tot B1.
+Nedfa is een gratis app om Nederlands te leren in het Farsi (Perzisch), van nul tot B1.
 
 ## Main pages
 - [Home (Dutch)](${SITE}/) · [Persian: آموزش زبان هلندی به فارسی](${SITE}/fa/)

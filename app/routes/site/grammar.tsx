@@ -16,8 +16,8 @@ export function meta({loaderData}: Route.MetaArgs) {
   const L = <T,>(fa: T, nl: T) => tx(lang, fa, nl);
   return seo({
     lang, path: '/grammatica/', image: '/img/themes/zinsbouw.jpg',
-    title: L(`گرامر زبان هلندی به فارسی: ${num(lang, t.patterns)} نکته با مثال (از صفر تا B1) | نِدفا`, `Nederlandse grammatica A0–B1: ${t.patterns} regels met voorbeelden | Nedfa`),
-    description: L('دستور زبان هلندی به زبان ساده برای فارسی‌زبانان: جای فعل، de و het، omdat و want، زمان گذشته (perfectum)، افعال جداشدنی و بیشتر، با مثال و ترجمهٔ فارسی.', 'Nederlandse grammatica eenvoudig uitgelegd voor Perzisch sprekenden: woordvolgorde, de of het, omdat of want, het perfectum, scheidbare werkwoorden en meer, met voorbeelden.'),
+    title: L(`گرامر زبان هلندی به فارسی: ${num(lang, t.patterns)} نکته با مثال (از صفر تا B1) | نِدفا`, `Nederlandse grammatica met uitleg in het Farsi: ${t.patterns} regels (A0–B1) | Nedfa`),
+    description: L('دستور زبان هلندی به زبان ساده برای فارسی‌زبانان: جای فعل، de و het، omdat و want، زمان گذشته (perfectum)، افعال جداشدنی و بیشتر، با مثال و ترجمهٔ فارسی.', 'Nederlandse grammatica eenvoudig uitgelegd in het Farsi (Perzisch): woordvolgorde, de of het, omdat of want, het perfectum, scheidbare werkwoorden en meer, met voorbeelden.'),
     breadcrumbs: [['Nedfa', '/'], [L('گرامر هلندی', 'Grammatica'), '/grammatica/']],
     jsonLd: [{'@context': 'https://schema.org', '@type': 'CollectionPage', name: L('گرامر زبان هلندی به فارسی', 'Nederlandse grammatica'), inLanguage: lang, isPartOf: {'@id': `${SITE}/#website`}, hasPart: list.map((p) => ({'@type': 'WebPage', name: p.title, url: SITE + at(lang, patternPath(p.slug))}))}],
   });
@@ -46,7 +46,7 @@ export default function Grammar({loaderData}: Route.ComponentProps) {
         <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-center">
           <Picture src="/img/themes/zinsbouw.jpg" size={144} eager className="size-28 shrink-0 rounded-2xl sm:size-36" />
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{L('گرامر زبان هلندی به فارسی', 'Nederlandse grammatica met Perzische uitleg')}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{L('گرامر زبان هلندی به فارسی', 'Nederlandse grammatica met uitleg in het Farsi')}</h1>
             <p className="mt-3 max-w-3xl text-muted-foreground">{L(`${num(lang, t.patterns)} نکتهٔ مهم دستور زبان هلندی برای سطح A2 و B1، هر کدام با الگوی ساده، توضیح فارسی و چهار جملهٔ مثال. برای فارسی‌زبان‌ها این چهار نکته از همه مهم‌ترند:`, `${t.patterns} belangrijke grammaticaregels voor A2 en B1, elk met een eenvoudig patroon, Perzische uitleg en vier voorbeeldzinnen. Voor Perzisch sprekenden zijn deze vier het belangrijkst:`)}</p>
           </div>
         </div>

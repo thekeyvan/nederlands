@@ -9,22 +9,30 @@ The iOS app is the native SwiftUI app in `ios-native/` (`npm run build:native`, 
 
 ## Name and subtitle
 
-- Name: Nedfa: Nederlands leren
-- Subtitle: Elke dag een beetje, als spel
+Search on the App Store only reads the name, the subtitle and the keywords (not the description), so "Nederlands leren", "Farsi", "Perzisch" and the Persian phrase are spread over those three without repeats. Persian is not an App Store Connect language, so the Persian text sits in the Dutch listing. Name, subtitle, keywords and description can only change with a new version (1.0.1); the promotional text can change any time.
+
+- Name (max 30): Nedfa: Nederlands leren Farsi
+- Subtitle (max 30): آموزش زبان هلندی به فارسی
 
 ## Promotional text
 
-Elke dag een beetje Nederlands: thema’s met audio, zeven spellen en slim herhalen. Log in en ga verder op je telefoon of op de website.
+Max 170. Nederlands leren met uitleg in het Farsi. آموزش زبان هلندی به فارسی: هر روز چند دقیقه، با تلفظ هلندی، بازی و مرور هوشمند. Gratis, zonder advertenties.
 
 ## Description
 
-Nedfa helpt je om na je taalcursus elke dag een beetje Nederlands te oefenen, van A2 naar B1. Een paar minuten per dag is genoeg.
+```
+آموزش زبان هلندی به فارسی، هر روز چند دقیقه. نِدفا برای ایرانی‌ها، افغان‌ها و همهٔ فارسی‌زبانان در هلند ساخته شده: لغت و جملهٔ کاربردی با تلفظ هلندی و ترجمهٔ فارسی، گرامر هلندی به زبان ساده، هفت بازی و آمادگی برای آزمون اینبورخرینگ. از صفر تا B1، رایگان و بدون تبلیغ.
+
+Nedfa: Nederlands leren met uitleg in het Farsi (Perzisch), van nul tot B1. Voor Iraniërs, Afghanen en andere Farsi- en Dari-sprekenden in Nederland, naast je taalcursus of voor het inburgeringsexamen. Een paar minuten per dag is genoeg.
 
 THEMA’S MET AUDIO
-Woorden, handige zinnen en korte gesprekken over het dagelijks leven: naar de huisarts, werk en privé, wonen, boodschappen en meer. Alles met Nederlandse audio, ook zonder internet.
+Ruim 1000 woorden, handige zinnen en korte gesprekken over het dagelijks leven: naar de huisarts, de gemeente, werk, wonen, boodschappen en meer. Alles met Nederlandse audio en Perzische vertaling, ook zonder internet.
+
+GRAMMATICA IN HET FARSI
+55 grammaticaregels, van de of het tot de bijzin, eenvoudig uitgelegd in het Perzisch, met voorbeeldzinnen en korte oefeningen.
 
 SLIM HERHALEN
-Kaartjes komen terug precies wanneer je ze bijna vergeet. Kies, luister, typ of vul aan.
+Kaartjes komen terug precies wanneer je ze bijna vergeet. Kies, luister, typ of vul aan. Een korte niveautest kiest waar je begint.
 
 ZEVEN SPELLEN
 De of het, zinnen bouwen, werkwoorden, zinnen aanvullen, luisterdictee, gesprekken en een tijdrace. Verbeter je record.
@@ -33,11 +41,16 @@ ELKE DAG EEN BEETJE
 Een dagdoel, een reeks, XP, stempels en een route met acht haltes van A2 naar B1. Zet een dagelijkse herinnering aan als je wilt.
 
 OVERAL VERDER
-Log in met Apple of Google en ga verder op je telefoon of op de website. Zonder account kan ook; je voortgang blijft dan op je telefoon. Je kunt je account en al je gegevens altijd verwijderen in de app.
+Log in met Apple of Google en ga verder op je telefoon of op nedfa.nl. Zonder account kan ook; je voortgang blijft dan op je telefoon. Je kunt je account en al je gegevens altijd verwijderen in de app.
+
+Gratis, zonder advertenties en zonder aankopen.
+```
 
 ## Keywords
 
-nederlands,dutch,inburgering,taal,leren,A2,B1,woorden,grammatica,staatsexamen,NT2,uitspraak
+Max 100, no words that are already in the name or subtitle:
+
+Perzisch,dutch,inburgering,woorden,grammatica,staatsexamen,NT2,B1,Iran,Afghan,Dari,هلند,لغت,یادگیری
 
 ## Review notes
 

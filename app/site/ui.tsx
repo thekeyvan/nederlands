@@ -1,7 +1,7 @@
 // Building blocks of the public pages: header, footer, breadcrumbs, sections, buttons and theme cards.
 import type {ReactNode} from 'react';
 import {Link, useLocation} from 'react-router';
-import {BRAND_FA, EMAIL, at, langOf, num, themeImage, themePath, tx, type Lang} from './lang';
+import {APP_STORE, BRAND_FA, EMAIL, PLAY_STORE, at, langOf, num, themeImage, themePath, tx, type Lang} from './lang';
 
 export type SiteTheme = {id: string; title: string; fa: string; words: number};
 
@@ -24,8 +24,39 @@ export const H2 = ({children, id}: {children: ReactNode; id?: string}) => <h2 id
 export function Cta({lang, href, children, className = ''}: {lang: Lang; href: string; children: ReactNode; className?: string}) {
   return <a href={href} className={`inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-base font-bold text-primary-foreground shadow-[0_4px_0_var(--primary-edge)] transition active:translate-y-1 active:shadow-none ${className}`}>{children}<span aria-hidden="true">{tx(lang, '←', '→')}</span></a>;
 }
-export function Ghost({to, children}: {to: string; children: ReactNode}) {
-  return <Link to={to} className="inline-flex h-12 items-center justify-center rounded-xl border bg-card px-6 text-base font-semibold shadow-[0_4px_0_var(--border)] transition active:translate-y-1 active:shadow-none">{children}</Link>;
+/** A secondary button: a page of this site (`to`) or the web app (`href`). */
+export function Ghost({to, href, children}: {to?: string; href?: string; children: ReactNode}) {
+  const className = 'inline-flex h-12 items-center justify-center rounded-xl border bg-card px-6 text-base font-semibold shadow-[0_4px_0_var(--border)] transition active:translate-y-1 active:shadow-none';
+  return href ? <a href={href} className={className}>{children}</a> : <Link to={to!} className={className}>{children}</Link>;
+}
+
+/**
+ * The official App Store and Google Play badges: the native apps come first, the web app second.
+ * Google Play shows once PLAY_STORE is set; Persian pages use the English badges (there are no Persian ones).
+ */
+export function StoreBadges({lang, web, small, center, className = ''}: {lang: Lang; web?: string; small?: boolean; center?: boolean; className?: string}) {
+  const badge = lang === 'fa' ? 'en' : 'nl';
+  const height = small ? 40 : 54;
+  return (
+    <div className={className}>
+      <div className={`flex flex-wrap items-center gap-3${center ? ' justify-center' : ''}`}>
+        <a href={APP_STORE} className="rounded-[10px] transition hover:opacity-85">
+          <img src={`/img/app-store-${badge}.svg`} alt={tx(lang, 'دانلود نِدفا از App Store', 'Download Nedfa in de App Store')} width={Math.round(height * 2.99)} height={height} style={{height}} className="w-auto" />
+        </a>
+        {PLAY_STORE && (
+          <a href={PLAY_STORE} className="rounded-[10px] transition hover:opacity-85">
+            <img src={`/img/google-play-${badge}.png`} alt={tx(lang, 'دانلود نِدفا از Google Play', 'Download Nedfa in Google Play')} width={Math.round(height * 1.04 * 2.96)} height={Math.round(height * 1.04)} style={{height: Math.round(height * 1.04)}} className="w-auto" />
+          </a>
+        )}
+      </div>
+      {(web || !PLAY_STORE) && (
+        <p className={`mt-2.5 text-sm opacity-75${center ? ' text-center' : ''}`}>
+          {!PLAY_STORE && tx(lang, 'اپ اندروید به‌زودی. ', 'Android-app binnenkort. ')}
+          {web && <a href={web} className="font-semibold underline underline-offset-2 hover:opacity-80">{tx(lang, 'یا همین حالا در مرورگر تمرین کنید ←', 'Of oefen nu in je browser →')}</a>}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export const Logo = ({className = 'size-9'}: {className?: string}) => <img src="/img/logo.png" alt="" width={72} height={72} className={`${className} rounded-xl`} />;
@@ -105,7 +136,7 @@ function Header({lang, path}: {lang: Lang; path: string}) {
         <nav aria-label={tx(lang, 'منوی اصلی', 'Hoofdmenu')} className="hidden items-center gap-1 md:flex">{nav(false)}</nav>
         <div className="flex items-center gap-2">
           <Link to={at(other, path)} hrefLang={other} lang={other} className="rounded-md border px-2.5 py-1.5 text-sm font-semibold hover:bg-muted" aria-label={other === 'nl' ? 'Nederlands' : 'فارسی'}>{other === 'nl' ? 'NL' : 'فا'}</Link>
-          <a href="/leren" className="inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-bold text-primary-foreground shadow-[0_3px_0_var(--primary-edge)] transition active:translate-y-0.5 active:shadow-none">{tx(lang, 'شروع رایگان', 'Gratis beginnen')}</a>
+          <a href={`${at(lang, '/')}#download`} className="inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-bold text-primary-foreground shadow-[0_3px_0_var(--primary-edge)] transition active:translate-y-0.5 active:shadow-none">{tx(lang, 'دانلود اپ', 'Download de app')}</a>
         </div>
       </div>
       <nav aria-label={tx(lang, 'منوی اصلی', 'Hoofdmenu')} className="no-scrollbar flex gap-1 overflow-x-auto border-t px-3 py-1.5 md:hidden">{nav(true)}</nav>
@@ -120,22 +151,20 @@ function Footer({lang}: {lang: Lang}) {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
         <div>
           <p className="flex items-center gap-2 font-bold"><Logo className="size-8" /><span lang="nl">nedfa</span></p>
-          <p className="mt-3 text-sm text-muted-foreground">{tx(lang, `${BRAND_FA}: آموزش رایگان زبان هلندی برای فارسی‌زبانان، از سطح A2 تا B1. هر روز چند دقیقه، با تلفظ هلندی و ترجمهٔ فارسی.`, 'Nedfa: gratis Nederlands leren voor Perzisch sprekenden, van A2 naar B1. Elke dag een paar minuten, met Nederlandse audio en Perzische vertaling.')}</p>
+          <p className="mt-3 text-sm text-muted-foreground">{tx(lang, `${BRAND_FA}: آموزش رایگان زبان هلندی برای فارسی‌زبانان، از سطح A2 تا B1. هر روز چند دقیقه، با تلفظ هلندی و ترجمهٔ فارسی.`, 'Nedfa: gratis Nederlands leren voor Farsi- en Perzisch sprekenden, van nul tot B1. Elke dag een paar minuten, met Nederlandse audio en Perzische vertaling.')}</p>
         </div>
         <div>
           <p className="text-sm font-bold">{tx(lang, 'یادگیری', 'Leren')}</p>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             {item(at(lang, '/woorden/'), tx(lang, 'لغات هلندی به فارسی', 'Nederlandse woorden'))}
             {item(at(lang, '/grammatica/'), tx(lang, 'گرامر زبان هلندی', 'Nederlandse grammatica'))}
-            {item(at(lang, '/inburgering/'), tx(lang, 'آزمون اینبورخرینگ', 'Inburgeringsexamen'))}
-            {item('/leren', tx(lang, 'تمرین در اپ', 'Oefenen in de app'), false)}
-          </ul>
+            {item(at(lang, '/inburgering/'), tx(lang, 'آزمون اینبورخرینگ', 'Inburgeringsexamen'))}          </ul>
         </div>
         <div>
           <p className="text-sm font-bold">{tx(lang, 'اپ نِدفا', 'De app')}</p>
+          <StoreBadges lang={lang} small className="mt-3 text-muted-foreground" />
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             {item('/leren', tx(lang, 'نسخهٔ وب (رایگان)', 'Webversie (gratis)'), false)}
-            <li>{tx(lang, 'اپ آیفون: به‌زودی در App Store', 'iPhone-app: binnenkort in de App Store')}</li>
             {item('/privacy', <span lang="nl">Privacy</span>)}
             {item(at(lang === 'fa' ? 'nl' : 'fa', '/'), lang === 'fa' ? <span lang="nl">Nederlands</span> : <span lang="fa">فارسی</span>)}
           </ul>
@@ -146,7 +175,7 @@ function Footer({lang}: {lang: Lang}) {
           <p className="mt-1 text-sm font-medium" dir="ltr" lang="nl">{EMAIL}</p>
         </div>
       </div>
-      <p className="border-t py-4 text-center text-xs text-muted-foreground"><span lang="nl">© {new Date().getFullYear()} Nedfa</span> · {tx(lang, 'ساخته‌شده در هلند برای فارسی‌زبانان', 'Gemaakt in Nederland voor Perzisch sprekenden')}</p>
+      <p className="border-t py-4 text-center text-xs text-muted-foreground"><span lang="nl">© {new Date().getFullYear()} Nedfa</span> · {tx(lang, 'ساخته‌شده در هلند برای فارسی‌زبانان', 'Gemaakt in Nederland voor Farsi-sprekenden')}</p>
     </footer>
   );
 }

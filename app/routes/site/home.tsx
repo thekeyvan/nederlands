@@ -1,8 +1,8 @@
 import type {Route} from './+types/home';
 import {card, patterns, themes, totals} from '../../site/content.server';
-import {BRAND_FA, SITE, appLink, at, langOf, num, organization, patternPath, tx, type Lang} from '../../site/lang';
+import {APP_STORE, BRAND_FA, SITE, appLink, at, langOf, num, organization, patternPath, tx, type Lang} from '../../site/lang';
 import {faqSchema, seo} from '../../site/seo';
-import {Cta, Fa, Faq, Ghost, H2, Nl, Picture, Section, ThemeCard, nlh} from '../../site/ui';
+import {Fa, Faq, Ghost, StoreBadges, H2, Nl, Picture, Section, ThemeCard, nlh} from '../../site/ui';
 import {Link} from 'react-router';
 
 export function loader({request}: Route.LoaderArgs) {
@@ -14,20 +14,20 @@ export function loader({request}: Route.LoaderArgs) {
 const questions = (lang: Lang): [string, string][] =>
   lang === 'fa'
     ? [
-        ['آیا نِدفا رایگان است؟', 'بله. نسخهٔ وب و اپ آیفون نِدفا رایگان هستند و تبلیغ ندارند. می‌توانید بدون حساب کاربری شروع کنید.'],
+        ['آیا نِدفا رایگان است؟', 'بله. اپ و نسخهٔ وب نِدفا رایگان هستند و تبلیغ ندارند. می‌توانید بدون حساب کاربری شروع کنید.'],
         ['نِدفا برای چه سطحی مناسب است؟', 'از صفر تا B1. اگر تازه شروع کرده‌اید، با بخش «شروع از صفر» (سلام و آشنایی، اعداد، رنگ‌ها، غذا و روزمره) شروع کنید. یک آزمون تعیین سطح کوتاه هم دارد که نقطهٔ شروع مناسب را برایتان پیدا می‌کند و تمرین‌ها را با سطح شما تنظیم می‌کند.'],
         ['آیا برای آزمون اینبورخرینگ (هم‌پذیری) کمک می‌کند؟', 'نِدفا موضوعات زندگی روزمره را تمرین می‌کند که در آزمون‌های شنیدن، خواندن، نوشتن و صحبت کردن می‌آیند: پزشک، شهرداری، کار، خانه و خرید. <a class="text-primary underline" href="/fa/inburgering/">راهنمای آزمون اینبورخرینگ</a> را هم ببینید.'],
         ['ترجمه‌ها به فارسی است؟', `بله. همهٔ ${num(lang, totals.words)} لغت، جمله‌ها و نکته‌های گرامری ترجمه و توضیح فارسی دارند و هر جملهٔ هلندی را می‌توانید با صدای هلندی بشنوید.`],
-        ['روی آیفون و کامپیوتر کار می‌کند؟', 'بله. نسخهٔ وب روی هر مرورگری کار می‌کند و اپ آیفون به‌زودی در App Store است. با ورود از طریق اپل یا گوگل، پیشرفت شما بین گوشی و کامپیوتر همگام می‌شود. اپل و گوگل با یک ایمیل به یک حساب می‌رسند و در تنظیمات می‌توانید هر دو را به حساب خود وصل کنید.'],
+        ['روی آیفون و کامپیوتر کار می‌کند؟', `بله. <a class="text-primary underline" href="${APP_STORE}">اپ آیفون نِدفا</a> رایگان در App Store است، اپ اندروید به‌زودی می‌آید و نسخهٔ وب روی هر مرورگری کار می‌کند. با ورود از طریق اپل یا گوگل، پیشرفت شما بین گوشی و کامپیوتر همگام می‌شود. اپل و گوگل با یک ایمیل به یک حساب می‌رسند و در تنظیمات می‌توانید هر دو را به حساب خود وصل کنید.`],
         ['چطور نظر یا مشکلی را گزارش کنم؟', 'در اپ آیفون، گوشی را تکان دهید یا به «تنظیمات ← Feedback geven» بروید؛ در وب‌سایت هم همین گزینه در تنظیمات است. هر مشکل، ایده یا تعریفی به بهتر شدن نِدفا کمک می‌کند.'],
         ['یادگیری زبان هلندی برای فارسی‌زبان‌ها سخت است؟', `هلندی الفبای لاتین و ترتیب کلمات متفاوتی دارد، اما با تمرین روزانهٔ کوتاه به‌خوبی یاد گرفته می‌شود. نکته‌های مهم مثل ${nlh('de')} و ${nlh('het')}، جای فعل در جمله و افعال جداشدنی را در <a class="text-primary underline" href="/fa/grammatica/">بخش گرامر</a> به فارسی توضیح داده‌ایم.`],
       ]
     : [
-        ['Is Nedfa gratis?', 'Ja. De website en de iPhone-app zijn gratis en zonder advertenties. Je kunt beginnen zonder account.'],
+        ['Is Nedfa gratis?', 'Ja. De app en de website zijn gratis en zonder advertenties. Je kunt beginnen zonder account.'],
         ['Voor wie is Nedfa?', 'Voor Perzisch sprekenden (Iraniërs en Afghanen die Farsi of Dari spreken), van beginner tot B1: naast een taalcursus of voor het inburgeringsexamen. Een korte niveautest kiest waar je begint en past de oefeningen aan je niveau aan.'],
         ['Helpt Nedfa bij het inburgeringsexamen?', 'Nedfa oefent de onderwerpen van het dagelijks leven die in de examens luisteren, lezen, schrijven en spreken terugkomen: de huisarts, de gemeente, werk, wonen en boodschappen. Lees ook de <a class="text-primary underline" href="/inburgering/">uitleg over inburgering</a>.'],
-        ['Zijn alle vertalingen in het Perzisch?', `Ja. Alle ${totals.words} woorden, de zinnen en de grammatica hebben een Perzische vertaling of uitleg, en elke Nederlandse zin hoor je met Nederlandse audio.`],
-        ['Werkt het op de iPhone en de computer?', 'Ja. De website werkt in elke browser en de iPhone-app komt binnenkort in de App Store. Log in met Apple of Google, dan gaat je voortgang mee tussen telefoon en computer. Apple en Google met hetzelfde e-mailadres komen in hetzelfde account, en bij Instellingen koppel je ze ook zelf.'],
+        ['Zijn alle vertalingen in het Farsi (Perzisch)?', `Ja. Alle ${totals.words} woorden, de zinnen en de grammatica hebben een Perzische vertaling of uitleg, en elke Nederlandse zin hoor je met Nederlandse audio.`],
+        ['Werkt het op de iPhone en de computer?', `Ja. <a class="text-primary underline" href="${APP_STORE}">De iPhone-app</a> staat gratis in de App Store, de Android-app komt binnenkort en de website werkt in elke browser. Log in met Apple of Google, dan gaat je voortgang mee tussen telefoon en computer. Apple en Google met hetzelfde e-mailadres komen in hetzelfde account, en bij Instellingen koppel je ze ook zelf.`],
         ['Hoe geef ik feedback?', 'Schud je iPhone in de app, of kies Instellingen → Feedback geven (ook op de website). Een probleem, een idee of een compliment: alles helpt om Nedfa beter te maken.'],
         ['Kan ik als Nederlander iemand helpen met Nedfa?', 'Zeker. Gebruik de <a class="text-primary underline" href="/woorden/">woordenlijsten per thema</a> en de <a class="text-primary underline" href="/grammatica/">grammatica</a> samen met een taalmaatje: de Nederlandse tekst staat er steeds naast de Perzische.'],
       ];
@@ -39,13 +39,13 @@ export function meta({loaderData}: Route.MetaArgs) {
   return seo({
     lang,
     path: '/',
-    title: L('آموزش زبان هلندی به فارسی | اپ رایگان نِدفا (از صفر تا B1)', 'Nedfa: gratis Nederlands leren voor Perzisch sprekenden (A0–B1)'),
-    description: L(`یادگیری زبان هلندی برای فارسی‌زبانان: ${num(lang, t.words)} لغت با تلفظ و ترجمهٔ فارسی، جملات کاربردی، گرامر هلندی به زبان ساده، بازی و آمادگی آزمون اینبورخرینگ. رایگان در وب و آیفون.`, `Nederlands leren met Perzische uitleg: ${t.words} woorden met audio en vertaling, handige zinnen, grammatica, spellen en oefening voor inburgering. Gratis op het web en de iPhone.`),
+    title: L('آموزش زبان هلندی به فارسی | اپ رایگان نِدفا (از صفر تا B1)', 'Nederlands leren in het Farsi (Perzisch) | gratis app Nedfa'),
+    description: L(`یادگیری زبان هلندی برای فارسی‌زبانان (ایرانی و افغان): ${num(lang, t.words)} لغت با تلفظ و ترجمهٔ فارسی، جملات کاربردی، گرامر هلندی به زبان ساده، بازی و آمادگی آزمون اینبورخرینگ. اپ رایگان آیفون (اندروید به‌زودی) و نسخهٔ وب.`, `Nederlands leren met uitleg in het Farsi (Perzisch): ${t.words} woorden met audio en vertaling, handige zinnen, grammatica, spellen en oefening voor inburgering. Gratis app voor iPhone (Android binnenkort) en op het web.`),
     jsonLd: [
       {'@context': 'https://schema.org', '@type': 'WebSite', '@id': `${SITE}/#website`, url: SITE, name: 'Nedfa', alternateName: [BRAND_FA, 'نِدفا: آموزش زبان هلندی'], inLanguage: ['fa', 'nl'], publisher: {'@id': `${SITE}/#org`}},
       {'@context': 'https://schema.org', ...organization},
       {'@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Nedfa: Nederlands leren', alternateName: BRAND_FA, applicationCategory: 'EducationalApplication', operatingSystem: 'iOS, Web', url: SITE, image: `${SITE}/img/logo.png`, inLanguage: ['fa', 'nl'], offers: {'@type': 'Offer', price: 0, priceCurrency: 'EUR'}, publisher: {'@id': `${SITE}/#org`}},
-      {'@context': 'https://schema.org', '@type': 'Course', name: L('آموزش زبان هلندی برای فارسی‌زبانان (از صفر تا B1)', 'Nederlands voor Perzisch sprekenden (A0–B1)'), description: L('دورهٔ رایگان و خودآموز زبان هلندی با توضیح فارسی: لغات روزمره با تلفظ، جملات کاربردی، گرامر و مکالمه.', 'Gratis zelfstudiecursus Nederlands met Perzische uitleg: woorden met audio, handige zinnen, grammatica en gesprekken.'), inLanguage: lang, teaches: L('زبان هلندی (Nederlands)', 'Nederlands'), educationalLevel: 'A2–B1', isAccessibleForFree: true, provider: {'@id': `${SITE}/#org`}, offers: {'@type': 'Offer', price: 0, priceCurrency: 'EUR', category: 'Free'}, hasCourseInstance: {'@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT10M'}},
+      {'@context': 'https://schema.org', '@type': 'Course', name: L('آموزش زبان هلندی برای فارسی‌زبانان (از صفر تا B1)', 'Nederlands voor Farsi- en Perzisch sprekenden (A0–B1)'), description: L('دورهٔ رایگان و خودآموز زبان هلندی با توضیح فارسی: لغات روزمره با تلفظ، جملات کاربردی، گرامر و مکالمه.', 'Gratis zelfstudiecursus Nederlands met uitleg in het Farsi (Perzisch): woorden met audio, handige zinnen, grammatica en gesprekken.'), inLanguage: lang, teaches: L('زبان هلندی (Nederlands)', 'Nederlands'), educationalLevel: 'A2–B1', isAccessibleForFree: true, provider: {'@id': `${SITE}/#org`}, offers: {'@type': 'Offer', price: 0, priceCurrency: 'EUR', category: 'Free'}, hasCourseInstance: {'@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT10M'}},
       faqSchema(faq),
     ],
   });
@@ -75,18 +75,18 @@ export default function Home({loaderData}: Route.ComponentProps) {
       <Section>
         <div className="grid items-center gap-8 py-10 md:grid-cols-[1.1fr_1fr] md:py-16">
           <div>
-            <p className="text-sm font-bold text-primary">{L('رایگان · برای فارسی‌زبانان · از صفر تا B1', 'Gratis · voor Perzisch sprekenden · van nul tot B1')}</p>
-            <h1 className="mt-3 text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl">{L('آموزش زبان هلندی به فارسی، هر روز چند دقیقه', 'Nederlands leren met Perzische uitleg, elke dag een beetje')}</h1>
+            <p className="text-sm font-bold text-primary">{L('رایگان · برای فارسی‌زبانان · از صفر تا B1', 'Gratis · voor Farsi-sprekenden · van nul tot B1')}</p>
+            <h1 className="mt-3 text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl">{L('آموزش زبان هلندی به فارسی، هر روز چند دقیقه', 'Nederlands leren met uitleg in het Farsi, elke dag een beetje')}</h1>
             <p className="mt-4 text-lg text-muted-foreground">
               {lang === 'fa'
-                ? <>{BRAND_FA} (<Nl>Nedfa</Nl>) اپ رایگان یادگیری زبان هلندی برای ایرانی‌ها و فارسی‌زبانان است: لغت با تلفظ هلندی، جمله‌های کاربردی برای زندگی در هلند، گرامر به زبان ساده و آمادگی برای آزمون اینبورخرینگ.</>
-                : <>Nedfa (<Fa>{BRAND_FA}</Fa>) is een gratis app om Nederlands te leren voor Iraniërs en andere Perzisch sprekenden: woorden met Nederlandse audio, handige zinnen voor het leven in Nederland, grammatica in gewone taal en oefening voor het inburgeringsexamen.</>}
+                ? <>{BRAND_FA} (<Nl>Nedfa</Nl>) اپ رایگان یادگیری زبان هلندی برای ایرانی‌ها، افغان‌ها و همهٔ فارسی‌زبانان است: لغت با تلفظ هلندی، جمله‌های کاربردی برای زندگی در هلند، گرامر به زبان ساده و آمادگی برای آزمون اینبورخرینگ.</>
+                : <>Nedfa (<Fa>{BRAND_FA}</Fa>) is een gratis app om Nederlands te leren voor Iraniërs, Afghanen en andere Perzisch sprekenden (Farsi en Dari): woorden met Nederlandse audio, handige zinnen voor het leven in Nederland, grammatica in gewone taal en oefening voor het inburgeringsexamen.</>}
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Cta lang={lang} href={appLink()}>{L('شروع رایگان در مرورگر', 'Gratis beginnen in je browser')}</Cta>
+            <div id="download" className="mt-6 scroll-mt-28"><StoreBadges lang={lang} className="text-muted-foreground" /></div>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Ghost href={appLink()}>{L('تمرین در مرورگر', 'Oefenen in je browser')}</Ghost>
               <Ghost to={at(lang, '/woorden/')}>{L('دیدن لغات هلندی', 'Bekijk de woorden')}</Ghost>
             </div>
-            <p className="mt-3 text-sm text-muted-foreground">{L('بدون ثبت‌نام شروع کنید. اپ آیفون به‌زودی در App Store.', 'Zonder account beginnen. De iPhone-app komt binnenkort in de App Store.')}</p>
           </div>
           <img src="/img/hero.webp" alt={L('مسکات نِدفا جلوی خانه‌های هلندی با دوچرخه، آسیاب بادی، گل لاله و یک استکان چای', 'De Nedfa-mascotte zwaait voor Nederlandse grachtenpanden met een fiets, een molen, tulpen en een Perzisch theeglas')} width={1536} height={1024} fetchPriority="high" className="w-full rounded-3xl" />
         </div>
@@ -100,7 +100,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
       </Section>
       <Section className="mt-16">
         <H2>{L('چرا نِدفا برای یادگیری هلندی؟', 'Waarom Nedfa?')}</H2>
-        <p className="mt-2 max-w-3xl text-muted-foreground">{L('بیشتر اپ‌های آموزش زبان هلندی به انگلیسی هستند. در نِدفا همه‌چیز به فارسی توضیح داده شده و موضوعات همان چیزهایی است که در هلند هر روز لازم دارید.', 'De meeste apps om Nederlands te leren zijn in het Engels. In Nedfa staat alle uitleg in het Perzisch, over de dingen die je in Nederland elke dag nodig hebt.')}</p>
+        <p className="mt-2 max-w-3xl text-muted-foreground">{L('بیشتر اپ‌های آموزش زبان هلندی به انگلیسی هستند. در نِدفا همه‌چیز به فارسی توضیح داده شده و موضوعات همان چیزهایی است که در هلند هر روز لازم دارید.', 'De meeste apps om Nederlands te leren zijn in het Engels. In Nedfa staat alle uitleg in het Perzisch (Farsi), over de dingen die je in Nederland elke dag nodig hebt.')}</p>
         <ul className="mt-6 grid gap-4 sm:grid-cols-2">
           {features.map(([image, title, text]) => (
             <li key={title} className="flex gap-4 rounded-2xl border bg-card p-4"><Picture src={image} size={80} className="size-20 shrink-0 rounded-xl" /><div><h3 className="text-lg font-bold">{title}</h3><p className="mt-1 text-sm text-muted-foreground">{text}</p></div></li>
@@ -138,8 +138,8 @@ export default function Home({loaderData}: Route.ComponentProps) {
         <div className="mt-16 flex flex-col items-center gap-4 rounded-3xl bg-secondary px-6 py-10 text-center text-secondary-foreground">
           <Picture src="/img/mascot-wave.jpg" size={112} className="size-28 rounded-3xl" />
           <h2 className="text-2xl font-extrabold sm:text-3xl">{L('همین امروز اولین دور را شروع کنید', 'Begin vandaag met je eerste rondje')}</h2>
-          <p className="opacity-80">{L('پنج کارت، کمتر از دو دقیقه. رایگان و بدون ثبت‌نام.', 'Vijf kaartjes, minder dan twee minuten. Gratis en zonder account.')}</p>
-          <Cta lang={lang} href={appLink()}>{L('شروع یادگیری هلندی', 'Begin met Nederlands')}</Cta>
+          <p className="opacity-80">{L('پنج کارت، کمتر از دو دقیقه. رایگان و بدون تبلیغ.', 'Vijf kaartjes, minder dan twee minuten. Gratis en zonder advertenties.')}</p>
+          <StoreBadges lang={lang} web={appLink()} center />
         </div>
       </Section>
     </>

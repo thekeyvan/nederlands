@@ -2,7 +2,7 @@ import type {Route} from './+types/inburgering';
 import {card, themes} from '../../site/content.server';
 import {SITE, appLink, langOf, tx, type Lang} from '../../site/lang';
 import {faqSchema, seo} from '../../site/seo';
-import {Crumbs, Cta, Faq, H2, Nl, Picture, Section, ThemeCard, nlh} from '../../site/ui';
+import {Crumbs, Faq, H2, Nl, Picture, Section, StoreBadges, ThemeCard, nlh} from '../../site/ui';
 
 const official = '<a class="text-primary underline" href="https://www.inburgeren.nl" rel="noopener" lang="nl">inburgeren.nl</a>';
 const duo = '<a class="text-primary underline" href="https://duo.nl" rel="noopener" lang="nl">duo.nl</a>';
@@ -33,8 +33,8 @@ export function meta({loaderData}: Route.MetaArgs) {
   const L = <T,>(fa: T, nl: T) => tx(lang, fa, nl);
   return seo({
     lang, path: '/inburgering/', image: '/img/inburgering-og.jpg',
-    title: L('آزمون اینبورخرینگ (هم‌پذیری هلند): راهنمای فارسی و تمرین زبان A2 و B1 | نِدفا', 'Inburgeringsexamen A2 en B1: uitleg en dagelijks oefenen | Nedfa'),
-    description: L('آزمون اینبورخرینگ به زبان ساده: بخش‌های شنیدن، خواندن، نوشتن و صحبت کردن، سطح A2 یا B1 و برنامهٔ تمرین روزانه با لغات و جمله‌های موقعیت‌های واقعی. تمرین رایگان با نِدفا.', 'Het inburgeringsexamen in gewone taal: luisteren, lezen, schrijven en spreken, niveau A2 of B1, en een dagelijks oefenplan met woorden en zinnen uit echte situaties. Gratis oefenen met Nedfa.'),
+    title: L('آزمون اینبورخرینگ (هم‌پذیری هلند): راهنمای فارسی و تمرین زبان A2 و B1 | نِدفا', 'Inburgeringsexamen A2 en B1: uitleg en oefenen, ook in het Farsi | Nedfa'),
+    description: L('آزمون اینبورخرینگ به زبان ساده: بخش‌های شنیدن، خواندن، نوشتن و صحبت کردن، سطح A2 یا B1 و برنامهٔ تمرین روزانه با لغات و جمله‌های موقعیت‌های واقعی. تمرین رایگان با نِدفا.', 'Het inburgeringsexamen in gewone taal: luisteren, lezen, schrijven en spreken, niveau A2 of B1, en een dagelijks oefenplan met woorden en zinnen uit echte situaties. Met uitleg in het Farsi (Perzisch). Gratis oefenen met Nedfa.'),
     breadcrumbs: [['Nedfa', '/'], [L('آزمون اینبورخرینگ', 'Inburgering'), '/inburgering/']],
     jsonLd: [{'@context': 'https://schema.org', '@type': 'Article', headline: L('آزمون اینبورخرینگ: راهنمای فارسی برای آمادگی زبان هلندی', 'Inburgeringsexamen: zo oefen je je Nederlands'), inLanguage: lang, dateModified: today, author: {'@id': `${SITE}/#org`}, publisher: {'@id': `${SITE}/#org`}, image: `${SITE}/img/inburgering-og.jpg`}, faqSchema(faq)],
   });
@@ -55,9 +55,9 @@ export default function Inburgering({loaderData}: Route.ComponentProps) {
       <Section>
         <div className="mt-4 grid items-center gap-6 md:grid-cols-[1.4fr_1fr]">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{L('آزمون اینبورخرینگ: راهنمای فارسی برای آمادگی زبان هلندی', 'Inburgeringsexamen: zo oefen je je Nederlands (uitleg voor Perzisch sprekenden)')}</h1>
-            <p className="mt-3 text-lg text-muted-foreground">{lang === 'fa' ? <>آزمون هم‌پذیری هلند (<Nl>inburgeringsexamen</Nl>) برای بسیاری از ایرانی‌ها در هلند قدم مهمی است. اینجا به زبان ساده می‌خوانید بخش زبان آزمون چه چیزهایی را می‌سنجد و چطور هر روز برایش تمرین کنید.</> : 'Voor veel Iraniërs in Nederland is het inburgeringsexamen een belangrijke stap. Hier lees je in gewone taal wat het taaldeel toetst en hoe je er elke dag voor oefent. Dezelfde uitleg staat ook in het Perzisch.'}</p>
-            <div className="mt-5"><Cta lang={lang} href={appLink()}>{L('شروع تمرین رایگان', 'Gratis oefenen')}</Cta></div>
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{L('آزمون اینبورخرینگ: راهنمای فارسی برای آمادگی زبان هلندی', 'Inburgeringsexamen: zo oefen je je Nederlands (uitleg voor Farsi-sprekenden)')}</h1>
+            <p className="mt-3 text-lg text-muted-foreground">{lang === 'fa' ? <>آزمون هم‌پذیری هلند (<Nl>inburgeringsexamen</Nl>) برای بسیاری از ایرانی‌ها در هلند قدم مهمی است. اینجا به زبان ساده می‌خوانید بخش زبان آزمون چه چیزهایی را می‌سنجد و چطور هر روز برایش تمرین کنید.</> : 'Voor veel Iraniërs in Nederland is het inburgeringsexamen een belangrijke stap. Hier lees je in gewone taal wat het taaldeel toetst en hoe je er elke dag voor oefent. Dezelfde uitleg staat ook in het Farsi (Perzisch).'}</p>
+            <StoreBadges lang={lang} web={appLink()} className="mt-5" />
           </div>
           <img src="/img/inburgering.webp" alt={L('مسکات نِدفا با یک گواهی‌نامه، کتاب و هدفون', 'De Nedfa-mascotte met een diploma, boeken en een koptelefoon')} width={1024} height={1024} className="mx-auto w-full max-w-xs rounded-3xl" />
         </div>

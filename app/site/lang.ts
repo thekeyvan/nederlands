@@ -2,6 +2,12 @@
 export const SITE = 'https://nedfa.nl';
 export const BRAND_FA = 'نِدفا';
 export const EMAIL = 'hallo@nedfa.nl';
+export const APP_STORE_ID = '6835511181';
+export const APP_NAME = 'Nedfa: Nederlands leren';
+/** The iPhone app; this address opens the visitor's own App Store country. */
+export const APP_STORE = `https://apps.apple.com/app/id${APP_STORE_ID}`;
+/** The Android app; null until Google Play has approved it (then: https://play.google.com/store/apps/details?id=nl.nedfa). */
+export const PLAY_STORE: string | null = null;
 export const LANGS = ['nl', 'fa'] as const;
 export type Lang = (typeof LANGS)[number];
 
@@ -22,4 +28,4 @@ const themePictures = new Set(Object.keys(import.meta.glob('/src/assets/illustra
 export const themeImage = (id: string) => (themePictures.has(id) ? `/img/themes/${id}.jpg` : '/img/mascot-wave.jpg');
 export const groupNl: Record<string, string> = {beginnen: 'Beginnen', dagelijks: 'Elke dag', werk: 'Werk', vrijetijd: 'Vrije tijd & uitgaan', taal: 'Taal, contact & gevoel'};
 export const kindNl: Record<string, string> = {woord: 'woord', werkwoord: 'werkwoord', uitdrukking: 'uitdrukking'};
-export const organization = {'@type': 'Organization', '@id': `${SITE}/#org`, name: 'Nedfa', alternateName: BRAND_FA, url: SITE, logo: `${SITE}/img/logo.png`, email: EMAIL};
+export const organization = {'@type': 'Organization', '@id': `${SITE}/#org`, name: 'Nedfa', alternateName: BRAND_FA, url: SITE, logo: `${SITE}/img/logo.png`, email: EMAIL, sameAs: [APP_STORE]};

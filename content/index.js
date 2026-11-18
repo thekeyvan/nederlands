@@ -81,6 +81,7 @@ import ruleNogGeenMeer from './grammar/nog-geen-meer.json' with {type: 'json'};
 import ruleToenAls from './grammar/toen-als.json' with {type: 'json'};
 import ruleIndirecteVraag from './grammar/indirecte-vraag.json' with {type: 'json'};
 import ruleHypothese from './grammar/hypothese.json' with {type: 'json'};
+import ruleKlaarOpUit from './grammar/klaar-op-uit.json' with {type: 'json'};
 
 import themeKennismaken from './themes/kennismaken.json' with {type: 'json'};
 import themeGetallen from './themes/getallen.json' with {type: 'json'};
@@ -189,6 +190,7 @@ export const grammarFiles = [
   ruleToenAls,
   ruleIndirecteVraag,
   ruleHypothese,
+  ruleKlaarOpUit,
   // Beginners (A0–A1)
   ruleZijn,
   ruleLidwoord,

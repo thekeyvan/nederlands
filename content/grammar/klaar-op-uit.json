@@ -1,0 +1,57 @@
+{
+  "$schema": "../schema/grammar.schema.json",
+  "id": "zin:klaar-op-uit",
+  "title": "Klaar, af, op of uit?",
+  "level": "A2",
+  "pattern": "iemand is klaar · iets is af · de voorraad is op · de batterij is leeg · de film is uit · de vakantie is voorbij · het paspoort is verlopen",
+  "example": "Het brood is op.",
+  "prompt": "We hebben geen melk meer: de melk is ___.",
+  "answer": "op",
+  "fa": {
+    "rule": "در فارسی برای همه می‌گوییم «تموم شد»، ولی در هلندی کلمه بستگی دارد به اینکه چه چیزی تمام شده: klaar = کار من تمام شد (برای آدم)؛ af = کار یا چیزی که ساخته می‌شود کامل شد؛ op = چیزی مصرف شد و دیگر نیست (شیر، نان، پول)؛ leeg = ظرف یا باتری خالی است؛ uit = فیلم، کلاس یا مدرسه تمام شد؛ voorbij یا afgelopen = زمانی گذشت (تعطیلات، جلسه)؛ verlopen = تاریخ اعتبار گذشته است (پاسپورت، کارت).",
+    "note": "Het eten is klaar یعنی «غذا آماده است»، نه «غذا تمام شد». اگر غذا تمام شد بگو: Het eten is op.",
+    "translation": "نان تمام شد."
+  },
+  "examples": [
+    {
+      "nl": "Ik ben klaar met mijn huiswerk.",
+      "gap": "klaar",
+      "fa": "تکالیفم را تمام کردم."
+    },
+    {
+      "nl": "Het schilderij is eindelijk af.",
+      "gap": "af",
+      "fa": "نقاشی بالاخره تمام شد."
+    },
+    {
+      "nl": "De koffie is op, we moeten nieuwe halen.",
+      "gap": "op",
+      "fa": "قهوه تمام شده، باید قهوهٔ تازه بخریم."
+    },
+    {
+      "nl": "Mijn telefoon is bijna leeg, heb je een oplader?",
+      "gap": "leeg",
+      "fa": "شارژ گوشی‌ام تقریباً تمام شده، شارژر داری؟"
+    },
+    {
+      "nl": "De film is om tien uur uit.",
+      "gap": "uit",
+      "fa": "فیلم ساعت ده تمام می‌شود."
+    },
+    {
+      "nl": "De zomervakantie is alweer voorbij.",
+      "gap": "voorbij",
+      "fa": "تعطیلات تابستان باز هم تمام شد."
+    },
+    {
+      "nl": "De vergadering is om drie uur afgelopen.",
+      "gap": "afgelopen",
+      "fa": "جلسه ساعت سه تمام شد."
+    },
+    {
+      "nl": "Mijn verblijfsvergunning is verlopen, dus ik moet een nieuwe aanvragen.",
+      "gap": "verlopen",
+      "fa": "اجازهٔ اقامتم منقضی شده، پس باید یکی جدید درخواست کنم."
+    }
+  ]
+}

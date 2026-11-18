@@ -38,7 +38,7 @@ ZEVEN SPELLEN
 De of het, zinnen bouwen, werkwoorden, zinnen aanvullen, luisterdictee, gesprekken en een tijdrace. Verbeter je record.
 
 ELKE DAG EEN BEETJE
-Een dagdoel, een reeks, XP, stempels en een route met acht haltes van A2 naar B1. Zet een dagelijkse herinnering aan als je wilt.
+Een dagdoel, een reeks, XP en stempels, en een pad van nul tot B1: situatie voor situatie, met woorden, zinnen, grammatica en een gesprek. Zet een dagelijkse herinnering aan als je wilt.
 
 OVERAL VERDER
 Log in met Apple of Google en ga verder op je telefoon of op nedfa.nl. Zonder account kan ook; je voortgang blijft dan op je telefoon. Je kunt je account en al je gegevens altijd verwijderen in de app.

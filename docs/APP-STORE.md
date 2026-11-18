@@ -78,11 +78,12 @@ Published in App Store Connect on 2026-11-15. Privacy policy URL: https://nedfa.
 
 ## Release steps
 
-1. `npm run build:ios` builds the web app into the Xcode project (`ios/App`).
-2. Raise `CURRENT_PROJECT_VERSION` in `ios/App/App.xcodeproj/project.pbxproj`.
-3. Archive and upload:
-   `xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -destination 'generic/platform=iOS' -archivePath /tmp/Nedfa.xcarchive -allowProvisioningUpdates archive`
+1. Raise `CURRENT_PROJECT_VERSION` in `ios-native/project.yml`. Once a version is approved, Apple accepts no new builds for it: raise `MARKETING_VERSION` too (1.0 → 1.0.1).
+2. `npm run build:native` exports `content.json` and regenerates `ios-native/Nedfa.xcodeproj`.
+3. Archive and upload (the export uploads straight to App Store Connect; TestFlight shows it after Apple's processing):
+   `xcodebuild -project ios-native/Nedfa.xcodeproj -scheme Nedfa -configuration Release -destination 'generic/platform=iOS' -archivePath /tmp/Nedfa.xcarchive -allowProvisioningUpdates archive`
    `xcodebuild -exportArchive -archivePath /tmp/Nedfa.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath /tmp/export -allowProvisioningUpdates`
+4. If archiving fails with "Signing certificate is invalid" or "Revoke certificate", the Mac has no valid Apple Development certificate for team K&S Apps: Xcode → Settings → Accounts → K&S Apps → Manage Certificates → + Apple Development.
 
 ## Sign in with Apple
 

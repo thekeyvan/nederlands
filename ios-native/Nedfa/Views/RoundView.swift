@@ -13,7 +13,8 @@ struct Outcome { let grade: Int; let correct: Bool; let result: Answer.Result; v
 
 /// A practice round: one card at a time in the best exercise for it, feedback, then a summary.
 struct RoundView: View {
-    let round: Round
+    /// "Nog een rondje" swaps in the next round here, so the screen stays open instead of closing and opening again.
+    @State private var round: Round
     @Environment(\.dismiss) private var dismiss
     @State private var index = 0
     @State private var outcome: Outcome?
@@ -23,13 +24,15 @@ struct RoundView: View {
     @State private var confirmQuit = false
     @State private var before = Stats(reviews: Learner.shared.reviews, events: Learner.shared.events)
 
+    init(round: Round) { _round = State(initialValue: round) }
+
     var body: some View {
         NavigationStack {
             Group {
                 if index < round.cards.count {
                     let card = round.cards[index]
                     CardRunner(card: card, position: index, outcome: $outcome, answer: answer)
-                        .id("\(index)")
+                        .id("\(round.id)-\(index)")
                         .padding(.horizontal)
                         .safeAreaInset(edge: .bottom) { if let outcome { FeedbackPanel(card: card, outcome: outcome, combo: combo, next: next) } }
                 } else {
@@ -87,7 +90,14 @@ struct RoundView: View {
 
     private func again() {
         let next = round.irregular.map { Irregular.round($0, reviews: Learner.shared.reviews) } ?? (round.drill ? round.cards : Planner.plan(reviews: Learner.shared.reviews))
-        PracticeSession.shared.round = Round(cards: next.isEmpty ? round.cards : next, label: round.label, drill: round.drill, irregular: round.irregular)
+        Audio.shared.stop()
+        before = Stats(reviews: Learner.shared.reviews, events: Learner.shared.events)
+        round = Round(cards: next.isEmpty ? round.cards : next, label: round.label, drill: round.drill, irregular: round.irregular)
+        results = []
+        outcome = nil
+        combo = 0
+        bestCombo = 0
+        index = 0
     }
 }
 

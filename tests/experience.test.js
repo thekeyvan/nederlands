@@ -12,9 +12,9 @@ test('short mixed sessions stay in the chosen theme and include practical recall
  const reviews={[old.id]:{...scheduleReview({},4,now),due:new Date(2026,10,11).toISOString()},[recent.id]:{...scheduleReview({},4,now),due:new Date(2026,10,12).toISOString()}};
  assert.deepEqual(planSession(reviews,{theme:'huisarts',type:'all',now,limit:5}).slice(0,2).map(card=>card.id),[old.id,recent.id]);
 });
-test('daily activity uses local calendar dates and always includes empty days',()=>{
+test('daily activity is this calendar week from Monday, uses local dates and includes empty days',()=>{
  const reference=new Date(2026,10,13,0,15);const events=[{at:new Date(2026,10,12,23,55).toISOString()},{at:new Date(2026,10,13,0,5).toISOString()}];
- const result=activity(events,reference);assert.equal(result.today,1);assert.equal(result.week.length,7);assert.equal(result.week.at(-1).count,1);assert.equal(result.week.at(-2).count,1);assert.ok(result.week.slice(0,5).every(day=>day.count===0));
+ const result=activity(events,reference);assert.equal(result.today,1);assert.equal(result.week.length,7);assert.deepEqual(result.week.map(day=>day.date.getDay()),[1,2,3,4,5,6,0]);assert.equal(result.week[4].count,1);assert.equal(result.week[3].count,1);assert.ok([0,1,2,5,6].every(index=>result.week[index].count===0));
 });
 test('continuation ignores unrelated history and theme progress includes sentence cards',()=>{
  const phrase=phrases.find(card=>card.themeId==='apotheek');assert.equal(resumeTheme([{cardId:phrase.id},{cardId:'zin:v2'},{cardId:'unknown'}]),'apotheek');assert.equal(resumeTheme([]),'werk');

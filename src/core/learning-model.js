@@ -12,7 +12,10 @@ export function themeMeta(theme){const group=Object.keys(categoryMap).find(key=>
 export function themeStats(id,reviews){const list=cards.filter(card=>card.themeId===id);return {total:list.length,done:list.filter(card=>reviews[card.id]).length,known:list.filter(card=>progressStatus(reviews[card.id])==='known').length};}
 export const dayKey=date=>`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 export function activity(events,now=new Date()){
- const today=dayKey(now);const week=Array.from({length:7},(_,index)=>{const date=new Date(now);date.setDate(date.getDate()-6+index);return {date,label:date.toLocaleDateString('nl-NL',{weekday:'short'}),count:events.filter(event=>dayKey(new Date(event.at))===dayKey(date)).length};});
+ const today=dayKey(now);
+ // This calendar week, Monday on the left; days still to come stay empty.
+ const monday=new Date(now.getFullYear(),now.getMonth(),now.getDate()-(now.getDay()+6)%7);
+ const week=Array.from({length:7},(_,index)=>{const date=new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+index);return {date,label:date.toLocaleDateString('nl-NL',{weekday:'short'}),count:events.filter(event=>dayKey(new Date(event.at))===dayKey(date)).length};});
  return {today:events.filter(event=>dayKey(new Date(event.at))===today).length,week};
 }
 export function resumeTheme(events){for(const event of [...events].reverse()){const card=cards.find(card=>card.id===event.cardId);if(themes.some(theme=>theme.id===card?.themeId))return card.themeId;}return 'werk';}

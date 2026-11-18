@@ -318,8 +318,10 @@ class Stats(reviews: Map<String, Review>, events: List<ReviewEvent>, now: Long =
         val todays = events.filter { day(it.at) == todayDate }
         today = todays.size
         val dutch = Locale("nl", "NL")
+        // This calendar week, Monday on the left; days still to come stay empty.
+        val monday = todayDate.minusDays((todayDate.dayOfWeek.value - 1).toLong())
         week = (0..6).map { offset ->
-            val date = todayDate.minusDays((6 - offset).toLong())
+            val date = monday.plusDays(offset.toLong())
             Day(date, date.dayOfWeek.getDisplayName(TextStyle.SHORT, dutch).take(2), events.count { day(it.at) == date })
         }
 

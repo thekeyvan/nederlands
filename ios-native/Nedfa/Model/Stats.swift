@@ -89,8 +89,10 @@ struct Stats {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "nl_NL")
         formatter.dateFormat = "EEEEEE"
+        // This calendar week, Monday on the left; days still to come stay empty.
+        let monday = calendar.date(byAdding: .day, value: -((calendar.component(.weekday, from: start) + 5) % 7), to: start)!
         week = (0..<7).map { offset in
-            let date = calendar.date(byAdding: .day, value: offset - 6, to: start)!
+            let date = calendar.date(byAdding: .day, value: offset, to: monday)!
             return Day(date: date, label: formatter.string(from: date), count: events.filter { calendar.isDate($0.at, inSameDayAs: date) }.count)
         }
 

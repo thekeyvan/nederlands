@@ -641,7 +641,19 @@ function Tile({tone, label, children}: {tone: string; label: string; children: R
 /* ------------------------------------------------------------------- pairs */
 
 function PairsGame({cards, onDone}: {cards: LearningCard[]; onDone: () => void}) {
-  const tiles = useMemo(() => shuffle(cards.flatMap((card) => [{key: `nl:${card.id}`, id: card.id, label: card.nl!, dutch: true}, {key: `m:${card.id}`, id: card.id, label: card.meaning!, dutch: false}]), seededRandom(cards.map((card) => card.id).join())), [cards]);
+  // Dutch on the left, Persian on the right, each column in its own order; the grid fills row by row.
+  const tiles = useMemo(() => {
+    const seed = cards.map((card) => card.id).join();
+    const dutch = shuffle(cards.map((card) => ({key: `nl:${card.id}`, id: card.id, label: card.nl!, dutch: true})), seededRandom(seed));
+    // No pair may start on the same row: shuffle the Persian again until none lines up (a few tries at most).
+    const meanings = cards.map((card) => ({key: `m:${card.id}`, id: card.id, label: card.meaning!, dutch: false}));
+    let persian = meanings;
+    for (let attempt = 0; attempt < 20; attempt++) {
+      persian = shuffle(meanings, seededRandom(`${seed}:fa:${attempt}`));
+      if (persian.every((tile, index) => tile.id !== dutch[index].id)) break;
+    }
+    return dutch.flatMap((tile, index) => [tile, persian[index]]);
+  }, [cards]);
   const [selected, setSelected] = useState<string | null>(null);
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [wrong, setWrong] = useState<string[]>([]);
@@ -658,7 +670,8 @@ function PairsGame({cards, onDone}: {cards: LearningCard[]; onDone: () => void})
     if (!selected) return setSelected(tile.key);
     if (selected === tile.key) return setSelected(null);
     const first = tiles.find((item) => item.key === selected)!;
-    if (first.id === tile.id && first.dutch !== tile.dutch) {
+    if (first.dutch === tile.dutch) return setSelected(tile.key);
+    if (first.id === tile.id) {
       setMatched(new Set(matched).add(tile.id));
       setSelected(null);
     } else {

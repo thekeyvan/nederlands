@@ -7,8 +7,10 @@ test('news show follows the level', () => {
   assert.equal(newsFor('B1').id, 'jeugd');
 });
 
-test('every news show opens on YouTube', () => {
-  for (const show of newsShows) assert.match(show.url, /^https:\/\/www\.youtube\.com\/@[\w]+\/videos$/);
+// Makkelijke Taal has no YouTube channel (the old @NOSJournaalinMakkelijkeTaal link was a 404); it is on NPO Start.
+test('every news show opens a real page: YouTube or NPO Start', () => {
+  for (const show of newsShows) assert.match(show.url, /^https:\/\/(www\.youtube\.com\/@[\w]+\/videos|npo\.nl\/start\/serie\/[\w-]+\/afleveringen)$/);
+  assert.equal(newsShows.find((show) => show.id === 'makkelijk').url, 'https://npo.nl/start/serie/nos-journaal-in-makkelijke-taal/afleveringen');
 });
 
 test('news state is only kept for today', () => {

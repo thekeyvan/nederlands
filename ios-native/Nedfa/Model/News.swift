@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 
-/// Het nieuws van vandaag: one short Dutch news video a day, opened in YouTube (outside the app).
+/// Het nieuws van vandaag: one short Dutch news video a day, opened outside the app (YouTube, or NPO Start for Makkelijke Taal).
 /// The same list as the website (src/core/news.js) and the Android app.
 struct NewsShow: Identifiable, Equatable {
     let id: String
@@ -13,7 +13,7 @@ struct NewsShow: Identifiable, Equatable {
 
     static let all = [
         NewsShow(id: "makkelijk", title: "NOS Journaal in Makkelijke Taal", short: "Makkelijke Taal", detail: "Het nieuws, rustig verteld", minutes: 10,
-                 url: URL(string: "https://www.youtube.com/@NOSJournaalinMakkelijkeTaal/videos")!),
+                 url: URL(string: "https://npo.nl/start/serie/nos-journaal-in-makkelijke-taal/afleveringen")!),
         NewsShow(id: "jeugd", title: "Jeugdjournaal", short: "Jeugdjournaal", detail: "Nieuws met veel beeld", minutes: 10,
                  url: URL(string: "https://www.youtube.com/@jeugdjournaal/videos")!),
         NewsShow(id: "nos", title: "NOS Journaal", short: "NOS Journaal", detail: "Het gewone journaal, in gewoon tempo", minutes: 20,

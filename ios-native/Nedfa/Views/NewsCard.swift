@@ -78,7 +78,7 @@ struct NewsCard: View {
             .accessibilityHidden(true)
     }
 
-    /// Opens the show in the YouTube or NPO app when it's installed, otherwise in Safari.
+    /// Opens the channel in the YouTube app when it's installed, otherwise in Safari.
     private func open(_ show: NewsShow) {
         Haptics.tap()
         Analytics.shared.event("nieuws", ["journaal": show.id])

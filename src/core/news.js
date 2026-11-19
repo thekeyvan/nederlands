@@ -1,9 +1,9 @@
-// Het nieuws van vandaag: one short Dutch news video a day, opened outside the app (YouTube, or NPO Start for Makkelijke Taal).
+// Het nieuws van vandaag: one short Dutch news video a day, opened in YouTube (outside the app).
 // The iPhone and Android apps keep the same list (ios-native/Nedfa/Model/News.swift, android/.../data/News.kt).
 import {dayKey} from './learning-model.js';
 
 export const newsShows = [
- {id:'makkelijk',title:'NOS Journaal in Makkelijke Taal',short:'Makkelijke Taal',detail:'Het nieuws, rustig verteld',minutes:10,url:'https://npo.nl/start/serie/nos-journaal-in-makkelijke-taal/afleveringen'},
+ {id:'makkelijk',title:'NOS Journaal in Makkelijke Taal',short:'Makkelijke Taal',detail:'Het nieuws, rustig verteld',minutes:10,url:'https://www.youtube.com/c/NOSNieuwsvandeWeek/videos'},
  {id:'jeugd',title:'Jeugdjournaal',short:'Jeugdjournaal',detail:'Nieuws met veel beeld',minutes:10,url:'https://www.youtube.com/@jeugdjournaal/videos'},
  {id:'nos',title:'NOS Journaal',short:'NOS Journaal',detail:'Het gewone journaal, in gewoon tempo',minutes:20,url:'https://www.youtube.com/@NOS/videos'}
 ];

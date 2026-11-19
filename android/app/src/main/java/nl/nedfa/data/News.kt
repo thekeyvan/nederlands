@@ -3,13 +3,13 @@ package nl.nedfa.data
 import java.util.Calendar
 
 /**
- * Het nieuws van vandaag: one short Dutch news video a day, opened outside the app (YouTube, or NPO Start for Makkelijke Taal).
+ * Het nieuws van vandaag: one short Dutch news video a day, opened in YouTube (outside the app).
  * The same list as the website (src/core/news.js) and the iPhone app (ios-native/Nedfa/Model/News.swift).
  */
 data class NewsShow(val id: String, val title: String, val short: String, val detail: String, val minutes: Int, val url: String) {
     companion object {
         val all = listOf(
-            NewsShow("makkelijk", "NOS Journaal in Makkelijke Taal", "Makkelijke Taal", "Het nieuws, rustig verteld", 10, "https://npo.nl/start/serie/nos-journaal-in-makkelijke-taal/afleveringen"),
+            NewsShow("makkelijk", "NOS Journaal in Makkelijke Taal", "Makkelijke Taal", "Het nieuws, rustig verteld", 10, "https://www.youtube.com/c/NOSNieuwsvandeWeek/videos"),
             NewsShow("jeugd", "Jeugdjournaal", "Jeugdjournaal", "Nieuws met veel beeld", 10, "https://www.youtube.com/@jeugdjournaal/videos"),
             NewsShow("nos", "NOS Journaal", "NOS Journaal", "Het gewone journaal, in gewoon tempo", 20, "https://www.youtube.com/@NOS/videos"),
         )

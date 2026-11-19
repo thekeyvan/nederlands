@@ -44,7 +44,7 @@ fun NewsCard(level: String?) {
     val context = LocalContext.current
     val show = NewsShow.forLevel(level)
     val state = Preferences.news
-    // Opens the show in the YouTube or NPO app when it's installed, otherwise in the browser.
+    // Opens the channel in the YouTube app when it's installed, otherwise in the browser.
     fun open(item: NewsShow) {
         Analytics.event("nieuws", mapOf("journaal" to item.id))
         if (state != NewsState.DONE) Preferences.markNews(NewsState.ASKED)

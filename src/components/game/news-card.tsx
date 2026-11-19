@@ -4,7 +4,7 @@ import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {cn} from '@/lib/utils';
 import {trackEvent} from '@/lib/stats';
-import {newsFor, newsMark, newsShows, newsState, newsTip} from '@/core/news.js';
+import {newsFor, newsLink, newsMark, newsShows, newsState, newsTip} from '@/core/news.js';
 import type {NewsMark, NewsShow, NewsState} from '@/core/news.js';
 
 const KEY = 'nedfa-news';
@@ -59,14 +59,14 @@ export function NewsCard({level, className}: {level: string | null; className?: 
           <>
             <p dir="rtl" lang="fa" className="rounded-lg bg-[#fff5dc] px-3 py-1.5 text-sm text-[#a06e00] dark:bg-[#3a3016] dark:text-[#ffcf5c]">{newsTip}</p>
             <Button asChild size="lg" game className="w-full">
-              <a href={show.url} target="_blank" rel="noopener noreferrer" onClick={() => opened(show)}>Kijk het nieuws<ExternalLink aria-hidden /></a>
+              <a href={newsLink(show)} target="_blank" rel="noopener noreferrer" onClick={() => opened(show)}>Kijk het nieuws<ExternalLink aria-hidden /></a>
             </Button>
             <p className="text-center text-xs text-muted-foreground">
               Ook:{' '}
               {others.map((item, index) => (
                 <span key={item.id}>
                   {index > 0 && ' · '}
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" onClick={() => opened(item)} className="font-medium underline-offset-2 hover:text-foreground hover:underline">{item.short}</a>
+                  <a href={newsLink(item)} target="_blank" rel="noopener noreferrer" onClick={() => opened(item)} className="font-medium underline-offset-2 hover:text-foreground hover:underline">{item.short}</a>
                 </span>
               ))}
             </p>
@@ -80,7 +80,7 @@ export function NewsCard({level, className}: {level: string | null; className?: 
         )}
         {state === 'done' && (
           <Button asChild variant="outline" size="lg" className="w-full">
-            <a href={show.url} target="_blank" rel="noopener noreferrer" onClick={() => opened(show)}>Nog een keer kijken<ExternalLink aria-hidden /></a>
+            <a href={newsLink(show)} target="_blank" rel="noopener noreferrer" onClick={() => opened(show)}>Nog een keer kijken<ExternalLink aria-hidden /></a>
           </Button>
         )}
       </CardContent>

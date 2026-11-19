@@ -5,6 +5,7 @@ import {createRequestHandler} from '@react-router/express';
 import {accountApi} from './server/api.mjs';
 import {migrate} from './server/db.mjs';
 import {statsProxy} from './server/stats.mjs';
+import {newsRoutes} from './server/news.mjs';
 
 const build = await import('./build/server/index.js');
 // Accounts live in Railway Postgres; without DATABASE_URL the site runs with progress on the device only.
@@ -40,6 +41,8 @@ app.get('/index.html', (req, _res, next) => { req.url = req.originalUrl = `/lere
 // Dutch moved from /nl/ to the root.
 app.get(['/nl', '/nl/{*rest}'], (req, res) => res.redirect(301, req.originalUrl.replace(/^\/nl/, '') || '/'));
 app.get('/health', (_req, res) => res.type('text').send('ok'));
+// Before /api and React Router: /api/v1/news and /nieuws/:show (the newest NOS video).
+newsRoutes(app);
 app.use('/api', accountApi());
 app.use('/stats', statsProxy());
 

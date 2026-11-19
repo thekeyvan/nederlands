@@ -21,6 +21,8 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,13 +32,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
+import nl.nedfa.data.NewsLinks
 import nl.nedfa.data.NewsShow
 import nl.nedfa.data.NewsState
 import nl.nedfa.data.Preferences
 import nl.nedfa.service.Analytics
 
 /**
- * Vandaag: one short news video on YouTube, matched to the learner's level. The learner ticks it off,
+ * Vandaag: today's newest news video, matched to the learner's level. The learner ticks it off,
  * because the app can't see what happens in YouTube.
  */
 @Composable
@@ -44,11 +48,16 @@ fun NewsCard(level: String?) {
     val context = LocalContext.current
     val show = NewsShow.forLevel(level)
     val state = Preferences.news
-    // Opens the channel in the YouTube app when it's installed, otherwise in the browser.
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(Unit) { NewsLinks.load() }
+    // Opens today's newest video (in the YouTube app when it's installed), with the channel's videos as playlist.
     fun open(item: NewsShow) {
         Analytics.event("nieuws", mapOf("journaal" to item.id))
         if (state != NewsState.DONE) Preferences.markNews(NewsState.ASKED)
-        runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.url))) }
+        scope.launch {
+            val url = NewsLinks.url(item)
+            runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+        }
     }
 
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {

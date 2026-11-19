@@ -1,11 +1,16 @@
-// Het nieuws van vandaag: one short Dutch news video a day, opened in YouTube (outside the app).
+// Het nieuws van vandaag: one short Dutch news video a day, opened outside the app.
+// The buttons open today's newest video: the website through /nieuws/<id>, the apps via /api/v1/news (server/news.mjs).
+// `url` is the fallback (channel page, NPO Start for the NOS Journaal) when the server can't be reached.
 // The iPhone and Android apps keep the same list (ios-native/Nedfa/Model/News.swift, android/.../data/News.kt).
 import {dayKey} from './learning-model.js';
+
+/** The link that opens a show's newest video (server/news.mjs redirects). */
+export const newsLink=(show)=>`/nieuws/${show.id}`;
 
 export const newsShows = [
  {id:'makkelijk',title:'NOS Journaal in Makkelijke Taal',short:'Makkelijke Taal',detail:'Het nieuws, rustig verteld',minutes:10,url:'https://www.youtube.com/c/NOSNieuwsvandeWeek/videos'},
  {id:'jeugd',title:'Jeugdjournaal',short:'Jeugdjournaal',detail:'Nieuws met veel beeld',minutes:10,url:'https://www.youtube.com/@jeugdjournaal/videos'},
- {id:'nos',title:'NOS Journaal',short:'NOS Journaal',detail:'Het gewone journaal, in gewoon tempo',minutes:20,url:'https://www.youtube.com/@NOS/videos'}
+ {id:'nos',title:'NOS Journaal',short:'NOS Journaal',detail:'Het gewone journaal, in gewoon tempo',minutes:20,url:'https://npo.nl/start/serie/nos-journaal-20-00-uur/afleveringen'}
 ];
 
 /** Persian tip on the card: turn on Dutch subtitles and watch twice. */

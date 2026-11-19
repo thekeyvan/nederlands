@@ -8,8 +8,8 @@ test('news show follows the level', () => {
 });
 
 // Makkelijke Taal's handle (@NOSJournaalinMakkelijkeTaal) gives a 404; its channel is still at the old /c/NOSNieuwsvandeWeek address.
-test('every news show opens a YouTube channel', () => {
-  for (const show of newsShows) assert.match(show.url, /^https:\/\/www\.youtube\.com\/(@|c\/)[\w]+\/videos$/);
+test('every news show has a working fallback page', () => {
+  for (const show of newsShows) assert.match(show.url, /^https:\/\/(www\.youtube\.com\/(@|c\/)[\w]+\/videos|npo\.nl\/start\/serie\/[\w-]+\/afleveringen)$/);
   assert.equal(newsShows.find((show) => show.id === 'makkelijk').url, 'https://www.youtube.com/c/NOSNieuwsvandeWeek/videos');
 });
 

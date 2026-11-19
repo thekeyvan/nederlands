@@ -6,3 +6,5 @@ export const newsTip: string;
 export function newsFor(level: string | null): NewsShow;
 export function newsState(saved: NewsMark | null | undefined, now?: Date): NewsState;
 export function newsMark(state: NewsState, now?: Date): NewsMark;
+
+export function newsLink(show: NewsShow): string;

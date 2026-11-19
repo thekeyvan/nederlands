@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Vandaag: one short news video on YouTube, matched to the learner's level. The learner ticks it off,
+/// Vandaag: today's newest news video, matched to the learner's level. The learner ticks it off,
 /// because the app can't see what happens in YouTube.
 struct NewsCard: View {
     let level: String?
@@ -66,6 +66,7 @@ struct NewsCard: View {
             .card(padding: 14)
             .padding(.horizontal, 20)
         }
+        .task { await NewsLinks.load() }
     }
 
     private var tile: some View {
@@ -78,11 +79,11 @@ struct NewsCard: View {
             .accessibilityHidden(true)
     }
 
-    /// Opens the channel in the YouTube app when it's installed, otherwise in Safari.
+    /// Opens today's newest video (in the YouTube app when it's installed), with the channel's videos as playlist.
     private func open(_ show: NewsShow) {
         Haptics.tap()
         Analytics.shared.event("nieuws", ["journaal": show.id])
         if news.state != .done { news.mark(.asked) }
-        openURL(show.url)
+        Task { openURL(await NewsLinks.url(for: show)) }
     }
 }

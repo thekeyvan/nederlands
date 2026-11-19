@@ -34,7 +34,7 @@ export function WhyCard({why, tone = 'wrong', className}: {why: Why; tone?: 'suc
  * After a right answer: "Goed!" and a Waarom? button. The round goes on by itself after `delay`,
  * unless the learner opens the explanation; then "Verder" goes on.
  */
-export function CorrectBar({why, onNext, delay = 1500}: {why: Why; onNext: () => void; delay?: number}) {
+export function CorrectBar({why, onNext, delay = 3000}: {why: Why; onNext: () => void; delay?: number}) {
   const [open, setOpen] = useState(false);
   const done = useRef(false);
   const next = () => { if (!done.current) { done.current = true; onNext(); } };

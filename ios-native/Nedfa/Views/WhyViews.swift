@@ -2,7 +2,7 @@ import SwiftUI
 
 // "Waarom?": the reason behind an answer, after every exercise. The same on the website and Android:
 // a wrong answer shows the reason in its feedback panel; a right answer with a reason shows a slim green bar
-// that goes on by itself after 1.5 s unless you tap "Waarom?".
+// that goes on by itself after 3 s unless you tap "Waarom?".
 
 /// Persian text with the Dutch in **bold**; the Dutch keeps its Unicode isolates, so it stays left to right.
 struct WhyText: View {
@@ -87,7 +87,7 @@ struct WhyButton: View {
 /// With VoiceOver on nothing goes on by itself.
 struct CorrectBar: View {
     let why: Why
-    var delay: Double = 1.5
+    var delay: Double = 3
     let next: () -> Void
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
     @State private var open = false

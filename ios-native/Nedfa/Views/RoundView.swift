@@ -161,7 +161,10 @@ struct OptionList: View {
     @State private var chosen: String?
 
     var body: some View {
-        let grid = options.count == 4 && options.allSatisfy { $0.label.count <= 20 }
+        // Two columns only when no word has to break: a half-width tile holds about 10 letters per line at this size.
+        let grid = options.count == 4 && options.allSatisfy { option in
+            option.label.count <= 20 && option.label.split(separator: " ").allSatisfy { $0.count <= 10 }
+        }
         let columns = grid ? [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)] : [GridItem(.flexible())]
         LazyVGrid(columns: columns, spacing: 14) {
             ForEach(options, id: \.label) { option in

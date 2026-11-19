@@ -125,7 +125,7 @@ fun WhyButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
  * then the game goes on by itself. Opening the reason stops the clock; Verder goes on.
  */
 @Composable
-fun CorrectBar(why: Why, onNext: () -> Unit, millis: Long = 1500) {
+fun CorrectBar(why: Why, onNext: () -> Unit, millis: Long = 3000) {
     var open by remember { mutableStateOf(false) }
     var done by remember { mutableStateOf(false) }
     val left = remember { mutableFloatStateOf(1f) }

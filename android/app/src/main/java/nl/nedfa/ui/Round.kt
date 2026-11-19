@@ -191,7 +191,10 @@ private fun choice(option: Option, options: List<Option>) =
 @Composable
 fun OptionList(options: List<Option>, persian: Boolean = false, outcome: Outcome?, pick: (Option) -> Unit) {
     var chosen by remember(options) { mutableStateOf<String?>(null) }
-    val grid = options.size == 4 && options.all { it.label.length <= 20 }
+    // Two columns only when no word has to break: a half-width tile holds about 10 letters per line at this size.
+    val grid = options.size == 4 && options.all { option ->
+        option.label.length <= 20 && option.label.split(' ').all { it.length <= 10 }
+    }
     val rows = if (grid) options.chunked(2) else options.map { listOf(it) }
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         rows.forEach { row ->

@@ -33,7 +33,7 @@ const safeReturn = (value) => (typeof value === 'string' && /^\/(?!\/)[\w\-./?=&
 export function accountApi() {
   const api = express.Router();
   // Only these paths; /api/v1 (the content API) is handled by React Router.
-  api.use(['/auth', '/me', '/feedback'], (req, res, next) => {
+  api.use(['/auth', '/me', '/feedback', '/admin'], (req, res, next) => {
     res.set('Cache-Control', 'no-store');
     if (!pool) return res.status(503).json({error: 'unavailable'});
     next();
@@ -244,7 +244,7 @@ export function accountApi() {
     const status = typeof req.query.status === 'string' ? req.query.status : null;
     const {rows} = await pool.query(
       `select f.id,f.created_at,f.kind,f.message,f.screen,f.context,f.platform,f.app_version,f.status,
-              f.screenshot is not null as has_screenshot, u.email
+              f.screenshot is not null as has_screenshot, f.user_id is not null as signed_in, u.email
        from feedback f left join users u on u.id=f.user_id
        where ($1::text is null or f.status=$1) order by f.created_at desc limit 200`, [status]);
     res.json({feedback: rows});
@@ -254,6 +254,30 @@ export function accountApi() {
     const {rows: [row]} = await pool.query('select screenshot from feedback where id=$1', [req.params.id]).catch(() => ({rows: []}));
     if (!row?.screenshot) return res.status(404).end();
     res.type(row.screenshot[0] === 0x89 ? 'png' : 'jpeg').send(row.screenshot);
+  });
+
+  /** The admin dashboard (nedfa.nl/beheer): learners, activity and feedback in one request. Counts only, no progress details. */
+  api.get('/admin/overview', who(true), admin, async (req, res) => {
+    const day = `(reviewed_at at time zone 'Europe/Amsterdam')::date`;
+    const [users, providers, active, reviews, signups, feedback] = await Promise.all([
+      pool.query(`select count(*)::int as total, count(*) filter (where created_at > now() - interval '7 days')::int as week,
+                         count(*) filter (where created_at > now() - interval '30 days')::int as month from users`),
+      pool.query('select provider, count(distinct user_id)::int as count from identities group by provider order by provider'),
+      pool.query(`select count(distinct user_id) filter (where reviewed_at > now() - interval '1 day')::int as day,
+                         count(distinct user_id) filter (where reviewed_at > now() - interval '7 days')::int as week,
+                         count(distinct user_id) filter (where reviewed_at > now() - interval '30 days')::int as month,
+                         count(*) filter (where reviewed_at > now() - interval '7 days')::int as reviews_week
+                  from review_events where reviewed_at > now() - interval '30 days'`),
+      pool.query(`select to_char(${day}, 'YYYY-MM-DD') as day, count(*)::int as reviews, count(distinct user_id)::int as learners
+                  from review_events where reviewed_at > now() - interval '30 days' group by 1 order by 1`),
+      pool.query(`select to_char((created_at at time zone 'Europe/Amsterdam')::date, 'YYYY-MM-DD') as day, count(*)::int as count
+                  from users where created_at > now() - interval '30 days' group by 1 order by 1`),
+      pool.query('select status, count(*)::int as count from feedback group by status'),
+    ]);
+    res.json({
+      users: users.rows[0], providers: providers.rows, active: active.rows[0],
+      days: reviews.rows, signups: signups.rows, feedback: Object.fromEntries(feedback.rows.map((row) => [row.status, row.count])),
+    });
   });
 
   api.patch('/feedback/:id', who(true), admin, async (req, res) => {

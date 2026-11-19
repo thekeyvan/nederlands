@@ -18,7 +18,7 @@ export function Layout({children}: {children: React.ReactNode}) {
   // The app restores its own scroll positions (screens and layers live in the hash).
   const app = pathname === '/leren';
   // Anonymous page views; the app counts its own screens (AppShell).
-  useEffect(() => { if (!app) trackView(pathname); }, [app, pathname]);
+  useEffect(() => { if (!app && pathname !== '/beheer') trackView(pathname); }, [app, pathname]);
   return (
     <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>

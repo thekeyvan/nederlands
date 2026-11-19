@@ -17,7 +17,8 @@ import {pathSections} from './path.js';
 
 
 const audio = (text) => Boolean(text && Object.hasOwn(audioCatalog.clips, text));
-const options = (list) => list.map(({label, correct}) => ({label, correct}));
+// Each option carries its reason ("Waarom?"): {tag, fa} or null; see why.js.
+const options = (list) => list.map(({label, correct, why}) => ({label, correct, why: why ?? null}));
 const poolFor = (card) => (cardKind(card) === 'phrase' ? phrases : vocabulary);
 
 const cardJson = (card) => {
@@ -34,7 +35,7 @@ const cardJson = (card) => {
 
 const drillJson = (exercise) => ({
   ...cardJson(exercise), mode: exercise.mode,
-  order: exercise.mode === 'order' ? (({first, tiles, answer, ending}) => ({first, tiles: tiles.map((tile) => tile.text), answer, ending}))(orderItem(exercise)) : null,
+  order: exercise.mode === 'order' ? (({first, tiles, answer, ending, why}) => ({first, tiles: tiles.map((tile) => tile.text), answer, ending, why: why ?? null}))(orderItem(exercise)) : null,
   pick: exercise.mode === 'pick' ? options(pickOptions(exercise)) : null,
 });
 
@@ -60,7 +61,7 @@ export function buildNativeContent() {
     sets: irregularSets.map(({id, kind, group, title, pattern, level, rule, cards: list, rows}) => ({id, kind, group, title, pattern, level, rule, cardIds: list.map((card) => card.id), rows})),
     cards: irregularSets.flatMap((set) => set.cards).map((card) => ({
       ...cardJson({...card, mode: undefined}), meaningOptions: null, dutchOptions: null, mode: 'form',
-      set: card.set, chain: card.chain ?? null, labels: card.labels ?? null, ask: card.ask ?? null, accept: card.accept, choices: card.choices,
+      set: card.set, chain: card.chain ?? null, labels: card.labels ?? null, ask: card.ask ?? null, accept: card.accept, choices: options(card.choices),
     })),
   },
   placement: {passMark, questions: placementQuestions},
@@ -68,21 +69,21 @@ export function buildNativeContent() {
   resources: resources.map(({id, name, categories, level, cost, description, url, steps, time, note}) => ({id, name, categories, level, cost, description, url, steps, time: time ?? null, note: note ?? null})),
   audio: {voices: audioCatalog.voices.map(({id, name}) => ({id, name})), clips: audioCatalog.clips},
   games: {
-    articles: articleItems(vocabulary).map((item) => ({cardId: item.card.id, article: item.article, noun: item.noun})),
+    articles: articleItems(vocabulary).map((item) => ({cardId: item.card.id, article: item.article, noun: item.noun, why: item.why})),
     verbs: verbItems(vocabulary).flatMap((item) => ['perfect', 'past'].map((kind) => {
       const question = verbQuestion(item, kind);
-      return {cardId: item.card.id, kind, answer: question.answer, options: question.options};
+      return {cardId: item.card.id, kind, answer: question.answer, options: options(question.options)};
     })),
     cloze: [...phrases, ...sentences.map((card) => ({...card, themeId: 'zinsbouw'}))].map((card) => {
       const item = clozeItem(card, cardKind(card) === 'grammar' ? sentences : phrases);
-      return item ? {cardId: card.id, before: item.before, after: item.after, answer: item.answer, options: item.options} : null;
+      return item ? {cardId: card.id, before: item.before, after: item.after, answer: item.answer, options: options(item.options)} : null;
     }).filter(Boolean),
     dictation: dictationItems([...phrases, ...vocabulary]).filter((card) => audio(card.nl)).map((card) => card.id),
     builder: phrases.map((card) => {
       const item = builderItem(card, card.nl);
-      return item ? {cardId: card.id, first: item.first, answer: item.answer, tiles: item.tiles.map((tile) => tile.text), ending: item.ending, sentence: item.sentence} : null;
+      return item ? {cardId: card.id, first: item.first, answer: item.answer, tiles: item.tiles.map((tile) => tile.text), ending: item.ending, sentence: item.sentence, why: item.why ?? null} : null;
     }).filter(Boolean),
-    conversations: dialogues.map((dialogue) => ({dialogueId: dialogue.id, steps: dialogueSteps(dialogue, dialogues).map((step) => ({lineId: step.line.id, options: step.options?.map((option) => ({lineId: option.line.id, correct: option.correct})) ?? null}))})),
+    conversations: dialogues.map((dialogue) => ({dialogueId: dialogue.id, steps: dialogueSteps(dialogue, dialogues).map((step) => ({lineId: step.line.id, options: step.options?.map((option) => ({lineId: option.line.id, correct: option.correct, why: option.why ?? null})) ?? null}))})),
   },
 };
 }

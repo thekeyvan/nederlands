@@ -7,8 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -81,6 +79,12 @@ import nl.nedfa.data.Content
 import nl.nedfa.data.Irregular
 import nl.nedfa.data.Learner
 import nl.nedfa.data.Option
+import nl.nedfa.data.DiffPart
+import nl.nedfa.data.Why
+import nl.nedfa.data.ruleWhy
+import nl.nedfa.data.spellingDiff
+import nl.nedfa.data.spellingWhy
+import nl.nedfa.data.whyFor
 import nl.nedfa.data.Planner
 import nl.nedfa.data.SRS
 import nl.nedfa.data.Stats
@@ -88,7 +92,8 @@ import nl.nedfa.data.XP
 import nl.nedfa.service.Analytics
 import nl.nedfa.service.Audio
 
-data class Outcome(val grade: Int, val correct: Boolean, val result: Answer.Result, val hint: String? = null)
+/** An answer: its grade, whether it counts as right, and the reason to show ("Waarom?"), if there is one. */
+data class Outcome(val grade: Int, val correct: Boolean, val result: Answer.Result, val hint: String? = null, val why: Why? = null)
 
 private data class Result(val cardId: String, val grade: Int, val correct: Boolean)
 
@@ -172,14 +177,15 @@ private fun CardRunner(card: Card, position: Int, outcome: Outcome?, answer: (Ou
         "pick" -> {
             T("Welke zin is goed?", style = game(17, FontWeight.Bold), color = C.secondary)
             card.translation?.let { Persian(it, 19, C.text) }
-            OptionList(card.pick ?: emptyList(), outcome = outcome) { answer(choice(it)) }
+            OptionList(card.pick ?: emptyList(), outcome = outcome) { answer(choice(it, card.pick ?: emptyList())) }
         }
         "form" -> FormCard(card, outcome, answer)
         else -> FlashCard(card, answer)
     }
 }
 
-private fun choice(option: Option) = Outcome(if (option.correct) 4 else 1, option.correct, if (option.correct) Answer.Result.CORRECT else Answer.Result.WRONG)
+private fun choice(option: Option, options: List<Option>) =
+    Outcome(if (option.correct) 4 else 1, option.correct, if (option.correct) Answer.Result.CORRECT else Answer.Result.WRONG, why = whyFor(options, option))
 
 /** Answer buttons; after a pick the right one turns green. */
 @Composable
@@ -236,7 +242,8 @@ private fun ChooseCard(card: Card, dutch: Boolean, outcome: Outcome?, answer: (O
             ListenButton(card.nl ?: "", 18)
         }
     }
-    OptionList((if (dutch) card.dutchOptions else card.meaningOptions) ?: emptyList(), persian = !dutch, outcome = outcome) { answer(choice(it)) }
+    val options = (if (dutch) card.dutchOptions else card.meaningOptions) ?: emptyList()
+    OptionList(options, persian = !dutch, outcome = outcome) { answer(choice(it, options)) }
 }
 
 @Composable
@@ -254,18 +261,21 @@ private fun ListenCard(card: Card, outcome: Outcome?, answer: (Outcome) -> Unit)
     T("Wat hoor je?", Modifier.fillMaxWidth(), style = game(17, FontWeight.Bold), color = C.secondary, align = TextAlign.Center)
     SpeakerButtons(card.nl ?: "")
     LaunchedEffect(card.id) { delay(300); Audio.play(card.nl ?: "") }
-    OptionList(card.dutchOptions ?: emptyList(), outcome = outcome) { answer(choice(it)) }
+    OptionList(card.dutchOptions ?: emptyList(), outcome = outcome) { answer(choice(it, card.dutchOptions ?: emptyList())) }
 }
 
 @Composable
-fun AnswerField(value: String, onChange: (String) -> Unit, placeholder: String, outcome: Outcome?, submit: () -> Unit) {
+fun AnswerField(value: String, onChange: (String) -> Unit, placeholder: String, outcome: Outcome?, expected: String? = null, submit: () -> Unit) {
     val focus = remember { FocusRequester() }
     LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
     val border = when (outcome?.result) { Answer.Result.WRONG -> C.danger; Answer.Result.CLOSE -> C.butter; Answer.Result.CORRECT -> C.success; null -> Color.Transparent }
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Box(Modifier.fillMaxWidth().background(C.surface, RoundedCornerShape(14.dp)).border(2.dp, border, RoundedCornerShape(14.dp)).padding(14.dp)) {
             if (value.isEmpty()) T(placeholder, size = 20.sp, color = C.tertiary)
-            BasicTextField(
+            // After a wrong or nearly right answer: what was typed, with the letters that differ struck through.
+            val diff = if (expected != null && outcome != null && outcome.result != Answer.Result.CORRECT && value.isNotBlank()) typedDiff(value, expected) else null
+            if (diff != null) Text(diffText(diff, C.danger, C.danger.copy(alpha = 0.16f)), style = TextStyle(fontSize = 20.sp, color = C.text))
+            else BasicTextField(
                 value, { if (outcome == null) onChange(it) }, Modifier.fillMaxWidth().focusRequester(focus), enabled = outcome == null, singleLine = true,
                 textStyle = TextStyle(fontSize = 20.sp, color = C.text), cursorBrush = SolidColor(C.brand),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false, keyboardType = KeyboardType.Text, imeAction = ImeAction.Done),
@@ -282,11 +292,12 @@ private fun TypeCard(card: Card, outcome: Outcome?, answer: (Outcome) -> Unit) {
     var hinted by remember { mutableStateOf(false) }
     fun check() {
         val (result, why) = Answer.check(value, card.nl ?: "")
-        answer(Outcome(Answer.grade(result, hinted), result != Answer.Result.WRONG, result, why))
+        val reason = if (result != Answer.Result.CORRECT) spellingWhy(value, card.nl ?: "") else null
+        answer(Outcome(Answer.grade(result, hinted), result != Answer.Result.WRONG, result, why, reason))
     }
     T("Typ het Nederlandse woord", style = game(17, FontWeight.Bold), color = C.secondary)
     Persian(card.meaning ?: "", 30, C.text, FontWeight.Bold)
-    AnswerField(value, { value = it }, "Typ hier…", outcome, ::check)
+    AnswerField(value, { value = it }, "Typ hier…", outcome, card.nl, ::check)
     if (outcome == null) Row(verticalAlignment = Alignment.CenterVertically) {
         if (hinted) T("Begint met ${hint(card.nl ?: "")}", Modifier.weight(1f), size = 15.sp, color = C.secondary)
         else Row(Modifier.weight(1f).clickable { hinted = true }, verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Filled.Lightbulb, null, tint = C.brand); T("Hint", size = 15.sp, color = C.brand) }
@@ -313,14 +324,14 @@ private fun GapCard(card: Card, outcome: Outcome?, answer: (Outcome) -> Unit) {
     var hinted by remember { mutableStateOf(false) }
     fun check() {
         val (result, why) = Answer.check(value, card.answer ?: "")
-        answer(Outcome(Answer.grade(result, hinted), result != Answer.Result.WRONG, result, why))
+        answer(Outcome(Answer.grade(result, hinted), result != Answer.Result.WRONG, result, why, ruleWhy(card)))
     }
     T("Vul het ontbrekende woord in.", style = game(17, FontWeight.Bold), color = C.secondary)
     Column(Modifier.fillMaxWidth().background(C.surface, RoundedCornerShape(18.dp)).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         T((card.title ?: "").uppercase(), size = 12.sp, weight = FontWeight.SemiBold, color = C.secondary)
         Gap((card.prompt ?: "").split("___"), value, outcome?.let { if (it.result == Answer.Result.WRONG) C.danger else C.success } ?: C.brand)
     }
-    AnswerField(value, { value = it }, "Het ontbrekende woord", outcome, ::check)
+    AnswerField(value, { value = it }, "Het ontbrekende woord", outcome, submit = ::check)
     if (outcome == null) {
         if (hinted && card.rule != null) Persian(card.rule)
         else Row(Modifier.clickable { hinted = true }, verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Filled.Lightbulb, null, tint = C.brand); T("Toon de regel", size = 15.sp, color = C.brand) }
@@ -337,6 +348,8 @@ private fun FormCard(card: Card, outcome: Outcome?, answer: (Outcome) -> Unit) {
     var hinted by remember { mutableStateOf(false) }
     val shown = if (typed) value else chosen ?: ""
     val gapColor = outcome?.let { if (it.result == Answer.Result.WRONG) C.danger else C.success } ?: C.brand
+    // Typed, there is no option to explain: the reason of the right choice, else the set's rule.
+    val typedWhy = (card.choices?.firstOrNull { it.correct }?.why) ?: ruleWhy(card)
 
     Eyebrow(if (typed) "Typ de goede vorm" else "Kies de goede vorm")
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -372,46 +385,15 @@ private fun FormCard(card: Card, outcome: Outcome?, answer: (Outcome) -> Unit) {
     if (typed) {
         AnswerField(value, { value = it }, if (card.ask == 2 && Irregular.isVerb(card)) "heeft of is + deelwoord" else "Typ hier…", outcome) {
             val (result, why) = Irregular.check(value, card)
-            answer(Outcome(Answer.grade(result, hinted), result != Answer.Result.WRONG, result, why))
+            answer(Outcome(Answer.grade(result, hinted), result != Answer.Result.WRONG, result, why, typedWhy))
         }
         if (outcome == null) Row(verticalAlignment = Alignment.CenterVertically) {
             if (hinted && card.rule != null) Box(Modifier.weight(1f)) { Persian(card.rule) }
             else Row(Modifier.weight(1f).clickable { hinted = true }, verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Filled.Lightbulb, null, tint = C.brand); T("Toon de regel", size = 15.sp, color = C.brand) }
-            T("Ik weet het niet", Modifier.clickable { answer(Outcome(1, false, Answer.Result.WRONG)) }, size = 15.sp, color = C.secondary)
+            T("Ik weet het niet", Modifier.clickable { answer(Outcome(1, false, Answer.Result.WRONG, why = typedWhy)) }, size = 15.sp, color = C.secondary)
         }
     } else {
-        OptionList(card.choices ?: emptyList(), outcome = outcome) { chosen = it.label; answer(choice(it)) }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-fun OrderCard(card: Card, outcome: Outcome?, answer: (Outcome) -> Unit) {
-    val order = card.order ?: return
-    val chosen = remember(card.id, order) { mutableStateListOf<Int>() }
-    T("Zet de woorden in de goede volgorde", style = game(17, FontWeight.Bold), color = C.secondary)
-    card.translation?.let { Persian(it, 19, C.text) }
-    FlowRow(
-        Modifier.fillMaxWidth().heightIn(min = 80.dp).border(2.dp, outcome?.let { if (it.correct) C.success else C.danger } ?: C.tertiary, RoundedCornerShape(16.dp)).padding(12.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        T(order.first, Modifier.background(C.navy, RoundedCornerShape(10.dp)).padding(horizontal = 12.dp, vertical = 8.dp), weight = FontWeight.SemiBold, color = Color.White)
-        chosen.forEach { i ->
-            T(order.tiles[i], Modifier.background(C.brand.copy(alpha = 0.15f), RoundedCornerShape(10.dp)).clickable(enabled = outcome == null) { chosen.remove(i) }.padding(horizontal = 12.dp, vertical = 8.dp), weight = FontWeight.SemiBold)
-        }
-        if (order.ending.isNotEmpty()) T(order.ending, size = 20.sp, weight = FontWeight.Bold, color = C.secondary)
-    }
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        order.tiles.indices.filter { it !in chosen }.forEach { i ->
-            T(order.tiles[i], Modifier.background(C.surface, RoundedCornerShape(12.dp)).clickable(enabled = outcome == null) { chosen.add(i) }.padding(horizontal = 14.dp, vertical = 10.dp), size = 19.sp, weight = FontWeight.SemiBold)
-        }
-    }
-    if (outcome == null) Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-        T("Terug", Modifier.alpha(if (chosen.isEmpty()) 0.4f else 1f).border(1.dp, C.tertiary, RoundedCornerShape(14.dp)).clickable(enabled = chosen.isNotEmpty()) { chosen.removeAt(chosen.lastIndex) }.padding(horizontal = 18.dp, vertical = 14.dp), weight = FontWeight.SemiBold)
-        GameButton("Controleer", {
-            val right = Answer.normalize(chosen.joinToString(" ") { order.tiles[it] }) == Answer.normalize(order.answer.joinToString(" "))
-            answer(Outcome(if (right) 4 else 1, right, if (right) Answer.Result.CORRECT else Answer.Result.WRONG))
-        }, Modifier.weight(1f), enabled = chosen.size == order.tiles.size)
+        OptionList(card.choices ?: emptyList(), outcome = outcome) { chosen = it.label; answer(choice(it, card.choices ?: emptyList())) }
     }
 }
 
@@ -463,6 +445,7 @@ private fun FeedbackPanel(card: Card, outcome: Outcome, combo: Int, next: () -> 
     val form = card.mode == "form"
     val whole = card.mode != null && !form
     val answerText = if (form) card.note else if (whole) card.example else if (card.isGrammar) card.answer else card.nl
+    var explained by remember { mutableStateOf(false) }
     Column(
         Modifier.fillMaxWidth().background(if (good) C.mintSoft else if (close) C.butterSoft else C.dangerSoft, RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp))
             .verticalScroll(rememberScrollState()).padding(20.dp),
@@ -487,7 +470,7 @@ private fun FeedbackPanel(card: Card, outcome: Outcome, combo: Int, next: () -> 
         }
         if (form) {
             if (card.chain != null) card.meaning?.let { Persian(it, 13) }
-            if (outcome.result != Answer.Result.CORRECT) card.rule?.let { Persian(it, 13) }
+            if (outcome.result != Answer.Result.CORRECT) card.rule?.takeIf { it != outcome.why?.fa }?.let { Persian(it, 13) }
         } else if (!card.isGrammar) {
             card.meaning?.let { Persian(it, 15, C.text) }
         }
@@ -498,7 +481,13 @@ private fun FeedbackPanel(card: Card, outcome: Outcome, combo: Int, next: () -> 
             }
             ListenButton(card.example, 13)
         }
-        if (card.isGrammar) (if (whole) card.translation else card.rule)?.let { Persian(it, 13) }
+        if (card.isGrammar) (if (whole) card.translation else card.rule)?.takeIf { it != outcome.why?.fa }?.let { Persian(it, 13) }
+        // Waarom?: after a mistake straight away; after a right answer behind a button, so the round keeps its pace.
+        outcome.why?.let { why ->
+            if (!good) WhyCard(why, if (close) Tone.close else Tone.wrong)
+            else if (explained) WhyCard(why, Tone.success)
+            else WhyButton({ explained = true })
+        }
         GameButton("Verder", next, icon = Icons.AutoMirrored.Filled.ArrowForward,
             color = if (good) C.mint else if (close) C.brand else C.danger, edge = if (good) C.mintEdge else if (close) C.brandEdge else C.dangerEdge)
     }
@@ -572,4 +561,11 @@ private fun SummaryTile(label: String, value: String, ink: Color, edge: Color, m
         T(label.uppercase(), style = TextStyle(fontSize = 11.sp, fontWeight = FontWeight.Black, letterSpacing = 0.6.sp), color = ink)
         T(value, style = game(24, FontWeight.Black), color = Color(0xFF141B2B))
     }
+}
+
+/** What was typed against the answer; a full stop or question mark the learner left off does not count as a difference. */
+fun typedDiff(typed: String, answer: String): List<DiffPart> {
+    val given = typed.trim()
+    val target = if (given.lastOrNull()?.let { it in ".!?…" } == true) answer.trim() else answer.trim().trimEnd('.', '!', '?', '…')
+    return spellingDiff(given, target)
 }

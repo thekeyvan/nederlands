@@ -2,6 +2,7 @@
 // right first time = 4 (Goed), right with a hint or small slip = 3 (Moeilijk), wrong = 1 (Nog niet).
 // The flashcard mode keeps the learner's own four ratings, including 5 (Makkelijk).
 import {audioUrl} from './audio-playback.js';
+import {meaningWhy} from './why.js';
 
 export const cardKind=card=>card.id.startsWith('zin:')?'grammar':card.id.startsWith('phrase:')?'phrase':'word';
 
@@ -50,7 +51,7 @@ export function buildOptions(card,pool,field,{count=4,seed=card.id}={}){
  for(const item of ranked){
   const key=value(item).toLocaleLowerCase('nl');
   if(seen.has(key))continue;
-  seen.add(key);distractors.push({id:item.id,label:value(item),correct:false});
+  seen.add(key);distractors.push({id:item.id,label:value(item),correct:false,why:field==='meaning'||field==='nl'?meaningWhy(card,item,field):null});
   if(distractors.length===count-1)break;
  }
  return shuffle([{id:card.id,label:answer,correct:true},...distractors],random);

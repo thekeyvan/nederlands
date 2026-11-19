@@ -18,7 +18,7 @@ import {useGame} from '@/hooks/use-progress';
 import {usePractice, type Session} from '@/hooks/use-practice';
 import {getProgress} from '@/core/progress-store.js';
 import {ratings, scheduleReview} from '@/core/srs.js';
-import {buildOptions, cardKind, checkTyped, chooseMode, gradeAnswer, pairsFrom, shuffle, seededRandom, type Mode, type Option} from '@/core/practice.js';
+import {buildOptions, cardKind, checkTyped, chooseMode, gradeAnswer, normalizeAnswer, pairsFrom, shuffle, seededRandom, type Mode, type Option} from '@/core/practice.js';
 import {vocabulary} from '@/core/learning-data.js';
 import {phrases} from '@/core/phrase-data.js';
 import {stamps, xpForGrade} from '@/core/game.js';
@@ -30,6 +30,9 @@ import {orderItem, pickOptions} from '@/lib/drill';
 import {builderCorrect} from '@/core/games.js';
 import {audioUrl} from '@/core/audio-playback.js';
 import {checkForm, formInput} from '@/core/irregular.js';
+import {ruleWhy, type Why} from '@/core/why.js';
+import {TypedDiff, typedWhy, WhyCard, WhyToggle} from '@/components/why';
+import {WordOrder} from '@/components/word-order';
 
 /** A practice round, shown as a layer over the screen it was started from. */
 export function PracticeLayer({session}: {session: Session}) {
@@ -39,7 +42,7 @@ export function PracticeLayer({session}: {session: Session}) {
 
 /* ---------------------------------------------------------------- session */
 
-type Outcome = {grade: number; correct: boolean; result: 'correct' | 'close' | 'wrong'; hint?: string};
+type Outcome = {grade: number; correct: boolean; result: 'correct' | 'close' | 'wrong'; hint?: string; why?: Why | null; typed?: string};
 
 const modeBadges: Record<Mode, {label: string; variant: 'lavender' | 'info' | 'xp' | 'success' | 'streak'}> = {
   order: {label: 'Volgorde', variant: 'info'},
@@ -165,7 +168,7 @@ function ChooseCard({card, field, outcome, onSubmit}: {card: LearningCard; field
   const pick = (option: Option) => {
     if (outcome) return;
     setChosen(option.id);
-    onSubmit({grade: gradeAnswer(option.correct ? 'correct' : 'wrong'), correct: option.correct, result: option.correct ? 'correct' : 'wrong'});
+    onSubmit({grade: gradeAnswer(option.correct ? 'correct' : 'wrong'), correct: option.correct, result: option.correct ? 'correct' : 'wrong', why: option.why ?? null});
   };
   return (
     <>
@@ -216,7 +219,7 @@ function ListenCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Out
   const pick = (option: Option) => {
     if (outcome) return;
     setChosen(option.id);
-    onSubmit({grade: gradeAnswer(option.correct ? 'correct' : 'wrong'), correct: option.correct, result: option.correct ? 'correct' : 'wrong'});
+    onSubmit({grade: gradeAnswer(option.correct ? 'correct' : 'wrong'), correct: option.correct, result: option.correct ? 'correct' : 'wrong', why: option.why ?? null});
   };
   return (
     <>
@@ -254,7 +257,7 @@ function TypeCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outco
   const [hinted, setHinted] = useState(false);
   const check = () => {
     const {result, hint} = checkTyped(value, card.nl!);
-    onSubmit({grade: gradeAnswer(result, {hinted}), correct: result !== 'wrong', result, hint});
+    onSubmit({grade: gradeAnswer(result, {hinted}), correct: result !== 'wrong', result, hint, why: result === 'correct' ? null : typedWhy(value, card.nl!, result), typed: value});
   };
   return (
     <>
@@ -278,7 +281,7 @@ function GapCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outcom
   const [before, after] = (card.prompt ?? '').split('___');
   const check = () => {
     const {result, hint} = checkTyped(value, card.answer!);
-    onSubmit({grade: gradeAnswer(result, {hinted}), correct: result !== 'wrong', result, hint});
+    onSubmit({grade: gradeAnswer(result, {hinted}), correct: result !== 'wrong', result, hint, why: (result === 'close' ? typedWhy(value, card.answer!, result) : null) ?? ruleWhy(card)});
   };
   return (
     <>
@@ -316,11 +319,13 @@ function FormCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outco
   const pick = (option: Option) => {
     if (outcome) return;
     setChosen(option.id);
-    onSubmit({grade: gradeAnswer(option.correct ? 'correct' : 'wrong'), correct: option.correct, result: option.correct ? 'correct' : 'wrong'});
+    onSubmit({grade: gradeAnswer(option.correct ? 'correct' : 'wrong'), correct: option.correct, result: option.correct ? 'correct' : 'wrong', why: option.why ?? null});
   };
   const check = () => {
     const {result, hint} = checkForm(value, card);
-    onSubmit({grade: gradeAnswer(result, {hinted}), correct: result !== 'wrong', result, hint});
+    // A typed form that matches one of the choices gets that choice's reason; otherwise the right form's.
+    const typedChoice = options.find((option) => normalizeAnswer(option.label) === normalizeAnswer(value));
+    onSubmit({grade: gradeAnswer(result, {hinted}), correct: result !== 'wrong', result, hint, why: typedChoice?.why ?? options.find((option) => option.correct)?.why ?? ruleWhy(card)});
   };
   const shown = input === 'type' ? value : options.find((option) => option.id === chosen)?.label ?? '';
   const gapClass = cn('inline-block min-w-16 rounded-md border-b-4 px-2 text-center', outcome ? (outcome.result === 'wrong' ? 'border-destructive text-destructive-foreground' : 'border-success text-success-foreground') : 'border-primary text-primary');
@@ -380,30 +385,15 @@ function OrderCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outc
   const words = chosen.map((id) => item.tiles.find((tile) => tile.id === id)!.text);
   const check = () => {
     const right = builderCorrect(item, words);
-    onSubmit({grade: right ? 4 : 1, correct: right, result: right ? 'correct' : 'wrong'});
+    onSubmit({grade: right ? 4 : 1, correct: right, result: right ? 'correct' : 'wrong', why: item.why});
   };
   return (
     <>
       <p className="font-semibold text-muted-foreground">Zet de woorden in de goede volgorde</p>
       <Translation className="mt-3 text-xl font-medium">{card.translation}</Translation>
-      <div className={cn('my-6 flex min-h-24 flex-wrap content-start items-center gap-2 rounded-2xl border-2 border-dashed p-3 transition',
-        outcome?.correct === true && 'border-success bg-success-soft', outcome?.correct === false && 'border-destructive bg-destructive-soft')} aria-label="Jouw zin" lang="nl">
-        <span className="rounded-lg bg-secondary px-3 py-2 font-semibold text-secondary-foreground">{item.first}</span>
-        {chosen.map((id) => (
-          <button key={id} type="button" disabled={Boolean(outcome)} onClick={() => setChosen(chosen.filter((value) => value !== id))}
-            className="rounded-lg border-2 border-primary/40 bg-accent px-3 py-2 font-semibold text-accent-foreground">
-            {item.tiles.find((tile) => tile.id === id)!.text}
-          </button>
-        ))}
-        {item.ending && <span className="text-xl font-bold text-muted-foreground">{item.ending}</span>}
-      </div>
-      <div className="flex min-h-14 flex-wrap justify-center gap-2" lang="nl">
-        {remaining.map((tile) => (
-          <button key={tile.id} type="button" disabled={Boolean(outcome)} onClick={() => setChosen([...chosen, tile.id])}
-            className="rounded-lg border-2 bg-card px-4 py-2.5 text-lg font-semibold shadow-[0_3px_0_var(--border)] transition active:translate-y-0.5 active:shadow-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
-            {tile.text}
-          </button>
-        ))}
+      <div className="my-6 flex flex-col gap-4">
+        <WordOrder first={item.first} tiles={item.tiles} chosen={chosen} onChange={setChosen} ending={item.ending} disabled={Boolean(outcome)}
+          state={outcome ? (outcome.correct ? 'right' : 'wrong') : null} />
       </div>
       {!outcome && (
         <div className="mt-6 flex justify-center gap-3">
@@ -422,7 +412,7 @@ function PickCard({card, outcome, onSubmit}: {card: LearningCard; outcome: Outco
   const pick = (option: Option) => {
     if (outcome) return;
     setChosen(option.id);
-    onSubmit({grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? 'correct' : 'wrong'});
+    onSubmit({grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? 'correct' : 'wrong', why: option.why ?? null});
   };
   return (
     <>
@@ -543,7 +533,7 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
             <div className="mt-1">
               <p className="text-lg font-semibold" lang="nl">{card.note}</p>
               {card.chain ? <Translation className="text-sm opacity-80">{card.meaning}</Translation> : null}
-              {outcome.result !== 'correct' && <Translation className="mt-1 text-sm opacity-80">{card.rule}</Translation>}
+              {outcome.result !== 'correct' && !outcome.why && <Translation className="mt-1 text-sm opacity-80">{card.rule}</Translation>}
               {outcome.result === 'wrong' && <p className="mt-1 text-xs opacity-80">Deze vorm komt morgen terug.</p>}
             </div>
           )}
@@ -561,7 +551,9 @@ function Feedback({card, mode, outcome, combo, onNext}: {card: LearningCard; mod
             </div>
           )}
           {grammar && whole && card.example && audioUrl(card.example, 'ronnie') && <ListenButton text={card.example} className="-mt-1" />}
-          {grammar && <Translation className="mt-1 text-sm opacity-80">{whole ? card.translation : card.rule}</Translation>}
+          {grammar && (whole || !outcome.why) && <Translation className="mt-1 text-sm opacity-80">{whole ? card.translation : card.rule}</Translation>}
+          {outcome.typed !== undefined && outcome.result !== 'correct' && <TypedDiff typed={outcome.typed} answer={card.nl!} />}
+          {outcome.why && (outcome.result === 'correct' ? <WhyToggle why={outcome.why} /> : <WhyCard why={outcome.why} tone={outcome.result === 'close' ? 'close' : 'wrong'} />)}
           {outcome.result === 'wrong' && !card.mode && <p className="mt-1 text-xs opacity-80">Dit kaartje komt morgen terug.</p>}
         </div>
         <Button ref={ref} size="xl" game variant={tone === 'success' ? 'success' : tone === 'xp' ? 'default' : 'destructive'} className="w-full lg:w-auto" onClick={onNext}>

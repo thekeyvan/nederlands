@@ -2,6 +2,15 @@
 // Games never change the SM-2 schedule; they keep their own personal bests, and missed
 // cards can be sent to a normal practice round.
 import {buildOptions,checkTyped,normalizeAnswer,seededRandom,shuffle} from './practice.js';
+import {articleWhy,dialogueWhy,gapWordWhy,orderWhy,ruleWhy,verbWhy} from './why.js';
+import {vocabulary} from './learning-data.js';
+
+// A word as it appears in a sentence, found in the word list (without its article), for "Waarom?".
+let words=null;
+const lookupWord=word=>{
+ if(!words){words=new Map();for(const item of vocabulary){const key=item.nl?.replace(/^(de|het) /,'').toLocaleLowerCase('nl');if(key&&!words.has(key))words.set(key,item);}}
+ return words.get(String(word).toLocaleLowerCase('nl'))??null;
+};
 
 const pick=(list,count,random)=>shuffle(list,random).slice(0,count);
 const endPunctuation=/[.?!…]+$/;
@@ -11,7 +20,11 @@ const functionWords=new Set(['niet','mijn','jouw','onze','jullie','haar','heel',
 
 /* De of het? Nouns stored with their article. */
 export function articleItems(words){
- return words.filter(word=>/^(de|het) \S/.test(word.nl||'')).map(word=>({card:word,article:word.nl.split(' ')[0],noun:word.nl.slice(word.nl.indexOf(' ')+1)}));
+ const verbs=new Set(words.filter(word=>word.kind==='werkwoord').map(word=>word.nl));
+ return words.filter(word=>/^(de|het) \S/.test(word.nl||'')).map(word=>{
+  const article=word.nl.split(' ')[0],noun=word.nl.slice(word.nl.indexOf(' ')+1);
+  return {card:word,article,noun,why:articleWhy(noun,article,verbs)};
+ });
 }
 
 /* Zinnen bouwen: put the words in order. The first word is given, which removes most of the
@@ -28,7 +41,7 @@ export function builderItem(card,text,seed=card.id){
   tiles=shuffle(tiles,random);
   if(tiles.map(tile=>tile.text).join(' ')!==rest.join(' '))break;
  }
- return {card,first,answer:rest,tiles,ending,sentence:clean};
+ return {card,first,answer:rest,tiles,ending,sentence:clean,why:card.id?.startsWith('zin:')?ruleWhy(card):orderWhy(clean)};
 }
 export const builderCorrect=(item,chosen)=>normalizeAnswer(chosen.join(' '))===normalizeAnswer(item.answer.join(' '));
 
@@ -40,12 +53,12 @@ const bothAuxiliaries=/(fietsen|lopen|rijden|zwemmen|vliegen|wandelen|varen|renn
 function participleMistakes(perfect,infinitive='',past=''){
  const [aux,participle]=perfect.split(' ');
  const other=aux==='heb'?'ben':'heb';
- const result=bothAuxiliaries.test(infinitive)?[]:[`${other} ${participle}`];
+ const result=bothAuxiliaries.test(infinitive)?[]:[{label:`${other} ${participle}`,mistake:'aux'}];
  const td=swapFinal(participle,'t','d')||swapFinal(participle,'d','t');
- if(td)result.push(`${aux} ${td}`);
- if(participle.startsWith('ge'))result.push(`${aux} ${participle.slice(2)}`);
- else result.push(`${aux} ge${participle}`); // Also teaches that be-, ver-, ont- and her- verbs take no ge-.
- if(past)result.push(`${aux} ${past}`); // Using the past tense instead of the participle.
+ if(td)result.push({label:`${aux} ${td}`,mistake:'td'});
+ if(participle.startsWith('ge'))result.push({label:`${aux} ${participle.slice(2)}`,mistake:'ge-dropped'});
+ else result.push({label:`${aux} ge${participle}`,mistake:'ge-added'}); // Also teaches that be-, ver-, ont- and her- verbs take no ge-.
+ if(past)result.push({label:`${aux} ${past}`,mistake:'past-for-participle'}); // Using the past tense instead of the participle.
  return result;
 }
 function pastMistakes(past,perfect,infinitive){
@@ -53,12 +66,12 @@ function pastMistakes(past,perfect,infinitive){
  const tail=rest.length?` ${rest.join(' ')}`:'';
  const result=[];
  const swapped=swapFinal(first,'te','de')||swapFinal(first,'de','te')||swapFinal(first,'ten','den')||swapFinal(first,'den','ten');
- if(swapped)result.push(swapped+tail);
- result.push(perfect.split(' ')[1]);
+ if(swapped)result.push({label:swapped+tail,mistake:'td'});
+ result.push({label:perfect.split(' ')[1],mistake:'participle-for-past'});
  // A regular past by the 't kofschip rule: the typical mistake with strong verbs.
  const stem=infinitive.replace(/en$/,'');
- if(stem!==infinitive)result.push(stem+('tkfschp'.includes(stem.at(-1))?'te':'de'));
- result.push(infinitive);
+ if(stem!==infinitive)result.push({label:stem+('tkfschp'.includes(stem.at(-1))?'te':'de'),mistake:'regular'});
+ result.push({label:infinitive,mistake:'infinitive'});
  return result;
 }
 export function verbItems(verbs){
@@ -68,8 +81,9 @@ export function verbQuestion(item,kind,seed=item.card.id){
  const random=seededRandom(`${seed}:${kind}`);
  const answer=kind==='perfect'?item.perfect:item.past;
  const mistakes=kind==='perfect'?participleMistakes(item.perfect,item.card.nl,item.past):pastMistakes(item.past,item.perfect,item.card.nl);
- const seen=new Set([normalizeAnswer(answer)]),options=[{label:answer,correct:true}];
- for(const label of mistakes){const key=normalizeAnswer(label);if(!label||seen.has(key))continue;seen.add(key);options.push({label,correct:false});if(options.length===4)break;}
+ const facts={verb:item.card.nl,past:item.past,perfect:item.perfect,note:item.note};
+ const seen=new Set([normalizeAnswer(answer)]),options=[{label:answer,correct:true,why:verbWhy(facts,kind,null)}];
+ for(const {label,mistake} of mistakes){const key=normalizeAnswer(label);if(!label||seen.has(key))continue;seen.add(key);options.push({label,correct:false,why:verbWhy(facts,kind,mistake)});if(options.length===4)break;}
  return {item,kind,answer,options:shuffle(options,random)};
 }
 
@@ -83,7 +97,8 @@ export function clozeItem(card,pool,seed=card.id){
   // Match capitals to the gap's position, so a capital letter never gives an option away.
   const atStart=!before.trim();
   const fit=word=>atStart?word.charAt(0).toLocaleUpperCase('nl')+word.slice(1):word.charAt(0).toLocaleLowerCase('nl')+word.slice(1);
-  return {card,before,after,answer:card.answer,options:shuffle([card.answer,...distractors.map(fit)],random).map(label=>({label,correct:label===card.answer}))};
+  const why=ruleWhy(card);
+  return {card,before,after,answer:card.answer,options:shuffle([card.answer,...distractors.map(fit)],random).map(label=>({label,correct:label===card.answer,why}))};
  }
  const tokens=String(card.nl||'').split(' ');
  const candidates=tokens.map((token,index)=>({index,word:bare(token)})).filter(({index,word})=>index>0&&word.length>=4&&/^[\p{L}-]+$/u.test(word));
@@ -99,14 +114,14 @@ export function clozeItem(card,pool,seed=card.id){
   .filter(word=>word.length>=5&&!functionWords.has(word.toLocaleLowerCase('nl'))&&/^[\p{L}-]+$/u.test(word)&&normalizeAnswer(word)!==normalizeAnswer(answer)&&Math.abs(word.length-answer.length)<=3);
  const distractors=pick(words,3,random);
  if(distractors.length<3)return null;
- return {card,before,after,answer,options:shuffle([answer,...distractors],random).map(label=>({label,correct:label===answer}))};
+ return {card,before,after,answer,options:shuffle([answer,...distractors],random).map(label=>({label,correct:label===answer,why:label===answer?null:gapWordWhy(label,answer,lookupWord)}))};
 }
 
 /* Gesprekken: at each of your turns, pick what you would say. */
 export function dialogueSteps(dialogue,dialogues,seed=dialogue.id){
  const random=seededRandom(`${seed}:dialogue`);
  const others=dialogues.filter(item=>item.id!==dialogue.id).flatMap(item=>item.lines.filter(line=>line.speaker==='Jij'));
- return dialogue.lines.map(line=>line.speaker!=='Jij'?{line,options:null}:{line,options:shuffle([{line,correct:true},...pick(others,2,random).map(other=>({line:other,correct:false}))],random)});
+ return dialogue.lines.map(line=>line.speaker!=='Jij'?{line,options:null}:{line,options:shuffle([{line,correct:true,why:null},...pick(others,2,random).map(other=>({line:other,correct:false,why:dialogueWhy(other)}))],random)});
 }
 
 /* Luisterdictee: short items you can type after hearing them once or twice. */

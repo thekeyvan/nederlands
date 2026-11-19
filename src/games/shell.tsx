@@ -17,6 +17,8 @@ import {haptic} from '@/lib/native';
 import {QuitButton} from '@/components/quit-button';
 import {trackEvent} from '@/lib/stats';
 import type {GameInfo} from '@/games/registry';
+import type {Why} from '@/core/why.js';
+import {WhyCard, WhyText, WhyToggle} from '@/components/why';
 
 /** Top bar for every game: leave, progress or timer, score. */
 export function GameBar({game, progress, seconds, score}: {game: GameInfo; progress?: number; seconds?: number; score: number; theme?: string}) {
@@ -53,7 +55,11 @@ export function useCountdown(total = 60) {
   return left;
 }
 
-export interface Choice {label: string; correct: boolean}
+export interface Choice {label: string; correct: boolean; why?: Why | null}
+
+/** The reason to show for a pick: the picked option's own, else the right option's. */
+export const whyFor = (options: Choice[], picked: number | null) =>
+  picked === null ? null : options[picked]?.why ?? options.find((option) => option.correct)?.why ?? null;
 
 /** Answer buttons with 1–4 keyboard shortcuts. After a pick, the right answer turns green. */
 export function ChoiceGrid({options, picked, onPick, translated = false, columns = 2}: {options: Choice[]; picked: number | null; onPick: (index: number) => void; translated?: boolean; columns?: 1 | 2}) {
@@ -95,7 +101,7 @@ export function ChoiceGrid({options, picked, onPick, translated = false, columns
 }
 
 /** Bottom feedback panel with a "Verder" button that also answers to Enter. */
-export function FeedbackBar({tone, title, children, onNext}: {tone: 'success' | 'close' | 'wrong'; title: string; children?: ReactNode; onNext: () => void}) {
+export function FeedbackBar({tone, title, children, onNext, why}: {tone: 'success' | 'close' | 'wrong'; title: string; children?: ReactNode; onNext: () => void; why?: Why | null}) {
   const ref = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     ref.current?.focus({preventScroll: true});
@@ -118,6 +124,7 @@ export function FeedbackBar({tone, title, children, onNext}: {tone: 'success' | 
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-2 text-lg font-bold"><MascotActor pose={tone === 'wrong' ? 'oops' : 'cheer'} moment={tone === 'wrong' ? 'nope' : 'hop'} className="-my-2 size-14" />{title}</p>
           {children}
+          {why && (tone === 'success' ? <WhyToggle why={why} /> : <WhyCard why={why} tone={tone} />)}
         </div>
         <Button ref={ref} size="xl" game variant={tone === 'success' ? 'success' : tone === 'close' ? 'default' : 'destructive'} className="w-full lg:w-auto" onClick={onNext}>Verder<ArrowRight /></Button>
       </div>
@@ -125,7 +132,7 @@ export function FeedbackBar({tone, title, children, onNext}: {tone: 'success' | 
   );
 }
 
-export interface Miss {key: string; nl: string; meaning?: string; card?: Card}
+export interface Miss {key: string; nl: string; meaning?: string; card?: Card; why?: Why | null}
 
 // One saved score per round, even when React runs initialisers twice in development.
 const recorded = new Map<string, ReturnType<ReturnType<typeof useGameRecords>['record']>>();
@@ -165,6 +172,7 @@ export function GameOver({game, roundId, score, total, misses, theme, onAgain}: 
                 <div className="min-w-0">
                   <p className="font-medium" lang="nl">{miss.nl}</p>
                   {miss.meaning && <Translation className="text-sm text-muted-foreground">{miss.meaning}</Translation>}
+                  {miss.why && <WhyText text={miss.why.fa} className="mt-1 text-[13px] leading-6 text-muted-foreground" />}
                 </div>
                 {audioUrl(miss.nl, 'ronnie') && <ListenButton text={miss.nl} />}
               </li>

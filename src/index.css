@@ -222,3 +222,6 @@
 
 /* Headings get focus after navigation for screen readers; no visible ring for that. */
 main h1[tabindex="-1"]:focus { outline: none; }
+
+/* "Waarom?" after a right answer: the line empties while the round waits to go on. */
+@keyframes why-countdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }

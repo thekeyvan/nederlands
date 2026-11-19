@@ -13,6 +13,9 @@ import {seededRandom, shuffle} from '@/core/practice.js';
 import {themes, vocabulary} from '@/core/learning-data.js';
 import {dialogues, phrases} from '@/core/phrase-data.js';
 import {FeedbackBar, GameBar, GameFrame, GameOver, newRoundId, type Miss} from '@/games/shell';
+import {WordOrder} from '@/components/word-order';
+import {TypedDiff, typedWhy, WhyText} from '@/components/why';
+import {spellingWhy} from '@/core/why.js';
 import type {GameInfo} from '@/games/registry';
 import type {Card, Dialogue} from '@/core/types';
 
@@ -43,7 +46,7 @@ export function BuilderGame({game, theme, onAgain}: Props) {
     setChecked(right);
     audio.play(item.sentence);
     if (right) setScore((value) => value + 1);
-    else setMisses((list) => [...list, {key: item.card.id, nl: item.sentence, meaning: item.card.meaning, card: item.card}]);
+    else setMisses((list) => [...list, {key: item.card.id, nl: item.sentence, meaning: item.card.meaning, card: item.card, why: item.why}]);
   };
   const next = () => { setChosen([]); setChecked(null); setIndex((value) => value + 1); };
   return (
@@ -55,25 +58,8 @@ export function BuilderGame({game, theme, onAgain}: Props) {
           <Badge variant="info">Zet de woorden in de goede volgorde</Badge>
           <Translation className="mt-4 text-xl font-medium">{item.card.meaning}</Translation>
         </div>
-        <div className={cn('flex min-h-24 flex-wrap content-start items-center gap-2 rounded-2xl border-2 border-dashed p-3 transition',
-          checked === true && 'border-success bg-success-soft', checked === false && 'border-destructive bg-destructive-soft')} aria-label="Jouw zin" lang="nl">
-          <span className="rounded-lg bg-secondary px-3 py-2 font-semibold text-secondary-foreground">{item.first}</span>
-          {chosen.map((id) => (
-            <button key={id} type="button" disabled={checked !== null} onClick={() => setChosen(chosen.filter((value) => value !== id))}
-              className="rounded-lg border-2 border-primary/40 bg-accent px-3 py-2 font-semibold text-accent-foreground shadow-[0_2px_0_var(--primary-edge)] transition hover:opacity-80">
-              {item.tiles.find((tile) => tile.id === id)!.text}
-            </button>
-          ))}
-          {item.ending && <span className="text-xl font-bold text-muted-foreground">{item.ending}</span>}
-        </div>
-        <div className="flex min-h-14 flex-wrap justify-center gap-2" lang="nl">
-          {remaining.map((tile) => (
-            <button key={tile.id} type="button" disabled={checked !== null} onClick={() => setChosen([...chosen, tile.id])}
-              className="rounded-lg border-2 bg-card px-4 py-2.5 text-lg font-semibold shadow-[0_3px_0_var(--border)] transition hover:-translate-y-0.5 hover:border-primary/40 active:translate-y-0.5 active:shadow-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
-              {tile.text}
-            </button>
-          ))}
-        </div>
+        <WordOrder first={item.first} tiles={item.tiles} chosen={chosen} onChange={setChosen} ending={item.ending} disabled={checked !== null}
+          state={checked === true ? 'right' : checked === false ? 'wrong' : null} />
         {checked === null && (
           <div className="flex flex-wrap justify-center gap-3">
             <Button variant="outline" size="lg" disabled={!chosen.length} onClick={() => setChosen(chosen.slice(0, -1))}><Undo2 />Terug</Button>
@@ -82,7 +68,7 @@ export function BuilderGame({game, theme, onAgain}: Props) {
         )}
       </div>
       {checked !== null && (
-        <FeedbackBar tone={checked ? 'success' : 'wrong'} title={checked ? 'Goed gebouwd!' : 'Bijna! De gewone volgorde is:'} onNext={next}>
+        <FeedbackBar tone={checked ? 'success' : 'wrong'} title={checked ? 'Goed gebouwd!' : 'Bijna! De gewone volgorde is:'} onNext={next} why={item.why}>
           <div className="mt-1 flex items-start gap-2">
             <p className="text-base font-semibold" lang="nl">{item.sentence}</p>
             <ListenButton text={item.sentence} className="-mt-1 shrink-0" />
@@ -123,7 +109,7 @@ export function DictationGame({game, theme, onAgain}: Props) {
   const check = () => {
     const outcome = checkDictation(value, card);
     setResult(outcome);
-    if (outcome.result === 'wrong') setMisses((list) => [...list, {key: card.id, nl: card.nl!, meaning: card.meaning, card}]);
+    if (outcome.result === 'wrong') setMisses((list) => [...list, {key: card.id, nl: card.nl!, meaning: card.meaning, card, why: spellingWhy(value, card.nl!)}]);
     else setScore((total) => total + 1);
   };
   const next = () => { setValue(''); setResult(null); setIndex((total) => total + 1); };
@@ -146,7 +132,9 @@ export function DictationGame({game, theme, onAgain}: Props) {
         {!result && <p className="flex items-center gap-1.5 text-xs text-muted-foreground"><Lightbulb className="size-3.5" />Hoofdletters en leestekens tellen niet mee.</p>}
       </div>
       {result && (
-        <FeedbackBar tone={result.result === 'correct' ? 'success' : result.result === 'close' ? 'close' : 'wrong'} title={result.result === 'correct' ? 'Precies goed!' : result.result === 'close' ? 'Bijna! Let op de spelling:' : 'Nog niet. Je hoorde:'} onNext={next}>
+        <FeedbackBar tone={result.result === 'correct' ? 'success' : result.result === 'close' ? 'close' : 'wrong'} title={result.result === 'correct' ? 'Precies goed!' : result.result === 'close' ? 'Bijna! Let op de spelling:' : 'Nog niet. Je hoorde:'} onNext={next}
+          why={result.result === 'correct' ? null : typedWhy(value, card.nl!, result.result)}>
+          {result.result !== 'correct' && <TypedDiff typed={value} answer={card.nl!} />}
           <p className="mt-1 text-base font-semibold" lang="nl">{card.nl}</p>
           <Translation className="text-sm opacity-80">{card.meaning}</Translation>
         </FeedbackBar>
@@ -194,7 +182,7 @@ export function ConversationGame({game, theme, onAgain}: Props) {
     const right = step.options[choice].correct;
     audio.play(step.line.nl);
     if (right) setScore((value) => value + 1);
-    else setMisses((list) => [...list, {key: step.line.id, nl: step.line.nl, meaning: step.line.translation}]);
+    else setMisses((list) => [...list, {key: step.line.id, nl: step.line.nl, meaning: step.line.translation, why: step.options![choice].why}]);
     setTimeout(() => setPosition((value) => value + 1), right ? 900 : 2000);
   };
   const shown = current.slice(0, Math.min(position + 1, current.length));
@@ -241,6 +229,7 @@ export function ConversationGame({game, theme, onAgain}: Props) {
               ) : (
                 <div className={cn('max-w-[85%] rounded-2xl px-4 py-3', mine ? 'rounded-br-md bg-primary/12 dark:bg-primary/20' : 'rounded-bl-md border bg-card', wrongPick && 'ring-2 ring-destructive/50')}>
                   {wrongPick && <p className="mb-1 flex items-center gap-1 text-xs text-destructive-foreground line-through" lang="nl"><X className="size-3.5" />{item.options![picked].line.nl}</p>}
+                  {wrongPick && item.options![picked].why && <WhyText text={item.options![picked].why!.fa} className="mb-1.5 text-[13px] leading-6 text-destructive-foreground" />}
                   <div className="flex items-start gap-2">
                     <div>
                       <p className="font-medium" lang="nl">{item.options && !wrongPick && <Check className="mr-1 inline size-4 text-success-foreground" />}{item.line.nl}</p>
@@ -265,3 +254,4 @@ export function ConversationGame({game, theme, onAgain}: Props) {
     </GameFrame>
   );
 }
+

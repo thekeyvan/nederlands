@@ -2,6 +2,7 @@ import type {Card} from '../core/types.ts';
 import {examplesFor, type GrammarExample} from '../core/grammar-examples.js';
 import {builderItem} from '../core/games.js';
 import {seededRandom, shuffle} from '../core/practice.js';
+import {ruleWhy} from '../core/why.js';
 
 const endPunctuation = /[.?!…]+$/;
 const bare = (token: string) => token.replace(/^[„“"'(]+|[.,!?;:…"”')]+$/g, '');
@@ -64,5 +65,6 @@ export function patternDrill(card: Card): Card[] {
 export const orderItem = (card: Card) => builderItem(card, card.example, `${card.id}:${card.example}`);
 export const pickOptions = (card: Card) => {
   const random = seededRandom(`${card.id}:${card.example}:pick`);
-  return shuffle([{id: 'right', label: card.example!, correct: true}, ...orderVariants(card.example!, card.answer!).map((label, index) => ({id: `wrong-${index}`, label, correct: false}))], random);
+  const why = ruleWhy(card);
+  return shuffle([{id: 'right', label: card.example!, correct: true, why}, ...orderVariants(card.example!, card.answer!).map((label, index) => ({id: `wrong-${index}`, label, correct: false, why}))], random);
 };

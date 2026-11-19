@@ -28,7 +28,7 @@ enum GameID: String, CaseIterable, Identifiable {
         switch self {
         case .lidwoord: ["Je ziet een zelfstandig naamwoord.", "Tik op de of het, zo snel als je kunt.", "Je hebt 60 seconden. Elke goede keuze is een punt."]
         case .tijdrace: ["Je ziet een Nederlands woord.", "Kies de goede vertaling.", "Zo veel mogelijk in 60 seconden."]
-        case .zinsbouwer: ["Je ziet de vertaling van een zin.", "Tik de woorden in de goede volgorde.", "Het eerste woord staat er al."]
+        case .zinsbouwer: ["Je ziet de vertaling van een zin.", "Sleep of tik de woorden in de goede volgorde.", "Het eerste woord staat er al."]
         case .aanvullen: ["In elke zin mist één woord.", "Kies het woord dat past.", "Tien zinnen per ronde."]
         case .werkwoorden: ["Je ziet een werkwoord.", "Kies de goede verleden tijd of het voltooid deelwoord.", "Let op hebben of zijn, t of d."]
         case .dictee: ["Tik op de luidspreker en luister.", "Typ wat je hoort. Je mag vaker luisteren.", "Een kleine typfout telt ook als goed."]
@@ -240,7 +240,13 @@ struct GameFlow: View {
     }
 }
 
-struct GameResult { let score: Int; let total: Int?; let misses: [Card] }
+struct GameResult {
+    let score: Int
+    let total: Int?
+    let misses: [Card]
+    /// "Waarom?" for a missed card (by card id), shown under it at the end.
+    var reasons: [String: Why] = [:]
+}
 
 struct GameOver: View {
     let game: GameID
@@ -264,7 +270,11 @@ struct GameOver: View {
                         Text("Nog even oefenen").font(.headline)
                         ForEach(result.misses.prefix(8)) { card in
                             HStack {
-                                VStack(alignment: .leading) { Text(card.label).font(.body.weight(.medium)); if let meaning = card.meaning { Persian(text: meaning, font: .footnote) } }
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(card.label).font(.body.weight(.medium))
+                                    if let meaning = card.meaning { Persian(text: meaning, font: .footnote) }
+                                    if let why = result.reasons[card.id] { WhyText(text: why.fa, font: .footnote, color: .secondary) }
+                                }
                                 ListenButton(text: card.nl ?? "", size: 13)
                             }
                             Divider()
@@ -384,6 +394,9 @@ struct ArticleGame: View {
     @State private var score = 0
     @State private var picked: String?
     @State private var misses: [Card] = []
+    @State private var reasons: [String: Why] = [:]
+    /// The last noun you got wrong, with its reason: it stays until the next mistake (the clock keeps running).
+    @State private var lastMiss: GameData.Article?
     @State private var clock = Countdown()
 
     var body: some View {
@@ -409,8 +422,9 @@ struct ArticleGame: View {
                     .padding(.horizontal)
                 }
                 Spacer()
+                if let miss = lastMiss, let why = miss.why { missStrip(miss, why: why) }
             }
-            .onChange(of: left == 0) { _, over in if over { finish(GameResult(score: score, total: nil, misses: misses)) } }
+            .onChange(of: left == 0) { _, over in if over { finish(GameResult(score: score, total: nil, misses: misses, reasons: reasons)) } }
         }
         .onAppear {
             let all = Content.shared.games.articles
@@ -420,9 +434,30 @@ struct ArticleGame: View {
         }
     }
 
+    /// The right article and noun, the rule's name and its sentence, small at the bottom.
+    private func missStrip(_ miss: GameData.Article, why: Why) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 6) {
+                Image(systemName: "info.circle.fill").font(.subheadline).foregroundStyle(Color.brand)
+                Text("\(miss.article) \(miss.noun)").font(.headline).lineLimit(1)
+                Spacer(minLength: 8)
+                WhyTag(tag: why.tag)
+            }
+            WhyText(text: why.fa, font: .footnote)
+        }
+        .padding(12)
+        .background(Color.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .accessibilityElement(children: .combine)
+        .padding(.horizontal)
+    }
+
     private func choose(_ article: String, _ item: GameData.Article) {
         picked = article
-        if article == item.article { score += 1; Haptics.success() } else { Haptics.error(); if let card = Content.shared.card(item.cardId) { misses.append(card) } }
+        if article == item.article { score += 1; Haptics.success() } else {
+            Haptics.error()
+            if let card = Content.shared.card(item.cardId) { misses.append(card); if let why = item.why { reasons[card.id] = why } }
+            lastMiss = item
+        }
         Task { try? await Task.sleep(for: .milliseconds(article == item.article ? 350 : 900)); picked = nil; index += 1 }
     }
 }
@@ -434,6 +469,7 @@ struct RaceGame: View {
     @State private var index = 0
     @State private var score = 0
     @State private var misses: [Card] = []
+    @State private var reasons: [String: Why] = [:]
     @State private var clock = Countdown()
     @State private var outcome: Outcome?
 
@@ -449,7 +485,10 @@ struct RaceGame: View {
                             Text(card.nl ?? "").font(.largeTitle.weight(.heavy)).minimumScaleFactor(0.5)
                             OptionList(options: card.meaningOptions ?? [], persian: true, outcome: outcome) { option in
                                 outcome = Outcome(grade: 4, correct: option.correct, result: option.correct ? .correct : .wrong)
-                                if option.correct { score += 1; Haptics.success() } else { misses.append(card); Haptics.error() }
+                                if option.correct { score += 1; Haptics.success() } else {
+                                    misses.append(card); Haptics.error()
+                                    if let why = Option.why(for: option, in: card.meaningOptions ?? []) { reasons[card.id] = why }
+                                }
                                 Task { try? await Task.sleep(for: .milliseconds(option.correct ? 300 : 800)); outcome = nil; index += 1 }
                             }
                             .id(index)
@@ -458,7 +497,7 @@ struct RaceGame: View {
                     }
                 }
             }
-            .onChange(of: left == 0) { _, over in if over { finish(GameResult(score: score, total: nil, misses: misses)) } }
+            .onChange(of: left == 0) { _, over in if over { finish(GameResult(score: score, total: nil, misses: misses, reasons: reasons)) } }
         }
         .onAppear {
             let words = Content.shared.words.filter { $0.meaningOptions != nil }
@@ -483,6 +522,7 @@ struct QuestionGame: View {
     @State private var index = 0
     @State private var score = 0
     @State private var misses: [Card] = []
+    @State private var reasons: [String: Why] = [:]
     @State private var outcome: Outcome?
 
     var body: some View {
@@ -496,17 +536,45 @@ struct QuestionGame: View {
                         Text(question.title.replacingOccurrences(of: "___", with: " ____ ")).font(.title.weight(.bold))
                         if let meaning = question.card.meaning ?? sameSentenceTranslation(question) { Persian(text: meaning) }
                         OptionList(options: question.options, outcome: outcome) { option in
-                            outcome = Outcome(grade: 4, correct: option.correct, result: option.correct ? .correct : .wrong)
-                            if option.correct { score += 1; Haptics.success() } else { misses.append(question.card); Haptics.error() }
+                            let result = Outcome.pick(option, in: question.options)
+                            outcome = result
+                            if option.correct { score += 1; Haptics.success() } else {
+                                misses.append(question.card); Haptics.error()
+                                if let why = result.why { reasons[question.card.id] = why }
+                            }
                         }
                         .id(index)
                     }
                     .padding()
                 }
                 .safeAreaInset(edge: .bottom) {
-                    if outcome != nil { Button("Verder") { outcome = nil; index += 1; if index >= questions.count { finish(GameResult(score: score, total: questions.count, misses: misses)) } }.buttonStyle(GameButtonStyle()).padding() }
+                    if let outcome { GameAnswerFooter(outcome: outcome, answer: question.options.first(where: \.correct)?.label, next: next).id(index) }
                 }
             }
+        }
+    }
+
+    private func next() {
+        guard outcome != nil else { return }
+        outcome = nil
+        index += 1
+        if index >= questions.count { finish(GameResult(score: score, total: questions.count, misses: misses, reasons: reasons)) }
+    }
+}
+
+/// Under a game's question after an answer. Wrong with a reason: the red panel with the reason.
+/// Right with a reason: the green bar that goes on by itself. Otherwise just Verder, as before.
+struct GameAnswerFooter: View {
+    let outcome: Outcome
+    var answer: String? = nil
+    let next: () -> Void
+    var body: some View {
+        if let why = outcome.why, outcome.result == .correct {
+            CorrectBar(why: why, next: next)
+        } else if let why = outcome.why {
+            GameFeedbackPanel(close: outcome.result == .close, answer: answer, typed: outcome.typed, expected: outcome.expected, why: why, next: next)
+        } else {
+            Button("Verder", action: next).buttonStyle(GameButtonStyle()).padding()
         }
     }
 }
@@ -517,6 +585,7 @@ struct BuilderGame: View {
     @State private var index = 0
     @State private var score = 0
     @State private var misses: [Card] = []
+    @State private var reasons: [String: Why] = [:]
     @State private var outcome: Outcome?
 
     var body: some View {
@@ -524,13 +593,16 @@ struct BuilderGame: View {
             GameHeader(progress: items.isEmpty ? 0 : Double(index) / Double(items.count), score: score)
             if index < items.count, let card = Content.shared.card(items[index].cardId) {
                 let item = items[index]
-                let exercise = Card(id: card.id, kind: .phrase, themeId: card.themeId, themeTitle: card.themeTitle, wordKind: nil, nl: card.nl, example: item.sentence, forms: nil, meaning: card.meaning, translation: card.meaning, level: nil, title: nil, pattern: nil, prompt: nil, answer: nil, rule: nil, note: nil, hasAudio: card.hasAudio, exampleAudio: card.hasAudio, meaningOptions: nil, dutchOptions: nil, mode: .order, order: .init(first: item.first, tiles: item.tiles, answer: item.answer, ending: item.ending))
+                let exercise = Card(id: card.id, kind: .phrase, themeId: card.themeId, themeTitle: card.themeTitle, wordKind: nil, nl: card.nl, example: item.sentence, forms: nil, meaning: card.meaning, translation: card.meaning, level: nil, title: nil, pattern: nil, prompt: nil, answer: nil, rule: nil, note: nil, hasAudio: card.hasAudio, exampleAudio: card.hasAudio, meaningOptions: nil, dutchOptions: nil, mode: .order, order: .init(first: item.first, tiles: item.tiles, answer: item.answer, ending: item.ending, why: item.why))
                 ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
                         OrderCard(card: exercise, outcome: outcome) { result in
                             outcome = result
                             Audio.shared.play(item.sentence)
-                            if result.correct { score += 1; Haptics.success() } else { misses.append(card); Haptics.error() }
+                            if result.correct { score += 1; Haptics.success() } else {
+                                misses.append(card); Haptics.error()
+                                if let why = item.why { reasons[card.id] = why }
+                            }
                         }
                         .id(index)
                         if outcome != nil { Text(item.sentence).font(.headline) }
@@ -538,10 +610,17 @@ struct BuilderGame: View {
                     .padding()
                 }
                 .safeAreaInset(edge: .bottom) {
-                    if outcome != nil { Button("Verder") { outcome = nil; index += 1; if index >= items.count { finish(GameResult(score: score, total: items.count, misses: misses)) } }.buttonStyle(GameButtonStyle()).padding() }
+                    if let outcome { GameAnswerFooter(outcome: outcome, next: next).id(index) }
                 }
             }
         }
+    }
+
+    private func next() {
+        guard outcome != nil else { return }
+        outcome = nil
+        index += 1
+        if index >= items.count { finish(GameResult(score: score, total: items.count, misses: misses, reasons: reasons)) }
     }
 }
 
@@ -551,6 +630,7 @@ struct DictationGame: View {
     @State private var index = 0
     @State private var score = 0
     @State private var misses: [Card] = []
+    @State private var reasons: [String: Why] = [:]
     @State private var value = ""
     @State private var outcome: Outcome?
 
@@ -565,9 +645,14 @@ struct DictationGame: View {
                         Button { Audio.shared.play(card.nl ?? "") } label: { Image(systemName: "speaker.wave.3.fill").font(.system(size: 40)).frame(width: 100, height: 100) }.buttonStyle(GameButtonStyle(color: .navy)).frame(width: 110)
                         Button("Langzamer", systemImage: "tortoise.fill") { Audio.shared.play(card.nl ?? "", speed: 0.75) }.font(.subheadline)
                         AnswerField(value: $value, placeholder: "Typ wat je hoort", outcome: outcome) {
-                            let (result, _) = Answer.check(value, card.nl ?? "")
-                            outcome = Outcome(grade: 4, correct: result != .wrong, result: result)
-                            if result != .wrong { score += 1; Haptics.success() } else { misses.append(card); Haptics.error() }
+                            let expected = card.nl ?? ""
+                            let (result, hint) = Answer.check(value, expected)
+                            let checked = Outcome.typed(result, grade: 4, hint: hint, input: value, expected: expected, why: Why.spelling(value, expected))
+                            outcome = checked
+                            if result != .wrong { score += 1; Haptics.success() } else {
+                                misses.append(card); Haptics.error()
+                                if let why = checked.why { reasons[card.id] = why }
+                            }
                         }
                         .id(index)
                         if outcome != nil { Text(card.nl ?? "").font(.headline); if let meaning = card.meaning { Persian(text: meaning) } }
@@ -576,10 +661,16 @@ struct DictationGame: View {
                 }
                 .task(id: index) { try? await Task.sleep(for: .milliseconds(300)); Audio.shared.play(card.nl ?? "") }
                 .safeAreaInset(edge: .bottom) {
-                    if outcome != nil { Button("Verder") { outcome = nil; value = ""; index += 1; if index >= cards.count { finish(GameResult(score: score, total: cards.count, misses: misses)) } }.buttonStyle(GameButtonStyle()).padding() }
+                    if let outcome { GameAnswerFooter(outcome: outcome, next: next).id(index) }
                 }
             }
         }
+    }
+
+    private func next() {
+        guard outcome != nil else { return }
+        outcome = nil; value = ""; index += 1
+        if index >= cards.count { finish(GameResult(score: score, total: cards.count, misses: misses, reasons: reasons)) }
     }
 }
 
@@ -642,8 +733,15 @@ struct ConversationGame: View {
                     .padding()
                 }
                 .safeAreaInset(edge: .bottom) {
-                    let needsChoice = current.steps[step].options != nil && chosen == nil
-                    if !needsChoice { Button("Verder", action: advance).buttonStyle(GameButtonStyle()).padding() }
+                    let options = current.steps[step].options
+                    let needsChoice = options != nil && chosen == nil
+                    let picked = options?.first { $0.lineId == chosen }
+                    // A wrong choice: what that sentence means instead.
+                    if let picked, !picked.correct, let why = picked.why ?? options?.first(where: \.correct)?.why {
+                        GameFeedbackPanel(answer: Content.shared.line(current.steps[step].lineId)?.nl, why: why, next: advance)
+                    } else if !needsChoice {
+                        Button("Verder", action: advance).buttonStyle(GameButtonStyle()).padding()
+                    }
                 }
                 .task(id: "\(conversation)-\(step)") { if let line = Content.shared.line(current.steps[step].lineId), current.steps[step].options == nil { Audio.shared.play(line.nl) } }
             }

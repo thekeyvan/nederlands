@@ -8,11 +8,18 @@ import nl.nedfa.service.ContentUpdater
 // The lesson content, exported from the website's content files by scripts/native/export-content.mjs.
 // The same file as the iPhone app (ios-native/Nedfa/Model/Content.swift).
 
+/**
+ * "Waarom?": why an answer is right or wrong. `tag` names the rule in Dutch; `fa` is one or two Persian sentences
+ * with the Dutch wrapped as **⁦text⁩** (bold, kept left to right). Made by src/core/why.js.
+ */
 @Serializable
-data class Option(val label: String, val correct: Boolean = false)
+data class Why(val tag: String = "", val fa: String = "")
 
 @Serializable
-data class OrderSpec(val first: String = "", val tiles: List<String> = emptyList(), val answer: List<String> = emptyList(), val ending: String = "")
+data class Option(val label: String, val correct: Boolean = false, val why: Why? = null)
+
+@Serializable
+data class OrderSpec(val first: String = "", val tiles: List<String> = emptyList(), val answer: List<String> = emptyList(), val ending: String = "", val why: Why? = null)
 
 @Serializable
 data class Card(
@@ -118,7 +125,7 @@ data class Voice(val id: String, val name: String)
 data class AudioCatalog(val voices: List<Voice> = emptyList(), val clips: Map<String, String> = emptyMap())
 
 @Serializable
-data class GameArticle(val cardId: String, val article: String, val noun: String)
+data class GameArticle(val cardId: String, val article: String, val noun: String, val why: Why? = null)
 
 @Serializable
 data class GameVerb(val cardId: String, val kind: String, val answer: String, val options: List<Option>)
@@ -127,10 +134,10 @@ data class GameVerb(val cardId: String, val kind: String, val answer: String, va
 data class GameCloze(val cardId: String, val before: String, val after: String, val answer: String, val options: List<Option>)
 
 @Serializable
-data class GameBuilder(val cardId: String, val first: String, val answer: List<String>, val tiles: List<String>, val ending: String = "", val sentence: String)
+data class GameBuilder(val cardId: String, val first: String, val answer: List<String>, val tiles: List<String>, val ending: String = "", val sentence: String, val why: Why? = null)
 
 @Serializable
-data class ConversationChoice(val lineId: String, val correct: Boolean = false)
+data class ConversationChoice(val lineId: String, val correct: Boolean = false, val why: Why? = null)
 
 @Serializable
 data class ConversationStep(val lineId: String, val options: List<ConversationChoice>? = null)

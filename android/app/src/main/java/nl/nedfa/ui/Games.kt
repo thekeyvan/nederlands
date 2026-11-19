@@ -80,6 +80,9 @@ import nl.nedfa.data.Option
 import nl.nedfa.data.OrderSpec
 import nl.nedfa.data.Preferences
 import nl.nedfa.data.Theme
+import nl.nedfa.data.Why
+import nl.nedfa.data.spellingWhy
+import nl.nedfa.data.whyFor
 import nl.nedfa.service.Analytics
 import nl.nedfa.service.Audio
 
@@ -87,7 +90,7 @@ import nl.nedfa.service.Audio
 enum class GameId(val title: String, val length: String, val howTo: List<String>) {
     lidwoord("De of het?", "60 seconden", listOf("Je ziet een zelfstandig naamwoord.", "Tik op de of het, zo snel als je kunt.", "Je hebt 60 seconden. Elke goede keuze is een punt.")),
     tijdrace("Tijdrace", "60 seconden", listOf("Je ziet een Nederlands woord.", "Kies de goede vertaling.", "Zo veel mogelijk in 60 seconden.")),
-    zinsbouwer("Zinnen bouwen", "8 zinnen", listOf("Je ziet de vertaling van een zin.", "Tik de woorden in de goede volgorde.", "Het eerste woord staat er al.")),
+    zinsbouwer("Zinnen bouwen", "8 zinnen", listOf("Je ziet de vertaling van een zin.", "Sleep of tik de woorden in de goede volgorde.", "Het eerste woord staat er al.")),
     aanvullen("Zinnen aanvullen", "10 zinnen", listOf("In elke zin mist één woord.", "Kies het woord dat past.", "Tien zinnen per ronde.")),
     werkwoorden("Werkwoorden", "10 vragen", listOf("Je ziet een werkwoord.", "Kies de goede verleden tijd of het voltooid deelwoord.", "Let op hebben of zijn, t of d.")),
     dictee("Luisterdictee", "8 opnames", listOf("Tik op de luidspreker en luister.", "Typ wat je hoort. Je mag vaker luisteren.", "Een kleine typfout telt ook als goed.")),
@@ -177,7 +180,8 @@ fun ThemeGamesSheet(theme: Theme, dismiss: () -> Unit) {
     }
 }
 
-data class GameResult(val score: Int, val total: Int?, val misses: List<Card>)
+/** `reasons`: why each missed card was wrong (by card id), shown under it at the end. */
+data class GameResult(val score: Int, val total: Int?, val misses: List<Card>, val reasons: Map<String, Why> = emptyMap())
 
 /** Intro, the game itself, and the end screen, shown over the screen it was opened from. */
 @Composable
@@ -257,7 +261,11 @@ private fun GameOver(game: GameId, theme: String, result: GameResult, again: () 
             T("Nog even oefenen", weight = FontWeight.SemiBold)
             result.misses.distinctBy { it.id }.take(8).forEach { card ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Column(Modifier.weight(1f)) { T(card.label, weight = FontWeight.Medium); card.meaning?.let { Persian(it, 13) } }
+                    Column(Modifier.weight(1f)) {
+                        T(card.label, weight = FontWeight.Medium)
+                        card.meaning?.let { Persian(it, 13) }
+                        result.reasons[card.id]?.let { WhyText(it.fa, 13, C.secondary, Modifier.padding(top = 2.dp)) }
+                    }
                     ListenButton(card.nl ?: "", 13)
                 }
                 Divider()
@@ -357,8 +365,11 @@ private fun ArticleGame(items: List<GameArticle>, finish: (GameResult) -> Unit) 
     var score by remember { mutableIntStateOf(0) }
     var picked by remember { mutableStateOf<String?>(null) }
     val misses = remember { mutableStateListOf<Card>() }
+    val reasons = remember { mutableMapOf<String, Why>() }
+    // The last mistake and its reason stay at the bottom while the clock runs on.
+    var lastMiss by remember { mutableStateOf<GameArticle?>(null) }
     val scope = rememberCoroutineScope()
-    val left = countdown { finish(GameResult(score, null, misses.toList())) }
+    val left = countdown { finish(GameResult(score, null, misses.toList(), reasons.toMap())) }
     Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(30.dp)) {
         GameHeader(score, seconds = left)
         Spacer(Modifier.weight(1f))
@@ -375,13 +386,34 @@ private fun ArticleGame(items: List<GameArticle>, finish: (GameResult) -> Unit) 
                     GameButton(article, {
                         if (picked != null) return@GameButton
                         picked = article
-                        if (article == item.article) { score += 1; Haptics.success() } else { Haptics.error(); Content.card(item.cardId)?.let { misses.add(it) } }
+                        if (article == item.article) { score += 1; Haptics.success() } else {
+                            Haptics.error()
+                            Content.card(item.cardId)?.let { misses.add(it); item.why?.let { why -> reasons[it.id] = why } }
+                            if (item.why != null) lastMiss = item
+                        }
                         scope.launch { delay(if (article == item.article) 350 else 900); picked = null; index += 1 }
                     }, Modifier.weight(1f), color = if (article == "de") C.brand else C.navy, edge = if (article == "de") C.brandEdge else Color(0xFF16294A), height = 110.dp)
                 }
             }
         }
         Spacer(Modifier.weight(1f))
+        lastMiss?.let { miss -> miss.why?.let { MissStrip("${miss.article} ${miss.noun}", it) } }
+    }
+}
+
+/** De of het?: the last mistake, the rule and its sentence, small at the bottom so the game goes on. */
+@Composable
+private fun MissStrip(answer: String, why: Why) {
+    Column(
+        Modifier.padding(horizontal = 16.dp).padding(bottom = 12.dp).fillMaxWidth().background(C.surface, RoundedCornerShape(18.dp))
+            .border(2.dp, C.danger.copy(alpha = 0.25f), RoundedCornerShape(18.dp)).padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            T(answer, weight = FontWeight.Bold, maxLines = 1)
+            Box(Modifier.weight(1f).padding(start = 8.dp), contentAlignment = Alignment.CenterEnd) { TagPill(why.tag) }
+        }
+        WhyText(why.fa, 14)
     }
 }
 
@@ -391,8 +423,9 @@ private fun RaceGame(cards: List<Card>, finish: (GameResult) -> Unit) {
     var score by remember { mutableIntStateOf(0) }
     var outcome by remember { mutableStateOf<Outcome?>(null) }
     val misses = remember { mutableStateListOf<Card>() }
+    val reasons = remember { mutableMapOf<String, Why>() }
     val scope = rememberCoroutineScope()
-    val left = countdown { finish(GameResult(score, null, misses.toList())) }
+    val left = countdown { finish(GameResult(score, null, misses.toList(), reasons.toMap())) }
     Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(24.dp)) {
         GameHeader(score, seconds = left)
         if (cards.isNotEmpty()) {
@@ -402,7 +435,10 @@ private fun RaceGame(cards: List<Card>, finish: (GameResult) -> Unit) {
                     T(card.nl ?: "", style = game(34, FontWeight.Black))
                     OptionList(card.meaningOptions ?: emptyList(), persian = true, outcome = outcome) { option ->
                         outcome = Outcome(4, option.correct, if (option.correct) Answer.Result.CORRECT else Answer.Result.WRONG)
-                        if (option.correct) { score += 1; Haptics.success() } else { misses.add(card); Haptics.error() }
+                        // The clock runs on; the reason of the picked word waits for the end screen.
+                        if (option.correct) { score += 1; Haptics.success() } else {
+                            misses.add(card); whyFor(card.meaningOptions ?: emptyList(), option)?.let { reasons[card.id] = it }; Haptics.error()
+                        }
                         scope.launch { delay(if (option.correct) 300 else 800); outcome = null; index += 1 }
                     }
                 }
@@ -422,13 +458,16 @@ private fun sameSentenceTranslation(question: Question): String? {
 
 /** A game of questions with a Verder button after each answer. */
 @Composable
-private fun Stepped(total: Int, index: Int, score: Int, answered: Boolean, next: () -> Unit, content: @Composable ColumnScope.() -> Unit) {
+private fun Stepped(
+    total: Int, index: Int, score: Int, answered: Boolean, next: () -> Unit, tone: Tone = Tone.success, why: Why? = null,
+    content: @Composable ColumnScope.() -> Unit,
+) {
     Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         GameHeader(score, progress = if (total == 0) 0.0 else index.toDouble() / total)
         key(index) {
             Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(18.dp), content = content)
         }
-        if (answered) Box(Modifier.padding(16.dp)) { GameButton("Verder", next) }
+        if (answered) key(index) { AnswerFooter(tone, why, next) }
     }
 }
 
@@ -438,19 +477,21 @@ private fun QuestionGame(questions: List<Question>, finish: (GameResult) -> Unit
     var score by remember { mutableIntStateOf(0) }
     var outcome by remember { mutableStateOf<Outcome?>(null) }
     val misses = remember { mutableStateListOf<Card>() }
+    val reasons = remember { mutableMapOf<String, Why>() }
     if (questions.isEmpty()) { LaunchedEffect(Unit) { finish(GameResult(0, 1, emptyList())) }; return }
     if (index >= questions.size) return
     val question = questions[index]
     Stepped(questions.size, index, score, outcome != null, {
         outcome = null; index += 1
-        if (index >= questions.size) finish(GameResult(score, questions.size, misses.toList()))
-    }) {
+        if (index >= questions.size) finish(GameResult(score, questions.size, misses.toList(), reasons.toMap()))
+    }, outcome?.tone ?: Tone.success, outcome?.why) {
         T(question.subtitle, weight = FontWeight.SemiBold, color = C.secondary)
         T(question.title.replace("___", " ____ "), size = 26.sp, weight = FontWeight.Bold)
         (question.card.meaning ?: sameSentenceTranslation(question))?.let { Persian(it) }
         OptionList(question.options, outcome = outcome) { option ->
-            outcome = Outcome(4, option.correct, if (option.correct) Answer.Result.CORRECT else Answer.Result.WRONG)
-            if (option.correct) { score += 1; Haptics.success() } else { misses.add(question.card); Haptics.error() }
+            val why = whyFor(question.options, option)
+            outcome = Outcome(4, option.correct, if (option.correct) Answer.Result.CORRECT else Answer.Result.WRONG, why = why)
+            if (option.correct) { score += 1; Haptics.success() } else { misses.add(question.card); why?.let { reasons[question.card.id] = it }; Haptics.error() }
         }
     }
 }
@@ -461,20 +502,21 @@ private fun BuilderGame(items: List<GameBuilder>, finish: (GameResult) -> Unit) 
     var score by remember { mutableIntStateOf(0) }
     var outcome by remember { mutableStateOf<Outcome?>(null) }
     val misses = remember { mutableStateListOf<Card>() }
+    val reasons = remember { mutableMapOf<String, Why>() }
     if (items.isEmpty()) { LaunchedEffect(Unit) { finish(GameResult(0, 1, emptyList())) }; return }
     if (index >= items.size) return
     val item = items[index]
     val card = Content.card(item.cardId)
     Stepped(items.size, index, score, outcome != null, {
         outcome = null; index += 1
-        if (index >= items.size) finish(GameResult(score, items.size, misses.toList()))
-    }) {
+        if (index >= items.size) finish(GameResult(score, items.size, misses.toList(), reasons.toMap()))
+    }, outcome?.tone ?: Tone.success, outcome?.why) {
         if (card != null) {
-            val exercise = card.copy(kind = "phrase", example = item.sentence, translation = card.meaning, mode = "order", order = OrderSpec(item.first, item.tiles, item.answer, item.ending))
+            val exercise = card.copy(kind = "phrase", example = item.sentence, translation = card.meaning, mode = "order", order = OrderSpec(item.first, item.tiles, item.answer, item.ending, item.why))
             OrderCard(exercise, outcome) { result ->
                 outcome = result
                 Audio.play(item.sentence)
-                if (result.correct) { score += 1; Haptics.success() } else { misses.add(card); Haptics.error() }
+                if (result.correct) { score += 1; Haptics.success() } else { misses.add(card); item.why?.let { reasons[card.id] = it }; Haptics.error() }
             }
             if (outcome != null) T(item.sentence, weight = FontWeight.SemiBold)
         }
@@ -488,14 +530,15 @@ private fun DictationGame(cards: List<Card>, finish: (GameResult) -> Unit) {
     var value by remember { mutableStateOf("") }
     var outcome by remember { mutableStateOf<Outcome?>(null) }
     val misses = remember { mutableStateListOf<Card>() }
+    val reasons = remember { mutableMapOf<String, Why>() }
     if (cards.isEmpty()) { LaunchedEffect(Unit) { finish(GameResult(0, 1, emptyList())) }; return }
     if (index >= cards.size) return
     val card = cards[index]
     LaunchedEffect(index) { delay(300); Audio.play(card.nl ?: "") }
     Stepped(cards.size, index, score, outcome != null, {
         outcome = null; value = ""; index += 1
-        if (index >= cards.size) finish(GameResult(score, cards.size, misses.toList()))
-    }) {
+        if (index >= cards.size) finish(GameResult(score, cards.size, misses.toList(), reasons.toMap()))
+    }, outcome?.tone ?: Tone.success, outcome?.why) {
         T("Luister en typ wat je hoort", Modifier.fillMaxWidth(), weight = FontWeight.SemiBold, color = C.secondary, align = TextAlign.Center)
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
             PressableTile({ Audio.play(card.nl ?: "") }, Modifier.size(110.dp, 115.dp), fill = C.navy, edge = Color(0xFF16294A), radius = 26.dp) {
@@ -503,10 +546,11 @@ private fun DictationGame(cards: List<Card>, finish: (GameResult) -> Unit) {
             }
             T("🐢 Langzamer", Modifier.clickable { Audio.play(card.nl ?: "", 0.75f) }.padding(8.dp), size = 15.sp, color = C.brand, weight = FontWeight.SemiBold)
         }
-        AnswerField(value, { value = it }, "Typ wat je hoort", outcome) {
+        AnswerField(value, { value = it }, "Typ wat je hoort", outcome, card.nl) {
             val (result, _) = Answer.check(value, card.nl ?: "")
-            outcome = Outcome(4, result != Answer.Result.WRONG, result)
-            if (result != Answer.Result.WRONG) { score += 1; Haptics.success() } else { misses.add(card); Haptics.error() }
+            val why = if (result != Answer.Result.CORRECT) spellingWhy(value, card.nl ?: "") else null
+            outcome = Outcome(4, result != Answer.Result.WRONG, result, why = why)
+            if (result != Answer.Result.WRONG) { score += 1; Haptics.success() } else { misses.add(card); why?.let { reasons[card.id] = it }; Haptics.error() }
         }
         if (outcome != null) { T(card.nl ?: "", weight = FontWeight.SemiBold); card.meaning?.let { Persian(it) } }
     }
@@ -564,8 +608,12 @@ private fun ConversationGame(conversations: List<Conversation>, finish: (GameRes
                 }
             }
         }
-        val needsChoice = current.steps.getOrNull(step)?.options != null && chosen == null
-        if (!needsChoice) Box(Modifier.padding(16.dp)) { GameButton("Verder", ::advance) }
+        val options = current.steps.getOrNull(step)?.options
+        val needsChoice = options != null && chosen == null
+        val picked = options?.firstOrNull { it.lineId == chosen }
+        if (!needsChoice) key(conversation, step) {
+            AnswerFooter(if (picked == null || picked.correct) Tone.success else Tone.wrong, options?.let { whyFor(it, picked) }, ::advance)
+        }
     }
 }
 

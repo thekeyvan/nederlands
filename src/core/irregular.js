@@ -4,6 +4,7 @@
 import data from '../../content/irregular.json' with {type: 'json'};
 import {slug} from '../../content/ids.js';
 import {normalizeAnswer, seededRandom, shuffle} from './practice.js';
+import {irregularVerbWhy, setWhy} from './why.js';
 
 const prefixed = /^(be|ge|ver|ont|her|er)/;
 const kofschip = new Set(['t', 'k', 'f', 's', 'h', 'p', 'x']);
@@ -37,14 +38,14 @@ const answersOf = (form) => {
   const [aux, ...rest] = form.split(' ');
   return aux.includes('/') ? aux.split('/').map((one) => [one, ...rest].join(' ')) : [form];
 };
-function choices(id, answer, accepted, wrong) {
+function choices(id, answer, accepted, wrong, whyOf = () => null) {
   const seen = new Set(accepted.map(normalizeAnswer));
-  const options = [{label: answer, correct: true}];
+  const options = [{label: answer, correct: true, why: whyOf(answer, true)}];
   for (const label of wrong) {
     const key = normalizeAnswer(label);
     if (!label || seen.has(key)) continue;
     seen.add(key);
-    options.push({label, correct: false});
+    options.push({label, correct: false, why: whyOf(label, false)});
     if (options.length === 4) break;
   }
   return shuffle(options, seededRandom(`${id}:form`));
@@ -70,9 +71,10 @@ function verbCards(set, item) {
     `${other} ${regular.participle}`,
   ];
   const past = [item.past, ...(item.accept ?? [])];
+  const facts = {verb: item.nl, past: item.past, pastPlural: item.pastPlural, perfect: perfects[0], regular};
   return [
-    {...base, id: pastId, ask: 1, nl: item.past, answer: item.past, accept: past, choices: choices(pastId, item.past, past, pastWrong), note: `${item.nl} · ${item.past} (${item.pastPlural}) · ${item.perfect}`},
-    {...base, id: perfectId, ask: 2, nl: perfects[0], answer: perfects[0], accept: perfects, choices: choices(perfectId, perfects[0], perfects, perfectWrong), note: `${item.nl} · ${item.past} (${item.pastPlural}) · ${item.perfect}`},
+    {...base, id: pastId, ask: 1, nl: item.past, answer: item.past, accept: past, choices: choices(pastId, item.past, past, pastWrong, (label, correct) => irregularVerbWhy(facts, 1, label, correct)), note: `${item.nl} · ${item.past} (${item.pastPlural}) · ${item.perfect}`},
+    {...base, id: perfectId, ask: 2, nl: perfects[0], answer: perfects[0], accept: perfects, choices: choices(perfectId, perfects[0], perfects, perfectWrong, (label, correct) => irregularVerbWhy(facts, 2, label, correct)), note: `${item.nl} · ${item.past} (${item.pastPlural}) · ${item.perfect}`},
   ];
 }
 
@@ -82,19 +84,19 @@ function otherCards(set, item) {
     const id = item.id ?? `onr:nu:${slug(item.prompt)}`;
     const accept = [item.answer, ...(item.accept ?? [])];
     const example = item.prompt.replace('___', item.answer);
-    return [{...base, id, nl: item.answer, answer: item.answer, accept, prompt: item.prompt, example, choices: choices(id, item.answer, accept, item.wrong), note: example}];
+    return [{...base, id, nl: item.answer, answer: item.answer, accept, prompt: item.prompt, example, choices: choices(id, item.answer, accept, item.wrong, () => setWhy(set.title, set.fa)), note: example}];
   }
   if (set.kind === 'plural') {
     const id = item.id ?? `onr:${slug(item.nl)}:meervoud`;
     const accept = [item.answer, ...(item.accept ?? [])];
-    return [{...base, id, ask: 1, chain: [item.nl, item.answer], labels: ['enkelvoud', 'meervoud'], nl: item.answer, answer: item.answer, accept, choices: choices(id, item.answer, accept, item.wrong), note: `${item.nl} · ${item.answer}`}];
+    return [{...base, id, ask: 1, chain: [item.nl, item.answer], labels: ['enkelvoud', 'meervoud'], nl: item.answer, answer: item.answer, accept, choices: choices(id, item.answer, accept, item.wrong, () => setWhy(set.title, set.fa)), note: `${item.nl} · ${item.answer}`}];
   }
   const chain = [item.nl, item.more, item.most];
   const labels = ['bijvoeglijk naamwoord', 'vergrotende trap', 'overtreffende trap'];
   const note = `${item.nl} · ${item.more} · ${item.most}`;
   return [['meer', 1, item.more, item.wrongMore], ['meest', 2, item.most, item.wrongMost]].map(([form, ask, answer, wrong]) => {
     const id = item.ids?.[form] ?? `onr:${slug(item.nl)}:${form}`;
-    return {...base, id, ask, chain, labels, nl: answer, answer, accept: [answer], choices: choices(id, answer, [answer], wrong), note};
+    return {...base, id, ask, chain, labels, nl: answer, answer, accept: [answer], choices: choices(id, answer, [answer], wrong, () => setWhy(set.title, set.fa)), note};
   });
 }
 

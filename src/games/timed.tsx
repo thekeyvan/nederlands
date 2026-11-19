@@ -5,7 +5,8 @@ import {cn} from '@/lib/utils';
 import {articleItems, raceQuestion, roundPool, type ArticleItem} from '@/core/games.js';
 import {seededRandom, shuffle} from '@/core/practice.js';
 import {vocabulary} from '@/core/learning-data.js';
-import {ChoiceGrid, GameBar, GameFrame, GameOver, newRoundId, useCountdown, type Miss} from '@/games/shell';
+import {ChoiceGrid, GameBar, GameFrame, GameOver, newRoundId, useCountdown, whyFor, type Miss} from '@/games/shell';
+import {WhyText} from '@/components/why';
 import type {GameInfo} from '@/games/registry';
 
 interface Props {game: GameInfo; theme: string; onAgain: () => void}
@@ -26,13 +27,18 @@ export function ArticleGame({game, theme, onAgain}: Props) {
   const [score, setScore] = useState(0);
   const [picked, setPicked] = useState<'de' | 'het' | null>(null);
   const [misses, setMisses] = useState<Miss[]>([]);
+  // The last mistake's reason stays at the bottom while the clock runs on.
+  const [lastMiss, setLastMiss] = useState<ArticleItem | null>(null);
   const item: ArticleItem = items[index % items.length];
   const choose = useCallback((article: 'de' | 'het') => {
     if (picked || left === 0) return;
     setPicked(article);
     const right = article === item.article;
     if (right) setScore((value) => value + 1);
-    else setMisses((list) => [...list, {key: `${item.card.id}:${index}`, nl: item.card.nl!, meaning: item.card.meaning, card: item.card}]);
+    else {
+      setMisses((list) => [...list, {key: `${item.card.id}:${index}`, nl: item.card.nl!, meaning: item.card.meaning, card: item.card, why: item.why}]);
+      setLastMiss(item);
+    }
     setTimeout(() => { setPicked(null); setIndex((value) => value + 1); }, right ? 260 : 950);
   }, [picked, left, item, index]);
   useEffect(() => {
@@ -70,6 +76,15 @@ export function ArticleGame({game, theme, onAgain}: Props) {
           ))}
         </div>
       </div>
+      {lastMiss && (
+        <div role="status" className="fixed inset-x-3 bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 mx-auto max-w-xl rounded-2xl border-2 border-destructive/25 bg-card p-3 shadow-lg lg:static lg:mt-2 lg:w-full">
+          <div className="flex items-center gap-2">
+            <strong className="text-base" lang="nl">{lastMiss.card.nl}</strong>
+            <span className="ml-auto truncate rounded-full bg-accent px-2 py-0.5 text-xs font-semibold text-accent-foreground" lang="nl">{lastMiss.why.tag}</span>
+          </div>
+          <WhyText text={lastMiss.why.fa} className="mt-1 text-sm leading-6" />
+        </div>
+      )}
     </GameFrame>
   );
 }
@@ -95,7 +110,7 @@ export function RaceGame({game, theme, onAgain}: Props) {
     setPicked(choice);
     const right = question.options[choice].correct;
     if (right) setScore((value) => value + 1);
-    else setMisses((list) => [...list, {key: `${card.id}:${index}`, nl: card.nl!, meaning: card.meaning, card}]);
+    else setMisses((list) => [...list, {key: `${card.id}:${index}`, nl: card.nl!, meaning: card.meaning, card, why: whyFor(question.options, choice)}]);
     setTimeout(() => { setPicked(null); setIndex((value) => value + 1); }, right ? 300 : 1000);
   };
   return (

@@ -4,6 +4,8 @@ import Foundation
 struct Option: Codable, Hashable {
     let label: String
     let correct: Bool
+    /// Why this option is right or wrong ("Waarom?"); missing in older content.
+    var why: Why? = nil
 }
 
 struct Card: Codable, Identifiable, Hashable {
@@ -14,6 +16,8 @@ struct Card: Codable, Identifiable, Hashable {
         let tiles: [String]
         let answer: [String]
         let ending: String
+        /// The grammar rule behind the word order.
+        var why: Why? = nil
     }
 
     let id: String
@@ -51,6 +55,13 @@ struct Card: Codable, Identifiable, Hashable {
 
     /// What the card is called in lists: the Dutch word or sentence, or the pattern's title.
     var label: String { nl ?? title ?? id }
+
+    /// The rule of a grammar pattern or an irregular set as a reason (ruleWhy in src/core/why.js).
+    var ruleWhy: Why? {
+        guard let rule, !rule.isEmpty else { return nil }
+        let tag = if let title, !title.isEmpty, !id.hasPrefix("onr:") { title } else { themeTitle ?? title ?? "regel" }
+        return Why(tag: tag, fa: rule)
+    }
 }
 
 struct Theme: Codable, Identifiable, Hashable {
@@ -156,13 +167,13 @@ struct AudioCatalog: Codable {
 }
 
 struct GameData: Codable {
-    struct Article: Codable { let cardId: String; let article: String; let noun: String }
+    struct Article: Codable { let cardId: String; let article: String; let noun: String; var why: Why? = nil }
     struct Verb: Codable { let cardId: String; let kind: String; let answer: String; let options: [Option] }
     struct Cloze: Codable { let cardId: String; let before: String; let after: String; let answer: String; let options: [Option] }
-    struct Builder: Codable { let cardId: String; let first: String; let answer: [String]; let tiles: [String]; let ending: String; let sentence: String }
+    struct Builder: Codable { let cardId: String; let first: String; let answer: [String]; let tiles: [String]; let ending: String; let sentence: String; var why: Why? = nil }
     struct Conversation: Codable {
         struct Step: Codable {
-            struct Choice: Codable { let lineId: String; let correct: Bool }
+            struct Choice: Codable { let lineId: String; let correct: Bool; var why: Why? = nil }
             let lineId: String
             let options: [Choice]?
         }
@@ -214,6 +225,11 @@ struct ContentFile: Codable {
     let irregular: IrregularData?
     /// Missing in content downloaded before the path existed.
     let path: [PathSection]?
+}
+
+extension Option {
+    /// The reason to show for a pick: the picked option's own, else the right option's.
+    static func why(for picked: Option, in options: [Option]) -> Why? { picked.why ?? options.first(where: \.correct)?.why }
 }
 
 /// All content, loaded once at launch: the newest copy from nedfa.nl if one was downloaded, else the bundled one.

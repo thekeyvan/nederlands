@@ -9,7 +9,27 @@ struct Round: Identifiable {
     var irregular: String? = nil
 }
 
-struct Outcome { let grade: Int; let correct: Bool; let result: Answer.Result; var hint: String? = nil }
+struct Outcome {
+    let grade: Int
+    let correct: Bool
+    let result: Answer.Result
+    var hint: String? = nil
+    /// "Waarom?": the reason for this answer, when there is one.
+    var why: Why? = nil
+    /// A typed answer and what was expected, to show which letters differ.
+    var typed: String? = nil
+    var expected: String? = nil
+
+    /// A picked option, with the picked option's reason (else the right option's).
+    static func pick(_ option: Option, in options: [Option]) -> Outcome {
+        Outcome(grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? .correct : .wrong, why: Option.why(for: option, in: options))
+    }
+
+    /// A typed answer: the reason comes from what was typed when it was not quite right.
+    static func typed(_ result: Answer.Result, grade: Int, hint: String?, input: String, expected: String, why: Why?) -> Outcome {
+        Outcome(grade: grade, correct: result != .wrong, result: result, hint: hint, why: result == .correct ? nil : why, typed: input, expected: expected)
+    }
+}
 
 /// A practice round: one card at a time in the best exercise for it, feedback, then a summary.
 struct RoundView: View {
@@ -201,8 +221,9 @@ struct ChooseCard: View {
                 HStack(spacing: 10) { Text(card.nl ?? "").font(.game(28, .black)).minimumScaleFactor(0.5).lineLimit(2); Spacer(minLength: 0); ListenButton(text: card.nl ?? "", size: 18) }
             }
         }
-        OptionList(options: (dutch ? card.dutchOptions : card.meaningOptions) ?? [], persian: !dutch, outcome: outcome) { option in
-            answer(Outcome(grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? .correct : .wrong))
+        let options = (dutch ? card.dutchOptions : card.meaningOptions) ?? []
+        OptionList(options: options, persian: !dutch, outcome: outcome) { option in
+            answer(.pick(option, in: options))
         }
     }
 }
@@ -221,7 +242,7 @@ struct ListenCard: View {
         .frame(maxWidth: .infinity)
         .task { try? await Task.sleep(for: .milliseconds(300)); Audio.shared.play(card.nl ?? "") }
         OptionList(options: card.dutchOptions ?? [], outcome: outcome) { option in
-            answer(Outcome(grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? .correct : .wrong))
+            answer(.pick(option, in: card.dutchOptions ?? []))
         }
     }
 }
@@ -265,8 +286,9 @@ struct TypeCard: View {
         }
     }
     private func check() {
-        let (result, why) = Answer.check(value, card.nl ?? "")
-        answer(Outcome(grade: Answer.grade(result, hinted: hinted), correct: result != .wrong, result: result, hint: why))
+        let expected = card.nl ?? ""
+        let (result, why) = Answer.check(value, expected)
+        answer(.typed(result, grade: Answer.grade(result, hinted: hinted), hint: why, input: value, expected: expected, why: Why.spelling(value, expected)))
     }
     private func hint(_ text: String) -> String {
         text.split(separator: " ").map { ["de", "het", "een"].contains($0.lowercased()) ? String($0) : String($0.prefix(max(1, Int(ceil(Double($0.count) / 3))))) + "…" }.joined(separator: " ")
@@ -294,8 +316,10 @@ struct GapCard: View {
         }
     }
     private func check() {
-        let (result, why) = Answer.check(value, card.answer ?? "")
-        answer(Outcome(grade: Answer.grade(result, hinted: hinted), correct: result != .wrong, result: result, hint: why))
+        let expected = card.answer ?? ""
+        let (result, why) = Answer.check(value, expected)
+        // A grammar gap has no options: its reason is the pattern's rule.
+        answer(.typed(result, grade: Answer.grade(result, hinted: hinted), hint: why, input: value, expected: expected, why: card.ruleWhy))
     }
 }
 
@@ -344,7 +368,7 @@ struct FormCard: View {
         } else {
             OptionList(options: card.choices ?? [], outcome: outcome) { option in
                 chosen = option.label
-                answer(Outcome(grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? .correct : .wrong))
+                answer(.pick(option, in: card.choices ?? []))
             }
         }
         Color.clear.frame(height: 0).onAppear {
@@ -378,47 +402,9 @@ struct FormCard: View {
 
     private func check() {
         let (result, why) = Irregular.check(value, card: card)
-        answer(Outcome(grade: Answer.grade(result, hinted: hinted), correct: result != .wrong, result: result, hint: why))
-    }
-}
-
-struct OrderCard: View {
-    let card: Card
-    let outcome: Outcome?
-    let answer: (Outcome) -> Void
-    @State private var chosen: [Int] = []
-    var body: some View {
-        if let order = card.order {
-            Text("Zet de woorden in de goede volgorde").font(.headline).foregroundStyle(.secondary)
-            if let translation = card.translation { Persian(text: translation, font: .title3, color: .primary) }
-            FlowLayout {
-                Text(order.first).font(.headline).padding(.horizontal, 12).padding(.vertical, 8).background(Color.navy, in: RoundedRectangle(cornerRadius: 10)).foregroundStyle(.white)
-                ForEach(chosen, id: \.self) { index in
-                    Button(order.tiles[index]) { chosen.removeAll { $0 == index } }.font(.headline).padding(.horizontal, 12).padding(.vertical, 8)
-                        .background(Color.brand.opacity(0.15), in: RoundedRectangle(cornerRadius: 10)).disabled(outcome != nil)
-                }
-                if !order.ending.isEmpty { Text(order.ending).font(.title3.bold()).foregroundStyle(.secondary) }
-            }
-            .padding(12).frame(maxWidth: .infinity, minHeight: 80, alignment: .topLeading)
-            .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(outcome.map { $0.correct ? Color.success : Color.danger } ?? Color(.separator), style: StrokeStyle(lineWidth: 2, dash: [6])))
-            FlowLayout {
-                ForEach(order.tiles.indices.filter { !chosen.contains($0) }, id: \.self) { index in
-                    Button(order.tiles[index]) { chosen.append(index) }.font(.title3.weight(.semibold)).padding(.horizontal, 14).padding(.vertical, 10)
-                        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12)).foregroundStyle(.primary)
-                }
-            }
-            if outcome == nil {
-                HStack {
-                    Button("Terug") { _ = chosen.popLast() }.buttonStyle(.bordered).disabled(chosen.isEmpty)
-                    Button("Controleer") {
-                        let words = chosen.map { order.tiles[$0] }
-                        let right = Answer.normalize(words.joined(separator: " ")) == Answer.normalize(order.answer.joined(separator: " "))
-                        answer(Outcome(grade: right ? 4 : 1, correct: right, result: right ? .correct : .wrong))
-                    }
-                    .buttonStyle(GameButtonStyle()).disabled(chosen.count < order.tiles.count)
-                }
-            }
-        }
+        // Typed: the reason of the right choice (why this form), else the set's rule.
+        let reason = card.choices?.first(where: \.correct)?.why ?? card.ruleWhy
+        answer(.typed(result, grade: Answer.grade(result, hinted: hinted), hint: why, input: value, expected: card.answer ?? card.accept?.first ?? "", why: reason))
     }
 }
 
@@ -432,7 +418,7 @@ struct OptionsCard: View {
         Text(question).font(.headline).foregroundStyle(.secondary)
         if let subtitle { Persian(text: subtitle, font: .title3, color: .primary) }
         OptionList(options: options, outcome: outcome) { option in
-            answer(Outcome(grade: option.correct ? 4 : 1, correct: option.correct, result: option.correct ? .correct : .wrong))
+            answer(.pick(option, in: options))
         }
     }
 }
@@ -489,6 +475,7 @@ struct FeedbackPanel: View {
     /// Right answers in a row, including this one; 3, 5, 10… get a double jump.
     var combo = 0
     let next: () -> Void
+    @State private var showWhy = false
     var body: some View {
         let good = outcome.result == .correct
         let close = outcome.result == .close
@@ -508,9 +495,11 @@ struct FeedbackPanel: View {
                 Spacer(minLength: 0)
                 Text("+\(XP.forGrade(outcome.grade)) XP").font(.game(16, .black)).foregroundStyle(Color.goldInk)
             }
+            if let typed = outcome.typed, let expected = outcome.expected, !good, !typed.isEmpty { TypedDiff(typed: typed, answer: expected) }
             if form {
                 if card.chain != nil, let meaning = card.meaning { Persian(text: meaning, font: .footnote) }
-                if outcome.result != .correct, let rule = card.rule { Persian(text: rule, font: .footnote) }
+                // The set's rule, unless the reason below says it better.
+                if outcome.result != .correct, outcome.why == nil, let rule = card.rule { Persian(text: rule, font: .footnote) }
             } else if card.kind != .grammar {
                 // The translation of the answer, also when it was right (a sentence you heard, a word you picked).
                 if let meaning = card.meaning { Persian(text: meaning, font: .subheadline, color: .primary) }
@@ -521,7 +510,15 @@ struct FeedbackPanel: View {
                     ListenButton(text: example, size: 13)
                 }
             }
-            if card.kind == .grammar, let text = whole ? card.translation : card.rule { Persian(text: text, font: .footnote) }
+            if card.kind == .grammar, let text = whole ? card.translation : card.rule, text != outcome.why?.fa { Persian(text: text, font: .footnote) }
+            if let why = outcome.why {
+                // Wrong: the reason straight away. Right: on request, so a good answer stays quick.
+                if !good || showWhy {
+                    WhyCard(why: why, tone: good ? .success : close ? .close : .wrong)
+                } else {
+                    WhyButton { showWhy = true }
+                }
+            }
             Button(action: next) { HStack { Text("Verder"); Image(systemName: "arrow.right") } }
                 .buttonStyle(GameButtonStyle(color: good ? .mint : close ? .brand : .danger, edge: good ? .mintEdge : close ? .brandEdge : .dangerEdge))
         }
@@ -615,13 +612,13 @@ struct RoundSummary: View {
     }
 }
 
-/// Wraps word tiles onto several lines.
+/// Wraps word tiles onto several lines. A subview marked `FlowCollapsed` takes no room (a tile being dragged away).
 struct FlowLayout: Layout {
     var spacing: CGFloat = 8
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         let width = proposal.width ?? 320
         var x: CGFloat = 0, y: CGFloat = 0, line: CGFloat = 0
-        for view in subviews {
+        for view in subviews where !view[FlowCollapsed.self] {
             let size = view.sizeThatFits(.unspecified)
             if x + size.width > width, x > 0 { x = 0; y += line + spacing; line = 0 }
             x += size.width + spacing; line = max(line, size.height)
@@ -632,6 +629,10 @@ struct FlowLayout: Layout {
         var x = bounds.minX, y = bounds.minY, line: CGFloat = 0
         for view in subviews {
             let size = view.sizeThatFits(.unspecified)
+            if view[FlowCollapsed.self] {
+                view.place(at: CGPoint(x: bounds.minX, y: bounds.minY), proposal: ProposedViewSize(size))
+                continue
+            }
             if x + size.width > bounds.maxX, x > bounds.minX { x = bounds.minX; y += line + spacing; line = 0 }
             view.place(at: CGPoint(x: x, y: y), proposal: ProposedViewSize(size))
             x += size.width + spacing; line = max(line, size.height)

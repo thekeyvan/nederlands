@@ -8,7 +8,8 @@ import {normalizeAnswer, seededRandom, shuffle} from '@/core/practice.js';
 import {vocabulary} from '@/core/learning-data.js';
 import {phrases} from '@/core/phrase-data.js';
 import {sentences} from '@/core/sentence-data.js';
-import {ChoiceGrid, FeedbackBar, GameBar, GameFrame, GameOver, newRoundId, type Choice, type Miss} from '@/games/shell';
+import {ChoiceGrid, FeedbackBar, GameBar, GameFrame, GameOver, newRoundId, whyFor, type Choice, type Miss} from '@/games/shell';
+import {CorrectBar} from '@/components/why';
 import type {GameInfo} from '@/games/registry';
 import type {Card} from '@/core/types';
 
@@ -32,12 +33,14 @@ function QuestionRun({game, theme, onAgain, roundId, questions}: Props & {roundI
     if (question.listen) audio.play(question.listen);
     if (question.options[choice].correct) {
       setScore((value) => value + 1);
-      setTimeout(next, 900);
+      // With a reason the bar below waits a little longer and offers "Waarom?".
+      if (!question.options[choice].why) setTimeout(next, 900);
     } else {
-      setMisses((list) => [...list, {key: question.key, nl: question.answer, meaning: question.meaning, card: question.card}]);
+      setMisses((list) => [...list, {key: question.key, nl: question.answer, meaning: question.meaning, card: question.card, why: whyFor(question.options, choice)}]);
     }
   };
   const wrong = picked !== null && !question.options[picked].correct;
+  const rightWhy = picked !== null && question.options[picked].correct ? question.options[picked].why : null;
   return (
     <GameFrame>
       <GameBar game={game} progress={index / questions.length} score={score} theme={theme} />
@@ -46,7 +49,8 @@ function QuestionRun({game, theme, onAgain, roundId, questions}: Props & {roundI
         {question.prompt}
         <ChoiceGrid options={question.options} picked={picked} onPick={choose} />
       </div>
-      {wrong && <FeedbackBar tone="wrong" title="Bijna! Zo is het goed:" onNext={next}>{question.explain}</FeedbackBar>}
+      {wrong && <FeedbackBar tone="wrong" title="Bijna! Zo is het goed:" onNext={next} why={whyFor(question.options, picked)}>{question.explain}</FeedbackBar>}
+      {rightWhy && <CorrectBar key={`why:${question.key}`} why={rightWhy} onNext={next} />}
     </GameFrame>
   );
 }
@@ -114,7 +118,8 @@ export function ClozeGame(props: Props) {
           <div className="mt-1 flex items-start gap-2 text-sm">
             <div className="min-w-0">
               <p className="text-base font-semibold" lang="nl">{item.before}<u>{item.answer}</u>{item.after}</p>
-              <Translation className="opacity-80">{grammar ? item.card.rule : item.card.meaning}</Translation>
+              {/* For grammar the rule is in the Waarom? card below. */}
+              {!grammar && <Translation className="opacity-80">{item.card.meaning}</Translation>}
             </div>
             <ListenButton text={full} className="-mt-1 shrink-0" />
           </div>

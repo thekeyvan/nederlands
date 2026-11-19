@@ -104,7 +104,7 @@ test('accounts: one learner for Apple and Google, merging and the progress API',
   await t.test('feedback: anyone can send, only admins can read', async () => {
     const reader = await auth.signInIdentity(google('g6', 'team@example.com'));
     const learner = await auth.signInIdentity(google('g7', 'leerling@example.com'));
-    process.env.FEEDBACK_ADMINS = reader;
+    process.env.ADMINS = reader;
     const app = express();
     app.set('trust proxy', true);
     app.use('/api', accountApi());
@@ -129,6 +129,14 @@ test('accounts: one learner for Apple and Google, merging and the progress API',
       const image = await fetch(`${base}/feedback/${report.id}/screenshot`, {headers: {Authorization: `Bearer ${token}`}});
       assert.equal(image.headers.get('content-type'), 'image/jpeg');
       assert.equal((await fetch(`${base}/feedback/${report.id}`, {method: 'PATCH', headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}`}, body: JSON.stringify({status: 'gepland'})})).status, 200);
+      // The dashboard overview: only for admins, counts only.
+      assert.equal((await fetch(`${base}/admin/overview`, {headers: {Authorization: `Bearer ${await auth.createSession(learner)}`}})).status, 404);
+      await pool.query(`insert into review_events(user_id,id,card_id,grade,reviewed_at) values ($1,gen_random_uuid(),'werk:de-baan',1,now() - interval '8 days'),($1,gen_random_uuid(),'werk:de-baan',4,now())`, [learner]);
+      const overview = await (await fetch(`${base}/admin/overview`, {headers: {Authorization: `Bearer ${token}`}})).json();
+      assert.equal(overview.feedback.gepland, 1);
+      assert.deepEqual(overview.retention.find((row) => row.days === 7), {days: 7, eligible: 1, returned: 1});
+      assert.deepEqual(overview.cards, [{id: 'werk:de-baan', answers: 2, wrong: 1, learners: 1}]);
+      assert.equal(overview.active.week, 1);
       // Deleting the account also removes what that learner sent.
       await pool.query('delete from users where id=$1', [learner]);
       assert.equal((await pool.query('select count(*)::int as n from feedback')).rows[0].n, 1);

@@ -17,8 +17,11 @@ Learners send feedback by **shaking the iPhone** on any screen, or with **Instel
 
 ## Reading it
 
-- Quick look: Railway → Postgres → Database → Data, table `feedback`.
-- API for a future dashboard (only for user ids in `FEEDBACK_ADMINS` on Railway, comma-separated):
+- Dashboard: [nedfa.nl/beheer](https://nedfa.nl/beheer) — feedback by status (change it on the page), plus learners, activity, themes and retention. Sign in on /leren or with Google.
+- Only user ids in `ADMINS` on Railway (comma-separated) see data; `FEEDBACK_ADMINS` is the old name and still works.
+- Quick look without the dashboard: Railway → Postgres → Database → Data, table `feedback`.
+- API behind it (admins only):
+  - `GET /api/admin/overview` — counts for the dashboard (no progress per learner)
   - `GET /api/feedback?status=nieuw` — the latest 200 reports with the sender's email
   - `GET /api/feedback/:id/screenshot` — the screenshot
   - `PATCH /api/feedback/:id` with `{"status": "gepland"}`

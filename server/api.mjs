@@ -236,8 +236,8 @@ export function accountApi() {
     res.status(201).json({id: row.id});
   });
 
-  // Reading feedback: only for the accounts in FEEDBACK_ADMINS (comma-separated user ids).
-  const admins = (process.env.FEEDBACK_ADMINS || '').split(',').map((id) => id.trim()).filter(Boolean);
+  // The dashboard (/beheer) and reading feedback: only for the accounts in ADMINS (comma-separated user ids; FEEDBACK_ADMINS is the old name).
+  const admins = (process.env.ADMINS || process.env.FEEDBACK_ADMINS || '').split(',').map((id) => id.trim()).filter(Boolean);
   const admin = (req, res, next) => (admins.includes(req.userId) ? next() : res.status(404).json({error: 'not-found'}));
 
   api.get('/feedback', who(true), admin, async (req, res) => {
@@ -274,9 +274,32 @@ export function accountApi() {
                   from users where created_at > now() - interval '30 days' group by 1 order by 1`),
       pool.query('select status, count(*)::int as count from feedback group by status'),
     ]);
+    // Retention: learners whose first answer is at least N days ago, and how many of them practised again N or more days later.
+    const [retention, cohorts, cards] = await Promise.all([
+      pool.query(`with days as (select user_id, ${day} as day from review_events),
+                       learners as (select user_id, min(day) as first, max(day) as last from days group by user_id),
+                       today as (select (now() at time zone 'Europe/Amsterdam')::date as today)
+                  select n as days, count(*) filter (where first <= today - n)::int as eligible,
+                         count(*) filter (where first <= today - n and last >= first + n)::int as returned
+                  from learners, today, unnest(array[1,7,30]) n group by n order by n`),
+      pool.query(`with days as (select user_id, ${day} as day from review_events),
+                       learners as (select user_id, min(day) as first, max(day) as last from days group by user_id),
+                       today as (select (now() at time zone 'Europe/Amsterdam')::date as today)
+                  select to_char(date_trunc('week', first), 'YYYY-MM-DD') as week, count(*)::int as starters,
+                         count(*) filter (where first <= today - 1)::int as day1_eligible,
+                         count(*) filter (where first <= today - 1 and last >= first + 1)::int as day1,
+                         count(*) filter (where first <= today - 7)::int as day7_eligible,
+                         count(*) filter (where first <= today - 7 and last >= first + 7)::int as day7,
+                         count(*) filter (where last > today - 7)::int as active
+                  from learners, today where first > today - 56 group by 1 order by 1 desc`),
+      // Per card over the last 30 days; the page groups the cards into themes and grammar rules.
+      pool.query(`select card_id as id, count(*)::int as answers, count(*) filter (where grade = 1)::int as wrong, count(distinct user_id)::int as learners
+                  from review_events where reviewed_at > now() - interval '30 days' group by card_id`),
+    ]);
     res.json({
       users: users.rows[0], providers: providers.rows, active: active.rows[0],
       days: reviews.rows, signups: signups.rows, feedback: Object.fromEntries(feedback.rows.map((row) => [row.status, row.count])),
+      retention: retention.rows, cohorts: cohorts.rows, cards: cards.rows,
     });
   });
 

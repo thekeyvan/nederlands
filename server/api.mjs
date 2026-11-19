@@ -236,8 +236,8 @@ export function accountApi() {
     res.status(201).json({id: row.id});
   });
 
-  // The dashboard (/beheer) and reading feedback: only for the accounts in ADMINS (comma-separated user ids; FEEDBACK_ADMINS is the old name).
-  const admins = (process.env.ADMINS || process.env.FEEDBACK_ADMINS || '').split(',').map((id) => id.trim()).filter(Boolean);
+  // The dashboard (/beheer) and reading feedback: only for the accounts in ADMINS (comma-separated user ids).
+  const admins = (process.env.ADMINS || '').split(',').map((id) => id.trim()).filter(Boolean);
   const admin = (req, res, next) => (admins.includes(req.userId) ? next() : res.status(404).json({error: 'not-found'}));
 
   api.get('/feedback', who(true), admin, async (req, res) => {

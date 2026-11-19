@@ -38,6 +38,8 @@ import nl.nedfa.BuildConfig
 import nl.nedfa.MainActivity
 import nl.nedfa.R
 import nl.nedfa.data.Content
+import nl.nedfa.data.NewsShow
+import nl.nedfa.data.NewsState
 import nl.nedfa.data.ContentFile
 import nl.nedfa.data.Preferences
 import nl.nedfa.data.json
@@ -224,10 +226,14 @@ object Reminder {
         val manager = context.getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(NotificationChannel(CHANNEL, "Dagelijkse herinnering", NotificationManager.IMPORTANCE_DEFAULT))
         val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
+        // With "Ook het nieuws noemen" on, the same notification mentions the news, unless it's already watched today.
+        val store = context.getSharedPreferences("nedfa", Context.MODE_PRIVATE)
+        val watched = store.getString("newsDay", "") == NewsShow.today() && store.getString("newsState", "") == NewsState.DONE.name
+        val news = store.getBoolean("newsReminder", false) && !watched
         val notification = NotificationCompat.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("Even oefenen?")
-            .setContentText("Vijf kaartjes houden je reeks vast.")
+            .setContentText(if (news) "Vijf kaartjes houden je reeks vast. En het nieuws van vandaag staat klaar." else "Vijf kaartjes houden je reeks vast.")
             .setContentIntent(open)
             .setAutoCancel(true)
             .build()

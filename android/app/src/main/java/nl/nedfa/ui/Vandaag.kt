@@ -101,6 +101,7 @@ fun VandaagScreen() {
             }
         }
         Missions(stats, current)
+        NewsCard(level)
     }
 }
 

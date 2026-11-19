@@ -4,6 +4,7 @@ import {Badge} from '@/components/ui/badge';
 import {Group, Row} from '@/components/app/list';
 import {LevelCoin, MissionsCard} from '@/components/game/cards';
 import {Mascot} from '@/components/game/mascot';
+import {NewsCard} from '@/components/game/news-card';
 import {NextStepCard} from '@/components/path/path-ui';
 import {practiceScene} from '@/lib/illustrations';
 import {SignInNudge} from '@/components/app/sign-in';
@@ -73,6 +74,7 @@ export function OefenenScreen() {
         </div>
         <div className="min-w-0">
           <MissionsCard className="mt-4 lg:mt-0" events={events} waiting={canRepeat ? [] : ['herhaal']} onStart={(id, title) => start({queue: missionRound(id, reviews, {theme: current, events}), label: title})} />
+          <NewsCard className="mt-4" level={level} />
         </div>
       </div>
     </Page>

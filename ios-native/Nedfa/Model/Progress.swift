@@ -88,6 +88,8 @@ final class Preferences {
     var speed: Double { didSet { UserDefaults.standard.set(speed, forKey: "speed") } }
     var appearance: String { didSet { UserDefaults.standard.set(appearance, forKey: "appearance") } }
     var reminderHour: Int? { didSet { UserDefaults.standard.set(reminderHour ?? -1, forKey: "reminderHour") } }
+    /// The daily reminder also mentions the news of the day (still one notification).
+    var newsReminder: Bool { didSet { UserDefaults.standard.set(newsReminder, forKey: "newsReminder") } }
     var welcomeDone: Bool { didSet { UserDefaults.standard.set(welcomeDone, forKey: "welcomeDone") } }
     var records: [String: Int] { didSet { UserDefaults.standard.set(records, forKey: "records") } }
     var played: [String: Int] { didSet { UserDefaults.standard.set(played, forKey: "played") } }
@@ -105,6 +107,7 @@ final class Preferences {
         appearance = defaults.string(forKey: "appearance") ?? "system"
         let hour = defaults.object(forKey: "reminderHour") as? Int ?? -1
         reminderHour = hour >= 0 ? hour : nil
+        newsReminder = defaults.bool(forKey: "newsReminder")
         welcomeDone = defaults.bool(forKey: "welcomeDone")
         records = defaults.dictionary(forKey: "records") as? [String: Int] ?? [:]
         played = defaults.dictionary(forKey: "played") as? [String: Int] ?? [:]
@@ -121,7 +124,8 @@ final class Preferences {
     }
 
     func reset() {
-        for key in ["goal", "voice", "speed", "appearance", "reminderHour", "welcomeDone", "records", "played", "preferencesUpdated", "level"] { UserDefaults.standard.removeObject(forKey: key) }
-        goal = 5; voice = "ronnie"; speed = 1; appearance = "system"; reminderHour = nil; welcomeDone = false; records = [:]; played = [:]; level = nil; updatedAt = nil
+        for key in ["goal", "voice", "speed", "appearance", "reminderHour", "newsReminder", "welcomeDone", "records", "played", "preferencesUpdated", "level"] { UserDefaults.standard.removeObject(forKey: key) }
+        NewsToday.shared.reset()
+        goal = 5; voice = "ronnie"; speed = 1; appearance = "system"; reminderHour = nil; newsReminder = false; welcomeDone = false; records = [:]; played = [:]; level = nil; updatedAt = nil
     }
 }

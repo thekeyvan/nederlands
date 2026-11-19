@@ -104,6 +104,12 @@ object Preferences {
     var speed by mutableStateOf(1f); private set
     var appearance by mutableStateOf("system"); private set
     var reminderHour by mutableStateOf<Int?>(null); private set
+    /** The daily reminder also mentions the news of the day (still one notification). */
+    var newsReminder by mutableStateOf(false); private set
+    private var newsDay by mutableStateOf("")
+    private var newsStored by mutableStateOf(NewsState.IDLE)
+    /** Today's news card; anything saved on another day counts as not opened. */
+    val news: NewsState get() = if (newsDay == NewsShow.today()) newsStored else NewsState.IDLE
     var welcomeDone by mutableStateOf(false); private set
     var level by mutableStateOf<String?>(null); private set
     var records by mutableStateOf<Map<String, Int>>(emptyMap()); private set
@@ -116,6 +122,9 @@ object Preferences {
         speed = store.getFloat("speed", 1f)
         appearance = store.getString("appearance", "system") ?: "system"
         reminderHour = store.getInt("reminderHour", -1).takeIf { it >= 0 }
+        newsReminder = store.getBoolean("newsReminder", false)
+        newsDay = store.getString("newsDay", "") ?: ""
+        newsStored = runCatching { NewsState.valueOf(store.getString("newsState", "IDLE")!!) }.getOrDefault(NewsState.IDLE)
         welcomeDone = store.getBoolean("welcomeDone", false)
         level = store.getString("level", null)?.takeIf { it in levels }
         records = runCatching { json.decodeFromString<Map<String, Int>>(store.getString("records", "{}")!!) }.getOrDefault(emptyMap())
@@ -135,6 +144,11 @@ object Preferences {
     fun changeSpeed(value: Float) { speed = value; store.edit().putFloat("speed", value).apply() }
     fun changeAppearance(value: String) { appearance = value; store.edit().putString("appearance", value).apply() }
     fun changeReminderHour(value: Int?) { reminderHour = value; store.edit().putInt("reminderHour", value ?: -1).apply() }
+    fun changeNewsReminder(value: Boolean) { newsReminder = value; store.edit().putBoolean("newsReminder", value).apply() }
+    fun markNews(value: NewsState) {
+        newsDay = NewsShow.today(); newsStored = value
+        store.edit().putString("newsDay", newsDay).putString("newsState", value.name).apply()
+    }
     fun changeWelcomeDone(value: Boolean) { welcomeDone = value; store.edit().putBoolean("welcomeDone", value).apply() }
 
     /** Saves a game score; returns the previous best. */
@@ -148,6 +162,7 @@ object Preferences {
     fun reset() {
         store.edit().clear().apply()
         goal = 5; voice = "ronnie"; speed = 1f; appearance = "system"; reminderHour = null; welcomeDone = false
+        newsReminder = false; newsDay = ""; newsStored = NewsState.IDLE
         records = emptyMap(); level = null; updatedAt = null
     }
 }

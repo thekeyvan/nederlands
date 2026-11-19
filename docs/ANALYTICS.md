@@ -29,6 +29,7 @@ Events (never anything the learner typed):
 | `spel klaar` | `spel`, `score` |
 | `inloggen` / `koppelen` | `provider` (apple or google), counted when the learner starts it |
 | `feedback` | `soort` (idee, probleem, compliment, anders) |
+| `nieuws` | `journaal` (makkelijk, jeugd, nos), counted when the learner opens it on YouTube |
 
 Debug builds of the iPhone app and the website on any host other than nedfa.nl send nothing.
 

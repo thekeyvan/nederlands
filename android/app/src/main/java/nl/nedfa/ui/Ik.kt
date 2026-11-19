@@ -245,11 +245,18 @@ fun SettingsScreen() {
             Divider()
             LinkRow("Luister naar een voorbeeld", color = C.brand) { Audio.play("Goedemorgen! Ik leer Nederlands. Op woensdag werk ik thuis. Hoe gaat het met je?") }
         }
-        Group("Herinnering", if (reminderDenied) "Zet meldingen aan voor Nedfa in de instellingen van je telefoon." else null) {
+        val reminderFooter = when {
+            reminderDenied -> "Zet meldingen aan voor Nedfa in de instellingen van je telefoon."
+            Preferences.reminderHour != null && Preferences.newsReminder -> "Nog steeds één melding per dag, met het nieuws erbij."
+            else -> null
+        }
+        Group("Herinnering", reminderFooter) {
             SwitchRow("Dagelijkse herinnering", checked = Preferences.reminderHour != null) { setReminder(if (it) 19 else null) }
             Preferences.reminderHour?.let { hour ->
                 Divider()
                 PickerRow("Hoe laat?", hour, listOf(7, 8, 9, 12, 17, 18, 19, 20, 21).map { it to "$it:00" }) { setReminder(it) }
+                Divider()
+                SwitchRow("Ook het nieuws noemen", checked = Preferences.newsReminder) { Preferences.changeNewsReminder(it) }
             }
         }
         Group("Niveau") {

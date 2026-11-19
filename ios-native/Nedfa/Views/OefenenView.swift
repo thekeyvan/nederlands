@@ -40,6 +40,7 @@ struct OefenenView: View {
 
                     if preferences.level == nil { levelCard(stats) }
                     missions(stats, theme: current)
+                    NewsCard(level: preferences.level)
                 }
                 .padding(.bottom, 30)
             }

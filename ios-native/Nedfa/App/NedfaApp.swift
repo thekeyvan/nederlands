@@ -92,7 +92,7 @@ final class PracticeSession {
 
 /// Daily reminder at a chosen hour, planned on the iPhone itself.
 enum Reminder {
-    static func set(hour: Int?) async -> Bool {
+    static func set(hour: Int?, news: Bool = false) async -> Bool {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: ["daily"])
         guard let hour else { return true }
@@ -100,7 +100,7 @@ enum Reminder {
         guard granted else { return false }
         let content = UNMutableNotificationContent()
         content.title = "Even oefenen?"
-        content.body = "Vijf kaartjes houden je reeks vast."
+        content.body = news ? "Vijf kaartjes houden je reeks vast. En het nieuws van vandaag staat klaar." : "Vijf kaartjes houden je reeks vast."
         content.sound = .default
         let trigger = UNCalendarNotificationTrigger(dateMatching: DateComponents(hour: hour), repeats: true)
         try? await center.add(UNNotificationRequest(identifier: "daily", content: content, trigger: trigger))

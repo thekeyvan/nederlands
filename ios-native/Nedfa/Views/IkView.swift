@@ -158,14 +158,22 @@ struct SettingsView: View {
                     Picker("Hoe laat?", selection: Binding(get: { preferences.reminderHour ?? 19 }, set: { preferences.reminderHour = $0 })) {
                         ForEach([7, 8, 9, 12, 17, 18, 19, 20, 21], id: \.self) { Text("\($0):00").tag($0) }
                     }
+                    Toggle("Ook het nieuws noemen", isOn: $preferences.newsReminder)
                 }
-            } header: { Text("Herinnering") } footer: { if reminderDenied { Text("Zet meldingen aan voor Nedfa in Instellingen › Meldingen.") } }
+            } header: { Text("Herinnering") } footer: {
+                if reminderDenied { Text("Zet meldingen aan voor Nedfa in Instellingen › Meldingen.") }
+                else if reminderOn && preferences.newsReminder { Text("Nog steeds één melding per dag, met het nieuws erbij.") }
+            }
             .onChange(of: reminderOn) { _, on in
                 if on && preferences.reminderHour == nil { preferences.reminderHour = 19 }
                 if !on { preferences.reminderHour = nil }
             }
             .onChange(of: preferences.reminderHour) { _, hour in
-                Task { let ok = await Reminder.set(hour: hour); reminderDenied = !ok; if !ok { reminderOn = false; preferences.reminderHour = nil } }
+                Task { let ok = await Reminder.set(hour: hour, news: preferences.newsReminder); reminderDenied = !ok; if !ok { reminderOn = false; preferences.reminderHour = nil } }
+            }
+            .onChange(of: preferences.newsReminder) { _, news in
+                guard let hour = preferences.reminderHour else { return }
+                Task { _ = await Reminder.set(hour: hour, news: news) }
             }
             Section("Niveau") {
                 Button { showLevelTest = true } label: {
